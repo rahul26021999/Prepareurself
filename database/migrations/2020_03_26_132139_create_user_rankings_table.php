@@ -14,15 +14,13 @@ class CreateUserRankingsTable extends Migration
     public function up()
     {
         Schema::create('user_rankings', function (Blueprint $table) {
-            $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('live_quiz_id');
             $table->integer('rank');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('live_quiz_id')->references('id')->on('live_quizes');
-            
             $table->primary(['user_id', 'live_quiz_id']);
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('live_quiz_id')->references('id')->on('live_quizes');
         });
     }
 

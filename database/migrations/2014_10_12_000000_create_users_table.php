@@ -39,3 +39,8 @@ class CreateUsersTable extends Migration
         Schema::dropIfExists('users');
     }
 }
+
+// php artisan migrate --path=/database/migrations/2014_10_12_000000_create_users_table.php
+// php artisan migrate --path=/database/migrations/2020_03_26_132122_create_questions_banks_table.php
+// php artisan migrate --path=/database/migrations/2020_03_26_132030_create_live_quizes_table.php
+// php artisan migrate

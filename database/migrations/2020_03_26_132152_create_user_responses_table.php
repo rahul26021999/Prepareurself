@@ -17,14 +17,13 @@ class CreateUserResponsesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('live_quiz_id');
             $table->unsignedBigInteger('question_id');
-            $table->interger('selcted_option');
+            $table->integer('selcted_option');
             $table->timestamp('response_time');
+            $table->primary(['user_id', 'live_quiz_id','question_id']);
+            $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('live_quiz_id')->references('id')->on('live_quizes');
             $table->foreign('question_id')->references('id')->on('questions_banks');
-
-            $table->primary(['user_id', 'live_quiz_id','question_id']);
-            $table->timestamps();
         });
     }
 
