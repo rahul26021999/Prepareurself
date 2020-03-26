@@ -15,6 +15,11 @@ class CreateLiveQuizesTable extends Migration
     {
         Schema::create('live_quizes', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->longText('quiz_title');
+            $table->longText('quiz_desc');
+            $table->smallInteger('no_of_ques');
+            $table->timestamp('start_time');
+            $table->smallInteger('ques_time_span');
             $table->timestamps();
         });
     }
