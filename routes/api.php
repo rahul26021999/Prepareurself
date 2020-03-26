@@ -16,3 +16,5 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::post('/ws-form', 'webServices@Storeme');
+Route::post('/ws-form/login', 'webServices@checkme');
