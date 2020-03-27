@@ -28,7 +28,7 @@ class Controller extends BaseController
      */
 }
     /**
-     * @OA\Get(
+     * @OA\GET(
      *     path="/store",
      *     tags={"store"},
      *     summary="Returns pet inventories by status",
