@@ -21,7 +21,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::prefix('admin')->group(function () {
     Route::get('login', function () {
-        return view('backend.login');
+        return view('backend.auth.login');
     });
     Route::get('dashboard', function () {
         return view('backend.dashboard');
