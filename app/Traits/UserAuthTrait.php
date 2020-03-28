@@ -1,46 +1,48 @@
 <?php
  
 namespace App\Traits;
+
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use App\Mail\WelcomeMail;
 use Illuminate\Support\Facades\Mail;
 use App\User;
 use App\Exception;
  
-trait phptraits {
+trait UserAuthTrait {
  
-    public function authenticateUserRegisteration($request)
+    public function authenticateNewRegisteration(Request $request)
 	{
-		
-		$validator = Validator::make($request->all(), [
+		return Validator::make($request->all(), [
 			'first_name' => 'required',
-			'last_name' => 'required',
-			'username' => 'required',
-			'phone_number' => 'required|size:10',
-			'password' => 'required| min:8|unique:users',
+			'username' => 'required|unique:users',
+			'password' => 'required|min:8|',
             'email' => 'required|email:rfc,dns|unique:users',
-
-		]);
-		return $validator;  	
+		]); 	
 	}
-	public function saveUserData($request)
+	public function uniqueUserNameRule(Request $request)
+	{
+		return $validator = Validator::make($request->all(), [
+			'username' => 'required|unique:users'
+		]);
+	}
+	public function saveUserData(Request $request)
 	{
 		try{
 			$user=User::create([
-				'email'=>request('email'),
-				'android_token'=>request('android_token'),
-				'first_name'=>request('first_name'),
-				'last_name'=>request('last_name'),
-				'username'=>request('username'),
-				'phone_number'=>request('phone_number'),
-				'password'=>request('password'),
-			]);	
+				'email'=>$request['email'],
+				'first_name'=>$request['first_name'],
+				'last_name'=>$request->input('last_name',''),
+				'username'=>$request['username'],
+				'password'=>Hash::make($request['password']),
+			]);
 			return $user;
 		}
 		catch(Exception $e)
 		{
-
+			Log::alert("UserAuthTrait:saveUserData ".$e->message());
 		}  
 	}
  

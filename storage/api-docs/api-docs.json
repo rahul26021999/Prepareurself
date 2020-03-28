@@ -13,34 +13,194 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/store": {
-            "get": {
+        "/api/register": {
+            "post": {
                 "tags": [
-                    "store"
+                    "User"
                 ],
-                "summary": "Returns pet inventories by status",
-                "description": "Returns a map of status codes to quantities",
-                "operationId": "getInventory",
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "additionalProperties": {
-                                        "type": "integer",
-                                        "format": "int32"
-                                    }
-                                }
-                            }
+                "description": "Register a user to prepareurself",
+                "operationId": "App\\Http\\Controllers\\UserAuthController::register",
+                "parameters": [
+                    {
+                        "name": "first_name",
+                        "in": "query",
+                        "description": "first name of user",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "last_name",
+                        "in": "query",
+                        "description": "last name of user",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "username",
+                        "in": "query",
+                        "description": "Unique username",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Password of user Min length 8 characters",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email of user",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "api_key": []
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{[error=1,msg='Invalid user data'],[error=0,msg='Registeration Successfully Done']}"
                     }
-                ]
+                }
+            }
+        },
+        "/api/check-username": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "description": "Register a user to prepareurself",
+                "operationId": "App\\Http\\Controllers\\UserAuthController::checkUserName",
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "query",
+                        "description": "check unique username of user",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{[error=>2,msg=>'Username Already Exits'],[error=>0,msg=>'Username available'],[error=>1,msg=>'Missing user name']}"
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "description": "login a user to prepareurself",
+                "operationId": "App\\Http\\Controllers\\UserAuthController::login",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email of user",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "password of user",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "login Successfully Done"
+                    }
+                }
+            }
+        },
+        "/api/update-user": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "description": "login a user to prepareurself",
+                "operationId": "App\\Http\\Controllers\\UserAuthController::updateUserData",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "user id of user",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "first_name",
+                        "in": "query",
+                        "description": "first name of user",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "last_name",
+                        "in": "query",
+                        "description": "last name of user",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "dob",
+                        "in": "query",
+                        "description": "date of birth of user",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "phone_number",
+                        "in": "query",
+                        "description": "user phone number",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "android_token",
+                        "in": "query",
+                        "description": "token for notification",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "update Successfully Done"
+                    }
+                }
             }
         }
     },

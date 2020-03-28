@@ -27,25 +27,3 @@ class Controller extends BaseController
      * )
      */
 }
-    /**
-     * @OA\GET(
-     *     path="/store",
-     *     tags={"store"},
-     *     summary="Returns pet inventories by status",
-     *     description="Returns a map of status codes to quantities",
-     *     operationId="getInventory",
-     *     @OA\Response(
-     *         response=200,
-     *          description="successful operation",
-     *          @OA\JsonContent(
-     *              @OA\AdditionalProperties(
-     *                  type="integer",
-     *                  format="int32"
-     *              )
-     *          )
-     *     ),
-     *     security={
-     *         {"api_key": {}}
-     *     }
-     * )
-     */

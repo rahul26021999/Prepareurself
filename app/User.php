@@ -17,7 +17,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'first_name','last_name', 'email', 'password','phone_number','username','android_token',
+        'first_name','last_name', 'email', 'password','phone_number','username','android_token','dob'
     ];
 
     /**
@@ -72,6 +72,14 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function getEmailForVerification(){
 
+    }
+
+    public function is_admin()
+    {
+        if($this->role=='admin')
+            return true;
+        else
+            return false;
     }
 
 }
