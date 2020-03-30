@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Log;
 
 class QuestionController extends Controller
 {
@@ -13,7 +14,8 @@ class QuestionController extends Controller
    }
    public function saveQuestion(Request $request)
    {
-
+      Log::info($request);
+      return view('backend.questions.create');  
    }
    public function showEditQuestion($id)
    {
