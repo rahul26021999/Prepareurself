@@ -23,7 +23,7 @@ class CreateUserResponsesTable extends Migration
             $table->timestamps();
             // $table->foreign('user_id')->references('id')->on('users');
             // $table->foreign('live_quiz_id')->references('id')->on('live_quizes');
-            // $table->foreign('question_id')->references('id')->on('questions_banks');
+            // $table->foreign('question_id')->references('id')->on('questions_bank');
         });
     }
 

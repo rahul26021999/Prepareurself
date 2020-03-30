@@ -25,7 +25,7 @@ Route::prefix('admin')->group(function () {
         return view('backend.auth.login');
     });
    
-    Route::get('dashboard', function () {
+    Route::get('home', function () {
         return view('backend.dashboard');
     });
 

@@ -13,7 +13,7 @@ class CreateQuestionsBanksTable extends Migration
      */
     public function up()
     {
-        Schema::create('questions_banks', function (Blueprint $table) {
+        Schema::create('questions_bank', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->longText('question');
             $table->longText('option1');
