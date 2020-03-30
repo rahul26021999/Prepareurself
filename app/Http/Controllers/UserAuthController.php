@@ -36,15 +36,6 @@ class UserAuthController extends Controller
 	 *          )
 	 *      ),
 	 *     @OA\Parameter(
-	 *          name="username",
-	 *          in="query",
-	 *          description="Unique username",
-	 *          required=true,
-	 *          @OA\Schema(
-	 *              type="string"
-	 *          )
-	 *      ),
-	 *     @OA\Parameter(
 	 *          name="password",
 	 *          in="query",
 	 *          description="Password of user Min length 8 characters",

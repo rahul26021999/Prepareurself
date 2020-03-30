@@ -17,7 +17,6 @@ trait UserAuthTrait {
 	{
 		return Validator::make($request->all(), [
 			'first_name' => 'required',
-			'username' => 'required|unique:users',
 			'password' => 'required|min:8|',
             'email' => 'required|email:rfc,dns|unique:users',
 		]); 	
