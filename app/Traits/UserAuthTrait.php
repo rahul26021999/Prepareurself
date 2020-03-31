@@ -13,11 +13,11 @@ use App\Exception;
  
 trait UserAuthTrait {
  
-    public function authenticateNewRegisteration(Request $request)
+    public function authenticateNewRegisterationRule(Request $request)
 	{
 		return Validator::make($request->all(), [
 			'first_name' => 'required',
-			'password' => 'required|min:8|',
+			'password' => 'required|min:8',
             'email' => 'required|email:rfc,dns|unique:users',
 		]); 	
 	}
@@ -34,7 +34,6 @@ trait UserAuthTrait {
 				'email'=>$request['email'],
 				'first_name'=>$request['first_name'],
 				'last_name'=>$request->input('last_name',''),
-				'username'=>$request['username'],
 				'password'=>Hash::make($request['password']),
 			]);
 			return $user;

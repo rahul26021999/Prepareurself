@@ -17,14 +17,15 @@ class CreateUsersTable extends Migration
             $table->bigIncrements('id');
             $table->string('first_name');
             $table->string('last_name')->nullable();
-            $table->string('username')->unique();
+            $table->string('password');
             $table->string('email')->unique();
+            $table->string('username')->nullable();
             $table->string('profile_image')->nullable();
-            $table->enum('role', ['admin','user'])->default('user');
             $table->timestamp('dob')->nullable();
             $table->string('android_token')->nullable();
-            $table->string('password');
             $table->string('phone_number')->nullable();
+            $table->enum('user_status', ['active','blocked'])->default('active');
+            $table->enum('user_role', ['admin','user'])->default('user');
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('last_login_at')->nullable();
             $table->rememberToken();

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use App\Traits\UserAuthTrait;
@@ -62,13 +63,14 @@ class UserAuthController extends Controller
     public function register(Request $request)
 	{
 
-		$validator=$this->authenticateNewRegisteration($request);
+		$validator=$this->authenticateNewRegisterationRule($request);
 		if($validator->fails()){
-			return json_encode(["error"=>1,"msg"=>"Invalid user data"]);
+			$errors=$validator->errors();
+			return json_encode(["error_code"=>1,"errors"=>$errors,"msg"=>"Invalid user data"]);
 		}
 		else{
 			$user=$this->saveUserData($request);			
-			return json_encode(['error'=>0,"user_data"=>$user,"msg"=>"Registeration Successfully Done"]);
+			return json_encode(['error_code'=>0,"user_data"=>$user,"msg"=>"Registeration Successfully Done"]);
 		}
 	}
 	/**
@@ -93,18 +95,13 @@ class UserAuthController extends Controller
      */
 	public function checkUserName(Request $request)
 	{
-		if($request->filled('username'))
-		{
-			$validator = $this->uniqueUserNameRule($request);
-			if($validator->fails()){
-				return json_encode(['error'=>2,'msg'=>'Username Already Exits']);
-			}
-			else{
-				return json_encode(['error'=>0,'msg'=>'Username available']);
-			}
+		$validator = $this->uniqueUserNameRule($request);
+		if($validator->fails()){
+			$errors=$validator->errors();
+			return json_encode(['error_code'=>2,'errors'=>$errors,'msg'=>'Username Already Exits']);
 		}
 		else{
-			return json_encode(['error'=>1,"msg"=>'Missing user name']);
+			return json_encode(['error_code'=>0,'msg'=>'Username available']);
 		}
 	}
 	/**
@@ -143,14 +140,14 @@ class UserAuthController extends Controller
 			$credentials = $request->only('email', 'password');
 	        if (Auth::attempt($credentials)) {
 	        	$user=User::where('email',$request['email']);
-	            return json_encode(['error'=>0,"user_data"=>$user,"msg"=>"login Successfully Done"]);
+	            return json_encode(['error_code'=>0,"user_data"=>$user,"msg"=>"login Successfully Done"]);
 	        }
 	        else{
-				return json_encode(['error'=>2,"msg"=>'Invalid email or password']);
+				return json_encode(['error_code'=>2,"msg"=>'Invalid email or password']);
 	        }
 		}
 		else{
-			return json_encode(['error'=>1,"msg"=>'missing email or password']);
+			return json_encode(['error_code'=>1,"msg"=>'missing email or password']);
 		}
 	}
 
@@ -239,15 +236,15 @@ class UserAuthController extends Controller
 				$user->dob=$request->input('dob');
 
 				$user->save();
-				return json_encode(['error'=>0,"user_data"=>$user,"msg"=>"update Successfully Done"]);
+				return json_encode(['error_code'=>0,"user_data"=>$user,"msg"=>"update Successfully Done"]);
 
 			}
 			else{
-				return json_encode(['error'=>2,"msg"=>'user does not exists']);	
+				return json_encode(['error_code'=>2,"msg"=>'user does not exists']);	
 			}
 		}
 		else{
-			return json_encode(['error'=>1,"msg"=>'missing user id']);
+			return json_encode(['error_code'=>1,"msg"=>'missing user id']);
 		}
 	}
 }
