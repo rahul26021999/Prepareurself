@@ -42,7 +42,8 @@ Route::prefix('admin')->group(function () {
 
     Route::prefix('question')->group(function(){
    		Route::get('create','QuestionController@showCreateQuestion');
-   		Route::post('save','QuestionController@saveQuestion');
+   		Route::post('create','QuestionController@createQuestion');
+        Route::get('delete/{id}','QuestionController@deleteQuestion');
 	    Route::get('edit/{id}','QuestionController@showEditQuestion');
 	    Route::get('all/{type?}','QuestionController@showAllQuestion');
 	});

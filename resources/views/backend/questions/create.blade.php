@@ -2,17 +2,8 @@
 @extends('backend.layouts.app')
 
 @section('headContent')
-<title>AdminLTE 3 | Editors</title>
-<!-- Font Awesome -->
-<link rel="stylesheet" href="{{ asset('AdminLTE/plugins/fontawesome-free/css/all.min.css')}}">
-<!-- Ionicons -->
-<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<!-- Theme style -->
-<link rel="stylesheet" href="{{ asset('AdminLTE/dist/css/adminlte.min.css')}}">
 <!-- summernote -->
 <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/summernote/summernote-bs4.css')}}">
-<!-- Google Font: Source Sans Pro -->
-<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
 <!-- iCheck for checkboxes and radio inputs -->
 <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
@@ -20,12 +11,7 @@
 @endsection
 
 @section('javascriptsContent')
-<!-- jQuery -->
-<script src="{{ asset('AdminLTE/plugins/jquery/jquery.min.js')}}"></script>
-<!-- Bootstrap 4 -->
-<script src="{{ asset('AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<!-- AdminLTE App -->
-<script src="{{ asset('AdminLTE/dist/js/adminlte.min.js')}}"></script>
+
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('AdminLTE/dist/js/demo.js')}}"></script>
 <!-- Summernote -->
@@ -37,6 +23,7 @@
 
 <script type="text/javascript">
   $(document).ready(function () {
+
     $.validator.setDefaults({
       submitHandler: function (form) {
         form.submit();
@@ -74,6 +61,18 @@
         $(element).removeClass('is-invalid');
       }
     });
+
+    $('#addTypeBtn').click(function(){
+        var val=$('#newType').val();
+        if(val!='')
+        {
+          $('#quesType').append(`<option value="${val}" selected>${val}</option>`); 
+          $('#newType').val('');
+        }
+        else{
+          alert("Question Type Can't be Empty");
+        }
+    });
   });
 </script>
 
@@ -107,7 +106,7 @@
 
   <!-- Main content -->
   <section class="content">
-    <form method="post" action="/admin/question/save" id="createQuestion">
+    <form method="post" action="/admin/question/create" id="createQuestion">
       @csrf
       <div class="card card-primary">
         <div class="card-body">
@@ -146,19 +145,19 @@
               <label>Level</label>
               <div class="form-group">
                 <div class="icheck-primary d-inline">
-                  <input type="radio" id="radioPrimary1" name="level">
+                  <input type="radio" id="radioPrimary1" checked value="easy" name="level">
                   <label for="radioPrimary1">
                     Easy
                   </label>
                 </div>
                 <div class="icheck-primary d-inline">
-                  <input type="radio" id="radioPrimary2" name="level">
+                  <input type="radio" id="radioPrimary2" value="medium" name="level">
                   <label for="radioPrimary2">
                     Medium
                   </label>
                 </div>
                 <div class="icheck-primary d-inline">
-                  <input type="radio" id="radioPrimary3" name="level">
+                  <input type="radio" id="radioPrimary3" value="hard" name="level">
                   <label for="radioPrimary3">
                     Hard
                   </label>
@@ -174,6 +173,28 @@
                   <option value="3">option 3</option>
                   <option value="4">option 4</option>
                 </select>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Select Question Type</label>
+                <select name="type" id="quesType" class="form-control">
+                  @foreach ($quesType as $type)
+                    <option value="{{ $type }}" selected>{{ $type }}</option>
+                  @endforeach
+                </select>
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Add New Question Type</label>
+                 <div class="input-group">
+                  <input type="text" id="newType" class="form-control">
+                  <span class="input-group-append">
+                    <button type="button" id="addTypeBtn" class="btn btn-info btn-flat">Add</button>
+                  </span>
+                </div>
               </div>
             </div>
           </div>
