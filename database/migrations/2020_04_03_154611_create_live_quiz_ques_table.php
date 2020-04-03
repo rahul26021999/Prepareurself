@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLiveQuizQuestionsTable extends Migration
+class CreateLiveQuizQuesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateLiveQuizQuestionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('live_quiz_questions', function (Blueprint $table) {
+        Schema::create('live_quiz_ques', function (Blueprint $table) {
             $table->smallInteger('ques_serial_no');  
             $table->unsignedBigInteger('question_id');
             $table->unsignedBigInteger('live_quiz_id');
@@ -31,6 +31,6 @@ class CreateLiveQuizQuestionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('live_quiz_questions');
+        Schema::dropIfExists('live_quiz_ques');
     }
 }

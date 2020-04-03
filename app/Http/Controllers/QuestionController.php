@@ -28,16 +28,11 @@ class QuestionController extends Controller
           'ques_level'=>$request['level'],
           'ques_type'=>$request['type']
         ]);
-        // if($request->filled('option3'))
-        //   $ques->option3=$request['option3'];
-        // if($request->filled('option4'))
-        //   $ques->option4=$request['option4'];
-        // $ques->save();
       }
       catch(Exception $e){
           Log::error("Error in creating question ".$e);          
       }
-      return view('backend.questions.create');  
+      return redirect('/admin/question/all');  
    }
    public function showEditQuestion($id)
    {

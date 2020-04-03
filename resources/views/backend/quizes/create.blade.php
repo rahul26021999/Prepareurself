@@ -9,17 +9,17 @@
 <!-- iCheck for checkboxes and radio inputs -->
 <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
 
- <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
 
-  <style>
-    #sortable li{
-      padding: 10px;
-      color: black;
-      cursor: pointer;
-      margin-bottom: 2px;
-      background: white;
-    }   
-  </style>
+<style>
+  #sortable li{
+    padding: 10px;
+    color: black;
+    cursor: pointer;
+    margin-bottom: 2px;
+    background: white;
+  }   
+</style>
 
 @endsection
 
@@ -44,8 +44,8 @@
       submitHandler: function (form) {
         // var ques=$("input[name='quizQues'] option").length;
         //   alert(ques+"in the quiz");
-     
-          form.submit();
+
+        form.submit();
       }
     });
     $('#createQuiz').validate({
@@ -67,7 +67,7 @@
         }  
       },
       messages: {
-       
+
       },
       errorElement: 'span',
       errorPlacement: function (error, element) {
@@ -108,7 +108,7 @@
       $.each($("input[name='addQues']:checked"), function(){
         var quesId=$(this).val();
         var quesName=$(this).data('ques');
-        $("#sortable").append(`<li class="ui-state-default">${quesName}</li><input type="hidden" name="quizQues" value="${quesId}">`); 
+        $("#sortable").append(`<li class="ui-state-default">${quesName}</li><input type="hidden" name="quizQues[]" value="${quesId}">`); 
       });
     });
   });
@@ -116,8 +116,8 @@
 
 <script>
   $(function () {
-      $( "#sortable" ).sortable();
-      $( "#sortable" ).disableSelection();
+    $( "#sortable" ).sortable();
+    $( "#sortable" ).disableSelection();
   })
 </script>
 @endsection
@@ -187,8 +187,8 @@
                 <h4 class="text-center mt-5 mb-3"><b>QUESTIONS</b></h4>
                 <ol id="sortable">
                   <div class="text-center">
-                  <img src="https://assets-ouch.icons8.com/preview/606/90c1f2d7-b42f-4d7e-9d17-e183179862b7.png" height="200px" width="auto">
-                  <p>Nothing Here !</p>
+                    <img src="https://assets-ouch.icons8.com/preview/606/90c1f2d7-b42f-4d7e-9d17-e183179862b7.png" height="200px" width="auto">
+                    <p>Nothing Here !</p>
                   </div>
                 </ol>
               </div>
@@ -218,6 +218,7 @@
                 <th>Id</th>
                 <th>Question</th>
                 <th>Level</th>
+                <th>Already In</th>
                 <th>Type</th>    
                 <th>Action</th>              
               </tr>
@@ -239,7 +240,16 @@
               <td><span class="right badge badge-primary">M</span></td>
               @else
               <td><span class="right badge badge-danger">H</span></td>
-              @endif                      
+              @endif     
+
+              <td>  
+                @isset($question['live_quiz_ques'])
+                  @foreach($question['live_quiz_ques'] as $live_quiz)
+                  <span class="right badge badge-warning">#{{$live_quiz['live_quiz_id']}}</span>
+                  @endforeach
+                @endisset
+              </td>
+
               <td>{{$question['ques_type']}}</td>
               <td><a target="_blank" href="/admin/question/{{$question['id']}}"><span class="right badge badge-info">view</span></a></td>
               <!-- <td><a href ="/admin/question/edit/{{$question['id']}}" class="mr-3"><i class="far fa-edit text-info"></i></a><a href ="" ><i class="far fa-trash-alt text-danger"></i></a></td> -->

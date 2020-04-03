@@ -180,9 +180,11 @@
               <div class="form-group">
                 <label>Select Question Type</label>
                 <select name="type" id="quesType" class="form-control">
+                  @isset($quesType)
                   @foreach ($quesType as $type)
                     <option value="{{ $type }}" selected>{{ $type }}</option>
                   @endforeach
+                  @endisset
                 </select>
               </div>
             </div>
