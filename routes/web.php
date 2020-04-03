@@ -38,6 +38,7 @@ Route::prefix('admin')->group(function () {
         Route::post('create','QuizController@createQuiz');
     	Route::get('save','QuizController@saveQuiz');
     	Route::get('edit/{id}','QuizController@showEditQuiz');
+        Route::post('edit/{id}','QuizController@saveEditQuiz');
     	Route::get('all/{type?}','QuizController@showAllQuiz');
     });
 
@@ -49,6 +50,25 @@ Route::prefix('admin')->group(function () {
 	    Route::get('all/{type?}','QuestionController@showAllQuestion');
         Route::get('delete/{id}','QuestionController@deleteQuestion');
 	});
+
+    Route::prefix('course')->group(function(){
+        Route::get('create','CourseController@showCreateCourse');
+        Route::post('create','CourseController@createCourse');
+        Route::get('edit/{id}','CourseController@showEditCourse');
+        Route::post('edit/{id}','CourseController@saveEditCourse');
+        Route::get('all/{type?}','CourseController@showAllCourse');
+        Route::get('delete/{id}','CourseController@deleteCourse');
+    });
+
+    Route::prefix('{course?}/topic')->group(function(){
+        Route::get('create','TopicController@showCreateTopic');
+        Route::post('create','TopicController@createTopic');
+        Route::get('edit/{id}','TopicController@showEditTopic');
+        Route::post('edit/{id}','TopicController@saveEditTopic');
+        Route::get('all/{type?}','TopicController@showAllTopic');
+        Route::get('delete/{id}','TopicController@deleteTopic');
+    });
+
 
         
 });

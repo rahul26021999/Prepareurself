@@ -38,14 +38,16 @@
 <script src="{{ asset('AdminLTE/plugins/jquery-validation/additional-methods.min.js')}}"></script>
 
 <script type="text/javascript">
-
   $(document).ready(function () {
     $.validator.setDefaults({
       submitHandler: function (form) {
-        // var ques=$("input[name='quizQues'] option").length;
-        //   alert(ques+"in the quiz");
-
-        form.submit();
+        if($("input[name='quizQues[]']").length == $("input[name='noOfQues']").val())
+        {
+          form.submit();
+        }
+        else{
+          alert("Add More Question in the Quiz\n No. of question does not match the actuall questions");
+        }
       }
     });
     $('#createQuiz').validate({

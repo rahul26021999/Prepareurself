@@ -12,7 +12,7 @@ class LiveQuizQues extends Model
     {
         return $this->belongsTo('App\Models\Question');
     }
-    public function quiz()
+    public function liveQuiz()
     {
         return $this->belongsTo('App\Models\LiveQuiz');
     }

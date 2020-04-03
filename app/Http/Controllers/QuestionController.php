@@ -56,6 +56,9 @@ class QuestionController extends Controller
             $ques->option4=$request['option4'];
             $ques->save();
          }
+         else{
+            abort(404);
+         }
       }
       catch(Exception $e){
         Log::error("Error in saving question ".$e);    

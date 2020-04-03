@@ -50,7 +50,16 @@ class QuizController extends Controller
    }
    public function showEditQuiz($id)
    {
-        return view('backend.quizes.edit');
+      $livequiz=LiveQuiz::find($id);
+      $liveQuizQues=LiveQuizQues::with('Question')->where('live_quiz_id','=',$id)->get()->toArray();
+      $questions=Question::with('LiveQuizQues')->get()->toArray();
+      if($livequiz!=null)
+      {
+        return view('backend.quizes.edit',['livequiz'=>$livequiz,'livequizques'=>$liveQuizQues,'questions'=>$questions]);
+      }
+      else{
+        abort(404);
+      }
    }
    public function showAllQuiz($type='all')
    {
