@@ -35,6 +35,7 @@ Route::prefix('admin')->group(function () {
 
     Route::prefix('quiz')->group(function(){
     	Route::get('create','QuizController@showCreateQuiz');
+        Route::post('create','QuizController@createQuiz');
     	Route::get('save','QuizController@saveQuiz');
     	Route::get('edit/{id}','QuizController@showEditQuiz');
     	Route::get('all/{type?}','QuizController@showAllQuiz');
@@ -43,9 +44,10 @@ Route::prefix('admin')->group(function () {
     Route::prefix('question')->group(function(){
    		Route::get('create','QuestionController@showCreateQuestion');
    		Route::post('create','QuestionController@createQuestion');
-        Route::get('delete/{id}','QuestionController@deleteQuestion');
 	    Route::get('edit/{id}','QuestionController@showEditQuestion');
+        Route::post('edit/{id}','QuestionController@saveEditQuestion');
 	    Route::get('all/{type?}','QuestionController@showAllQuestion');
+        Route::get('delete/{id}','QuestionController@deleteQuestion');
 	});
 
         

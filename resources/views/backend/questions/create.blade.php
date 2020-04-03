@@ -97,7 +97,8 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="/admin/home">Home</a></li>
-            <li class="breadcrumb-item active">Text Editors</li>
+            <li class="breadcrumb-item"><a href="/admin/question/all">questions</a></li>
+            <li class="breadcrumb-item active">New</li>
           </ol>
         </div>
       </div>

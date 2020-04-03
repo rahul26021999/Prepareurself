@@ -133,6 +133,41 @@
             </div>
           </div>
 
+          <div class="row" style="height: 500px;overflow: scroll;">
+                <table id="example2" class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                  <th>Select</th>
+                  <th>Id</th>
+                  <th>Question</th>
+                  <th>Level</th>
+                  <th>Type</th>                  
+                </tr>
+                </thead>
+                <tbody>
+                  @foreach($questions as $question)
+                     <tr>
+                      <td></td>
+                      <td><a href ="" >#{{$question['id']}}</a></td>
+                      <td>{{$question['question']}}</td>
+                      @if($question['ques_level']=='easy')
+                      <td><span class="right badge badge-success">E</span></td>
+                      @elseif($question['ques_level']=='medium')
+                      <td><span class="right badge badge-primary">M</span></td>
+                      @else
+                      <td><span class="right badge badge-danger">H</span></td>
+                      @endif                      
+                      <td>{{$question['ques_type']}}</td>
+                      <!-- <td><a href ="/admin/question/edit/{{$question['id']}}" class="mr-3"><i class="far fa-edit text-info"></i></a><a href ="" ><i class="far fa-trash-alt text-danger"></i></a></td> -->
+                    </tr>
+                  @endforeach
+                </tbody>
+                <tfoot>
+               
+                </tfoot>
+              </table>
+          </div>
+
         </div>
         <div class="card-footer">
           <button type="submit" class="btn btn-primary float-right">Submit</button>

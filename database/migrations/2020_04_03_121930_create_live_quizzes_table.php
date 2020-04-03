@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLiveQuizesTable extends Migration
+class CreateLiveQuizzesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateLiveQuizesTable extends Migration
      */
     public function up()
     {
-        Schema::create('live_quizes', function (Blueprint $table) {
+        Schema::create('live_quizzes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->longText('quiz_title');
             $table->longText('quiz_desc')->nullable();
@@ -31,6 +31,6 @@ class CreateLiveQuizesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('live_quizes');
+        Schema::dropIfExists('live_quizzes');
     }
 }

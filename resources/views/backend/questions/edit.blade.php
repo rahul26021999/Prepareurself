@@ -26,7 +26,7 @@
 
     $.validator.setDefaults({
       submitHandler: function (form) {
-
+          form.submit();
       }
     });
     $('#createQuestion').validate({
@@ -41,6 +41,9 @@
           required:true
         },
         level:{
+          required:true
+        },
+        type:{
           required:true
         }
       },
@@ -92,12 +95,13 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Add a new Question</h1>
+          <h1>Edit Question</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="/admin/home">Home</a></li>
-            <li class="breadcrumb-item active">Text Editors</li>
+            <li class="breadcrumb-item"><a href="/admin/question/all">questions</a></li>
+            <li class="breadcrumb-item active">Edit</li>
           </ol>
         </div>
       </div>
@@ -106,7 +110,7 @@
 
   <!-- Main content -->
   <section class="content">
-    <form method="post" action="/admin/question/create" id="createQuestion">
+    <form method="post" action="/admin/question/edit/{{$question['id']}}" id="createQuestion">
       @csrf
       <div class="card card-primary">
         <div class="card-body">
@@ -219,8 +223,8 @@
           </div>
         </div>
         <div class="card-footer">
-          <a id="cancel" href="/admin/question/all"class="btn btn-danger">Cancel</a>
-          <button type="submit" class="btn btn-primary float-right">Submit</button>
+          <a id="cancel" href="/admin/question/all"class="btn btn-danger float-right">Cancel</a>
+          <button type="submit" class="btn btn-primary">Submit</button>
         </div>
       </div>
     </form>
