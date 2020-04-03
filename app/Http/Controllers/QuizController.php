@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\LiveQuiz;
+use App\Models\Question;
+use Log;
 
 class QuizController extends Controller
 {
@@ -16,12 +18,16 @@ class QuizController extends Controller
    {
       try{
         $quiz=LiveQuiz::create([
-          'quiz_title'=>$request['question'],
-          'quiz_desc'=>$request['option1'],
-          'no_of_ques'=>$request['option2'],
-          'start_time'=>$request['answer'],
-          'ques_time_span'=>$request['level'],
+          'quiz_title'=>$request['title'],
+          'quiz_desc'=>$request['description'],
+          'no_of_ques'=>$request['noOfQues'],
+          'start_time'=>$request['timeSpan'],
+          'ques_time_span'=>$request['quizTime'],
         ]);
+        // for($i=0;$i<$quiz['no_of_ques'];$i++)
+        // {
+        //     $request['quizQues'][$i];
+        // }
       }
       catch(Exception $e){
           Log::error("Error in creating question ".$e);          
