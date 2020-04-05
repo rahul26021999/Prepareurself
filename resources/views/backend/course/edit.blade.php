@@ -108,7 +108,7 @@
               <input type="text" name="name" value="{{$course['name']}}" class="form-control" placeholder="Enter ...">
             </div>
             <div class="form-group">
-              <label for="exampleInputFile">File input</label>
+              <label for="exampleInputFile">Background Image</label>
               <div class="input-group">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input" name="courseImage" onchange="readURL(this)"

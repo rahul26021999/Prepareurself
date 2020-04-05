@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Exception;
 use App\Models\Resource;
 use App\Models\CourseTopic;
+use App\Models\Course;
 
 class ResourceController extends Controller
 {
@@ -14,7 +15,7 @@ class ResourceController extends Controller
    		$topic=CourseTopic::find($topicId);
         return view('backend.resource.create',['topic'=>$topic]);
    }
-   public function createResource(Request $request)
+   public function createResource(Request $request,$topicId)
    {   	
       try{
        $course=Course::find($request['course_id']);
@@ -64,17 +65,9 @@ class ResourceController extends Controller
       }
       return redirect('admin/topic/all/'.$course['name']);
    }
-   public function showAllResource($courseName)
+   public function showAllResource()
    {
-      $course=Course::where('name',$courseName)->first();
-      if($course!=null)
-      {
-        $CourseTopic=CourseTopic::where('course_id',$course['id'])->get();
-        return view('backend.topic.show',['courseTopic'=>$CourseTopic,'course'=>$course]);
-      }
-      else{
-        abort(404);
-      }
-      
+      $course=Course::with('CourseTopic')->get()->toArray();
+      return view('backend.resource.show',['course'=>$course]);      
    }
 }

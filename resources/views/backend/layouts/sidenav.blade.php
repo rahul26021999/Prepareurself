@@ -296,6 +296,14 @@
               </li>
             </ul>
           </li>
+           <li class="nav-item">
+            <a href="/admin/resource/all" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Resources
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

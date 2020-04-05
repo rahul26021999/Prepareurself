@@ -71,10 +71,10 @@ Route::prefix('admin')->group(function () {
     });
      Route::prefix('resource')->group(function(){
         Route::get('create/{topicId}','ResourceController@showCreateResource');
-        Route::post('create','ResourceController@createResource');
+        Route::post('create/{topicId}','ResourceController@createResource');
         Route::get('edit/{id}','ResourceController@showEditResource');
         Route::post('edit/{id}','ResourceController@saveEditResource');
-        Route::get('all/{courseName}','ResourceController@showAllResource');
+        Route::get('all','ResourceController@showAllResource');
         Route::get('delete/{id}','ResourceController@deleteResource');
     });
 
