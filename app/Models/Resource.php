@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Resource extends Model
 {
-    protected $fillable = ['name','image_url'];
+    protected $fillable = ['title','description','type','image_url','link','course_topic_id'];
 }

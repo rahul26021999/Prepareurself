@@ -28,11 +28,11 @@ class TopicController extends Controller
    public function createCourseTopic(Request $request)
    {   	
       try{
-
+       $course=Course::find($request['course_id']);
    	   $fileName = time().'.'.$request->file('topicImage')->extension();  
        $request->file('topicImage')->move(public_path('uploads/topics'), $fileName);
 
-        $course=CourseTopic::create([
+        $courseTopic=CourseTopic::create([
           'name'=>$request['name'],
           'image_url'=>$fileName,
           'course_id'=>$request['course_id']
@@ -41,7 +41,7 @@ class TopicController extends Controller
       catch(Exception $e){
           Log::error("Error in creating Topic ".$e);          
       }
-      return redirect('/admin/topic/all');  
+      return redirect('/admin/topic/all/'.$course['name']);  
    }
    public function showEditCourseTopic($id)
    {
@@ -52,6 +52,7 @@ class TopicController extends Controller
    public function saveEditCourseTopic(Request $request, $id)
    {
       try{
+         $course=Course::find($request['course_id']);
          $CourseTopic=CourseTopic::find($id);
          if($CourseTopic!=null)
          {
@@ -72,7 +73,7 @@ class TopicController extends Controller
       catch(Exception $e){
         Log::error("Error in saving question ".$e);    
       }
-      return redirect('admin/topic/all');
+      return redirect('admin/topic/all/'.$course['name']);
    }
    public function showAllCourseTopic($courseName)
    {
