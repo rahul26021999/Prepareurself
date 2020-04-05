@@ -139,7 +139,7 @@ class UserAuthController extends Controller
 		{
 			$credentials = $request->only('email', 'password');
 	        if (Auth::attempt($credentials)) {
-	        	$user=User::where('email',$request['email']);
+	        	$user=User::where('email',$request['email'])->first();
 	            return json_encode(['error_code'=>0,"user_data"=>$user,"msg"=>"login Successfully Done"]);
 	        }
 	        else{
