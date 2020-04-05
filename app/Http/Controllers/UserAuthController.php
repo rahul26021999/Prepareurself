@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use App\Traits\UserAuthTrait;
 
+
 class UserAuthController extends Controller
 {
 	use UserAuthTrait;

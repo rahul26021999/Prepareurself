@@ -56,17 +56,18 @@ Route::prefix('admin')->group(function () {
         Route::post('create','CourseController@createCourse');
         Route::get('edit/{id}','CourseController@showEditCourse');
         Route::post('edit/{id}','CourseController@saveEditCourse');
+        Route::get('show/{id}','CourseController@showCourse');
         Route::get('all/{type?}','CourseController@showAllCourse');
         Route::get('delete/{id}','CourseController@deleteCourse');
     });
 
-    Route::prefix('{course?}/topic')->group(function(){
-        Route::get('create','TopicController@showCreateTopic');
-        Route::post('create','TopicController@createTopic');
-        Route::get('edit/{id}','TopicController@showEditTopic');
-        Route::post('edit/{id}','TopicController@saveEditTopic');
-        Route::get('all/{type?}','TopicController@showAllTopic');
-        Route::get('delete/{id}','TopicController@deleteTopic');
+    Route::prefix('topic')->group(function(){
+        Route::get('create/{courseName?}','TopicController@showCreateCourseTopic');
+        Route::post('create','TopicController@createCourseTopic');
+        Route::get('edit/{id}','TopicController@showEditCourseTopic');
+        Route::post('edit/{id}','TopicController@saveEditCourseTopic');
+        Route::get('all/{courseName}','TopicController@showAllCourseTopic');
+        Route::get('delete/{id}','TopicController@deleteCourseTopic');
     });
 
 

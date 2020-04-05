@@ -83,7 +83,8 @@
         $(element).removeClass('is-invalid');
       }
     });
-    var quesCount=0;
+
+    var quesCount=<?php echo count($livequizques); ?>;
     $("input[name='addQues']").click(function() {
       var max=$("input[name='noOfQues']").val();
       if ($(this).is(':checked')) {
@@ -110,7 +111,7 @@
       $.each($("input[name='addQues']:checked"), function(){
         var quesId=$(this).val();
         var quesName=$(this).data('ques');
-        $("#sortable").append(`<li class="ui-state-default">${quesName}</li><input type="hidden" name="quizQues[]" value="${quesId}">`); 
+        $("#sortable").append(`<li class="ui-state-default">${quesName}<input type="hidden" name="quizQues[]" value="${quesId}"></li>`); 
       });
     });
   });
@@ -146,7 +147,7 @@
 
   <!-- Main content -->
   <section class="content">
-    <form method="post" action="/admin/quiz/create" id="createQuiz">
+    <form method="post" action="/admin/quiz/edit/{{$livequiz['id']}}" id="createQuiz">
       @csrf
       <div class="card card-primary">
         <div class="card-body">
@@ -179,7 +180,7 @@
             <div class="col-sm-4">
               <div class="form-group">
                 <label>Start Date and Time</label>
-                <input type="datetime-local" value="{{$livequiz['start_time']}}" class="form-control" name="quizTime">
+                <input type="datetime-local" value="<?php echo date("Y-m-d\TH:i:s", strtotime($livequiz['start_time'])); ?>" class="form-control" name="quizTime">
               </div>
             </div>
           </div>
@@ -189,7 +190,7 @@
                 <h4 class="text-center mt-5 mb-3"><b>QUESTIONS</b></h4>
                 <ol id="sortable">
                   @foreach($livequizques as $ques)
-                  <li class="ui-state-default">{{$ques['question']}}</li><input type="hidden" name="quizQues[]" value="">
+                  <li class="ui-state-default">{{$ques['question']['question']}}<input type="hidden" name="quizQues[]" value="{{$ques['question']['id']}}"></li>
                   @endforeach
                 </ol>
               </div>
@@ -229,7 +230,13 @@
               <tr data-id="{{$question['id']}}">
                 <td>
                  <div class="custom-control custom-checkbox">
+                  @foreach($livequizques as $ques)
+                  @if($ques['question_id']==$question['id'])
+                  <input class="custom-control-input" type="checkbox" name="addQues" id="checkbox{{$question['id']}}" checked data-ques="{{$question['question']}}" value="{{$question['id']}}">
+                  @else
                   <input class="custom-control-input" type="checkbox" name="addQues" id="checkbox{{$question['id']}}" data-ques="{{$question['question']}}" value="{{$question['id']}}">
+                  @endif
+                  @endforeach
                   <label for="checkbox{{$question['id']}}" class="custom-control-label"/>
                 </div>
               </td>

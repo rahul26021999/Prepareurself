@@ -110,7 +110,7 @@
       $.each($("input[name='addQues']:checked"), function(){
         var quesId=$(this).val();
         var quesName=$(this).data('ques');
-        $("#sortable").append(`<li class="ui-state-default">${quesName}</li><input type="hidden" name="quizQues[]" value="${quesId}">`); 
+        $("#sortable").append(`<li class="ui-state-default">${quesName}<input type="hidden" name="quizQues[]" value="${quesId}"></li>`); 
       });
     });
   });
