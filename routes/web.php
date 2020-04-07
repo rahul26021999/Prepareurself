@@ -15,19 +15,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Route::get('/home', 'HomeController@index');
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Auth::routes();
 
-Route::prefix('admin')->group(function () {
+Route::name('admin.')->middleware(['admin'])->prefix('admin')->group(function () {
 
-    Route::get('login', function () {
-        return view('backend.auth.login');
+    Route::prefix('auth')->name('auth.')->group(function () {    
+        Route::get('login', 'AdminUserController@showLogin')->name('login');
+        Route::post('login', 'AdminUserController@login');
+        Route::get('logout', 'AdminUserController@logout');
+        Route::get('register','AdminUserController@showRegister')->name('register');
+        Route::post('register', 'AdminUserController@register');
     });
-   
-    Route::get('home', function () {
-        return view('backend.dashboard');
-    });
+
+    Route::get('home','AdminUserController@index')->name('home');
 
 	Route::prefix('users')->group(function(){
     	Route::get('all','UserController@showAllUsers');
@@ -78,6 +80,7 @@ Route::prefix('admin')->group(function () {
         Route::get('delete/{id}','ResourceController@deleteResource');
     });
 
-
-        
 });
+// Route::fallback(function () {
+//     return redirect()->guest('/');
+// });
