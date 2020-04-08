@@ -14,15 +14,7 @@ class AdminUserController extends Controller
 
     public function index()
     {
-        if(Auth::guard('admin')->check())
-        {
-            $admin=Auth::guard('admin')->user();
-            return view('backend.dashboard',['admin'=>$admin]);
-        }
-        else{
-            return redirect()
-            ->route('admin.auth.login');
-        }
+        return view('backend.dashboard');
     }
     public function showLogin()
     {
