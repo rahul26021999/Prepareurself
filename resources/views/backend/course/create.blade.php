@@ -126,7 +126,7 @@
             </div>
             <div class="col-sm-6">
               <div class="text-center">
-                <img src="https://semantic-ui.com/images/wireframe/image.png" id="showImage" alt="Girl in a jacket" width="auto" height="300">
+                <img src="/defaults/defaultImage.png" id="showImage" alt="Girl in a jacket" width="auto" height="300">
               </div>
             </div>
           </div>

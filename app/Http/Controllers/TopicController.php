@@ -75,16 +75,24 @@ class TopicController extends Controller
       }
       return redirect('admin/topic/all/'.$course['name']);
    }
-   public function showAllCourseTopic($courseName)
+   public function showAllCourseTopic($courseName='')
    {
-      $course=Course::where('name',$courseName)->first();
-      if($course!=null)
+      if($courseName=='')
       {
-        $CourseTopic=CourseTopic::where('course_id',$course['id'])->get();
-        return view('backend.topic.show',['courseTopic'=>$CourseTopic,'course'=>$course]);
+        $CourseTopic=CourseTopic::with('Course')->get();
+        return view('backend.topic.all',['courseTopic'=>$CourseTopic]);
       }
-      else{
-        abort(404);
+      else
+      {
+        $course=Course::where('name',$courseName)->first();
+        if($course!=null)
+        {
+          $CourseTopic=CourseTopic::where('course_id',$course['id'])->get();
+          return view('backend.topic.show',['courseTopic'=>$CourseTopic,'course'=>$course]);
+        }
+        else{
+          abort(404);
+        }
       }
       
    }

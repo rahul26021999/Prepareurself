@@ -9,6 +9,7 @@
 <script src="{{ asset('AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{ asset('AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
 <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
+
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('AdminLTE/dist/js/demo.js')}}"></script>
 <!-- page script -->
@@ -51,12 +52,13 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>All Courses</h1>
+            <h1>List of All topics</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/admin/home">Home</a></li>
-              <li class="breadcrumb-item active">courses</li>
+              <li class="breadcrumb-item">Topics</li>
+              <li class="breadcrumb-item active">All</li>
             </ol>
           </div>
         </div>
@@ -68,29 +70,35 @@
       <div class="row">
         <div class="col-12">
           <div class="card">
-            <dic class="card-header">
-              <a href="/admin/course/create" class="btn btn-success">New</a>
-            </dic>
+            <div class="card-header">
+              <a href="/admin/topic/create/"class="btn btn-success">New</a>
+            </div>
+            <!-- /.card-header -->
             <div class="card-body">
               <table id="example2" class="table table-bordered table-hover">
                 <thead>
                 <tr>
                   <th>Id</th>
-                  <th>name</th>
+                  <th>Name</th>
+                  <th>Course</th>
                   <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                  @foreach($courses as $course)
+                  @foreach($courseTopic as $topic)
                      <tr>
-                      <td><a href ="" >#{{$course['id']}}</a></td>
-                      <td>{{$course['name']}}</td>     
+                      <td><a href ="" >#{{$topic['id']}}</a></td>
+                      <td>{{$topic['name']}}</td>
+                      <td><a href ="/admin/topic/all/{{$topic['course']['name']}}" data-toggle="tooltip" title="Show all Topics in {{$topic['course']['name']}}" >{{$topic['course']['name']}}</a></td>
                       <td>
-                        <a href="/admin/course/edit/{{$course['id']}}" class="mr-3"><i class="far fa-edit text-info"></i></a>
-                         <a target="_blank" data-toggle="tooltip" title="View Image" href="/uploads/courses/{{$course['image_url']}}" class="mr-3"><i class="fas fa-image text-success"></i></a>
-                         <a target="_blank" data-toggle="tooltip" title="Add Topic" href ="/admin/topic/create/{{$course['name']}}" class="mr-3"><i class="fas fa-plus"></i></a>
-                        <a target="_blank" data-toggle="tooltip" title="Go to Topics" href ="/admin/topic/all/{{$course['name']}}" class="mr-3"><ion-icon name="file-tray-stacked" class="text-body"></ion-icon></a>
-                        <a href ="" ><i class="far fa-trash-alt text-danger"></i></a></td>
+                        <a href ="/admin/topic/edit/{{$topic['id']}}" data-toggle="tooltip" title="Edit"  class="mr-3"><i class="far fa-edit text-info"></i></a>
+                        <a href ="/admin/topic/edit/{{$topic['id']}}" data-toggle="tooltip" title="New Topic In {{$topic['course']['name']}}"  class="mr-3"><span class="right badge badge-success">Add</span></a>
+                        <a target="_blank" data-toggle="tooltip" title="View Image" href="/uploads/topics/{{$topic['image_url']}}" class="mr-3"><i class="fas fa-image text-secondary"></i></a>
+                        <a target="_blank" data-toggle="tooltip" title="Add Resource" href ="/admin/resource/create/{{$topic['id']}}" class="mr-3"><i class="fas fa-plus"></i></a>
+                        <a target="_blank" data-toggle="tooltip" title="Go to Resources" href ="/admin/resource/all/{{$topic['id']}}" class="mr-3"><ion-icon name="file-tray-stacked" class="text-body"></ion-icon></a>
+                        <a href ="" class="mr-3" ><i class="far fa-trash-alt text-danger"></i></a>
+
+                      </td>
                     </tr>
                   @endforeach
                 </tbody>

@@ -51,12 +51,14 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Users</h1>
+            <h1>Resources In {{$topic['name']}}</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/admin/home">Home</a></li>
-              <li class="breadcrumb-item active">questions</li>
+              <li class="breadcrumb-item"><a href="/admin/home">course</a></li>
+              <li class="breadcrumb-item"><a href="/admin/home">topic</a></li>
+              <li class="breadcrumb-item">Resources</li>
             </ol>
           </div>
         </div>
@@ -69,7 +71,7 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">DataTable with minimal features & hover style</h3>
+              <a href="/admin/resource/create/{{$topic['id']}}" class="btn btn-success">NEW</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -77,28 +79,27 @@
                 <thead>
                 <tr>
                   <th>Id</th>
-                  <th>Question</th>
-                  <th>Level</th>
+                  <th>Title</th>
                   <th>Type</th>
                   <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                 <!--  @foreach($questions ?? '' as $question)
+                  @foreach($resources as $resource)
                      <tr>
-                      <td><a href ="" >#{{$question['id']}}</a></td>
-                      <td>{{$question['question']}}</td>
-                      @if($question['ques_level']=='easy')
-                      <td><span class="right badge badge-success">Easy</span></td>
-                      @elseif($question['ques_level']=='medium')
-                      <td><span class="right badge badge-primary">Medium</span></td>
+                      <td><a href ="" >#{{$resource['id']}}</a></td>
+                      <td>{{$resource['title']}}</td>
+                      @if($resource['type']=='video')
+                      <td><a target="_blank" data-toggle="tooltip" title="Click to view" href="{{$resource['link']}}" class="mr-3"><span class="right badge badge-info">{{$resource['type']}}</span></a></td>
                       @else
-                      <td><span class="right badge badge-danger">Hard</span></td>
-                      @endif                      
-                      <td>{{$question['ques_type']}}</td>
-                      <td><a href ="/admin/question/edit/{{$question['id']}}" class="mr-3"><i class="far fa-edit text-info"></i></a><a href ="" ><i class="far fa-trash-alt text-danger"></i></a></td>
+                      <td><a target="_blank" data-toggle="tooltip" title="Click to view" href="{{$resource['link']}}" class="mr-3"><span class="right badge badge-primary">{{$resource['type']}}</span></a></td>
+                      @endif
+                      <td>
+                        <a href ="/admin/resource/edit/{{$resource['id']}}" data-toggle="tooltip" title="Edit"  class="mr-3"><i class="far fa-edit text-info"></i></a>
+                        <a href ="" class="mr-3" ><i class="far fa-trash-alt text-danger"></i></a>
+                      </td>
                     </tr>
-                  @endforeach -->
+                  @endforeach
                 </tbody>
                 <tfoot>
                

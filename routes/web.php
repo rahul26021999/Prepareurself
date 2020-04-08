@@ -67,7 +67,7 @@ Route::name('admin.')->middleware(['admin'])->prefix('admin')->group(function ()
         Route::post('create','TopicController@createCourseTopic');
         Route::get('edit/{id}','TopicController@showEditCourseTopic');
         Route::post('edit/{id}','TopicController@saveEditCourseTopic');
-        Route::get('all/{courseName}','TopicController@showAllCourseTopic');
+        Route::get('all/{courseName?}','TopicController@showAllCourseTopic');
         Route::get('delete/{id}','TopicController@deleteCourseTopic');
     });
      Route::prefix('resource')->group(function(){
@@ -75,7 +75,7 @@ Route::name('admin.')->middleware(['admin'])->prefix('admin')->group(function ()
         Route::post('create/{topicId}','ResourceController@createResource');
         Route::get('edit/{id}','ResourceController@showEditResource');
         Route::post('edit/{id}','ResourceController@saveEditResource');
-        Route::get('all','ResourceController@showAllResource');
+        Route::get('all/{topicId?}','ResourceController@showAllResource');
         Route::get('delete/{id}','ResourceController@deleteResource');
     });
 

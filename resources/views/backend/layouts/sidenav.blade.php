@@ -31,6 +31,9 @@
     <li class="nav-item d-none d-sm-inline-block">
       <a href="/admin/auth/logout" class="nav-link">Logout</a>
     </li>
+    <li class="nav-item d-none d-sm-inline-block">
+      <a href="/admin/auth/logout" class="nav-link">Profile</a>
+    </li>
     <li class="nav-item">
       <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i
         class="fas fa-th-large"></i></a>
@@ -212,6 +215,12 @@
                   <p>Create New</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="/admin/topic/all" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>All Topics</p>
+                </a>
+              </li>
             </ul>
           </li>
            <li class="nav-item">
@@ -221,6 +230,23 @@
                 Resources
               </p>
             </a>
+          </li>
+           <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Manage
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Admin</p>
+                </a>
+              </li>
+            </ul>
           </li>
         </ul>
       </nav>

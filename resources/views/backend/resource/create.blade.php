@@ -127,7 +127,7 @@
 
   <!-- Main content -->
   <section class="content">
-    <form method="post" action="/admin/resource/create/{{$topic['id']}}" id="createResource">
+    <form method="post" action="/admin/resource/create/{{$topic['id']}}" id="createResource" enctype="multipart/form-data">
       @csrf
       <div class="card card-primary">
         <div class="card-body">
@@ -176,7 +176,7 @@
                 </div>
               </div>
               <div class="col-sm-6">
-                <img src="https://semantic-ui.com/images/wireframe/image.png" id="showImage" alt="" width="auto" height="200">
+                <img src="/defaults/defaultImage.png" id="showImage" alt="" width="auto" height="200">
               </div>
             </div>
           </div>
