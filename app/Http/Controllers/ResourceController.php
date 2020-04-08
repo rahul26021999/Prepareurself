@@ -93,4 +93,82 @@ class ResourceController extends Controller
         return view('backend.resource.show',['topic'=>$topic,'resources'=>$resources]);
       }
    }
+
+
+   /**
+     * @OA\Post(
+     *     path="/api/getAllResources",
+     *     tags={"Resources"},
+     *     description="Get all resources of a particular topic",
+   *     @OA\Parameter(
+   *          name="topic_id",
+   *          in="query",
+   *          description="topic_id of Topic ",
+   *          required=true,
+   *          @OA\Schema(
+   *              type="integer"
+   *          )
+   *     ),
+   *     @OA\Parameter(
+   *          name="type",
+   *          in="query",
+   *          description="Type of resources : theory|video",
+   *          required=false,
+   *          @OA\Schema(
+   *              type="string"
+   *          )
+   *      ),
+   *     @OA\Parameter(
+   *          name="count",
+   *          in="query",
+   *          description="Count of resources,If not passed by default value of count is 10",
+   *          required=false,
+   *          @OA\Schema(
+   *              type="integer"
+   *          )
+   *      ),
+   *     @OA\Parameter(
+   *          name="page_number",
+   *          in="query",
+   *          description="Page number , if not then by default page 1",
+   *          required=false,
+   *          @OA\Schema(
+   *              type="integer"
+   *          )
+   *      ),
+   *     @OA\Response(
+     *          response=200,
+     *      description="{[error_code=>0,msg=>'success'],[error_code=>1,msg=>'Topic Id is Invalid'],[error_code=>2,'msg'=>'Topic Id is Compulsory']}"
+     *     )
+     * )
+     */
+   public function wsGetAllResources(Request $request){
+      if(isset($request['topic_id'])){
+          $topic=CourseTopic::find($request['topic_id']);
+          if($topic!=null){
+              $type=isset($request['type'])?$request['type']:'';
+              $pageNumber= isset($request['page_number'])?$request['page_number']:'1';
+              $count= isset($request['count'])?$request['count']:'10';
+              if($type=='')
+              {
+                $resources=Resource::where('course_topic_id',$request['topic_id'])->paginate($count, ['*'],'page',$pageNumber);
+                return json_encode(['error_code'=>0,'Resources'=>$resources]);
+              }
+              else{
+                $resources=Resource::where('course_topic_id',$request['topic_id'])
+                          ->where('type',$type)
+                          ->paginate($count, ['*'],'page',$pageNumber);
+                return json_encode(['error_code'=>0,'Resources'=>$resources]);
+              }
+          }
+          else{
+            return json_encode(['error_code'=>1,'msg'=>'Topic Id is Invalid']);
+          }
+      }
+      else
+      {
+       return json_encode(['error_code'=>2,'msg'=>'Topic Id is Compulsory']);
+      }
+      
+   }
 }
