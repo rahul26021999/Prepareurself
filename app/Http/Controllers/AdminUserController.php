@@ -32,13 +32,11 @@ class AdminUserController extends Controller
     {
         if(Auth::guard('admin')->attempt($request->only('email','password'))){
             //Authentication passed...
-            return redirect()
-                ->intended(route('admin.home'))
+            return redirect(route('admin.home'))
                 ->with('status','You are Logged in as Admin!');
         }
         else{
-            return redirect()
-            ->route('admin.auth.login')
+            return redirect(route('admin.auth.login'))
             ->with('status','Invalid Admin Credentials!');
         }
     }

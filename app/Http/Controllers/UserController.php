@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Exception;
+use App\User;
+use Log;
 
 class UserController extends Controller
 {
     public function showAllUsers()
     {
-		return view('backend.users.show');
+    	$users=User::all();
+		return view('backend.users.show',['users'=>$users]);
     }
 }

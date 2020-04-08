@@ -38,7 +38,6 @@ Route::name('admin.')->middleware(['admin'])->prefix('admin')->group(function ()
     Route::prefix('quiz')->group(function(){
     	Route::get('create','QuizController@showCreateQuiz');
         Route::post('create','QuizController@createQuiz');
-    	Route::get('save','QuizController@saveQuiz');
     	Route::get('edit/{id}','QuizController@showEditQuiz');
         Route::post('edit/{id}','QuizController@saveEditQuiz');
     	Route::get('all/{type?}','QuizController@showAllQuiz');
@@ -81,6 +80,6 @@ Route::name('admin.')->middleware(['admin'])->prefix('admin')->group(function ()
     });
 
 });
-// Route::fallback(function () {
-//     return redirect()->guest('/');
-// });
+Route::fallback(function () {
+    return redirect()->guest('/');
+});
