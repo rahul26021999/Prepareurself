@@ -21,6 +21,7 @@ class CreateResourcesTable extends Migration
             $table->longText('image_url')->nullable();
             $table->longText('link');
             $table->unsignedBigInteger('course_topic_id');
+            $table->unsignedBigInteger('admin_id')->nullable();
             $table->timestamps();
         });
     }
