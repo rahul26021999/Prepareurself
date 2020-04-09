@@ -69,7 +69,11 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              
+              <form action="/admin/manage/create" method="post">
+                <input type="email" name="email">
+                @csrf
+                <input type="submit" name="submit">
+              </form>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -85,6 +89,7 @@
                 </thead>
                 <tbody>
                  @foreach($admins as $admin)
+                  <tr>
                   <td>{{$admin['id']}}</td>
                   <td>{{$admin['first_name']}}</td>
                   <td>{{$admin['email']}}</td>
@@ -93,6 +98,7 @@
                   @else
                   <td>{{$admin['user_status']}}</td>
                   @endif
+                  </tr>
                  @endforeach
                 </tbody>
                 <tfoot>

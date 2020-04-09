@@ -73,13 +73,13 @@ class AdminUserController extends Controller
         $admins=Admin::all();
         return view('backend.manage.all_admin',['admins'=>$admins]);
     }
-    public function createAdmin(){
-        $email=$request->only('email');
-        $name=$request->only('first_name');
-        $admin=Admin::create([
-            'email'=>$email,
-            'first_name'=>$name
+    public function createAdmin(Request $request){
+        $email=$request['email'];
+         $admin=Admin::create([
+            'email'=>$email
         ]);
+        return redirect()
+                ->route('admin.manage');
     }
 
 }
