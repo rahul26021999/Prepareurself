@@ -39,7 +39,7 @@ class AdminUserController extends Controller
     public function register(Request $request)
     {
         try{
-            $user=Admin::where('email',$request->only('email'));
+            $user=Admin::where('email',$request->only('email'))->get();
             if($user!=null)
             {
                 $user->first_name=$request['first_name'];
@@ -68,8 +68,10 @@ class AdminUserController extends Controller
     }
     public function createAdmin(){
         $email=$request->only('email');
+        $name=$request->only('first_name');
         $admin=Admin::create([
-            'email'=>$email
+            'email'=>$email,
+            'first_name'=>$name
         ]);
     }
 
