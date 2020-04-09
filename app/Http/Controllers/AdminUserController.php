@@ -39,23 +39,25 @@ class AdminUserController extends Controller
     public function register(Request $request)
     {
         try{
-            $user=Admin::where('email',$request->only('email'))->first()->get();
+            $email=$request['email'];
+            $user =Admin::where('email', $email)->first();
             if($user!=null)
             {
-                $user->first_name=$request['first_name'];
-                $user->last_name=$request['last_name'];
+                $user->first_name=$request['firstName'];
+                $user->last_name=$request['lastName'];
                 $user->password=Hash::make($request['password']);
                 $user->save();
-                return redirect(route('admin.auth.login'))
+
+                return redirect(route('admin.auth.login'));
             }
             else{
-                return redirect(route('admin.auth.login'))
+                return redirect(route('admin.auth.register'));
             }
         }
         catch(Exception $re)
         {
-            Log::error("Registration error of Admin page");
-            return redirect(route('admin.auth.login'))
+            Log::error("Registration error of Admin page".$re);
+            return redirect(route('admin.auth.register'));
         }
       
     }

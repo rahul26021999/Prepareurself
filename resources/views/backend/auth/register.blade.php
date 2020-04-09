@@ -31,7 +31,7 @@
       <form action="/admin/auth/register" method="post">
         <div class="input-group mb-3">
           @csrf
-          <input type="text" class="form-control" name="firstName" placeholder="First name">
+          <input type="text" class="form-control" name="firstName" required="required" placeholder="First name">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
@@ -39,7 +39,7 @@
           </div>
         </div>
          <div class="input-group mb-3">
-          <input type="text" class="form-control" name="lastName" placeholder="Last name">
+          <input type="text" class="form-control" name="lastName" required="required" required="required"placeholder="Last name">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
@@ -55,7 +55,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password">
+          <input type="password" class="form-control" required="required" placeholder="Password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -63,7 +63,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Retype password">
+          <input type="password" class="form-control" required="required" placeholder="Retype password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
