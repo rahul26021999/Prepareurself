@@ -10,7 +10,7 @@
       <a href="/admin/home" class="nav-link">Home</a>
     </li>
     <li class="nav-item d-none d-sm-inline-block">
-      <a href="#" class="nav-link">Contact</a>
+      <a href="#" class="nav-link"></a>
     </li>
   </ul>
 
@@ -56,10 +56,10 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="/uploads/admin/" class="img-circle elevation-2" alt="Image">
+          <img src="/defaults/admin/{{Auth::user()->profile_image}}" class="img-circle elevation-2" alt="Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block"></a>
+          <a href="#" class="d-block">Hello {{Auth::user()->first_name}} !</a>
         </div>
       </div>
 
@@ -231,6 +231,7 @@
               </p>
             </a>
           </li>
+          @if(Auth::user()->isSuperAdmin())
            <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -241,13 +242,14 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{route('admin.manage')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Admin</p>
                 </a>
               </li>
             </ul>
           </li>
+          @endif
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

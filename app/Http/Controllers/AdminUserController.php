@@ -61,5 +61,16 @@ class AdminUserController extends Controller
             ->route('admin.auth.login')
             ->with('status','Admin has been logged out!');
     }
+    public function manage()
+    {
+        $admins=Admin::all();
+        return view('backend.manage.all_admin',['admins'=>$admins]);
+    }
+    public function createAdmin(){
+        $email=$request->only('email');
+        $admin=Admin::create([
+            'email'=>$email
+        ]);
+    }
 
 }

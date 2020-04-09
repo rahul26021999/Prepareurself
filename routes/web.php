@@ -22,16 +22,21 @@ Route::get('/home', 'HomeController@index');
 Route::name('admin.')->prefix('admin')->group(function () {
 
     Route::prefix('auth')->name('auth.')->group(function () {    
-        Route::get('login', 'AdminUserController@showLogin')->name('login');
+        Route::get('login', 'AdminUserController@showLogin')->name('login')->middleware('guest:admin');
         Route::post('login', 'AdminUserController@login');
         Route::get('logout', 'AdminUserController@logout');
         Route::get('register','AdminUserController@showRegister')->name('register');
         Route::post('register', 'AdminUserController@register');
     });
 
-    Route::middleware('admin.auth')->group(function(){
+    Route::middleware(['auth:admin'])->group(function(){
 
         Route::get('home','AdminUserController@index')->name('home');
+
+        Route::prefix('manage')->group(function(){
+            Route::get('all','AdminUserController@manage')->name('manage');
+            Route::post('create','AdminUserController@createAdmin');
+        });
 
         Route::prefix('users')->group(function(){
             Route::get('all','UserController@showAllUsers');

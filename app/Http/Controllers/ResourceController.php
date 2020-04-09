@@ -8,6 +8,7 @@ use App\Models\Resource;
 use App\Models\CourseTopic;
 use App\Models\Course;
 use Log;
+use Auth;
 
 class ResourceController extends Controller
 {
@@ -23,6 +24,7 @@ class ResourceController extends Controller
           'course_topic_id'=>$topicId,
           'link'=>$request['link'],
           'title'=>$request['title'],
+          'admin_id'=>Auth::user()->id,
           'description'=>$request['description'],
           'type'=>$request['type']
         ]);
