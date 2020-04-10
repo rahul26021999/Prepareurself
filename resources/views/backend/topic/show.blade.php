@@ -81,10 +81,11 @@
                   <th>Id</th>
                   <th>Name</th>
                   <th>Action</th>
+                  <th>Resources</th>
                 </tr>
                 </thead>
                 <tbody>
-                  @foreach($courseTopic as $topic)
+                  @foreach($course['CourseTopic'] as $topic)
                      <tr>
                       <td><a href ="" >#{{$topic['id']}}</a></td>
                       <td>{{$topic['name']}}</td>
@@ -94,6 +95,18 @@
                         <a target="_blank" data-toggle="tooltip" title="Add Resource" href ="/admin/resource/create/{{$topic['id']}}" class="mr-3"><i class="fas fa-plus"></i></a>
                         <a target="_blank" data-toggle="tooltip" title="Go to Resources" href ="/admin/resource/all/{{$topic['id']}}" class="mr-3"><ion-icon name="file-tray-stacked" class="text-body"></ion-icon></a>
                         <a href ="" class="mr-3" ><i class="far fa-trash-alt text-danger"></i></a>
+                      </td>
+                      <td>
+                        @php
+                          $a=$topic['Resource']->groupBy('type')->toArray();
+                        @endphp
+                        @isset($a['video'])
+                        <span class="right badge badge-warning">{{count($a['video'])}}  V</span>
+                        @endisset
+                        @isset($a['theory'])
+                        <span class="right badge badge-danger">{{count($a['theory'])}} T</span>
+                        @endisset
+                        
                       </td>
                     </tr>
                   @endforeach
