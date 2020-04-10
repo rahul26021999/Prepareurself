@@ -35,6 +35,7 @@ class TopicController extends Controller
         $courseTopic=CourseTopic::create([
           'name'=>$request['name'],
           'image_url'=>$fileName,
+          'description'=>$request['description'],
           'course_id'=>$request['course_id']
         ]);
       }
@@ -62,6 +63,7 @@ class TopicController extends Controller
               $request->file('topicImage')->move(public_path('uploads/topics'), $fileName);
               $CourseTopic->image_url=$fileName;
             }
+            $CourseTopic->description=$request['description'];
             $CourseTopic->name=$request['name'];
             $CourseTopic->course_id=$request['course_id'];
             $CourseTopic->save();

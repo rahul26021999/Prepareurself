@@ -110,6 +110,10 @@
                 <label>Name</label>
                 <input type="text" name="name" value="{{$courseTopic['name']}}" class="form-control" placeholder="Enter ...">
               </div>
+               <div class="form-group">
+                <label>Description</label>
+                <input type="text" name="description" value="{{$courseTopic['description']}}" class="form-control" placeholder="Enter ...">
+              </div>
               <div class="form-group">
                 <label for="exampleInputFile">File input</label>
                 <div class="input-group">
