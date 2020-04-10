@@ -87,6 +87,7 @@
                 <tbody>
                   @foreach($courseTopic as $topic)
                      <tr>
+                      <td></td>
                       <td><a href ="" >#{{$topic['id']}}</a></td>
                       <td>{{$topic['name']}}</td>
                       <td><a href ="/admin/topic/all/{{$topic['course']['name']}}" data-toggle="tooltip" title="Show all Topics in {{$topic['course']['name']}}" >{{$topic['course']['name']}}</a></td>

@@ -82,6 +82,7 @@ class TopicController extends Controller
       if($courseName=='')
       {
         $CourseTopic=CourseTopic::with('Course')->get();
+        // return json_encode($CourseTopic);
         return view('backend.topic.all',['courseTopic'=>$CourseTopic]);
       }
       else
@@ -89,7 +90,8 @@ class TopicController extends Controller
         $course=Course::where('name',$courseName)->first();
         if($course!=null)
         {
-          $CourseTopic=CourseTopic::where('course_id',$course['id'])->get();
+          $CourseTopic=Course::with('CourseTopic.Resource')->where('id',$course['id'])->get();
+          return json_encode($CourseTopic);
           return view('backend.topic.show',['courseTopic'=>$CourseTopic,'course'=>$course]);
         }
         else{
