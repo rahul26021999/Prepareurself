@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Exception;
 use App\Models\CourseTopic;
 use App\Models\Course;
+use App\Models\Resource;
 use Log;
 
 class TopicController extends Controller
@@ -97,5 +98,18 @@ class TopicController extends Controller
         }
       }
       
+   }
+   public function deleteCourseTopic(Request $request)
+   {
+      $courseName=$request['courseName'];
+      $id=$request['id'];      
+      CourseTopic::find($id)->delete($id);
+      if(isset($request['resourceAlso']) &&  $request['resourceAlso']==1)
+      {
+        $resourceCount=Resource::where('course_topic_id',$id)->count();
+        if($resourceCount>0)
+        Resource::where('course_topic_id',$id)->delete();
+      }
+      return redirect('/admin/topic/all/'.$courseName);
    }
 }

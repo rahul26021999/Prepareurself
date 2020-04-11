@@ -75,7 +75,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
             Route::get('edit/{id}','TopicController@showEditCourseTopic');
             Route::post('edit/{id}','TopicController@saveEditCourseTopic');
             Route::get('all/{courseName?}','TopicController@showAllCourseTopic');
-            Route::get('delete/{id}','TopicController@deleteCourseTopic');
+            Route::post('delete','TopicController@deleteCourseTopic');
         });
          Route::prefix('resource')->group(function(){
             Route::get('create/{topicId}','ResourceController@showCreateResource');
@@ -83,7 +83,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
             Route::get('edit/{id}','ResourceController@showEditResource');
             Route::post('edit/{id}','ResourceController@saveEditResource');
             Route::get('all/{topicId?}','ResourceController@showAllResource');
-            Route::get('delete/{id}','ResourceController@deleteResource');
+            Route::post('delete','ResourceController@deleteResource');
         });
     });
 });
