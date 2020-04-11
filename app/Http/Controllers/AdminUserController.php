@@ -30,7 +30,7 @@ class AdminUserController extends Controller
         }
         else{
             Session::flash('error','Invalid Admin Credentials!');
-            return redirect(route('admin.auth.login'));
+            return redirect()->back();
         }
     }
     public function showRegister()
@@ -49,19 +49,19 @@ class AdminUserController extends Controller
                 $user->password=Hash::make($request['password']);
                 $user->save();
 
-                Session::flash('success','Admin  Registeration Success Please Login !');
+                Session::flash('success','Admin Registeration Success Please Login !');
                 return redirect(route('admin.auth.login'));
             }
             else{
-                Session::flash('error','You are not Authorised asdfkj skajd sakjdf ksadhk Admin !');
-                return redirect(route('admin.auth.register'));
+                Session::flash('error','You are not Authorised as Admin !');
+                return redirect()->back();
             }
         }
         catch(Exception $re)
         {
             Session::flash('error','Something Went Wrong please contact Adminstrator!');
             Log::error("Registration error of Admin page".$re);
-            return redirect(route('admin.auth.register'));
+            return redirect()->back();
         }
       
     }
@@ -82,7 +82,29 @@ class AdminUserController extends Controller
             'email'=>$email
         ]);
         Session::flash('success',$email.' is Added As Admin!');
-        return redirect()->route('admin.manage');
+        return redirect()->back();
+    }
+
+    public function showForgotPassword()
+    {
+        return view('backend.auth.forgot');
+    }
+    public function forgotPassword(Request $request)
+    {
+        $email=$request['email'];
+        $user =Admin::where('email', $email)->first();
+        if($user!=null)
+        {
+
+
+            
+            Session::flash('success','hey '.$user->first_name.'! Please Check Your Mail to Reset your Password');
+            return redirect()->back();
+        }
+        else{
+            Session::flash('error','You are not Authorised as Admin !');
+            return redirect()->back();
+        }
     }
 
 }

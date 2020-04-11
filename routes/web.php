@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Route::get('/home', 'HomeController@index');
 
-// Auth::routes();
+Auth::routes();
 
 Route::name('admin.')->prefix('admin')->group(function () {
 
@@ -27,6 +27,8 @@ Route::name('admin.')->prefix('admin')->group(function () {
         Route::get('logout', 'AdminUserController@logout');
         Route::get('register','AdminUserController@showRegister')->name('register');
         Route::post('register', 'AdminUserController@register');
+        Route::get('forgot','AdminUserController@showForgotPassword')->name('showforgotPassword');
+        Route::post('forgot','AdminUserController@forgotPassword')->name('forgotPassword');
     });
 
     Route::middleware(['auth:admin'])->group(function(){
