@@ -30,7 +30,11 @@ class Admin extends Authenticatable
         'password', 'remember_token',
     ];
 
-    function isSuperAdmin()
+    function getAvatarAttribute()
+    {
+        return "/defaults/admin/".$this->profile_image;
+    }
+    function getSuperAttribute()
     {
         return $this->user_role=='superAdmin'?true:false;
     }

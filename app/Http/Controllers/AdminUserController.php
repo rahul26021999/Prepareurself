@@ -8,6 +8,7 @@ use Log;
 use Auth;
 use Illuminate\Support\Facades\Hash;
 use Exception;
+use Session;
 
 class AdminUserController extends Controller
 {
@@ -23,13 +24,13 @@ class AdminUserController extends Controller
     public function login(Request $request)
     {
         if(Auth::guard('admin')->attempt($request->only('email','password'))){
-            //Authentication passed...
-            return redirect(route('admin.home'))
-                ->with('status','You are Logged in as Admin!');
+
+            Session::flash('success','You are Logged in as Admin!');
+            return redirect(route('admin.home'));                
         }
         else{
-            return redirect(route('admin.auth.login'))
-            ->with('status','Invalid Admin Credentials!');
+            Session::flash('error','Invalid Admin Credentials!');
+            return redirect(route('admin.auth.login'));
         }
     }
     public function showRegister()
@@ -48,14 +49,17 @@ class AdminUserController extends Controller
                 $user->password=Hash::make($request['password']);
                 $user->save();
 
+                Session::flash('success','Admin  Registeration Success Please Login !');
                 return redirect(route('admin.auth.login'));
             }
             else{
+                Session::flash('error','You are not Authorised asdfkj skajd sakjdf ksadhk Admin !');
                 return redirect(route('admin.auth.register'));
             }
         }
         catch(Exception $re)
         {
+            Session::flash('error','Something Went Wrong please contact Adminstrator!');
             Log::error("Registration error of Admin page".$re);
             return redirect(route('admin.auth.register'));
         }
@@ -64,9 +68,8 @@ class AdminUserController extends Controller
     public function logout()
     {
         Auth::guard('admin')->logout();
-        return redirect()
-            ->route('admin.auth.login')
-            ->with('status','Admin has been logged out!');
+        Session::flash('success','Admin has been logged out!');
+        return redirect()->route('admin.auth.login');            
     }
     public function manage()
     {
@@ -78,8 +81,8 @@ class AdminUserController extends Controller
          $admin=Admin::create([
             'email'=>$email
         ]);
-        return redirect()
-                ->route('admin.manage');
+        Session::flash('success',$email.' is Added As Admin!');
+        return redirect()->route('admin.manage');
     }
 
 }

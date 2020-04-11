@@ -56,7 +56,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="/defaults/admin/{{Auth::user()->profile_image}}" class="img-circle elevation-2" alt="Image">
+          <img src="{{Auth::user()->avatar}}" class="img-circle elevation-2" alt="Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">Hello {{Auth::user()->first_name}} !</a>
@@ -231,7 +231,7 @@
               </p>
             </a>
           </li>
-          @if(Auth::user()->isSuperAdmin())
+          @if(Auth::user()->super)
            <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
