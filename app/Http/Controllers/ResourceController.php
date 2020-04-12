@@ -7,6 +7,7 @@ use App\Exception;
 use App\Models\Resource;
 use App\Models\CourseTopic;
 use App\Models\Course;
+use Session;
 use Log;
 use Auth;
 
@@ -94,5 +95,13 @@ class ResourceController extends Controller
         $resources=Resource::where('course_topic_id',$topicId)->get();
         return view('backend.resource.show',['topic'=>$topic,'resources'=>$resources]);
       }
+   }
+   public function deleteResource(Request $request)
+   {
+     $id=$request['id'];
+     $title=$request['title'];
+     Resource::find($id)->delete();
+     Session::flash("success","You have Successfully Deleted ".$title);
+     return redirect()->back();
    }
 }

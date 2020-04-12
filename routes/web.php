@@ -44,7 +44,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
             Route::get('all','UserController@showAllUsers');
         });
 
-        Route::prefix('quiz')->group(function(){
+        Route::name('quiz.')->prefix('quiz')->group(function(){
             Route::get('create','QuizController@showCreateQuiz');
             Route::post('create','QuizController@createQuiz');
             Route::get('edit/{id}','QuizController@showEditQuiz');
@@ -52,7 +52,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
             Route::get('all/{type?}','QuizController@showAllQuiz');
         });
 
-        Route::prefix('question')->group(function(){
+        Route::name('question.')->prefix('question')->group(function(){
             Route::get('create','QuestionController@showCreateQuestion');
             Route::post('create','QuestionController@createQuestion');
             Route::get('edit/{id}','QuestionController@showEditQuestion');
@@ -61,7 +61,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
             Route::get('delete/{id}','QuestionController@deleteQuestion');
         });
 
-        Route::prefix('course')->group(function(){
+        Route::name('course.')->prefix('course')->group(function(){
             Route::get('create','CourseController@showCreateCourse');
             Route::post('create','CourseController@createCourse');
             Route::get('edit/{id}','CourseController@showEditCourse');
@@ -71,7 +71,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
             Route::get('delete/{id}','CourseController@deleteCourse');
         });
 
-        Route::prefix('topic')->group(function(){
+        Route::name('courseTopic.')->prefix('topic')->group(function(){
             Route::get('create/{courseName?}','TopicController@showCreateCourseTopic');
             Route::post('create','TopicController@createCourseTopic');
             Route::get('edit/{id}','TopicController@showEditCourseTopic');
@@ -79,13 +79,13 @@ Route::name('admin.')->prefix('admin')->group(function () {
             Route::get('all/{courseName?}','TopicController@showAllCourseTopic');
             Route::post('delete','TopicController@deleteCourseTopic');
         });
-         Route::prefix('resource')->group(function(){
+         Route::name('resource.')->prefix('resource')->group(function(){
             Route::get('create/{topicId}','ResourceController@showCreateResource');
             Route::post('create/{topicId}','ResourceController@createResource');
             Route::get('edit/{id}','ResourceController@showEditResource');
             Route::post('edit/{id}','ResourceController@saveEditResource');
             Route::get('all/{topicId?}','ResourceController@showAllResource');
-            Route::post('delete','ResourceController@deleteResource');
+            Route::post('delete','ResourceController@deleteResource')->name('delete');
         });
     });
 });
