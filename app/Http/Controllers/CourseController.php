@@ -69,4 +69,22 @@ class CourseController extends Controller
      $course=Course::find($id);
      return view('backend.course.showsingle',['course'=>$course]);
    }
+
+  /**
+     * @OA\Post(
+     *     path="/api/get-courses",
+     *     tags={"Courses"},
+     *     description="Get all courses data",
+     *   
+     *     @OA\Response(
+     *          response=200,
+     *      description="{[error_code=>0,msg=>'success']}"
+     *     )
+     * )
+     */
+   public function wsGetAllCourses(){
+    $courses=Course::all();
+    return json_encode(['error_code'=>0,'courses'=>$courses]);
+   }
+
 }

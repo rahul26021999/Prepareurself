@@ -57,7 +57,7 @@ class UserAuthController extends Controller
 	 *      ),
      *     @OA\Response(
      *          response=200,
-     *			description="{[error=1,msg='Invalid user data'],[error=0,msg='Registeration Successfully Done']}"
+     *			description="{[error_code=>1,msg=>'Invalid user data'],[error_code=>0,msg=>'Registeration Successfully Done']}"
      *     )
      * )
      */
@@ -90,7 +90,7 @@ class UserAuthController extends Controller
 	 *     ),
 	 *     @OA\Response(
      *          response=200,
-     *			description="{[error=>2,msg=>'Username Already Exits'],[error=>0,msg=>'Username available'],[error=>1,msg=>'Missing user name']}"
+     *			description="{[error_code=>2,msg=>'Username Already Exits'],[error_code=>0,msg=>'Username available'],[error_code=>1,msg=>'Missing user name']}"
      *     )
      * )
      */
@@ -130,7 +130,7 @@ class UserAuthController extends Controller
 	 *      ),
      *     @OA\Response(
      *          response=200,
-     *			description="login Successfully Done"
+     *			description="{[error_code=>0,msg=>'login Successfully Done']}"
      *     )
      * )
      */
@@ -213,7 +213,7 @@ class UserAuthController extends Controller
 	 *      ),
      *     @OA\Response(
      *          response=200,
-     *			description="update Successfully Done"
+     *			description="{[error_code=>0,msg=>'Update Successfully Done']}"
      *     )
      * )
      */

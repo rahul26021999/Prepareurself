@@ -13,6 +13,115 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/get-courses": {
+            "post": {
+                "tags": [
+                    "Courses"
+                ],
+                "description": "Get all courses data",
+                "operationId": "App\\Http\\Controllers\\CourseController::wsGetAllCourses",
+                "responses": {
+                    "200": {
+                        "description": "{[error_code=>0,msg=>'success']}"
+                    }
+                }
+            }
+        },
+        "/api/get-resources": {
+            "post": {
+                "tags": [
+                    "Resources"
+                ],
+                "description": "Get all resources of a particular topic",
+                "operationId": "App\\Http\\Controllers\\ResourceController::wsGetAllResources",
+                "parameters": [
+                    {
+                        "name": "topic_id",
+                        "in": "query",
+                        "description": "topic_id of Topic ",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "Type of resources : theory|video",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": "Count of resources,If not passed by default value of count is 10",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page_number",
+                        "in": "query",
+                        "description": "Page number , if not then by default page 1",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{[error_code=>0,msg=>'success'],[error_code=>1,msg=>'Topic Id is Invalid'],[error_code=>2,'msg'=>'Topic Id is Compulsory']}"
+                    }
+                }
+            }
+        },
+        "/api/get-topics": {
+            "post": {
+                "tags": [
+                    "Topics"
+                ],
+                "description": "Get all topics of a particular course",
+                "operationId": "App\\Http\\Controllers\\TopicController::wsGetAllTopics",
+                "parameters": [
+                    {
+                        "name": "course_id",
+                        "in": "query",
+                        "description": "Course id of course",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": "Count of resources,If not passed by default value of count is 10",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page_number",
+                        "in": "query",
+                        "description": "Page number , if not then by default page 1",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{[error_code=>0,msg=>'success'],[error_code=>1,msg=>'Course Id is Invalid'],[error_code=>2,'msg'=>'Course Id is Compulsory']}"
+                    }
+                }
+            }
+        },
         "/api/register": {
             "post": {
                 "tags": [
@@ -60,7 +169,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "{[error=1,msg='Invalid user data'],[error=0,msg='Registeration Successfully Done']}"
+                        "description": "{[error_code=>1,msg=>'Invalid user data'],[error_code=>0,msg=>'Registeration Successfully Done']}"
                     }
                 }
             }
@@ -85,7 +194,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "{[error=>2,msg=>'Username Already Exits'],[error=>0,msg=>'Username available'],[error=>1,msg=>'Missing user name']}"
+                        "description": "{[error_code=>2,msg=>'Username Already Exits'],[error_code=>0,msg=>'Username available'],[error_code=>1,msg=>'Missing user name']}"
                     }
                 }
             }
@@ -119,7 +228,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "login Successfully Done"
+                        "description": "{[error_code=>0,msg=>'login Successfully Done']}"
                     }
                 }
             }
@@ -189,7 +298,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "update Successfully Done"
+                        "description": "{[error_code=>0,msg=>'Update Successfully Done']}"
                     }
                 }
             }

@@ -79,6 +79,7 @@ class TopicController extends Controller
       }
       return redirect('admin/topic/all/'.$course['name']);
    }
+
    public function showAllCourseTopic($courseName='')
    {
       if($courseName=='')
@@ -100,6 +101,7 @@ class TopicController extends Controller
       }
       
    }
+
    public function deleteCourseTopic(Request $request)
    {
       $courseName=$request['courseName'];
@@ -124,4 +126,64 @@ class TopicController extends Controller
       Session::flash('success','You have Successfully change sequence !');
       return redirect()->back();
    }
+
+   /**
+     * @OA\Post(
+     *     path="/api/get-topics",
+     *     tags={"Topics"},
+     *     description="Get all topics of a particular course",
+   *     @OA\Parameter(
+   *          name="course_id",
+   *          in="query",
+   *          description="Course id of course",
+   *          required=true,
+   *          @OA\Schema(
+   *              type="integer"
+   *          )
+   *     ),
+   *     @OA\Parameter(
+   *          name="count",
+   *          in="query",
+   *          description="Count of resources,If not passed by default value of count is 10",
+   *          required=false,
+   *          @OA\Schema(
+   *              type="integer"
+   *          )
+   *      ),
+   *     @OA\Parameter(
+   *          name="page_number",
+   *          in="query",
+   *          description="Page number , if not then by default page 1",
+   *          required=false,
+   *          @OA\Schema(
+   *              type="integer"
+   *          )
+   *      ),
+   *     @OA\Response(
+     *          response=200,
+     *      description="{[error_code=>0,msg=>'success'],[error_code=>1,msg=>'Course Id is Invalid'],[error_code=>2,'msg'=>'Course Id is Compulsory']}"
+     *     )
+     * )
+     */
+
+   public function wsGetAllTopics(Request $request){
+     if(isset($request['course_id'])){
+
+       $course=Course::where('id',$request['course_id'])->first();
+        if($course!=null)
+        {
+          $pageNumber= isset($request['page_number'])?$request['page_number']:'1';
+          $count= isset($request['count'])?$request['count']:'10';
+          $CourseTopic=CourseTopic::where('course_id',$course['id'])->paginate($count, ['*'],'page',$pageNumber);;
+          return json_encode(['error_code'=>0,'topics'=>$CourseTopic]);
+        }
+        else{
+          return json_encode(['error_code'=>1,'msg'=>'Course Id is Invalid']);
+        }
+     }
+     else{
+       return json_encode(['error_code'=>2,'msg'=>'Course Id is Compulsory']);
+     }
+   }
+
 }
