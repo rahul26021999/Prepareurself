@@ -99,7 +99,7 @@ class TopicController extends Controller
    }
    /**
      * @OA\Post(
-     *     path="/api/getAllTopics",
+     *     path="/api/get-topics",
      *     tags={"Topics"},
      *     description="Get all topics of a particular course",
    *     @OA\Parameter(
@@ -145,7 +145,7 @@ class TopicController extends Controller
           $pageNumber= isset($request['page_number'])?$request['page_number']:'1';
           $count= isset($request['count'])?$request['count']:'10';
           $CourseTopic=CourseTopic::where('course_id',$course['id'])->paginate($count, ['*'],'page',$pageNumber);;
-          return json_encode(['error_code'=>0,'Topics'=>$CourseTopic]);
+          return json_encode(['error_code'=>0,'topics'=>$CourseTopic]);
         }
         else{
           return json_encode(['error_code'=>1,'msg'=>'Course Id is Invalid']);

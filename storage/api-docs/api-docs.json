@@ -13,7 +13,7 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/api/getAllCourses": {
+        "/api/get-courses": {
             "post": {
                 "tags": [
                     "Courses"
@@ -27,7 +27,7 @@
                 }
             }
         },
-        "/api/getAllResources": {
+        "/api/get-resources": {
             "post": {
                 "tags": [
                     "Resources"
@@ -79,7 +79,7 @@
                 }
             }
         },
-        "/api/getAllTopics": {
+        "/api/get-topics": {
             "post": {
                 "tags": [
                     "Topics"

@@ -72,7 +72,7 @@ class CourseController extends Controller
 
   /**
      * @OA\Post(
-     *     path="/api/getAllCourses",
+     *     path="/api/get-courses",
      *     tags={"Courses"},
      *     description="Get all courses data",
      *   

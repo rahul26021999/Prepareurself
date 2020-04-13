@@ -97,7 +97,7 @@ class ResourceController extends Controller
 
    /**
      * @OA\Post(
-     *     path="/api/getAllResources",
+     *     path="/api/get-resources",
      *     tags={"Resources"},
      *     description="Get all resources of a particular topic",
    *     @OA\Parameter(
@@ -152,21 +152,20 @@ class ResourceController extends Controller
               if($type=='')
               {
                 $resources=Resource::where('course_topic_id',$request['topic_id'])->paginate($count, ['*'],'page',$pageNumber);
-                return json_encode(['error_code'=>0,'Resources'=>$resources]);
+                return json_encode(['error_code'=>0,'resources'=>$resources]);
               }
               else{
                 $resources=Resource::where('course_topic_id',$request['topic_id'])
                           ->where('type',$type)
                           ->paginate($count, ['*'],'page',$pageNumber);
-                return json_encode(['error_code'=>0,'Resources'=>$resources]);
+                return json_encode(['error_code'=>0,'resources'=>$resources]);
               }
           }
           else{
             return json_encode(['error_code'=>1,'msg'=>'Topic Id is Invalid']);
           }
       }
-      else
-      {
+      else{
        return json_encode(['error_code'=>2,'msg'=>'Topic Id is Compulsory']);
       }
       
