@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use App\Traits\UserAuthTrait;
-
+use JWTAuth;
 
 class UserAuthController extends Controller
 {
@@ -67,11 +67,11 @@ class UserAuthController extends Controller
 		$validator=$this->authenticateNewRegisterationRule($request);
 		if($validator->fails()){
 			$errors=$validator->errors();
-			return json_encode(["error_code"=>1,"errors"=>$errors,"msg"=>"Invalid user data"]);
+			return json_encode(["success"=>false,"errors"=>$errors,"message"=>"Invalid user data"]);
 		}
 		else{
-			$user=$this->saveUserData($request);			
-			return json_encode(['error_code'=>0,"user_data"=>$user,"msg"=>"Registeration Successfully Done"]);
+			$user=$this->saveUserData($request);	
+			return $this->login($request);
 		}
 	}
 	/**
@@ -139,16 +139,22 @@ class UserAuthController extends Controller
 		if($request->filled('email') && $request->filled('password'))
 		{
 			$credentials = $request->only('email', 'password');
-	        if (Auth::attempt($credentials)) {
-	        	$user=User::where('email',$request['email'])->first();
-	            return json_encode(['error_code'=>0,"user_data"=>$user,"msg"=>"login Successfully Done"]);
+	        $token = null;
+	        if (!$token = JWTAuth::attempt($credentials)) {
+	            return response()->json([
+	                'success' => false,
+	                'message' => 'Invalid Email or Password',
+	            ], 401);
 	        }
-	        else{
-				return json_encode(['error_code'=>2,"msg"=>'Invalid email or password']);
-	        }
+	        $user=JWTAuth::user();
+	        return response()->json([
+	            'success' => true,
+	            'token' => $token,
+	            'user' => $user
+	        ]);
 		}
 		else{
-			return json_encode(['error_code'=>1,"msg"=>'missing email or password']);
+			return json_encode(['success'=>false,"message"=>'Missing email or password']);
 		}
 	}
 
@@ -158,12 +164,12 @@ class UserAuthController extends Controller
      *     tags={"User"},
      *     description="login a user to prepareurself",
 	 *     @OA\Parameter(
-	 *          name="user_id",
+	 *          name="token",
 	 *          in="query",
-	 *          description="user id of user",
+	 *          description="token",
 	 *          required=true,
 	 *          @OA\Schema(
-	 *              type="integer"
+	 *              type="string"
 	 *          )
 	 *      ),
 	 *     @OA\Parameter(
@@ -219,33 +225,26 @@ class UserAuthController extends Controller
      */
 
 	public function updateUserData(Request $request)
-	{
-		if($request->filled('user_id'))
+	{		
+		$user=JWTAuth::user();
+		if($user!=null)
 		{
-			$user=User::find($request['user_id']);
-			if($user!=null)
-			{
-				if($request->filled('first_name'))
-				$user->first_name=$request->input('first_name');
-				if($request->filled('last_name'))
-				$user->last_name=$request->input('last_name');
-				if($request->filled('phone_number'))
-				$user->phone_number=$request->input('phone_number');
-				if($request->filled('android_token'))
-				$user->android_token=$request->input('android_token');
-				if($request->filled('dob'))
-				$user->dob=$request->input('dob');
+			if($request->filled('first_name'))
+			$user->first_name=$request->input('first_name');
+			if($request->filled('last_name'))
+			$user->last_name=$request->input('last_name');
+			if($request->filled('phone_number'))
+			$user->phone_number=$request->input('phone_number');
+			if($request->filled('android_token'))
+			$user->android_token=$request->input('android_token');
+			if($request->filled('dob'))
+			$user->dob=$request->input('dob');
 
-				$user->save();
-				return json_encode(['error_code'=>0,"user_data"=>$user,"msg"=>"update Successfully Done"]);
-
-			}
-			else{
-				return json_encode(['error_code'=>2,"msg"=>'user does not exists']);	
-			}
+			$user->save();
+			return json_encode(['error_code'=>0,"user_data"=>$user,"msg"=>"update Successfully Done"]);
 		}
 		else{
-			return json_encode(['error_code'=>1,"msg"=>'missing user id']);
+			return json_encode(['error_code'=>2,"msg"=>'user does not exists']);	
 		}
 	}
 }

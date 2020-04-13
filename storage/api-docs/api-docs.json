@@ -242,12 +242,12 @@
                 "operationId": "App\\Http\\Controllers\\UserAuthController::updateUserData",
                 "parameters": [
                     {
-                        "name": "user_id",
+                        "name": "token",
                         "in": "query",
-                        "description": "user id of user",
+                        "description": "token",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string"
                         }
                     },
                     {
