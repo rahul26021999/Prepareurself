@@ -195,6 +195,7 @@
           </div>
         </div>    
         <div class="card-footer">
+          <a id="cancel" href="/admin/resource/all/{{$resource['course_topic_id']}}"class="btn btn-danger">Cancel</a>
           <button type="submit" class="btn btn-primary float-right">Submit</button>
         </div>
       </div>

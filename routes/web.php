@@ -78,6 +78,8 @@ Route::name('admin.')->prefix('admin')->group(function () {
             Route::post('edit/{id}','TopicController@saveEditCourseTopic');
             Route::get('all/{courseName?}','TopicController@showAllCourseTopic');
             Route::post('delete','TopicController@deleteCourseTopic');
+
+            Route::post('sequence','TopicController@changeCourseTopicSequence')->name('sequence');
         });
          Route::name('resource.')->prefix('resource')->group(function(){
             Route::get('create/{topicId}','ResourceController@showCreateResource');

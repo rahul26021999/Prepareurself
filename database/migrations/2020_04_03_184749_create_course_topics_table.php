@@ -18,6 +18,7 @@ class CreateCourseTopicsTable extends Migration
             $table->longText('name');
             $table->longText('description');
             $table->longText('image_url');
+            $table->smallInteger('sequence');
             $table->unsignedBigInteger('course_id');
             $table->timestamps();
         });

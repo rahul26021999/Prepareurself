@@ -90,8 +90,8 @@ class TopicController extends Controller
         $course=Course::where('name',$courseName)->first();
         if($course!=null)
         {
-          $CourseTopic=Course::with('CourseTopic.Resource')->where('id',$course['id'])->first();
-          return view('backend.topic.show',['course'=>$CourseTopic]);
+          $CourseTopic=CourseTopic::with('Resource')->where('course_id',$course['id'])->orderBy('sequence','asc')->get();
+          return view('backend.topic.show',['course'=>$course,'courseTopic'=>$CourseTopic]);
         }
         else{
           abort(404);
@@ -111,5 +111,14 @@ class TopicController extends Controller
         Resource::where('course_topic_id',$id)->delete();
       }
       return redirect('/admin/topic/all/'.$courseName);
+   }
+
+   public function changeCourseTopicSequence(Request $request)
+   {
+      $id=$request['id'];
+      for ($i=0; $i < count($id); $i++) { 
+        CourseTopic::find($id[$i])->update(['sequence'=>$i]);
+      }
+      return redirect()->back();
    }
 }

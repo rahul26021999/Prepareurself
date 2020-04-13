@@ -99,7 +99,6 @@
                       <td>
                         <a href ="/admin/resource/edit/{{$resource['id']}}" data-toggle="tooltip" title="Edit"  class="mr-3"><i class="far fa-edit text-info"></i></a>
                         <a href ="/admin/resource/create/{{$resource['course_topic_id']}}" data-toggle="tooltip" title="New Resource in {{$resource['courseTopic']['name']}} "  class="mr-3"><i class="fas fa-plus text-info"></i></a>
-                        <a href ="" class="mr-3" ><i class="far fa-trash-alt text-danger"></i></a>
                       </td>
                     </tr>
                   @endforeach
