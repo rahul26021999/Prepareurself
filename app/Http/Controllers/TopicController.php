@@ -8,6 +8,7 @@ use App\Models\CourseTopic;
 use App\Models\Course;
 use App\Models\Resource;
 use Log;
+use Session;
 
 class TopicController extends Controller
 {
@@ -110,6 +111,7 @@ class TopicController extends Controller
         if($resourceCount>0)
         Resource::where('course_topic_id',$id)->delete();
       }
+      Session::flash('success','You have Successfully deleted a topic from '.$courseName);
       return redirect('/admin/topic/all/'.$courseName);
    }
 
@@ -119,6 +121,7 @@ class TopicController extends Controller
       for ($i=0; $i < count($id); $i++) { 
         CourseTopic::find($id[$i])->update(['sequence'=>$i]);
       }
+      Session::flash('success','You have Successfully change sequence !');
       return redirect()->back();
    }
 }
