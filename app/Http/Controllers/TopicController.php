@@ -128,10 +128,19 @@ class TopicController extends Controller
    }
 
    /**
-     * @OA\Post(
-     *     path="/api/get-topics",
-     *     tags={"Topics"},
-     *     description="Get all topics of a particular course",
+   * @OA\Post(
+   *     path="/api/get-topics",
+   *     tags={"Topics"},
+   *     description="Get all topics of a particular course",
+   *     @OA\Parameter(
+   *          name="token",
+   *          in="query",
+   *          description="token",
+   *          required=true,
+   *          @OA\Schema(
+   *              type="string"
+   *          )
+   *      ),
    *     @OA\Parameter(
    *          name="course_id",
    *          in="query",

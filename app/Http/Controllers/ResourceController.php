@@ -107,11 +107,20 @@ class ResourceController extends Controller
    }
 
 
-   /**
-     * @OA\Post(
-     *     path="/api/get-resources",
-     *     tags={"Resources"},
-     *     description="Get all resources of a particular topic",
+ /**
+   * @OA\Post(
+   *     path="/api/get-resources",
+   *     tags={"Resources"},
+   *     description="Get all resources of a particular topic",
+   *     @OA\Parameter(
+   *          name="token",
+   *          in="query",
+   *          description="token",
+   *          required=true,
+   *          @OA\Schema(
+   *              type="string"
+   *          )
+   *      ),
    *     @OA\Parameter(
    *          name="topic_id",
    *          in="query",

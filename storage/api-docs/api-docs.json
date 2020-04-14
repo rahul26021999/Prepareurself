@@ -20,6 +20,17 @@
                 ],
                 "description": "Get all courses data",
                 "operationId": "App\\Http\\Controllers\\CourseController::wsGetAllCourses",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "{[error_code=>0,msg=>'success']}"
@@ -35,6 +46,15 @@
                 "description": "Get all resources of a particular topic",
                 "operationId": "App\\Http\\Controllers\\ResourceController::wsGetAllResources",
                 "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
                     {
                         "name": "topic_id",
                         "in": "query",
@@ -87,6 +107,15 @@
                 "description": "Get all topics of a particular course",
                 "operationId": "App\\Http\\Controllers\\TopicController::wsGetAllTopics",
                 "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
                     {
                         "name": "course_id",
                         "in": "query",
