@@ -108,7 +108,7 @@ class AdminUserController extends Controller
         }
     }
 
-    public sendEmail()
+    public function sendEmail()
     {
         $user=Admin::where('email','rahul26021999@gmail.com')->first();
         try{
