@@ -81,13 +81,22 @@ Route::name('admin.')->prefix('admin')->group(function () {
 
             Route::post('sequence','TopicController@changeCourseTopicSequence')->name('sequence');
         });
-         Route::name('resource.')->prefix('resource')->group(function(){
+        Route::name('resource.')->prefix('resource')->group(function(){
             Route::get('create/{topicId}','ResourceController@showCreateResource');
             Route::post('create/{topicId}','ResourceController@createResource');
             Route::get('edit/{id}','ResourceController@showEditResource');
             Route::post('edit/{id}','ResourceController@saveEditResource');
             Route::get('all/{topicId?}','ResourceController@showAllResource');
             Route::post('delete','ResourceController@deleteResource')->name('delete');
+        });
+        Route::name('Project.')->prefix('Project')->group(function(){
+             Route::get('create/{course_name?}','ProjectController@showCreateProject');
+             Route::post('create','ProjectController@createProject');
+             Route::get('edit/{id}','ProjectController@showEditProject');
+             Route::post('edit/{id}','ProjectController@saveEditProject');
+             Route::get('all/{project_id?}','ProjectController@showAllProject');
+             Route::get('delete','ProjectController@deleteProject')->name('delete');
+           
         });
     });
 });
