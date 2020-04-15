@@ -43,7 +43,7 @@ class ProjectController extends Controller
         if($request->file('backImage'))
         {
         	$fileName = time().'.'.$request->file('backImage')->extension();  
-       		$request->file('backImage')->move(public_path('uploads/Projects'), $fileName);
+       		$request->file('backImage')->move(public_path('uploads/projects'), $fileName);
        		$Project->image_url=$fileName;
        		
         }
@@ -80,7 +80,7 @@ class ProjectController extends Controller
             if($request->file('backImage'))
             { 
               $fileName = time().'.'.$request->file('backImage')->extension();  
-              $request->file('backImage')->move(public_path('uploads/Projects'), $fileName);
+              $request->file('backImage')->move(public_path('uploads/projects'), $fileName);
               $Project->image_url=$fileName;
 			}
 			if($request['playlist']){
