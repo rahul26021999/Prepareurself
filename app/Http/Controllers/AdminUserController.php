@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use App\Admin;
 use Illuminate\Http\Request;
 use Log;
+use Mail;
 use Auth;
+use App\Mail\RegisterSuccessful;
 use Illuminate\Support\Facades\Hash;
 use Exception;
 use Session;
-use App\Mail;
 
 class AdminUserController extends Controller
 {
@@ -112,11 +113,12 @@ class AdminUserController extends Controller
     {
         $user=Admin::where('email','rahul26021999@gmail.com')->first();
         try{
-            Mail::to($user)->send(new RegisterSuccessful($order));
+            Mail::to($user)->send(new RegisterSuccessful());
         }
         catch(Exception $e)
         {
-            echo "failed";
+		echo "failed".$e;
+		return;
         }
 
         echo "Success";
