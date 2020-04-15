@@ -9,6 +9,7 @@ use Auth;
 use Illuminate\Support\Facades\Hash;
 use Exception;
 use Session;
+use App\Mail;
 
 class AdminUserController extends Controller
 {
@@ -105,6 +106,20 @@ class AdminUserController extends Controller
             Session::flash('error','You are not Authorised as Admin !');
             return redirect()->back();
         }
+    }
+
+    public sendEmail()
+    {
+        $user=Admin::where('email','rahul26021999@gmail.com')->first();
+        try{
+            Mail::to($user)->send(new RegisterSuccessful($order));
+        }
+        catch(Exception $e)
+        {
+            echo "failed";
+        }
+
+        echo "Success";
     }
 
 }

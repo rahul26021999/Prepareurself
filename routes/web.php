@@ -89,6 +89,8 @@ Route::name('admin.')->prefix('admin')->group(function () {
             Route::get('all/{topicId?}','ResourceController@showAllResource');
             Route::post('delete','ResourceController@deleteResource')->name('delete');
         });
+
+        Route::get('send','AdminUserController@sendEmail');
     });
 });
 Route::fallback(function () {
