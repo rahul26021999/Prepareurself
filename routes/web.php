@@ -17,8 +17,6 @@ Route::get('/', function () {
 
 Route::get('/home', 'HomeController@index');
 
-Auth::routes();
-
 Route::name('admin.')->prefix('admin')->group(function () {
 
     Route::prefix('auth')->name('auth.')->group(function () {    
@@ -30,6 +28,8 @@ Route::name('admin.')->prefix('admin')->group(function () {
         Route::get('forgot','AdminUserController@showForgotPassword')->name('showforgotPassword');
         Route::post('forgot','AdminUserController@forgotPassword')->name('forgotPassword');
     });
+
+    Route::get('send','AdminUserController@sendEmail');
 
     Route::middleware(['auth:admin'])->group(function(){
 
@@ -89,8 +89,6 @@ Route::name('admin.')->prefix('admin')->group(function () {
             Route::get('all/{topicId?}','ResourceController@showAllResource');
             Route::post('delete','ResourceController@deleteResource')->name('delete');
         });
-
-        Route::get('send','AdminUserController@sendEmail');
     });
 });
 Route::fallback(function () {
