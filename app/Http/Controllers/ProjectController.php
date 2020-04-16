@@ -60,8 +60,9 @@ class ProjectController extends Controller
 
 	public function showEditProject($id)
 	{
+		$courses=Course::all();
 		$Project=Project::find($id);
-		return view('backend.Project.edit',['Project'=>$Project]);
+		return view('backend.Project.edit',['Project'=>$Project, 'courses'=>$courses]);
 	}
 
 	public function saveEditProject(Request $request, $id)
