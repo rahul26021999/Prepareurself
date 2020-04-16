@@ -122,10 +122,14 @@ class ProjectController extends Controller
 	public function deleteProject(Request $request)
 	{
 		$id=$request['id'];
-		$name=$request['name'];
-		Project::find($id)->delete();
-		Session::flash("success","You have Successfully Deleted ".$name);
-		return redirect()->back();
+		$name=$request['title'];
+		$success=Project::find($id)->delete();
+		if($success!=null)
+		{
+			Session::flash("success","You have Successfully Deleted ".$name);
+			return redirect()->back();
+		}
+
 	}
 
 }

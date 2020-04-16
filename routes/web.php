@@ -95,7 +95,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
              Route::get('edit/{id}','ProjectController@showEditProject');
              Route::post('edit/{id}','ProjectController@saveEditProject');
              Route::get('all/{course_name?}','ProjectController@showAllProject');
-             Route::get('delete','ProjectController@deleteProject')->name('delete');
+             Route::post('delete','ProjectController@deleteProject')->name('delete');
            
         });
     });
