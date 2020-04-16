@@ -31,10 +31,13 @@
     $.validator.setDefaults({
       submitHandler: function (form) {
         if(confirm("Please Check The content below from the attached Link"))
+        {
+          alert( $('input[type=radio][name=level]').val());
           form.submit();  
+        }
       }
     });
-    $('#createResource').validate({
+    $('#createProject').validate({
       rules: {
         name: {
           required: true
@@ -44,6 +47,9 @@
         },
         type:{
           required:true
+        },
+        level:{
+          required:true
         }
       },
       messages: {
@@ -52,6 +58,9 @@
         },
         link: {
           required: "Please enter a link to project"
+        },
+        level: {
+          required: "Please enter a level of project"
         }
 
       },
@@ -81,7 +90,7 @@
     }
     readURL($("input[name='link'"));
   });
-  function readURL(input) {
+function readURL(input) {
     if(type=='video')
     {
       var url=$(input).val();
@@ -159,6 +168,28 @@
                   <input type="radio" id="radioPrimary2" value="theory" name="type">
                   <label for="radioPrimary2">
                     Theory
+                  </label>
+                </div>
+              </div>
+
+              <label>Level</label>
+              <div class="form-group">
+                <div class="icheck-primary d-inline">
+                  <input type="radio" id="radioPrimary4" value="easy" name="level">
+                  <label for="radioPrimary4">
+                    Easy
+                  </label>
+                </div>
+                <div class="icheck-primary d-inline">
+                  <input type="radio" id="radioPrimary5" value="medium" name="level">
+                  <label for="radioPrimary5">
+                    Medium
+                  </label>
+                </div>
+                <div class="icheck-primary d-inline">
+                  <input type="radio" id="radioPrimary6" value="hard" name="level">
+                  <label for="radioPrimary6">
+                    Hard
                   </label>
                 </div>
               </div>

@@ -18,6 +18,7 @@ class CreateProjectsTable extends Migration
             $table->longText('name');
             $table->longText('description')->nullable();
             $table->enum('type',['theory','video']);
+            $table->enum('level',['easy','medium','hard']);
             $table->longText('image_url')->nullable();
             $table->longText('link');
             $table->string('playlist')->nullable();

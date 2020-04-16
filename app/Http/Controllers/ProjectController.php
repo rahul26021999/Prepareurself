@@ -31,13 +31,14 @@ class ProjectController extends Controller
 	public function createProject(Request $request)
 	{   	
 		try{
-
+			\Log::info($request['level']);
 			$Project=Project::create([
 				'link'=>$request['link'],
 				'name'=>$request['name'],
 				'course_id'=>$request['course_id'],
 				'admin_id'=>Auth::user()->id,
 				'type'=>$request['type'],
+				'level'=>$request['level'],
 				'description'=>$request['description'],
 				'playlist'=>$request['playlist'],
 			]);
@@ -82,6 +83,7 @@ class ProjectController extends Controller
 				$Project->description=$request['description'];
 				$Project->name=$request['name'];
 				$Project->link=$request['link'];
+				$Project->level=$request['level'];
 				$Project->type=$request['type'];
 				$Project->course_id=$request['course_id'];
 				$Project->admin_id=Auth::user()->id;
@@ -131,6 +133,86 @@ class ProjectController extends Controller
 		}
 
 	}
+
+
+
+
+
+	/**
+   * @OA\Post(
+   *     path="/api/get-projects",
+   *     tags={"Projects"},
+   *     description="Get all projects of a particular course",
+   *     @OA\Parameter(
+   *          name="token",
+   *          in="query",
+   *          description="token",
+   *          required=true,
+   *          @OA\Schema(
+   *              type="string"
+   *          )
+   *      ),
+   *     @OA\Parameter(
+   *          name="course_id",
+   *          in="query",
+   *          description="course_id of Course ",
+   *          required=true,
+   *          @OA\Schema(
+   *              type="integer"
+   *          )
+   *     ),
+   *     @OA\Parameter(
+   *          name="level",
+   *          in="query",
+   *          description="Level of projects : easy|medium|hard",
+   *          required=false,
+   *          @OA\Schema(
+   *              type="string"
+   *          )
+   *      ),
+   *     @OA\Parameter(
+   *          name="count",
+   *          in="query",
+   *          description="Count of resources,If not passed by default value of count is 10",
+   *          required=false,
+   *          @OA\Schema(
+   *              type="integer"
+   *          )
+   *      ),
+   *    @OA\Response(
+     *          response=200,
+     *      description="{[error_code=>0,msg=>'success'],[error_code=>1,msg=>'Course Id is Invalid'],[error_code=>2,'msg'=>'Course Id is Compulsory']}"
+     *     )
+     * )
+     */
+   
+   public function wsGetAllProjects(Request $request){
+      if(isset($request['course_id'])){
+          $course=Course::find($request['course_id']);
+          if($course!=null){
+			$level=isset($request['level'])?$request['level']:'';
+            $count= isset($request['count'])?$request['count']:'10';
+              if($level=='')
+              {
+                $Project=Project::where('course_id',$request['course_id'])->paginate($count);
+                return json_encode(['error_code'=>0,'Project'=>$Project]);
+              }
+              else{
+                $Project=Project::where('course_id',$request['course_id'])
+                          ->where('level',$level)
+                          ->paginate($count);
+                return json_encode(['error_code'=>0,'resources'=>$resources]);
+              }
+          }
+          else{
+            return json_encode(['error_code'=>1,'msg'=>'Course Id is Invalid']);
+          }
+      }
+      else{
+       return json_encode(['error_code'=>2,'msg'=>'Course Id is Compulsory']);
+      }
+      
+   }
 
 }
 //end of class

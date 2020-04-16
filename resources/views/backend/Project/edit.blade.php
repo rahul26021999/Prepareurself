@@ -34,8 +34,8 @@
           form.submit();  
       }
     });
-    $('#createResource').validate({
-      rules: {
+    $('#editProject').validate({
+       rules: {
         name: {
           required: true
         },
@@ -43,6 +43,9 @@
           required:true
         },
         type:{
+          required:true
+        },
+        level:{
           required:true
         }
       },
@@ -52,6 +55,9 @@
         },
         link: {
           required: "Please enter a link to project"
+        },
+        level: {
+          required: "Please enter a level of project"
         }
 
       },
@@ -81,6 +87,8 @@
     }
     readURL($("input[name='link'"));
   });
+
+  
   function readURL(input) {
     if(type=='video')
     {
@@ -126,7 +134,7 @@
   <!-- Main content -->
   <section class="content">
 
-    <form method="post" action="/admin/Project/edit/{{$Project['id']}}" id="createProject" enctype="multipart/form-data">
+    <form method="post" action="/admin/Project/edit/{{$Project['id']}}" id="editProject" enctype="multipart/form-data">
       @csrf
       <div class="card card-primary">
         <div class="card-body">
@@ -175,6 +183,41 @@
                   </label>
                 </div>
               </div>
+              <label>Level</label>
+              <div class="form-group">
+                <div class="icheck-primary d-inline">
+                  @if($Project['level']=='easy')
+                  <input type="radio" id="radioPrimary3" value="easy" name="level" checked="checked">
+                  @else
+                  <input type="radio" id="radioPrimary3" value="easy" name="level">
+                  @endif
+                  <label for="radioPrimary3">
+                    Easy
+                  </label>
+                </div>
+                <div class="icheck-primary d-inline">
+                  @if($Project['level']=='medium')
+                  <input type="radio" id="radioPrimary4" value="medium" name="level" checked="checked">
+                  @else
+                  <input type="radio" id="radioPrimary4" value="medium" name="level">
+                  @endif
+                  <label for="radioPrimary4">
+                    Medium
+                  </label>
+                </div>
+                <div class="icheck-primary d-inline">
+                  @if($Project['level']=='hard')
+                  <input type="radio" id="radioPrimary5" value="hard" name="level" checked="checked">
+                  @else
+                  <input type="radio" id="radioPrimary5" value="hard" name="level">
+                  @endif
+                  <label for="radioPrimary5">
+                    Hard
+                  </label>
+                </div>
+          
+              </div>
+              
 
               <div class="form-group">
                 <label>Link Url</label>
