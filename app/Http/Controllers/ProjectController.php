@@ -178,6 +178,15 @@ class ProjectController extends Controller
    *              type="integer"
    *          )
    *      ),
+   *     @OA\Parameter(
+   *          name="page",
+   *          in="query",
+   *          description="page no  of resources,If not passed by default value of count is 1",
+   *          required=false,
+   *          @OA\Schema(
+   *              type="integer"
+   *          )
+   *      ),
    *    @OA\Response(
      *          response=200,
      *      description="{[error_code=>0,msg=>'success'],[error_code=>1,msg=>'Course Id is Invalid'],[error_code=>2,'msg'=>'Course Id is Compulsory']}"

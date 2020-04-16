@@ -89,7 +89,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
             Route::get('all/{topicId?}','ResourceController@showAllResource');
             Route::post('delete','ResourceController@deleteResource')->name('delete');
         });
-        Route::name('Project.')->prefix('Project')->group(function(){
+        Route::name('Project.')->prefix('project')->group(function(){
              Route::get('create/{course_name?}','ProjectController@showCreateProject');
              Route::post('create','ProjectController@createProject');
              Route::get('edit/{id}','ProjectController@showEditProject');
