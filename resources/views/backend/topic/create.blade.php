@@ -130,7 +130,7 @@
                   </div>
                 </div>
               </div>
-               <div class="form-group">
+              <div class="form-group">
                 <label>Course</label>
                 <select name="course_id" class="form-control">
                   @foreach($courses as $course)

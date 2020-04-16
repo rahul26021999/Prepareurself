@@ -16,5 +16,9 @@ class Course extends Model
     {
     	return $this->hasManyThrough('App\Models\Resource', 'App\Models\CourseTopic');
     }
+    public function Project()
+    {
+        return $this->hasMany('App\Models\Projects');
+    }
 
 }
