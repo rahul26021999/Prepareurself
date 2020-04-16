@@ -31,7 +31,6 @@ class ProjectController extends Controller
 	public function createProject(Request $request)
 	{   	
 		try{
-			\Log::info($request['level']);
 			$Project=Project::create([
 				'link'=>$request['link'],
 				'name'=>$request['name'],

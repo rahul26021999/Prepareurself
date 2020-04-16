@@ -32,7 +32,6 @@
       submitHandler: function (form) {
         if(confirm("Please Check The content below from the attached Link"))
         {
-          alert( $('input[type=radio][name=level]').val());
           form.submit();  
         }
       }
