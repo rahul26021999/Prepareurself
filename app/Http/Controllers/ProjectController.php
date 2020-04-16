@@ -96,17 +96,25 @@ class ProjectController extends Controller
 		return redirect('admin/Project/all');
 	}
 
-	public function showAllProject($project_id='')
+	public function showAllProject($course_name='')
 	{
 
-		if($project_id=='')
+		if($course_name=='')
 		{
-			$project=Project::with('Course')->get();
-			return view('backend.Project.all',['Project'=>$project]);  
+			$Project=Project::with('Course')->get();
+			// echo $Project;
+			return view('backend.Project.all',['Project'=>$Project]);  
 		}
 		else{
-			$project=Project::find($project_id);
-			return view('backend.Project.show',['Project'=>$project]);
+			$course=Course::where('name',$course_name)->first();
+		        if($course!=null)
+		        {
+		          $Project=Project::where('course_id',$course['id'])->get();
+		          return view('backend.Project.show',['course'=>$course,'Project'=>$Project]);
+		        }
+		        else{
+		          abort(404);
+		        }
 		}
 	}
 
