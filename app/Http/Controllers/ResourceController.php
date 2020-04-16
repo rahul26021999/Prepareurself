@@ -149,7 +149,7 @@ class ResourceController extends Controller
    *          )
    *      ),
    *     @OA\Parameter(
-   *          name="page_number",
+   *          name="page",
    *          in="query",
    *          description="Page number , if not then by default page 1",
    *          required=false,
@@ -169,17 +169,16 @@ class ResourceController extends Controller
           $topic=CourseTopic::find($request['topic_id']);
           if($topic!=null){
               $type=isset($request['type'])?$request['type']:'';
-              $pageNumber= isset($request['page_number'])?$request['page_number']:'1';
               $count= isset($request['count'])?$request['count']:'10';
               if($type=='')
               {
-                $resources=Resource::where('course_topic_id',$request['topic_id'])->paginate($count, ['*'],'page',$pageNumber);
+                $resources=Resource::where('course_topic_id',$request['topic_id'])->paginate($count);
                 return json_encode(['error_code'=>0,'resources'=>$resources]);
               }
               else{
                 $resources=Resource::where('course_topic_id',$request['topic_id'])
                           ->where('type',$type)
-                          ->paginate($count, ['*'],'page',$pageNumber);
+                          ->paginate($count);
                 return json_encode(['error_code'=>0,'resources'=>$resources]);
               }
           }

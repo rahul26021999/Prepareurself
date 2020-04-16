@@ -160,7 +160,7 @@ class TopicController extends Controller
    *          )
    *      ),
    *     @OA\Parameter(
-   *          name="page_number",
+   *          name="page",
    *          in="query",
    *          description="Page number , if not then by default page 1",
    *          required=false,
@@ -181,9 +181,8 @@ class TopicController extends Controller
        $course=Course::where('id',$request['course_id'])->first();
         if($course!=null)
         {
-          $pageNumber= isset($request['page_number'])?$request['page_number']:'1';
           $count= isset($request['count'])?$request['count']:'10';
-          $CourseTopic=CourseTopic::where('course_id',$course['id'])->paginate($count, ['*'],'page',$pageNumber);;
+          $CourseTopic=CourseTopic::where('course_id',$course['id'])->paginate($count);
           return json_encode(['error_code'=>0,'topics'=>$CourseTopic]);
         }
         else{

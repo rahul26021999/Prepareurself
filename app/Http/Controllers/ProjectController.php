@@ -172,7 +172,7 @@ class ProjectController extends Controller
    *     @OA\Parameter(
    *          name="count",
    *          in="query",
-   *          description="Count of resources,If not passed by default value of count is 10",
+   *          description="Count of projects,If not passed by default value of count is 10",
    *          required=false,
    *          @OA\Schema(
    *              type="integer"
@@ -181,7 +181,7 @@ class ProjectController extends Controller
    *     @OA\Parameter(
    *          name="page",
    *          in="query",
-   *          description="page no  of resources,If not passed by default value of count is 1",
+   *          description="page no  of projects,If not passed by default value of page is 1",
    *          required=false,
    *          @OA\Schema(
    *              type="integer"
@@ -209,7 +209,7 @@ class ProjectController extends Controller
                 $Project=Project::where('course_id',$request['course_id'])
                           ->where('level',$level)
                           ->paginate($count);
-                return json_encode(['error_code'=>0,'resources'=>$resources]);
+                return json_encode(['error_code'=>0,'Project'=>$Project]);
               }
           }
           else{
