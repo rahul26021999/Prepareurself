@@ -82,7 +82,7 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header">
-            <a href="/admin/project/create/"class="btn btn-success">New</a>
+            <a href="/admin/project/create"class="btn btn-success">New</a>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
