@@ -221,5 +221,53 @@ class ProjectController extends Controller
       
    }
 
+
+
+
+
+   /**
+   * @OA\Post(
+   *     path="/api/view-project",
+   *     tags={"Projects"},
+   *     description="Increment View of a particular Project",
+   *     @OA\Parameter(
+   *          name="token",
+   *          in="query",
+   *          description="token",
+   *          required=true,
+   *          @OA\Schema(
+   *              type="string"
+   *          )
+   *      ),
+   *     @OA\Parameter(
+   *          name="project_id",
+   *          in="query",
+   *          description="project_id ",
+   *          required=true,
+   *          @OA\Schema(
+   *              type="integer"
+   *          )
+   *     ),
+   *     @OA\Response(
+     *          response=200,
+     *      description="{[error_code=>0,msg=>'success'],[error_code=>1,msg=>'Project Id is Invalid']}"
+     *     )
+     * )
+     */
+   public function wsViewProject(Request $request){
+
+    if(isset($request['project_id'])){
+          $project=Project::find($request['project_id']);
+          if($project!=null){
+            Project::where('id',$request['project_id'])->increment('views');
+            return response()->json(['error_code'=>0,'msg'=>'success']);
+          }
+          else{
+            return response()->json(['error_code'=>1,'msg'=>'Project Id is Invalid']);
+          }
+
+    }
+  }
+
 }
 //end of class
