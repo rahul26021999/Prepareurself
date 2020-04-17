@@ -176,13 +176,20 @@ class ResourceController extends Controller
               {
                 $resources=Resource::withCount(['ResourceProjectLikes as like'=>function($query){
                       $query->where('user_id',JWTAuth::user()->id);
-                }])->withCount('ResourceProjectLikes as total_likes')->where('course_topic_id',$request['topic_id'])->paginate($count);
+                }])->withCount('ResourceProjectLikes as total_likes')
+                ->where('course_topic_id',$request['topic_id'])
+                ->paginate($count);
                 return response()->json(['error_code'=>0,'resources'=>$resources]);
               }
               else{
-                $resources=Resource::where('course_topic_id',$request['topic_id'])
+                
+                $resources=Resource::withCount(['ResourceProjectLikes as like'=>function($query){
+                      $query->where('user_id',JWTAuth::user()->id);
+                }])->withCount('ResourceProjectLikes as total_likes')
+                          ->where('course_topic_id',$request['topic_id'])
                           ->where('type',$type)
                           ->paginate($count);
+
                 return response()->json(['error_code'=>0,'resources'=>$resources]);
               }
           }
