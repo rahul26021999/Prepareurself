@@ -12,4 +12,8 @@ class Resource extends Model
     {
         return $this->belongsTo('App\Models\CourseTopic');
     }
+    public function ResourceProjectLikes()
+    {
+        return $this->hasMany('App\Models\ResourceProjectLikes','resource_id');
+    }
 }

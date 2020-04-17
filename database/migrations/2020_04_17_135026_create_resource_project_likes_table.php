@@ -14,6 +14,7 @@ class CreateResourceProjectLikesTable extends Migration
     public function up()
     {
         Schema::create('resource_project_likes', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('resource_id')->nullable();
             $table->unsignedBigInteger('project_id')->nullable();

@@ -8,6 +8,7 @@ use App\Models\Resource;
 use App\Models\CourseTopic;
 use App\Models\Course;
 use Session;
+use JWTAuth;
 use Log;
 use Auth;
 
@@ -165,6 +166,7 @@ class ResourceController extends Controller
      */
    
    public function wsGetAllResources(Request $request){
+      $user_id=JWTAuth::user()->id;
       if(isset($request['topic_id'])){
           $topic=CourseTopic::find($request['topic_id']);
           if($topic!=null){
@@ -172,22 +174,24 @@ class ResourceController extends Controller
               $count= isset($request['count'])?$request['count']:'10';
               if($type=='')
               {
-                $resources=Resource::where('course_topic_id',$request['topic_id'])->paginate($count);
-                return json_encode(['error_code'=>0,'resources'=>$resources]);
+                $resources=Resource::withCount(['ResourceProjectLikes as like'=>function($query){
+                      $query->where('user_id',JWTAuth::user()->id);
+                }])->withCount('ResourceProjectLikes as total_likes')->where('course_topic_id',$request['topic_id'])->paginate($count);
+                return response()->json(['error_code'=>0,'resources'=>$resources]);
               }
               else{
                 $resources=Resource::where('course_topic_id',$request['topic_id'])
                           ->where('type',$type)
                           ->paginate($count);
-                return json_encode(['error_code'=>0,'resources'=>$resources]);
+                return response()->json(['error_code'=>0,'resources'=>$resources]);
               }
           }
           else{
-            return json_encode(['error_code'=>1,'msg'=>'Topic Id is Invalid']);
+            return response()->json(['error_code'=>1,'msg'=>'Topic Id is Invalid']);
           }
       }
       else{
-       return json_encode(['error_code'=>2,'msg'=>'Topic Id is Compulsory']);
+       return response()->json(['error_code'=>2,'msg'=>'Topic Id is Compulsory']);
       }
       
    }

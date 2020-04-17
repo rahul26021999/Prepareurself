@@ -93,7 +93,7 @@ class CourseController extends Controller
    */
    public function wsGetAllCourses(){
     $courses=Course::all();
-    return json_encode(['error_code'=>0,'courses'=>$courses]);
+    return response()->json(['error_code'=>0,'courses'=>$courses]);
    }
 
 }

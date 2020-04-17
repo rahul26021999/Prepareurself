@@ -183,14 +183,14 @@ class TopicController extends Controller
         {
           $count= isset($request['count'])?$request['count']:'10';
           $CourseTopic=CourseTopic::where('course_id',$course['id'])->paginate($count);
-          return json_encode(['error_code'=>0,'topics'=>$CourseTopic]);
+          return response()->json(['error_code'=>0,'topics'=>$CourseTopic]);
         }
         else{
-          return json_encode(['error_code'=>1,'msg'=>'Course Id is Invalid']);
+          return response()->json(['error_code'=>1,'msg'=>'Course Id is Invalid']);
         }
      }
      else{
-       return json_encode(['error_code'=>2,'msg'=>'Course Id is Compulsory']);
+       return response()->json(['error_code'=>2,'msg'=>'Course Id is Compulsory']);
      }
    }
 
