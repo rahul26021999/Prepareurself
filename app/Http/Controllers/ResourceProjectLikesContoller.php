@@ -80,22 +80,22 @@ class ResourceProjectLikesContoller extends Controller
 				    		'resource_id'=>$resource_id;	
 				    	]);
 				    }
-				    return response()->json(['success'=>true,'message'=>"Liked successfull"]);
+				    return response()->json(['success'=>true,'error_code'=>0,'message'=>"Liked successfull"]);
 	    		}
 	    		else{
 	    			$already=ResourceProjectLikes::where('user_id',JWTAuth::user()->id)
 	    				->where('project_id',$project_id)
 	    				->where('resource_id',$resource_id)
 	    				->delete();
-	    			return response()->json(['success'=>true,'message'=>"Unliked successfull"]);
+	    			return response()->json(['success'=>true,'error_code'=>0,'message'=>"Unliked successfull"]);
 	    		}
     		}
     		else{
-    			return response()->json(['success'=>false,'message'=>"Both project_id and resource_id can't be null"]);
+    			return response()->json(['success'=>false,'error_code'=>1,'message'=>"Both project_id and resource_id can't be null"]);
     		}
     	}
     	else{
-    		return response()->json(['success'=>false,'message'=>"like field is required"]);
+    		return response()->json(['success'=>false,'error_code'=>2,'message'=>"like field is required"]);
     	}
     }
 }
