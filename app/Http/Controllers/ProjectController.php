@@ -104,7 +104,6 @@ class ProjectController extends Controller
 		if($course_name=='')
 		{
 			$Project=Project::with('Course')->get();
-			// echo $Project;
 			return view('backend.Project.all',['Project'=>$Project]);  
 		}
 		else{

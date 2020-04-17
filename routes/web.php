@@ -17,10 +17,9 @@ Route::get('/', function () {
 
 Route::get('/home', 'HomeController@index');
 
-Route::prefix('share')->name('share.')->group(function(){
-    Route::get('{name}/{id}','ShareController@share');
+Route::name('share.')->prefix('share')->group(function () {
+    Route::get('/','ShareController@share');
 });
-// Auth::routes();
 
 
 Route::name('admin.')->prefix('admin')->group(function () {
@@ -94,16 +93,15 @@ Route::name('admin.')->prefix('admin')->group(function () {
             Route::post('delete','ResourceController@deleteResource')->name('delete');
         });
         Route::name('project.')->prefix('project')->group(function(){
-             Route::get('create/{course_name?}','ProjectController@showCreateProject');
-             Route::post('create','ProjectController@createProject');
-             Route::get('edit/{id}','ProjectController@showEditProject');
-             Route::post('edit/{id}','ProjectController@saveEditProject');
-             Route::get('all/{course_name?}','ProjectController@showAllProject');
-             Route::post('delete','ProjectController@deleteProject')->name('delete');
-           
-        });
+           Route::get('create/{course_name?}','ProjectController@showCreateProject');
+           Route::post('create','ProjectController@createProject');
+           Route::get('edit/{id}','ProjectController@showEditProject');
+           Route::post('edit/{id}','ProjectController@saveEditProject');
+           Route::get('all/{course_name?}','ProjectController@showAllProject');
+           Route::post('delete','ProjectController@deleteProject')->name('delete');
+       });
     });
 });
-Route::fallback(function () {
-    return redirect()->guest('/');
-});
+// Route::fallback(function () {
+//     return redirect()->guest('/');
+// });
