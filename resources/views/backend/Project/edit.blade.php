@@ -25,6 +25,18 @@
 <script src="{{ asset('AdminLTE/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
 
 <script type="text/javascript">
+
+
+  $(function () {
+    // Summernote
+    $('.textarea').summernote({
+        height: 150,   //set editable area's height
+        codemirror: { // codemirror options
+          theme: 'monokai'
+        }
+      });
+  });
+
   $(document).ready(function () {
 
     bsCustomFileInput.init();
@@ -145,10 +157,6 @@
                 <input type="text" name="name" value="{{$Project['name']}}" class="form-control" >
               </div>
               <div class="form-group">
-                <label>Description</label>
-                <input type="text" name="description"  value="{{$Project['description']}}" class="form-control" >
-              </div>
-              <div class="form-group">
                 <label>Course</label>
                 <select name="course_id" class="form-control">
                   @foreach($courses as $course)
@@ -231,6 +239,11 @@
             </div>
 
             <div class="col-sm-6">
+              <div class="form-group">
+                <label>Description</label>
+                <textarea class="textarea" name="description" placeholder="Place some text here"
+                          style="width: 100%; height: 500px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{$Project['description']}}</textarea>
+              </div>
               <div class="form-group">
                 <label for="exampleInputFile">Background Image</label>
                 <div class="input-group">

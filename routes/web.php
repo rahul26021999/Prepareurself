@@ -17,8 +17,8 @@ Route::get('/', function () {
 
 Route::get('/home', 'HomeController@index');
 
-Route::name('share.')->prefix('share')->group(function () {
-    Route::get('/','ShareController@share');
+Route::name('share.')->group(function () {
+    Route::get('topic/','ShareController@share');
 });
 
 
