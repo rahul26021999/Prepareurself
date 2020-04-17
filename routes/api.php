@@ -25,4 +25,5 @@ Route::middleware('auth.jwt')->group(function () {
 	Route::post('get-topics', 'TopicController@wsGetAllTopics');
 	Route::post('get-resources', 'ResourceController@wsGetAllResources');
 	Route::post('get-projects', 'ProjectController@wsGetAllProjects');
+	Route::post('hit-like', 'ResourceProjectLikesController@wsHitlike');
 });
