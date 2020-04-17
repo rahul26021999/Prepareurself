@@ -233,13 +233,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/admin/Project/create" class="nav-link">
+                <a href="/admin/project/create" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Create New</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/admin/Project/all" class="nav-link">
+                <a href="/admin/project/all" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>All Projects</p>
                 </a>
