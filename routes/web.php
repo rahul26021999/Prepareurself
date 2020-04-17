@@ -17,7 +17,11 @@ Route::get('/', function () {
 
 Route::get('/home', 'HomeController@index');
 
-Auth::routes();
+Route::prefix('share')->name('share.')->group(function(){
+    Route::get('{name}/{id}','ShareController@share');
+});
+// Auth::routes();
+
 
 Route::name('admin.')->prefix('admin')->group(function () {
 
