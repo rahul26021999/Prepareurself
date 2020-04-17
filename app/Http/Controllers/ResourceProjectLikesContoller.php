@@ -14,8 +14,17 @@ class ResourceProjectLikesContoller extends Controller
 	/**
      * @OA\Post(
      *     path="/api/hit-like",
-     *     tags={"Likes|Dislikes|Views|Comments"},
+     *     tags={"Likes | Dislikes | Views"},
      *     description="Like/Dislike a resource or peoject in prepareurself",
+     *     @OA\Parameter(
+	 *          name="token",
+	 *          in="query",
+	 *          description="token",
+	 *          required=true,
+	 *          @OA\Schema(
+	 *              type="string"
+	 *          )
+	 *      ),
 	 *     @OA\Parameter(
 	 *          name="like",
 	 *          in="query",
