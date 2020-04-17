@@ -67,7 +67,7 @@ class UserAuthController extends Controller
 		$validator=$this->authenticateNewRegisterationRule($request);
 		if($validator->fails()){
 			$errors=$validator->errors();
-			return json_encode(["success"=>false,"errors"=>$errors,"message"=>"Invalid user data"]);
+			return json_encode(["success"=>false,'error_code'=>1,"errors"=>$errors,"message"=>"Invalid user data"]);
 		}
 		else{
 			$user=$this->saveUserData($request);	
@@ -149,12 +149,13 @@ class UserAuthController extends Controller
 	        $user=JWTAuth::user();
 	        return response()->json([
 	            'success' => true,
+	            'error_code'=>0,
 	            'token' => $token,
 	            'user' => $user
 	        ]);
 		}
 		else{
-			return json_encode(['success'=>false,"message"=>'Missing email or password']);
+			return json_encode(['success'=>false,'error_code'=>1,"message"=>'Missing email or password']);
 		}
 	}
 
