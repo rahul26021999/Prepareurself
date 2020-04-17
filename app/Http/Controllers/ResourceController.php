@@ -202,4 +202,48 @@ class ResourceController extends Controller
       }
       
    }
+
+  /**
+   * @OA\Post(
+   *     path="/api/view-resource",
+   *     tags={"Resources"},
+   *     description="Increment View of a particular Resource",
+   *     @OA\Parameter(
+   *          name="token",
+   *          in="query",
+   *          description="token",
+   *          required=true,
+   *          @OA\Schema(
+   *              type="string"
+   *          )
+   *      ),
+   *     @OA\Parameter(
+   *          name="resource_id",
+   *          in="query",
+   *          description="resource_id ",
+   *          required=true,
+   *          @OA\Schema(
+   *              type="integer"
+   *          )
+   *     ),
+   *     @OA\Response(
+     *          response=200,
+     *      description="{[error_code=>0,msg=>'success'],[error_code=>1,msg=>'Resource Id is Invalid']}"
+     *     )
+     * )
+     */
+   public function wsViewResource(Request $request){
+
+    if(isset($request['resource_id'])){
+          $resource=Resource::find($request['resource_id']);
+          if($resource!=null){
+           $s = Resource::where('id',$request['resource_id'])->increment('views');
+            return response()->json(['error_code'=>0,'msg'=>'success']);
+          }
+          else{
+            return response()->json(['error_code'=>1,'msg'=>'Resource Id is Invalid']);
+          }
+
+    }
+  }
 }
