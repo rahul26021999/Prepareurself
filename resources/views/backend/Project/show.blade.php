@@ -10,6 +10,8 @@
 <script src="{{ asset('AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
 <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
 
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('AdminLTE/dist/js/demo.js')}}"></script>
 <!-- page script -->
@@ -28,17 +30,29 @@
       "autoWidth": false,
       "responsive": true,
     });
-
   });
-
-
   $(".deleteButton").on('click',function() {
     var id=$(this).data('id');
-    var title=$(this).data('title');
+    var title=$(this).data('name');
+    var courseName=$(this).data('course');
+    console.log(courseName);
+    $('#deleteTopicCourseName').val(courseName);
+    $('#deleteTopicId').val(id);
+    $('#deleteTopicTitle').text(title);       
+  });
 
-    $('#deleteResourceId').val(id);
-    $('#deleteResourceTitleText').text(title);
-    $('#deleteResourceTitle').val(title);       
+  $("#sortable4").sortable({
+    placeholder: 'drop-placeholder',
+    items: "li:not(.ui-state-disabled)"
+  });
+
+  $(".pin").on('click',function(){
+    var id=$(this).data('id');      
+    $(this).toggleClass('text-light');
+    $(this).toggleClass('text-muted');
+    $('#listItem'+id).toggleClass('bg-danger');
+    $('#listItem'+id).toggleClass('ui-state-disabled');
+
   });
 </script>
 
@@ -50,7 +64,15 @@
 <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
 
-
+<style type="text/css">
+  .drop-placeholder {
+    background-color: lightgray;
+    height: 3.5em;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    line-height: 1.2em;
+  }
+</style>
 @endsection
 
 
@@ -63,13 +85,13 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>List of all Projects</h1>
+          <h1>Projects in <b class="text-danger">{{$course['name']}}</b> Course</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="/admin/home">Home</a></li>
-            <li class="breadcrumb-item">Projects</li>
-            <li class="breadcrumb-item active">All</li>
+            <li class="breadcrumb-item active">{{$course['name']}}</li>
+            <li class="breadcrumb-item active">Projects</li>
           </ol>
         </div>
       </div>
@@ -80,30 +102,34 @@
   <section class="content">
     <div class="row">
       <div class="col-12">
-        <div class="card">
+        <div class="card card-primary">
           <div class="card-header">
-            <a href="/admin/Project/create/"class="btn btn-success">New</a>
+            <h3 class="card-title"><b>See All Projects</b></h3>
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+              </button>
+            </div>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
+            <a href="/admin/project/create/{{$course['name']}}"class="btn btn-success mb-3">Create a New Project in {{$course['name']}}</a>
+           
             <table id="example2" class="table table-bordered table-hover">
               <thead>
                 <tr>
                   <th>Id</th>
                   <th>Name</th>
-                  <th>Course</th>
-                  <th>Type|Level</th>
-
+                  <th>Type | Level</th>
                   <th>Action</th>
+                  
                 </tr>
               </thead>
               <tbody>
                 @foreach($Project as $project)
-                <tr>                      
-                  <td><a href ="" ># {{$project['id']}} </a></td>
+                <tr>
+                  <td><a href ="" >#{{$project['id']}}</a></td>
                   <td>{{$project['name']}}</td>
-                  <td><a href ="/admin/course/all" data-toggle="tooltip" title="Show all Projects" >{{$project['course']['name']}}</a></td>
-                  <td>
+                 <td>
                   @if($project['type']=='video')
                   <a target="_blank" data-toggle="tooltip" title="Video | Click to view" href="{{$project['link']}}" class="mr-3"><span class="right badge badge-info"> V </span></a>
                   @else
@@ -116,16 +142,13 @@
                   @else
                   <a data-toggle="tooltip" title="Hard" class="mr-3"><span class="right badge badge-danger"> H </span></a>
                   @endif
-
-
                   </td>
                   <td>
                     <a href ="/admin/project/edit/{{$project['id']}}" data-toggle="tooltip" title="Edit"  class="mr-3"><i class="far fa-edit text-info"></i></a>
-                    <a target="_blank" data-toggle="tooltip" title="View Image" href="/uploads/projects/{{$project['image_url']}}" class="mr-3"><i class="fas fa-image text-secondary"></i></a>
-                    <i data-toggle="modal" data-title="{{$project['name']}}" data-id="{{$project['id']}}" data-target="#deleteModal" style="cursor: pointer;" class="deleteButton far fa-trash-alt text-danger"></i>
+                    <a target="_blank" data-toggle="tooltip" title="View Image" href="/uploads/projects/{{$project['image_url']}}" class="mr-3"><i class="fas fa-image text-success"></i></a>
 
                   </td>
-                </tr>
+                 </tr>
                 @endforeach
               </tbody>
               <tfoot>
@@ -136,7 +159,6 @@
           <!-- /.card-body -->
         </div>
         <!-- /.card -->
-
       </div>
       <!-- /.col -->
     </div>
@@ -144,36 +166,8 @@
   </section>
   <!-- /.content -->
 
-
-  <!-- Delete Modal -->
-
-  <!-- Modal -->
-  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <form method="post" action="{{route('admin.project.delete')}}">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Are You sure ?</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-
-            <p>Are you sure you Want to delete Project - <b><span id="deleteResourceTitleText"></span></b> </p>
-            @csrf
-            <input type="hidden" name="title" id="deleteResourceTitle">
-            <input type="hidden" name="id" id="deleteResourceId">
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-danger">Delete</button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-
 </div>
+
+
 
 @endsection

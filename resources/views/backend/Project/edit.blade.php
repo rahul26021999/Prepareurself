@@ -134,7 +134,7 @@
   <!-- Main content -->
   <section class="content">
 
-    <form method="post" action="/admin/Project/edit/{{$Project['id']}}" id="editProject" enctype="multipart/form-data">
+    <form method="post" action="/admin/project/edit/{{$Project['id']}}" id="editProject" enctype="multipart/form-data">
       @csrf
       <div class="card card-primary">
         <div class="card-body">
@@ -256,7 +256,7 @@
           </div> <!-- //end of row -->
         </div>    
         <div class="card-footer">
-          <a id="cancel" href="/admin/Project/all" class="btn btn-danger">Cancel</a>
+          <a id="cancel" href="/admin/project/all" class="btn btn-danger">Cancel</a>
           <button type="submit" class="btn btn-primary float-right">Submit</button>
         </div>
       </div>

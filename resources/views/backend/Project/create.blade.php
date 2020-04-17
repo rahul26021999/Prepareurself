@@ -133,7 +133,7 @@ function readURL(input) {
 
   <!-- Main content -->
   <section class="content">
-    <form method="post" action="/admin/Project/create" id="createProject" enctype="multipart/form-data">
+    <form method="post" action="/admin/project/create" id="createProject" enctype="multipart/form-data">
       @csrf
       <div class="card card-primary">
         <div class="card-body">

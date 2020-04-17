@@ -90,7 +90,9 @@
                          <a target="_blank" data-toggle="tooltip" title="View Image" href="/uploads/courses/{{$course['image_url']}}" class="mr-3"><i class="fas fa-image text-success"></i></a>
                          <a target="_blank" data-toggle="tooltip" title="Add Topic" href ="/admin/topic/create/{{$course['name']}}" class="mr-3"><i class="fas fa-plus"></i></a>
                         <a data-toggle="tooltip" title="Go to Topics" href ="/admin/topic/all/{{$course['name']}}" class="mr-3"><ion-icon name="file-tray-stacked" class="text-body"></ion-icon></a>
+                        <a href="/admin/project/all/{{$course['name']}}" title="Go to projects" class="right badge badge-warning">   Projects </a>&nbsp&nbsp
                         <a href ="" ><i class="far fa-trash-alt text-danger"></i></a></td>
+                       
                     </tr>
                   @endforeach
                 </tbody>

@@ -55,7 +55,7 @@ class ProjectController extends Controller
 		catch(Exception $e){
 			Log::error("Error in creating Project ".$e);          
 		}
-		return redirect('/admin/Project/all');  
+		return redirect('/admin/project/all');  
 	}
 
 	public function showEditProject($id)
@@ -95,7 +95,7 @@ class ProjectController extends Controller
 		catch(Exception $e){
 			Log::error("Error in saving Project".$e);    
 		}
-		return redirect('admin/Project/all');
+		return redirect('admin/project/all');
 	}
 
 	public function showAllProject($course_name='')
