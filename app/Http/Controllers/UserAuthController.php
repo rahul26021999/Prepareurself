@@ -218,6 +218,16 @@ class UserAuthController extends Controller
 	 *              type="string"
 	 *          )
 	 *      ),
+	 *     @OA\Parameter(
+	 *          name="preferences[]",
+	 *          in="query",
+	 *          description="User Preferences Please enter only integers",
+	 *          required=false,
+	 *          @OA\Schema(
+	 *             	type="array",
+	 *			     @OA\Items(type="integer"),
+	 *          )
+	 *      ),
      *     @OA\Response(
      *          response=200,
      *			description="{[error_code=>0,msg=>'Update Successfully Done']}"
@@ -239,8 +249,10 @@ class UserAuthController extends Controller
 			if($request->filled('android_token'))
 			$user->android_token=$request->input('android_token');
 			if($request->filled('dob'))
-			$user->dob=$request->input('dob');
-
+			$user->dob=strtotime($request->input('dob'));
+			if($request->filled('preferences'))
+			$user->preferences=implode(',',$request->input('preferences'));
+			
 			$user->save();
 			return json_encode(['error_code'=>0,"user_data"=>$user,"msg"=>"update Successfully Done"]);
 		}

@@ -504,6 +504,18 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "name": "preferences[]",
+                        "in": "query",
+                        "description": "User Preferences Please enter only integers",
+                        "required": false,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        }
                     }
                 ],
                 "responses": {
