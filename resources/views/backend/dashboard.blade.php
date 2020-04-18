@@ -3,17 +3,32 @@
 
 @section('javascriptsContent')
 
-  <!-- OPTIONAL SCRIPTS -->
-  <script src="{{ asset('AdminLTE/plugins/chart.js/Chart.min.js')}}"></script>
-  <script src="{{ asset('AdminLTE/dist/js/demo.js')}}"></script>
-  <script src="{{ asset('AdminLTE/dist/js/pages/dashboard3.js')}}"></script>
+<!-- OPTIONAL SCRIPTS -->
+<script src="{{ asset('AdminLTE/plugins/chart.js/Chart.min.js')}}"></script>
+<script src="{{ asset('AdminLTE/dist/js/demo.js')}}"></script>
+<script src="{{ asset('AdminLTE/dist/js/pages/dashboard3.js')}}"></script>
 
-  <script type="text/javascript">
-    $(".copy").on('click',function() {
-        $(this).select();
-        document.execCommand('copy');
+<script type="text/javascript">
+
+  $("#tokenCopy").on('click',function() {
+    $("#token").select();
+    document.execCommand('copy');
+
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      heightAuto:true,
+      timer: 2000
     });
-  </script>
+
+    Toast.fire({
+      type: 'info',
+      title: 'Copied to ClipBoard'
+    });
+
+  });
+</script>
 
 @endsection
 
@@ -43,36 +58,38 @@
   <div class="content">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-9">
-          <div class="card">
+        <div class="col-lg-6">
+          <div class="card card-success">
             <div class="card-header border-0">
               <div class="d-flex justify-content-between">
-                <h3 class="card-title">Default user details</h3>
+                <h3 class="card-title"><b>Default user details</b></h3>
               </div>
             </div>
             <div class="card-body">
-              <div class="d-flex">
-                <p class="d-flex flex-column">
-                  <span class="text-bold">Email</span>
-                  <span class="text-bold">Password</span>
-                  <span class="text-bold">JWT Token</span>
-                </p>
-                <p class="ml-auto d-flex flex-column text-right">
-                  <span class="text-success" style="cursor: copy;">
-                    user@prepareurself.com
-                  </span>
-                  <span class="text-success" style="cursor: copy;">
-                    Pass@123
-                  </span>
-                  <span class="text-success" style="word-break: break-all;cursor:pointer;">
-                    eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9wcmVwYXJldXJzZWxmLnRrXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTg3MjE5ODA1LCJleHAiOjE1OTQ5OTU4MDUsIm5iZiI6MTU4NzIxOTgwNSwianRpIjoiRDVyWDNxSnozb1hVR3FwUCIsInN1YiI6NiwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.54ZLUYD9X6UdrtQeYRdguR1I2o0OiIPiNgaWIc56vr8
-                  </div>
-                </p>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" class="form-control" id="email" value="user@prepareurself.com">
               </div>
-            
+              <div class="form-group">
+                <label for="email">Password</label>
+                <input type="text" class="form-control" id="email" value="Pass@123">
+              </div>
+
+
+              <div class="form-group">
+                  <label for="token">Token</label>
+                <div class="input-group">
+                  <input type="text" id="token"  class="form-control" value="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9wcmVwYXJldXJzZWxmLnRrXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTg3MjE5ODA1LCJleHAiOjE1OTQ5OTU4MDUsIm5iZiI6MTU4NzIxOTgwNSwianRpIjoiRDVyWDNxSnozb1hVR3FwUCIsInN1YiI6NiwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.54ZLUYD9X6UdrtQeYRdguR1I2o0OiIPiNgaWIc56vr8">
+
+                  <div class="input-group-append">
+                    <span class="input-group-text" id="tokenCopy" style="cursor: pointer;">Copy</span>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
-      
+
           <!-- /.card -->
         </div>
       </div>
