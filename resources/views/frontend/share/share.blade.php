@@ -15,9 +15,9 @@
     <script>
     window.onload = function() {
     <!-- Deep link URL for existing users with app already installed on their device -->
-        window.location = 'https://play.google.com/store/apps/details?id=com.playit.videoplayer';
+        window.location = 'http://prepareurself.tk/vedio-resource';
     <!-- Download URL (TUNE link) for new users to download the app -->
-        setTimeout("window.location = 'http://hastrk.com/serve?action=click&publisher_id=1&site_id=2';", 1000);
+        setTimeout("window.location = 'https://play.google.com/store/apps/details?id=com.playit.videoplayer';", 1000);
     }
     </script>
 </head>
