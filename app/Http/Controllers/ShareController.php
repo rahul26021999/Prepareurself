@@ -20,7 +20,7 @@ class ShareController extends Controller
 
     public function share()
     {
-    	$link=$HOME_SCHEME.$APP_URL."screen=".$HOME_ACTIVITY;
+    	$link=$this->HOME_SCHEME."screen=".$this->HOME_ACTIVITY;
     	return view('frontend.share.app',['link'=>$link]);
     }
     public function shareResource($id)
@@ -28,9 +28,9 @@ class ShareController extends Controller
     	$resource_id=base64_decode($id);
     	$resource=Resource::find($resource_id);
     	if($resource!=null)
-    		$link=$RESOURCE_SCHEME."screen=".$RESOURCE_ACTIVITY."&type=".$resource->type."&id=".$resource->id;
+    		$link=$this->RESOURCE_SCHEME."screen=".$this->RESOURCE_ACTIVITY."&type=".$resource->type."&id=".$resource->id;
     	else
-    		$link=$HOME_SCHEME."screen=".$HOME_ACTIVITY;
+    		$link=$this->HOME_SCHEME."screen=".$this->HOME_ACTIVITY;
 
     	return view('frontend.share.app',['link'=>$link]);
     }
@@ -39,9 +39,9 @@ class ShareController extends Controller
     	$project_id=base64_decode($id);
     	$project=Project::find($project_id);
     	if($project!=null)
-    		$link=$COURSE_SCHEME."screen=".$COURSE_ACTIVITY."&id=".$project->id;
+    		$link=$this->COURSE_SCHEME."screen=".$this->COURSE_ACTIVITY."&id=".$project->id;
     	else
-    		$link=$HOME_SCHEME."screen=".$HOME_ACTIVITY;
+    		$link=$this->HOME_SCHEME."screen=".$this->HOME_ACTIVITY;
 
     	return view('frontend.share.app',['link'=>$link]);
     }
@@ -51,9 +51,9 @@ class ShareController extends Controller
     	$course_id=base64_decode($id);
     	$course=Course::find($course_id);
     	if($course!=null)
-    		$link=$COURSE_SCHEME."screen=".$COURSE_ACTIVITY."&id=".$course->id;
+    		$link=$this->COURSE_SCHEME."screen=".$this->COURSE_ACTIVITY."&id=".$course->id;
     	else
-    		$link=$HOME_SCHEME."screen=".$HOME_ACTIVITY;
+    		$link=$this->HOME_SCHEME."screen=".$this->HOME_ACTIVITY;
 		
 		return view('frontend.share.app',['link'=>$link]);
     }
