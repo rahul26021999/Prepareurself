@@ -14,25 +14,15 @@
      -->
     <script>
     window.onload = function() {
-    <!-- Deep link URL for existing users with app already installed on their device -->
-	  window.location = 'something://prepareurself.tk/?screen=.Home.content.resources.ui.activity.ResourcesActivity&course_id=3';
+    // <!-- Deep link URL for existing users with app already installed on their device -->
+      window.location = {{ $link}};
     
-    <!-- Download URL (TUNE link) for new users to download the app -->
-        setTimeout("window.location = 'https://play.google.com/store/apps/details?id=com.playit.videoplayer';", 1000);
+    // <!-- Download URL (TUNE link) for new users to download the app -->
+        setTimeout("window.location = 'https://play.google.com/store/apps/details?id=com.playit.videoplayer';", 500);
     }
     </script>
 </head>
 <body>
- 
-    <!-- button to Download App for new app users -->
-    <form action="http://hastrk.com/serve?action=click&publisher_id=1&site_id=2" target="_blank">
-        <input type="submit" value="Download" />
-    </form>
- 
-    <!-- button to Open App to specific screen for existing app users -->
-    <form action="yourapp://app.com/?screen=xxxxx" target="_blank">
-        <input type="submit" value="Open App" />
-    </form>
- 
+
 </body>
 </html>

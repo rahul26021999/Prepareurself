@@ -18,8 +18,10 @@ Route::get('/', function () {
 Route::get('/home', 'HomeController@index');
 
 Route::name('share.')->group(function () {
-    Route::get('topic','ShareController@share');
-    Route::get('resource-theroy/{name}','ShareController@share');
+    Route::get('install','ShareController@share');
+    Route::get('resource/{id}','ShareController@shareResource');
+    Route::get('project/{id}','ShareController@shareProject'); 
+    Route::get('course/{id}','ShareController@shareCourse'); 
 });
 
 
