@@ -27,10 +27,10 @@ class ResourceProjectLikesController extends Controller
 	 *     @OA\Parameter(
 	 *          name="like",
 	 *          in="query",
-	 *          description="[true => for like , false => for Dislike]",
+	 *          description="[0 => for like , 1 => for Dislike]",
 	 *          required=true,
 	 *          @OA\Schema(
-	 *              type="boolean"
+	 *              type="integer"
 	 *          )
 	 *      ),
 	 *     @OA\Parameter(
@@ -65,7 +65,7 @@ class ResourceProjectLikesController extends Controller
     		$resource_id=$request->input('resource_id',null);
     		if($project_id!=null || $resource_id!=null)
     		{
-    			if($request['like'])
+    			if($request['like']==0)
     			{
 	    			$already=ResourceProjectLikes::where('user_id',JWTAuth::user()->id)
 	    				->where('project_id',$project_id)

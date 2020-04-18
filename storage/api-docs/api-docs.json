@@ -248,10 +248,10 @@
                     {
                         "name": "like",
                         "in": "query",
-                        "description": "[true => for like , false => for Dislike]",
+                        "description": "[0 => for like , 1 => for Dislike]",
                         "required": true,
                         "schema": {
-                            "type": "boolean"
+                            "type": "integer"
                         }
                     },
                     {
