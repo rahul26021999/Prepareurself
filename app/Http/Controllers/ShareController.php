@@ -9,10 +9,9 @@ use App\Models\Course;
 
 class ShareController extends Controller
 {
-	protected $APP_URL="prepareurself.tk/?";
-	protected $HOME_SCHEME="prepareurself_home://".$APP_URL;
-	protected $COURSE_SCHEME="prepareurself_course://".$APP_URL;
-	protected $RESOURCE_SCHEME="prepareurself_resource://".$APP_URL;
+	protected $HOME_SCHEME="prepareurself_home://prepareurself.tk/?";
+	protected $COURSE_SCHEME="prepareurself_course://prepareurself.tk/?";
+	protected $RESOURCE_SCHEME="prepareurself_resource://prepareurself.tk/?";
 
 	protected $HOME_ACTIVITY='.Home.ui.HomeActivity';
 	protected $RESOURCE_ACTIVITY='.Home.content.resources.ui.activity.ResourcesActivity';
