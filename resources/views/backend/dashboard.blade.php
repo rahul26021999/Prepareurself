@@ -59,13 +59,14 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-6">
-          <div class="card card-success">
+          <div class="card card-primary">
             <div class="card-header border-0">
               <div class="d-flex justify-content-between">
                 <h3 class="card-title"><b>Default user details</b></h3>
               </div>
             </div>
             <div class="card-body">
+              <a href="/api/documentation" target="_blank" class="btn btn-success mb-3">API Documentation</a>
               <div class="form-group">
                 <label for="email">Email</label>
                 <input type="text" class="form-control" id="email" value="user@prepareurself.com">
