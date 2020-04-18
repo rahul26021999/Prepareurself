@@ -52,7 +52,7 @@ class ShareController extends Controller
     	$course_id=base64_decode($id);
     	$course=Course::find($course_id);
     	if($course!=null)
-    		$link=$COURSE_SCHEME."screen=".$COURSE_ACTIVITY."&id="$course->id;
+    		$link=$COURSE_SCHEME."screen=".$COURSE_ACTIVITY."&id=".$course->id;
     	else
     		$link=$HOME_SCHEME."screen=".$HOME_ACTIVITY;
 		
