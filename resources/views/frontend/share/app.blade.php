@@ -18,7 +18,7 @@
       window.location ="prepareurself_home://prepareurself.tk/?screen=.Home.ui.HomeActivity";
     
     // <!-- Download URL (TUNE link) for new users to download the app -->
-        setTimeout("window.location = 'https://play.google.com/store/apps/details?id=com.playit.videoplayer';", 500);
+        setTimeout("window.location = 'https://play.google.com/store/apps/details?id=com.playit.videoplayer';", 1000);
     }
     </script>
 </head>

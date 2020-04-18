@@ -7,7 +7,7 @@ use App\Models\ResourceProjectLikes;
 use JWTAuth;
 use Request;
 
-class ResourceProjectLikesContoller extends Controller
+class ResourceProjectLikesController extends Controller
 {
 
 
