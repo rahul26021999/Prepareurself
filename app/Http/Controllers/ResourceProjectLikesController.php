@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ResourceProjectLikes;
 use JWTAuth;
-use Request;
 
 class ResourceProjectLikesController extends Controller
 {
@@ -58,7 +57,7 @@ class ResourceProjectLikesController extends Controller
      *     )
      * )
      */
-    public function wsHitlike()
+    public function wsHitlike(Request $request)
     {
     	if(isset($request['like']))
     	{
@@ -72,12 +71,12 @@ class ResourceProjectLikesController extends Controller
 	    				->where('project_id',$project_id)
 	    				->where('resource_id',$resource_id)
 	    				->count();
-	    			if(count($already)==0)
+	    			if($already==0)
 	    			{
 				    	ResourceProjectLikes::create([
 				    		'user_id'=>JWTAuth::user()->id,
 				    		'project_id'=>$project_id,
-				    		'resource_id'=>$resource_id;	
+				    		'resource_id'=>$resource_id,
 				    	]);
 				    }
 				    return response()->json(['success'=>true,'error_code'=>0,'message'=>"Liked successfull"]);

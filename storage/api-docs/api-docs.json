@@ -234,7 +234,7 @@
                     "Likes | Dislikes | Views"
                 ],
                 "description": "Like/Dislike a resource or peoject in prepareurself",
-                "operationId": "App\\Http\\Controllers\\ResourceProjectLikesContoller::wsHitlike",
+                "operationId": "App\\Http\\Controllers\\ResourceProjectLikesController::wsHitlike",
                 "parameters": [
                     {
                         "name": "token",
