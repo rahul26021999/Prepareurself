@@ -15,7 +15,8 @@
     <script>
     window.onload = function() {
     <!-- Deep link URL for existing users with app already installed on their device -->
-        window.location = 'http://prepareurself.tk/vedio-resource';
+	  window.location = 'something://prepareurself.tk/?screen=.Home.content.resources.ui.activity.ResourcesActivity&course_id=3';
+    
     <!-- Download URL (TUNE link) for new users to download the app -->
         setTimeout("window.location = 'https://play.google.com/store/apps/details?id=com.playit.videoplayer';", 1000);
     }
