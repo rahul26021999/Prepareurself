@@ -65,7 +65,7 @@ class UserAuthController extends Controller
 	{
 
 		$validator=$this->authenticateNewRegisterationRule($request);
-		if($validator->fails()){
+		if($validator->fails()){			
 			$errors=$validator->errors();
 			return json_encode(["success"=>false,'error_code'=>1,"errors"=>$errors,"message"=>"Invalid user data"]);
 		}

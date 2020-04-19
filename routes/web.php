@@ -17,13 +17,13 @@ Route::get('/', function () {
 
 Route::get('/home', 'HomeController@index');
 
+
 Route::name('share.')->group(function () {
     Route::get('install','ShareController@share');
     Route::get('resource/{id}','ShareController@shareResource');
     Route::get('project/{id}','ShareController@shareProject'); 
     Route::get('course/{id}','ShareController@shareCourse'); 
 });
-
 
 Route::name('admin.')->prefix('admin')->group(function () {
 
@@ -36,6 +36,8 @@ Route::name('admin.')->prefix('admin')->group(function () {
         Route::get('forgot','AdminUserController@showForgotPassword')->name('showforgotPassword');
         Route::post('forgot','AdminUserController@forgotPassword')->name('forgotPassword');
     });
+
+    Route::get('send','AdminUserController@sendEmail');
 
     Route::middleware(['auth:admin'])->group(function(){
 
