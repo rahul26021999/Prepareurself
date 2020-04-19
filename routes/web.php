@@ -17,7 +17,6 @@ Route::get('/', function () {
 
 Route::get('/home', 'HomeController@index');
 
-
 Route::name('share.')->group(function () {
     Route::get('install','ShareController@share');
     Route::get('resource/{id}','ShareController@shareResource');
@@ -26,6 +25,9 @@ Route::name('share.')->group(function () {
 });
 
 Route::name('admin.')->prefix('admin')->group(function () {
+
+    Route::get('/resetPassword','AdminUserController@showResetPassword')->name('showResetPassword')->middleware('signed');
+    Route::post('/resetPassword','AdminUserController@resetPassword')->name('resetPassword');
 
     Route::prefix('auth')->name('auth.')->group(function () {    
         Route::get('login', 'AdminUserController@showLogin')->name('login')->middleware('guest:admin');

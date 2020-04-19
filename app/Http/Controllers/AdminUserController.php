@@ -97,9 +97,7 @@ class AdminUserController extends Controller
         $user =Admin::where('email', $email)->first();
         if($user!=null)
         {
-
-
-            
+            $user->sendForgotPasswordMail();
             Session::flash('success','hey '.$user->first_name.'! Please Check Your Mail to Reset your Password');
             return redirect()->back();
         }
@@ -107,6 +105,18 @@ class AdminUserController extends Controller
             Session::flash('error','You are not Authorised as Admin !');
             return redirect()->back();
         }
+    }
+    public function showResetPassword(Request $request)
+    {
+        return view('backend.auth.resetPassword',['id'=>$request['id']]);   
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $id=base64_decode($request['id']);
+        Admin::find($id)->update(['password'=>Hash::make($request['password'])]);
+        Session::flash('success',"Password Updated Successfully Please Login to Continue!");
+        return redirect()->route('admin.auth.login');
     }
 
     public function sendEmail()
