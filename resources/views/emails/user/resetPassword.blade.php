@@ -1,11 +1,11 @@
 @component('mail::message')
-# Prepareurself
+# Hey , {{ $user['first_name']}}
 
 Your Request To reset Password is Successfull.
 Please click below link to Reset your Password.
 
 @component('mail::button', ['url' => $url ])
-Button Text
+Reset Password
 @endcomponent
 
 Thanks,<br>

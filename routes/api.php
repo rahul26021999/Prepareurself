@@ -28,4 +28,9 @@ Route::middleware('auth.jwt')->group(function () {
 	Route::post('hit-like', 'ResourceProjectLikesController@wsHitlike');
 	Route::post('view-resource', 'ResourceController@wsViewResource');
 	Route::post('view-project', 'ProjectController@wsViewProject');
+	Route::post('get-all-preferences', 'CourseController@wsGetAllPreferences');
+	Route::post('update-password', 'UserAuthController@updatePassword');
+
 });
+
+Route::post('forget-password', 'UserAuthController@forgetPassword');

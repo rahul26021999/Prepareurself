@@ -38,6 +38,31 @@
                 }
             }
         },
+        "/api/get-all-preferences": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "description": "Get all Preferences for a User available in Prepareurself",
+                "operationId": "App\\Http\\Controllers\\CourseController::wsGetAllPreferences",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{[error_code=>0,msg=>'success']}"
+                    }
+                }
+            }
+        },
         "/api/get-projects": {
             "post": {
                 "tags": [
@@ -521,6 +546,74 @@
                 "responses": {
                     "200": {
                         "description": "{[error_code=>0,msg=>'Update Successfully Done']}"
+                    }
+                }
+            }
+        },
+        "/api/update-password": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "description": "update a user password in prepareurself",
+                "operationId": "App\\Http\\Controllers\\UserAuthController::updatePassword",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "oldPassword",
+                        "in": "query",
+                        "description": "Old password of the user",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "newPassword",
+                        "in": "query",
+                        "description": "New Password of the user",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{[error_code=>0,msg=>'Successfully Password Changed']}"
+                    }
+                }
+            }
+        },
+        "/api/forget-password": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "description": "Send Forgot Password Mail to user in prepareurself",
+                "operationId": "App\\Http\\Controllers\\UserAuthController::forgetPassword",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email of the user",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{[error_code=>0,msg=>'Forgot password Mail sent to your email']}"
                     }
                 }
             }

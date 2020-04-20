@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Admin;
+use App\User;
 use Illuminate\Http\Request;
 use Log;
 use Mail;
@@ -108,15 +109,29 @@ class AdminUserController extends Controller
     }
     public function showResetPassword(Request $request)
     {
-        return view('backend.auth.resetPassword',['id'=>$request['id']]);   
+        return view('backend.auth.resetPassword',['id'=>$request['id'],'type'=>$request['type']]);   
     }
 
     public function resetPassword(Request $request)
     {
+        $type=base64_decode($request['type']);
         $id=base64_decode($request['id']);
-        Admin::find($id)->update(['password'=>Hash::make($request['password'])]);
+        if($type=='Admin')
+            $user=Admin::find($id);
+        else
+            $user=User::find($id);
+
+        $user->password=Hash::make($request['password']);
+        $user->save();
+        $user->sendPasswordUpdateMail();
+        
         Session::flash('success',"Password Updated Successfully Please Login to Continue!");
-        return redirect()->route('admin.auth.login');
+        
+        if($type=='Admin')
+            return redirect()->route('admin.auth.login');    
+        else
+            return redirect('/');
+
     }
 
     public function sendEmail()

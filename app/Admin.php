@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Mail\ResetPassword;
+use Illuminate\Support\Facades\Log;
+use App\Mail\PasswordChangedSuccessfull;
 use Illuminate\Support\Facades\URL;
 use Mail;
 
@@ -42,17 +44,21 @@ class Admin extends Authenticatable
         return $this->user_role=='superAdmin'?true:false;
     }
 
-    function sendForgotPasswordMail()
+    public function sendForgotPasswordMail()
     {
         $link=$this->getResetPasswordLink();
-        Mail::to($this)->send(new ResetPassword($link));
+        Mail::to($this)->send(new ResetPassword($link,$this));
     }
 
-    function getResetPasswordLink()
+    public function getResetPasswordLink()
     {
         return URL::temporarySignedRoute(
-                'admin.showResetPassword', now()->addHour(), ['id' => base64_encode($this->id)]
+                'showResetPassword', now()->addHour(), ['id' => base64_encode($this->id),'type'=>base64_encode('Admin')]
             );
+    }
+    public function sendPasswordUpdateMail()
+    {
+        Mail::to($this)->send(new PasswordChangedSuccessfull($this));
     }
 
 }

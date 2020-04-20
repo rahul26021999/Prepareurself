@@ -21,6 +21,12 @@ trait UserAuthTrait {
             'email' => 'required|email:rfc,dns|unique:users',
 		]); 	
 	}
+	public function newPasswordRule(Request $request)
+	{
+		return Validator::make($request->all(), [
+			'newPassword' => 'required|min:8',
+		]);	
+	}
 	public function uniqueUserNameRule(Request $request)
 	{
 		return $validator = Validator::make($request->all(), [

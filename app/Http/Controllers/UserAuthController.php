@@ -260,4 +260,121 @@ class UserAuthController extends Controller
 			return json_encode(['error_code'=>2,"msg"=>'user does not exists']);	
 		}
 	}
+
+	/**
+     * @OA\Post(
+     *     path="/api/update-password",
+     *     tags={"User"},
+     *     description="update a user password in prepareurself",
+	 *     @OA\Parameter(
+	 *          name="token",
+	 *          in="query",
+	 *          description="token",
+	 *          required=true,
+	 *          @OA\Schema(
+	 *              type="string"
+	 *          )
+	 *      ),
+	 *     @OA\Parameter(
+	 *          name="oldPassword",
+	 *          in="query",
+	 *          description="Old password of the user",
+	 *          required=true,
+	 *          @OA\Schema(
+	 *              type="string"
+	 *          )
+	 *      ),
+	 *     @OA\Parameter(
+	 *          name="newPassword",
+	 *          in="query",
+	 *          description="New Password of the user",
+	 *          required=true,
+	 *          @OA\Schema(
+	 *              type="string"
+	 *          )
+	 *      ),
+     *     @OA\Response(
+     *          response=200,
+     *			description="{[error_code=>0,msg=>'Successfully Password Changed']}"
+     *     )
+     * )
+     */
+
+	public function updatePassword(Request $request)
+	{
+		if(isset($request['oldPassword']) && isset($request['newPassword']))
+		{
+			$credentials=['email'=>JWTAuth::user()->email,'password'=>$request['oldPassword']];
+
+			if (!$token = JWTAuth::attempt($credentials)) {
+	            return response()->json([
+		                'success' => false,
+		                'error_code'=>2,
+		                'message' => 'Invalid old Password',
+	            	]);
+	        }
+
+			$validator=$this->newPasswordRule($request);
+			if($validator->fails()){			
+				$errors=$validator->errors();
+				return response()->json(["success"=>false,'error_code'=>3,"errors"=>$errors,"message"=>"Invalid new Password"]);
+			}
+			else{
+				$user = JWTAuth::user();
+		        $user->password=Hash::make($request['newPassword']);
+		        $user->save();
+		        $user->sendPasswordUpdateMail();
+
+		        return response()->json([
+		        	'success' => true,
+		            'error_code'=>0,
+		            'token' => $token,
+		           	'message'=>"Successfully Password Changed"
+		        ]);
+			}
+		}
+		else{
+			return response()->json(['success'=>false,'error_code'=>1,"message"=>"Either Old password is missing or new Password is missing"]);
+		}
+
+	}
+
+	/**
+     * @OA\Post(
+     *     path="/api/forget-password",
+     *     tags={"User"},
+     *     description="Send Forgot Password Mail to user in prepareurself",
+	 *     @OA\Parameter(
+	 *          name="email",
+	 *          in="query",
+	 *          description="Email of the user",
+	 *          required=true,
+	 *          @OA\Schema(
+	 *              type="string"
+	 *          )
+	 *      ),
+     *     @OA\Response(
+     *          response=200,
+     *			description="{[error_code=>0,msg=>'Forgot password Mail sent to your email']}"
+     *     )
+     * )
+     */
+
+	public function forgetPassword(Request $request)
+	{
+		if(isset($request['email']))
+		{
+			$user=User::where('email',$request['email'])->first();
+			if($user==null){
+				return response()->json(['success'=>false,'error_code'=>2,"message"=>"User Does not exists for this email"]);
+			}
+			else{
+				$user->sendForgetPasswordMail();
+				return response()->json(['success'=>true,'error_code'=>0,"message"=>"Forgot password Mail sent to your email"]);
+			}
+		}
+		else{
+			return response()->json(['success'=>false,'error_code'=>1,"message"=>"User Email is Missing"]);
+		}
+	}
 }

@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', 'HomeController@index');
+Route::get('home', 'HomeController@index')->name('home');
 
 Route::name('share.')->group(function () {
     Route::get('install','ShareController@share');
@@ -24,10 +24,15 @@ Route::name('share.')->group(function () {
     Route::get('course/{id}','ShareController@shareCourse'); 
 });
 
-Route::name('admin.')->prefix('admin')->group(function () {
+Route::name('user')->group(function(){
+    
+});
 
-    Route::get('/resetPassword','AdminUserController@showResetPassword')->name('showResetPassword')->middleware('signed');
-    Route::post('/resetPassword','AdminUserController@resetPassword')->name('resetPassword');
+
+Route::get('resetPassword','AdminUserController@showResetPassword')->name('showResetPassword')->middleware('signed');
+Route::post('resetPassword','AdminUserController@resetPassword')->name('resetPassword');
+
+Route::name('admin.')->prefix('admin')->group(function () {
 
     Route::prefix('auth')->name('auth.')->group(function () {    
         Route::get('login', 'AdminUserController@showLogin')->name('login')->middleware('guest:admin');
@@ -88,7 +93,6 @@ Route::name('admin.')->prefix('admin')->group(function () {
             Route::post('edit/{id}','TopicController@saveEditCourseTopic');
             Route::get('all/{courseName?}','TopicController@showAllCourseTopic');
             Route::post('delete','TopicController@deleteCourseTopic');
-
             Route::post('sequence','TopicController@changeCourseTopicSequence')->name('sequence');
         });
         Route::name('resource.')->prefix('resource')->group(function(){

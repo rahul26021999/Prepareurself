@@ -7,6 +7,10 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\URL;
+use App\Mail\PasswordChangedSuccessfull;
+use App\Mail\ResetPassword;
+use Mail;
 
 class User extends Authenticatable implements MustVerifyEmail,JWTSubject
 {
@@ -98,6 +102,23 @@ class User extends Authenticatable implements MustVerifyEmail,JWTSubject
     public function isAdmin()
     {
         return $this->role=='admin' ? true : false;
+    }
+
+    public function sendForgetPasswordMail()
+    {
+        $link=$this->getResetPasswordLink();
+        Mail::to($this)->send(new ResetPassword($link,$this));
+    }
+
+    public function getResetPasswordLink()
+    {
+        return URL::temporarySignedRoute(
+                'showResetPassword', now()->addHour(), ['id' => base64_encode($this->id),'type'=>base64_encode('user')]
+            );
+    }
+    public function sendPasswordUpdateMail()
+    {
+        Mail::to($this)->send(new PasswordChangedSuccessfull($this));
     }
 
 }

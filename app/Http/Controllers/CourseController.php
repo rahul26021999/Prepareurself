@@ -9,7 +9,8 @@ use App\Exception;
 
 class CourseController extends Controller
 {
-    public function showCreateCourse()
+   
+   public function showCreateCourse()
    {        
         return view('backend.course.create');
    }
@@ -91,9 +92,36 @@ class CourseController extends Controller
    *     )
    * )
    */
-   public function wsGetAllCourses(){
+   public function wsGetAllCourses(Request $request){
     $courses=Course::all();
     return response()->json(['error_code'=>0,'courses'=>$courses]);
+   }
+
+   /**
+   * @OA\Post(
+   *     path="/api/get-all-preferences",
+   *     tags={"User"},
+   *     description="Get all Preferences for a User available in Prepareurself",
+   *     @OA\Parameter(
+   *          name="token",
+   *          in="query",
+   *          description="token",
+   *          required=true,
+   *          @OA\Schema(
+   *              type="string"
+   *          )
+   *      ),
+   *   
+   *     @OA\Response(
+   *          response=200,
+   *      description="{[error_code=>0,msg=>'success']}"
+   *     )
+   * )
+   */
+   public function wsGetAllPreferences(Request $request)
+   {
+      $courses=Course::all('id','name');
+      return response()->json(['error_code'=>0,'preferences'=>$courses]);
    }
 
 }
