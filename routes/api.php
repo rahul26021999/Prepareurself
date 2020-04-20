@@ -16,8 +16,7 @@ use Illuminate\Http\Request;
 Route::post('register', 'UserAuthController@register');
 Route::post('login', 'UserAuthController@login');
 
-
-Route::middleware('auth.jwt')->group(function () {
+Route::middleware(['auth.jwt','verify'])->group(function () {
  	Route::post('user','UserAuthController@getUser');
 	Route::post('update-user', 'UserAuthController@updateUserData');
 	Route::post('check-username', 'UserAuthController@checkUserName');
@@ -30,7 +29,6 @@ Route::middleware('auth.jwt')->group(function () {
 	Route::post('view-project', 'ProjectController@wsViewProject');
 	Route::post('get-all-preferences', 'CourseController@wsGetAllPreferences');
 	Route::post('update-password', 'UserAuthController@updatePassword');
-
 });
 
 Route::post('forget-password', 'UserAuthController@forgetPassword');

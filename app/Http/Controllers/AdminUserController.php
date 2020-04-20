@@ -134,6 +134,17 @@ class AdminUserController extends Controller
 
     }
 
+    public function verifyEmail(Request $request)
+    {
+        $id=base64_decode($request['id']);
+        $user=User::find($id);
+        if(!$user->hasVerifiedEmail())
+            $user->markEmailAsVerified();
+        
+        return redirect('/');
+
+    }
+
     public function sendEmail()
     {
         $user=Admin::where('email','rahul26021999@gmail.com')->first();

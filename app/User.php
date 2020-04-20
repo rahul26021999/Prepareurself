@@ -9,10 +9,11 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
 use App\Mail\PasswordChangedSuccessfull;
+use App\Mail\UserEmailVerification;
 use App\Mail\ResetPassword;
 use Mail;
 
-class User extends Authenticatable implements MustVerifyEmail,JWTSubject
+class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
@@ -49,7 +50,7 @@ class User extends Authenticatable implements MustVerifyEmail,JWTSubject
      * @return bool
      */
     public function hasVerifiedEmail(){
-        return $this->email_verified_at;
+        return ! is_null($this->email_verified_at);
     }
 
     /**
@@ -58,7 +59,9 @@ class User extends Authenticatable implements MustVerifyEmail,JWTSubject
      * @return bool
      */
     public function markEmailAsVerified(){
-
+        return $this->forceFill([
+            'email_verified_at' => $this->freshTimestamp(),
+        ])->save();
     }
 
     /**
@@ -66,8 +69,9 @@ class User extends Authenticatable implements MustVerifyEmail,JWTSubject
      *
      * @return void
      */
-    public function sendEmailVerificationNotification(){
-        Log::info("Mail sent");
+    public function sendEmailVerificationMail(){
+        $link=$this->getEmailVerificationLink();
+        Mail::to($this)->send(new UserEmailVerification($link,$this));
     }
 
     /**
@@ -76,7 +80,7 @@ class User extends Authenticatable implements MustVerifyEmail,JWTSubject
      * @return string
      */
     public function getEmailForVerification(){
-
+        return $this->email;
     }
 
     /**
@@ -116,6 +120,14 @@ class User extends Authenticatable implements MustVerifyEmail,JWTSubject
                 'showResetPassword', now()->addHour(), ['id' => base64_encode($this->id),'type'=>base64_encode('user')]
             );
     }
+
+    public function getEmailVerificationLink()
+    {
+        return URL::temporarySignedRoute(
+                'showVerify', now()->addDay(), ['id' => base64_encode($this->id),'type'=>base64_encode('user')]
+            );
+    }
+
     public function sendPasswordUpdateMail()
     {
         Mail::to($this)->send(new PasswordChangedSuccessfull($this));

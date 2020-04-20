@@ -32,6 +32,8 @@ Route::name('user')->group(function(){
 Route::get('resetPassword','AdminUserController@showResetPassword')->name('showResetPassword')->middleware('signed');
 Route::post('resetPassword','AdminUserController@resetPassword')->name('resetPassword');
 
+Route::get('verify','AdminUserController@verifyEmail')->name('showVerify');
+
 Route::name('admin.')->prefix('admin')->group(function () {
 
     Route::prefix('auth')->name('auth.')->group(function () {    
