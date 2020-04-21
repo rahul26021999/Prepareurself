@@ -15,10 +15,20 @@
     <script>
     window.onload = function() {
     // <!-- Deep link URL for existing users with app already installed on their device -->
-      window.location ="home://app.prepareurself/?screen=.Home.ui.HomeActivity";
+    @if(isset($type) && $type='home')
+        window.location ="home://app.prepareurself/?screen=.authentication.ui.AuthenticationActivity";
+    @elseif(isset($type) && $type='theory')
+        window.location ="home://app.prepareurself/?screen=.resources.ui.activity.ResourcesActivity";
+    @elseif(isset($type) && $type='video')
+        window.location ="home://app.prepareurself/?screen=.resources.youtubevideoplayer.YoutubePlayerActivity";
+    @elseif(isset($type) && $type='project')
+        window.location ="home://app.prepareurself/?screen=.courses.ui.activity.ProjectsActivity";
+    @elseif(isset($type) && $type='course')
+        window.location ="home://app.prepareurself/?screen=.courses.ui.activity.CoursesActivity"+"&"+{{$id}};
+    @endif
     
     // <!-- Download URL (TUNE link) for new users to download the app -->
-        setTimeout("window.location = 'https://play.google.com/store/apps/details?id=com.playit.videoplayer';", 1000);
+    setTimeout("window.location = 'https://play.google.com/store/apps/details?id=com.playit.videoplayer';", 1000);
     }
     </script>
 </head>
