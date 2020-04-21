@@ -16,15 +16,15 @@
     window.onload = function() {
     // <!-- Deep link URL for existing users with app already installed on their device -->
     @if(isset($type) && $type='home')
-        window.location ="home://app.prepareurself/?screen=.authentication.ui.AuthenticationActivity";
+        window.location ="install://app.prepareurself/?screen=.authentication.ui.AuthenticationActivity";
     @elseif(isset($type) && $type='theory')
-        window.location ="home://app.prepareurself/?screen=.resources.ui.activity.ResourcesActivity"+"&id="+{{$id}};
+        window.location ="theory://app.prepareurself/?screen=.resources.ui.activity.ResourcesActivity"+"&id="+{{$id}};
     @elseif(isset($type) && $type='video')
-        window.location ="home://app.prepareurself/?screen=.resources.youtubevideoplayer.YoutubePlayerActivity"+"&id="+{{$id}};
+        window.location ="video://app.prepareurself/?screen=.resources.youtubevideoplayer.YoutubePlayerActivity"+"&id="+{{$id}};
     @elseif(isset($type) && $type='project')
-        window.location ="home://app.prepareurself/?screen=.courses.ui.activity.ProjectsActivity"+"&id="+{{$id}};
+        window.location ="project://app.prepareurself/?screen=.courses.ui.activity.ProjectsActivity"+"&id="+{{$id}};
     @elseif(isset($type) && $type='course')
-        window.location ="home://app.prepareurself/?screen=.courses.ui.activity.CoursesActivity"+"&id="+{{$id}};
+        window.location ="course://app.prepareurself/?screen=.courses.ui.activity.CoursesActivity"+"&id="+{{$id}};
     @endif
     
     // <!-- Download URL (TUNE link) for new users to download the app -->
