@@ -141,7 +141,7 @@ class AdminUserController extends Controller
         if(!$user->hasVerifiedEmail())
             $user->markEmailAsVerified();
         
-        return redirect('/');
+        return redirect('install');
 
     }
 

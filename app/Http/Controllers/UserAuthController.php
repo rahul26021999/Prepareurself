@@ -70,8 +70,13 @@ class UserAuthController extends Controller
 			return json_encode(["success"=>false,'error_code'=>1,"errors"=>$errors,"message"=>"Invalid user data"]);
 		}
 		else{
-			$user=$this->saveUserData($request);	
-			return $this->login($request);
+			$user=$this->saveUserData($request);
+			$user->sendEmailVerificationMail();
+			return response()->json([
+	            'success' => true,
+	            'error_code'=>0,	
+	            'message'=>'User Registeration Successfully'            
+	        ]);
 		}
 	}
 	/**
@@ -147,6 +152,10 @@ class UserAuthController extends Controller
 	            ], 401);
 	        }
 	        $user=JWTAuth::user();
+	        if(!$user->hasVerifiedEmail()){
+	            $user->sendEmailVerificationMail();
+	            return response()->json(['error'=>true,'error_code'=>1,'message'=>'Please Verify Your Email']);
+	        }
 	        return response()->json([
 	            'success' => true,
 	            'error_code'=>0,
