@@ -15,15 +15,15 @@
     <script>
     window.onload = function() {
     // <!-- Deep link URL for existing users with app already installed on their device -->
-    @if(isset($type) && $type='home')
+    @if(isset($type) && $type=='home')
         window.location ="install://app.prepareurself/?screen=.authentication.ui.AuthenticationActivity";
-    @elseif(isset($type) && $type='theory')
+    @elseif(isset($type) && $type=='theory')
         window.location ="theory://app.prepareurself/?screen=.resources.ui.activity.ResourcesActivity"+"&id="+{{$id}};
-    @elseif(isset($type) && $type='video')
+    @elseif(isset($type) && $type=='video')
         window.location ="video://app.prepareurself/?screen=.resources.youtubevideoplayer.YoutubePlayerActivity"+"&id="+{{$id}};
-    @elseif(isset($type) && $type='project')
+    @elseif(isset($type) && $type=='project')
         window.location ="project://app.prepareurself/?screen=.courses.ui.activity.ProjectsActivity"+"&id="+{{$id}};
-    @elseif(isset($type) && $type='course')
+    @elseif(isset($type) && $type=='course')
         window.location ="course://app.prepareurself/?screen=.courses.ui.activity.CoursesActivity"+"&id="+{{$id}};
     @endif
     
