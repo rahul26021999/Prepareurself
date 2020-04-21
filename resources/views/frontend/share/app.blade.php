@@ -18,17 +18,17 @@
     @if(isset($type) && $type='home')
         window.location ="home://app.prepareurself/?screen=.authentication.ui.AuthenticationActivity";
     @elseif(isset($type) && $type='theory')
-        window.location ="home://app.prepareurself/?screen=.resources.ui.activity.ResourcesActivity";
+        window.location ="home://app.prepareurself/?screen=.resources.ui.activity.ResourcesActivity"+"&id="+{{$id}};
     @elseif(isset($type) && $type='video')
-        window.location ="home://app.prepareurself/?screen=.resources.youtubevideoplayer.YoutubePlayerActivity";
+        window.location ="home://app.prepareurself/?screen=.resources.youtubevideoplayer.YoutubePlayerActivity"+"&id="+{{$id}};
     @elseif(isset($type) && $type='project')
-        window.location ="home://app.prepareurself/?screen=.courses.ui.activity.ProjectsActivity";
+        window.location ="home://app.prepareurself/?screen=.courses.ui.activity.ProjectsActivity"+"&id="+{{$id}};
     @elseif(isset($type) && $type='course')
-        window.location ="home://app.prepareurself/?screen=.courses.ui.activity.CoursesActivity"+"&"+{{$id}};
+        window.location ="home://app.prepareurself/?screen=.courses.ui.activity.CoursesActivity"+"&id="+{{$id}};
     @endif
     
     // <!-- Download URL (TUNE link) for new users to download the app -->
-    setTimeout("window.location = 'https://play.google.com/store/apps/details?id=com.playit.videoplayer';", 1000);
+    setTimeout("window.location = 'https://play.google.com/store/apps/details?id=com.prepare.prepareurself';", 1000);
     }
     </script>
 </head>
