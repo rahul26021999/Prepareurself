@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use App\Traits\UserAuthTrait;
 use JWTAuth;
+use Illuminate\Support\Carbon;
 
 class UserAuthController extends Controller
 {
@@ -258,7 +259,7 @@ class UserAuthController extends Controller
 			if($request->filled('android_token'))
 			$user->android_token=$request->input('android_token');
 			if($request->filled('dob'))
-			$user->dob=strtotime($request->input('dob'));
+			$user->dob=Carbon::parse($request['dob']);
 			if($request->filled('preferences'))
 			$user->preferences=implode(',',$request->input('preferences'));
 			
