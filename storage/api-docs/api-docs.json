@@ -468,6 +468,15 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "name": "android_token",
+                        "in": "query",
+                        "description": "android token of user",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
