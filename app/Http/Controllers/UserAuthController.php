@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 use App\Traits\UserAuthTrait;
 use JWTAuth;
 use Illuminate\Support\Carbon;
@@ -238,6 +239,15 @@ class UserAuthController extends Controller
 	 *          )
 	 *      ),
 	 *     @OA\Parameter(
+	 *          name="profile_image",
+	 *          in="query",
+	 *          description="Profile image of the user",
+	 *          required=false,
+	 *          @OA\Schema(
+	 *              type="file"
+	 *          )
+	 *      ),
+	 *     @OA\Parameter(
 	 *          name="preferences[]",
 	 *          in="query",
 	 *          description="User Preferences Please enter only integers",
@@ -271,6 +281,13 @@ class UserAuthController extends Controller
 			$user->dob=Carbon::parse($request['dob']);
 			if($request->filled('preferences'))
 			$user->preferences=implode(',',$request->input('preferences'));
+
+			if($request->file('profile_image'))
+	        {
+	            $fileName = time().'.'.$request->file('profile_image')->extension();  
+	            $request->file('profile_image')->move(public_path('uploads/users'), $fileName);
+	            $user->profile_image=$fileName;
+	        }    
 			
 			$user->save();
 			return json_encode(['error_code'=>0,"user_data"=>$user,"msg"=>"update Successfully Done"]);

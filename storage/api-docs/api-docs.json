@@ -540,6 +540,15 @@
                         }
                     },
                     {
+                        "name": "profile_image",
+                        "in": "query",
+                        "description": "Profile image of the user",
+                        "required": false,
+                        "schema": {
+                            "type": "file"
+                        }
+                    },
+                    {
                         "name": "preferences[]",
                         "in": "query",
                         "description": "User Preferences Please enter only integers",
