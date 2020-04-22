@@ -13,12 +13,12 @@ class AndroidNotification {
     *
     * @return bool|string
     */
-   public function send( $to, $notification,$message=[''=>''] ) {
+   public function send( $to, $notification) {
 
       $fields = array(
          'to'   => $to,
-         'notification' => $notification,
-         'data' => $message,
+         'notification' => $notification
+         // 'data' => $message,
       );
 
       return $this->sendPushNotification( $fields );

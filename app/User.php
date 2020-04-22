@@ -139,14 +139,16 @@ class User extends Authenticatable implements JWTSubject
         return [
             'title'=>'ray chodu',
             'body' => 'ray sabko apne gand deta hai',
-            'image' => 'http://www.prepareurself.tk/defaults/admin/superAdmin.jpg',
+            'image' => 'http://www.prepareurself.tk/defaults/admin/superAdmin.jpg'
         ];
     }
     public function sendAndroidNotification()
     {
-        $notification=$this->makeNotification();
-        $a=new AndroidNotification();
-        $a->send('d1RGfW5OfD8:APA91bGBeKrS2axJlzku3KAsmlvqVFoF3NcoAaBTmON6idjMr-IkhCzORhBXaEiR2-qD0UiTQWcme6SF1zfRxV-VTnCF7pQhSguiSQJRFOVkm-j50Wx2LkGclbf-4M4eyXqEUgg6dDkZ',$notification);
+        if(!is_null($this->android_token)){
+            $notification=$this->makeNotification();
+            $a=new AndroidNotification();
+            $a->send($this->android_token,$notification);
+        }
     }
 
 }

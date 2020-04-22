@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use App\User;
 class NotificationController extends Controller
 {
-    public function ray(){
-    	$user=User::where('email','rahul26021999@gmail.com')->first();
+    public function ray(Request $request;){
+    	$user=User::where('email',$request['email'])->first();
     	$user->sendAndroidNotification();
     }
 }
