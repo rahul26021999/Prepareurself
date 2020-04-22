@@ -39,6 +39,15 @@ class UserAuthController extends Controller
 	 *          )
 	 *      ),
 	 *     @OA\Parameter(
+	 *          name="android_token",
+	 *          in="query",
+	 *          description="android token of user",
+	 *          required=false,
+	 *          @OA\Schema(
+	 *              type="string"
+	 *          )
+	 *      ),
+	 *     @OA\Parameter(
 	 *          name="password",
 	 *          in="query",
 	 *          description="Password of user Min length 8 characters",

@@ -38,6 +38,7 @@ trait UserAuthTrait {
 		try{
 			$user=User::create([
 				'email'=>$request['email'],
+				'android_token'=>$request['android_token'],
 				'first_name'=>$request['first_name'],
 				'last_name'=>$request->input('last_name',''),
 				'password'=>Hash::make($request['password']),
