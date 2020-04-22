@@ -165,7 +165,7 @@ class UserAuthController extends Controller
 	        $user=JWTAuth::user();
 	        if(!$user->hasVerifiedEmail()){
 	            $user->sendEmailVerificationMail();
-	            return response()->json(['error'=>true,'error_code'=>1,'message'=>'Please Verify Your Email']);
+	            return response()->json(['error'=>true,'error_code'=>2,'message'=>'Please Verify Your Email']);
 	        }
 	        return response()->json([
 	            'success' => true,
