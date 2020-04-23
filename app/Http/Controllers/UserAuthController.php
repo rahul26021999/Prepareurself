@@ -177,7 +177,7 @@ class UserAuthController extends Controller
 	            return response()->json(['error'=>true,'error_code'=>2,'message'=>'Please Verify Your Email']);
 	        }
 	        if($request->filled('android_token'))
-	        	$user->android_token=$request->input('android_token')
+	        	$user->android_token=$request->input('android_token');
 	        return response()->json([
 	            'success' => true,
 	            'error_code'=>0,
