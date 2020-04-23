@@ -167,8 +167,8 @@ class UserAuthController extends Controller
 	        if (!$token = JWTAuth::attempt($credentials)) {
 	            return response()->json([
 	                'success' => false,
-	                'error_code'=>3
-	                'message' => 'Invalid Email or Password',
+	                'error_code'=>3,
+	                'message' => 'Invalid Email or Password'
 	            ]);
 	        }
 	        $user=JWTAuth::user();

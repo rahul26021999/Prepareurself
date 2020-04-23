@@ -1,7 +1,9 @@
 @component('mail::message')
 # Hey, {{ $user['first_name'] }}
 
-Please click the button below to verify your email address.
+Please click the button below or click on the link to verify your email address.
+
+<a href="{{$url}}">{{$url}}</a>
 
 @component('mail::button', ['url' =>  $url ])
 Verify Email Address
