@@ -164,20 +164,22 @@ class UserAuthController extends Controller
 		if($request->filled('email') && $request->filled('password'))
 		{
 			$credentials = $request->only('email', 'password');
-	        $token = null;
 	        if (!$token = JWTAuth::attempt($credentials)) {
 	            return response()->json([
 	                'success' => false,
+	                'error_code'=>3
 	                'message' => 'Invalid Email or Password',
-	            ], 401);
+	            ]);
 	        }
 	        $user=JWTAuth::user();
 	        if(!$user->hasVerifiedEmail()){
 	            $user->sendEmailVerificationMail();
 	            return response()->json(['error'=>true,'error_code'=>2,'message'=>'Please Verify Your Email']);
 	        }
-	        if($request->filled('android_token'))
+	        if($request->filled('android_token')){
 	        	$user->android_token=$request->input('android_token');
+	        	$user->save();
+	        }
 	        return response()->json([
 	            'success' => true,
 	            'error_code'=>0,
