@@ -198,6 +198,18 @@
                   <p>All Course</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="/admin/course/all/published" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Published Courses</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/admin/course/all/unpublished" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Un-Published Course</p>
+                </a>
+              </li>
             </ul>
           </li>
           <li class="nav-item has-treeview">
@@ -254,12 +266,28 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Send Email
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Send Android Notification
+              </p>
+            </a>
+          </li>
           @if(Auth::user()->super)
            <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
-                Manage
+                Manage CMS
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -267,7 +295,7 @@
               <li class="nav-item">
                 <a href="{{route('admin.manage')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Admin</p>
+                  <p>Manage Admin</p>
                 </a>
               </li>
             </ul>

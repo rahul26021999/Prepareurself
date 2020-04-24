@@ -48,8 +48,6 @@ Route::name('admin.')->prefix('admin')->group(function () {
         Route::post('forgot','AdminUserController@forgotPassword')->name('forgotPassword');
     });
 
-    Route::get('send','AdminUserController@sendEmail');
-
     Route::middleware(['auth:admin'])->group(function(){
 
         Route::get('home','AdminUserController@index')->name('home');
@@ -88,6 +86,8 @@ Route::name('admin.')->prefix('admin')->group(function () {
             Route::get('show/{id}','CourseController@showCourse');
             Route::get('all/{type?}','CourseController@showAllCourse');
             Route::get('delete/{id}','CourseController@deleteCourse');
+
+            Route::post('publish','CourseController@publishCourse')->name('publish');
         });
 
         Route::name('courseTopic.')->prefix('topic')->group(function(){
@@ -98,6 +98,9 @@ Route::name('admin.')->prefix('admin')->group(function () {
             Route::get('all/{courseName?}','TopicController@showAllCourseTopic');
             Route::post('delete','TopicController@deleteCourseTopic');
             Route::post('sequence','TopicController@changeCourseTopicSequence')->name('sequence');
+
+            Route::post('publish','TopicController@publishCourseTopic')->name('publish');
+            Route::get('publish/{courseId}','TopicController@publishAllCourseTopic');
         });
         Route::name('resource.')->prefix('resource')->group(function(){
             Route::get('create/{topicId}','ResourceController@showCreateResource');

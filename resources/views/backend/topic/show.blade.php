@@ -16,6 +16,43 @@
 <script src="{{ asset('AdminLTE/dist/js/demo.js')}}"></script>
 <!-- page script -->
 <script>
+
+  function publishCourse(id,status,element){
+    $.ajax({
+            url: '{{route("admin.courseTopic.publish")}}',
+            method: 'post',
+            async:false,
+            data: {id:id,status:status,"_token":"{{ csrf_token() }}"},
+            success: function (data, status, xhr) {
+              if(data.success)
+              {
+                $(element).text(data.status);
+                $(element).toggleClass('badge-success');
+                $(element).toggleClass('badge-danger');
+              }
+              alert(data.message);
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                console.log(errorMessage);
+                alert("Something Went Wrong Please Try Again After Sometime")
+                return false;
+            }
+        });
+  }
+  $('.publish').on('click',function(){
+
+      var status=$(this).data('status');
+      var id=$(this).data('id');
+      if(status=='publish'){
+        status='dev';
+      }
+      else if(status=='dev'){
+        status='publish';
+      }
+      publishCourse(id,status,this)
+  });
+
+
   $(function () {
     $("#example1").DataTable({
       "responsive": true,
@@ -72,6 +109,9 @@
     padding-bottom: 12px;
     line-height: 1.2em;
   }
+  .publish{
+    cursor: pointer;
+  }
 </style>
 @endsection
 
@@ -114,13 +154,14 @@
           <div class="card-body">
             <a href="/admin/topic/create/{{$course['name']}}"class="btn btn-success mb-3">Create a New Topic</a>
             <button type="button" class="btn btn-danger mb-3 ml-3" data-toggle="modal" data-target="#changeMySequenceModal">Change Sequence</button>
-
+            <a href="/admin/topic/publish/{{$course['id']}}"class="btn btn-primary mb-3 ml-3">Publish all Topics</a>
             <table id="example2" class="table table-bordered table-hover">
               <thead>
                 <tr>
                   <th>Id</th>
                   <th>Seq</th>
                   <th>Name</th>
+                  <th>Status</th>
                   <th>Action</th>
                   <th>Resources</th>
                 </tr>
@@ -131,6 +172,11 @@
                   <td><a href ="" >#{{$topic['id']}}</a></td>
                   <td>{{$topic['sequence']}}</td>
                   <td>{{$topic['name']}}</td>
+                  @if($topic['status']=='publish')
+                  <td><span data-status="{{$topic['status']}}" data-id="{{$topic['id']}}" class="right badge badge-success mr-3 publish">{{$topic['status']}}</a></td>
+                  @elseif($topic['status']=='dev')
+                  <td><span data-status="{{$topic['status']}}" data-id="{{$topic['id']}}" class="right badge badge-danger mr-3 publish">{{$topic['status']}}</a></td>
+                  @endif
                   <td>
                     <a href ="/admin/topic/edit/{{$topic['id']}}" data-toggle="tooltip" title="Edit"  class="mr-3"><i class="far fa-edit text-info"></i></a>
                     <a target="_blank" data-toggle="tooltip" title="View Image" href="/uploads/topics/{{$topic['image_url']}}" class="mr-3"><i class="fas fa-image text-success"></i></a>
@@ -140,16 +186,8 @@
                     <i data-toggle="modal" data-course="{{$course['name']}}" data-name="{{$topic['name']}}" data-id="{{$topic['id']}}" data-target="#deleteModal" style="cursor: pointer;" class="deleteButton far fa-trash-alt text-danger"></i>
                   </td>
                   <td>
-                    @php
-                    $a=$topic['resource']->groupBy('type')->toArray();
-                    @endphp
-                    @isset($a['video'])
-                    <span class="right badge badge-warning">{{count($a['video'])}}  V</span>
-                    @endisset
-                    @isset($a['theory'])
-                    <span class="right badge badge-danger">{{count($a['theory'])}} T</span>
-                    @endisset
-
+                    <span class="right badge badge-warning">{{$topic['resource_video']}}  V</span>
+                    <span class="right badge badge-danger">{{$topic['resource_theory']}} T</span>
                   </td>
                 </tr>
                 @endforeach

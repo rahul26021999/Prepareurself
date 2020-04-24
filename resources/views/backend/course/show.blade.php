@@ -13,6 +13,42 @@
 <script src="{{ asset('AdminLTE/dist/js/demo.js')}}"></script>
 <!-- page script -->
 <script>
+
+  function publishCourse(id,status,element){
+    $.ajax({
+            url: '{{route("admin.course.publish")}}',
+            method: 'post',
+            async:false,
+            data: {id:id,status:status,"_token":"{{ csrf_token() }}"},
+            success: function (data, status, xhr) {
+              if(data.success)
+              {
+                $(element).text(data.status);
+                $(element).toggleClass('badge-success');
+                $(element).toggleClass('badge-danger');
+              }
+              alert(data.message);
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                console.log(errorMessage);
+                alert("Something Went Wrong Please Try Again After Sometime")
+                return false;
+            }
+        });
+  }
+  $('.publish').on('click',function(){
+
+      var status=$(this).data('status');
+      var id=$(this).data('id');
+      if(status=='publish'){
+        status='dev';
+      }
+      else if(status=='dev'){
+        status='publish';
+      }
+      publishCourse(id,status,this)
+  });
+
   $(function () {
     $("#example1").DataTable({
       "responsive": true,
@@ -38,7 +74,11 @@
   <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
   <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
   
-  
+  <style type="text/css">
+    .publish{
+      cursor: pointer;
+    }
+  </style>
 @endsection
 
 
@@ -77,6 +117,7 @@
                 <tr>
                   <th>Id</th>
                   <th>name</th>
+                  <th>status</th>
                   <th>Action</th>
                 </tr>
                 </thead>
@@ -85,12 +126,17 @@
                      <tr>
                       <td><a href ="" >#{{$course['id']}}</a></td>
                       <td>{{$course['name']}}</td>     
+                      @if($course['status']=='publish')
+                      <td><span data-status="{{$course['status']}}" data-id="{{$course['id']}}" class="right badge badge-success mr-3 publish">{{$course['status']}}</a></td>
+                      @elseif($course['status']=='dev')
+                      <td><span data-status="{{$course['status']}}" data-id="{{$course['id']}}" class="right badge badge-danger mr-3 publish">{{$course['status']}}</a></td>
+                      @endif
                       <td>
                         <a href="/admin/course/edit/{{$course['id']}}" class="mr-3"><i class="far fa-edit text-info"></i></a>
                          <a target="_blank" data-toggle="tooltip" title="View Image" href="/uploads/courses/{{$course['image_url']}}" class="mr-3"><i class="fas fa-image text-success"></i></a>
                          <a target="_blank" data-toggle="tooltip" title="Add Topic" href ="/admin/topic/create/{{$course['name']}}" class="mr-3"><i class="fas fa-plus"></i></a>
                         <a data-toggle="tooltip" title="Go to Topics" href ="/admin/topic/all/{{$course['name']}}" class="mr-3"><ion-icon name="file-tray-stacked" class="text-body"></ion-icon></a>
-                        <a href="/admin/project/all/{{$course['name']}}" title="Go to projects" class="right badge badge-warning">   Projects </a>&nbsp&nbsp
+                        <a href="/admin/project/all/{{$course['name']}}" title="Go to projects" class="right badge badge-warning mr-3">Projects </a>
                         <a href ="" ><i class="far fa-trash-alt text-danger"></i></a></td>
                        
                     </tr>

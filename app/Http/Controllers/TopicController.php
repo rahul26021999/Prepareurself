@@ -92,7 +92,12 @@ class TopicController extends Controller
         $course=Course::where('name',$courseName)->first();
         if($course!=null)
         {
-          $CourseTopic=CourseTopic::with('Resource')->where('course_id',$course['id'])->orderBy('sequence','asc')->get();
+          $CourseTopic=CourseTopic::withCount(['Resource as resource_video'=>function($query){
+                      $query->where('type','video');},
+                    'Resource as resource_theory'=>function($query){
+                      $query->where('type','theory');}])
+          ->where('course_id',$course['id'])->orderBy('sequence','asc')->get();
+
           return view('backend.topic.show',['course'=>$course,'courseTopic'=>$CourseTopic]);
         }
         else{
@@ -124,6 +129,25 @@ class TopicController extends Controller
         CourseTopic::find($id[$i])->update(['sequence'=>$i]);
       }
       Session::flash('success','You have Successfully change sequence !');
+      return redirect()->back();
+   }
+   public function publishCourseTopic(Request $request)
+   {
+      if(isset($request['id']) && isset($request['status']) && $request['id']!='' && $request['status']!='')
+      {
+        $course=CourseTopic::find($request['id']);
+        $course->status=$request['status'];
+        $course->save();
+        return response()->json(['success'=>true,'status'=>$course->status,'message'=>'Topic Status changed to '.$course->status]);
+      }
+      else{
+        return response()->json(['success'=>false,'message'=>"Topic status can't change at this moment"]);
+      }
+
+   }
+   public function publishAllCourseTopic($courseId)
+   {
+      CourseTopic::where('course_id',$courseId)->update(['status'=>'publish']);
       return redirect()->back();
    }
 
