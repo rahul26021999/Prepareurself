@@ -93,7 +93,7 @@ class CourseController extends Controller
    * )
    */
    public function wsGetAllCourses(Request $request){
-    $courses=Course::all();
+    $courses=Course::all()->where('status','publish');
     return response()->json(['error_code'=>0,'courses'=>$courses]);
    }
 
@@ -120,7 +120,7 @@ class CourseController extends Controller
    */
    public function wsGetAllPreferences(Request $request)
    {
-      $courses=Course::all('id','name');
+      $courses=Course::all('id','name')->where('status','publish');
       return response()->json(['error_code'=>0,'preferences'=>$courses]);
    }
 

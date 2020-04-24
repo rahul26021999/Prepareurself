@@ -182,7 +182,7 @@ class TopicController extends Controller
         if($course!=null)
         {
           $count= isset($request['count'])?$request['count']:'10';
-          $CourseTopic=CourseTopic::where('course_id',$course['id'])->paginate($count);
+          $CourseTopic=CourseTopic::where('course_id',$course['id'])->where('status','publish')->paginate($count);
           return response()->json(['error_code'=>0,'topics'=>$CourseTopic]);
         }
         else{
