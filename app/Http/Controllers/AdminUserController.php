@@ -145,19 +145,4 @@ class AdminUserController extends Controller
 
     }
 
-    public function sendEmail()
-    {
-        $user=Admin::where('email','rahul26021999@gmail.com')->first();
-        try{
-            Mail::to($user)->send(new RegisterSuccessful());
-        }
-        catch(Exception $e)
-        {
-		echo "failed".$e;
-		return;
-        }
-
-        echo "Success";
-    }
-
 }

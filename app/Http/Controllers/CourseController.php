@@ -70,6 +70,19 @@ class CourseController extends Controller
      $course=Course::find($id);
      return view('backend.course.showsingle',['course'=>$course]);
    }
+   public function publishCourse(Request $request)
+   {
+      Log::info('succes');
+      Log::info($request['id']);
+      Log::info($request['status']);
+      $course=Course::find($request['id']);
+      $course->status=$request['status'];
+      $course->save();
+      return response()->json(['success'=>true,'message'=>'Course state changed']);
+
+   }
+
+
 
 /**
    * @OA\Post(
