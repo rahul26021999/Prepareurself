@@ -120,7 +120,7 @@ class CourseController extends Controller
    * )
    */
    public function wsGetAllCourses(Request $request){
-    $courses=Course::all()->where('status','publish');
+    $courses=Course::where('status','publish')->get();
     return response()->json(['error_code'=>0,'courses'=>$courses]);
    }
 
