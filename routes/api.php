@@ -20,11 +20,18 @@ Route::middleware(['auth.jwt','verify'])->group(function () {
  	Route::post('user','UserAuthController@getUser');
 	Route::post('update-user', 'UserAuthController@updateUserData');
 	Route::post('check-username', 'UserAuthController@checkUserName');
+	
 	Route::post('get-courses', 'CourseController@wsGetAllCourses');
+	
 	Route::post('get-topics', 'TopicController@wsGetAllTopics');
+	Route::post('get-suggested-topics', 'TopicController@wsGetAllSuggestedTopics');
+	
 	Route::post('get-resources', 'ResourceController@wsGetAllResources');
 	Route::post('resource', 'ResourceController@wsGetResource');
 	Route::post('get-projects', 'ProjectController@wsGetAllProjects');
+
+	Route::post('get-suggested-projects','ProjectController@wsGetAllSuggestedProjects');
+	
 	Route::post('hit-like', 'ResourceProjectLikesController@wsHitlike');
 	Route::post('view-resource-project', 'ResourceProjectViewsController@wsViewResource');
 	Route::post('get-all-preferences', 'CourseController@wsGetAllPreferences');

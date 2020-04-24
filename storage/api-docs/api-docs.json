@@ -124,6 +124,31 @@
                 }
             }
         },
+        "/api/get-suggested-projects": {
+            "post": {
+                "tags": [
+                    "Projects"
+                ],
+                "description": "Get all projects suggested for a particular user",
+                "operationId": "App\\Http\\Controllers\\ProjectController::wsGetAllSuggestedProjects",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{[error_code=>0,msg=>'success']}"
+                    }
+                }
+            }
+        },
         "/api/get-resources": {
             "post": {
                 "tags": [
@@ -362,6 +387,31 @@
                 "responses": {
                     "200": {
                         "description": "{[error_code=>0,msg=>'success'],[error_code=>1,msg=>'Course Id is Invalid'],[error_code=>2,'msg'=>'Course Id is Compulsory']}"
+                    }
+                }
+            }
+        },
+        "/api/get-suggested-topics": {
+            "post": {
+                "tags": [
+                    "Topics"
+                ],
+                "description": "Get all topics suggested for a particular user",
+                "operationId": "App\\Http\\Controllers\\TopicController::wsGetAllSuggestedTopics",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{[error_code=>0,msg=>'success']}"
                     }
                 }
             }

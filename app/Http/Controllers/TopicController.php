@@ -9,6 +9,7 @@ use App\Models\Course;
 use App\Models\Resource;
 use Log;
 use Session;
+use JWTAuth;
 
 class TopicController extends Controller
 {
@@ -206,7 +207,7 @@ class TopicController extends Controller
         if($course!=null)
         {
           $count= isset($request['count'])?$request['count']:'10';
-          $CourseTopic=CourseTopic::where('course_id',$course['id'])->where('status','publish')->paginate($count);
+          $CourseTopic=CourseTopic::where('course_id',$course['id'])->where('status','publish')->orderBy('sequence','asc')->paginate($count);
           return response()->json(['error_code'=>0,'topics'=>$CourseTopic]);
         }
         else{
@@ -216,6 +217,44 @@ class TopicController extends Controller
      else{
        return response()->json(['error_code'=>2,'msg'=>'Course Id is Compulsory']);
      }
+   }
+
+   /**
+   * @OA\Post(
+   *     path="/api/get-suggested-topics",
+   *     tags={"Topics"},
+   *     description="Get all topics suggested for a particular user",
+   *     @OA\Parameter(
+   *          name="token",
+   *          in="query",
+   *          description="token",
+   *          required=true,
+   *          @OA\Schema(
+   *              type="string"
+   *          )
+   *      ),
+   *     @OA\Response(
+   *          response=200,
+   *      description="{[error_code=>0,msg=>'success']}"
+   *     )
+   * )
+   */
+   public function wsGetAllSuggestedTopics(Request $request){
+      
+      $user=JWTAuth::user();
+      if(!is_null($user->preferences)){
+        $preferences=explode(',', $user->preferences);
+        $course_id=$preferences['0'];
+        if(is_null(Course::find($course_id))){
+          $course_id=8;
+        }
+      }
+      else{
+        $course_id=8;
+      }
+      $topic=CourseTopic::where('course_id',$course_id)->where('status','publish')->orderBy('sequence','asc')->take(5)->get();
+      return response()->json(['success'=>true,'course_id'=>$course_id,'topics'=>$topic]);
+
    }
 
 }
