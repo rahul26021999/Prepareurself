@@ -16,6 +16,7 @@ class CreateCoursesTable extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->longText('name');
+            $table->enum('status',['publish','dev'])->default('dev');
             $table->longText('image_url');
             $table->timestamps();
         });

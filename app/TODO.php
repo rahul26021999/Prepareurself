@@ -8,6 +8,5 @@
 
 	=> send to user
 
-4)views vala kaam 
 5)cousre coloum status => publish(0) , dev(1) , all cousre , pubish course , devloping course
 6) topic status => publish(0) , dev(1) particular topic.

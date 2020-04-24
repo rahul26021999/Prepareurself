@@ -19,6 +19,7 @@ class CreateCourseTopicsTable extends Migration
             $table->longText('description')->nullable();
             $table->longText('image_url');
             $table->smallInteger('sequence')->nullable();
+            $table->enum('status',['publish','dev'])->default('dev');
             $table->unsignedBigInteger('course_id');
             $table->timestamps();
         });
