@@ -14,22 +14,30 @@
 <!-- page script -->
 <script>
 
-  function publishCourse(id,status){
-    $.post('{{route("admin.course.publish")}}', {
-        dataType:'json',
-        type: 'POST',  // http method
-        data: id  // data to submit
-        success: function (data, status, xhr) {
-          alert('hello');
-            alert('status: ' + status + ', data: ' + data);
-        },
-        error: function (jqXhr, textStatus, errorMessage) {
-            console.log(errorMessage);
-        }
-    });
+  function publishCourse(id,status,element){
+    $.ajax({
+            url: '{{route("admin.course.publish")}}',
+            method: 'post',
+            async:false,
+            data: {id:id,status:status,"_token":"{{ csrf_token() }}"},
+            success: function (data, status, xhr) {
+              if(data.success)
+              {
+                $(element).text(data.status);
+                $(element).toggleClass('badge-success');
+                $(element).toggleClass('badge-danger');
+              }
+              alert(data.message);
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                console.log(errorMessage);
+                alert("Something Went Wrong Please Try Again After Sometime")
+                return false;
+            }
+        });
   }
   $('.publish').on('click',function(){
-      alert("asdfkh");
+
       var status=$(this).data('status');
       var id=$(this).data('id');
       if(status=='publish'){
@@ -38,11 +46,7 @@
       else if(status=='dev'){
         status='publish';
       }
-      publishCourse(id,status);
-
-      // $(this).toggleClass('badge-success');
-      // $(this).toggleClass('badge-danger');
-
+      publishCourse(id,status,this)
   });
 
   $(function () {

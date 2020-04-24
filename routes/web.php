@@ -98,6 +98,9 @@ Route::name('admin.')->prefix('admin')->group(function () {
             Route::get('all/{courseName?}','TopicController@showAllCourseTopic');
             Route::post('delete','TopicController@deleteCourseTopic');
             Route::post('sequence','TopicController@changeCourseTopicSequence')->name('sequence');
+
+            Route::post('publish','TopicController@publishCourseTopic')->name('publish');
+            Route::get('publish/{courseId}','TopicController@publishAllCourseTopic');
         });
         Route::name('resource.')->prefix('resource')->group(function(){
             Route::get('create/{topicId}','ResourceController@showCreateResource');

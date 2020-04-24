@@ -198,6 +198,18 @@
                   <p>All Course</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="/admin/course/all/published" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Published Courses</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/admin/course/all/unpublished" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Un-Published Course</p>
+                </a>
+              </li>
             </ul>
           </li>
           <li class="nav-item has-treeview">

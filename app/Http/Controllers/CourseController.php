@@ -62,8 +62,19 @@ class CourseController extends Controller
    }
    public function showAllCourse($type='all')
    {
-      $course=Course::all();
-      return view('backend.course.show',['courses'=>$course]);
+      if($type=='all'){
+        $course=Course::all();
+      }
+      elseif($type=='published'){
+        $course=Course::all()->where('status','publish'); 
+      }
+      elseif($type=='unpublished'){
+        $course=Course::all()->where('status','dev');
+      }
+      else{
+        abort(404);
+      }     
+      return view('backend.course.show',['courses'=>$course,'type'=>$type]);
    }
    public function showCourse($id)
    {
@@ -72,13 +83,16 @@ class CourseController extends Controller
    }
    public function publishCourse(Request $request)
    {
-      Log::info('succes');
-      Log::info($request['id']);
-      Log::info($request['status']);
-      $course=Course::find($request['id']);
-      $course->status=$request['status'];
-      $course->save();
-      return response()->json(['success'=>true,'message'=>'Course state changed']);
+      if(isset($request['id']) && isset($request['status']) && $request['id']!='' && $request['status']!='')
+      {
+        $course=Course::find($request['id']);
+        $course->status=$request['status'];
+        $course->save();
+        return response()->json(['success'=>true,'status'=>$course->status,'message'=>'Course Status changed to '.$course->status]);
+      }
+      else{
+        return response()->json(['success'=>false,'message'=>"Course status can't change at this moment"]);
+      }
 
    }
 
