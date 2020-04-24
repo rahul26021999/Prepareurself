@@ -208,4 +208,49 @@ class ResourceController extends Controller
       }
       
    }
+
+   /**
+   * @OA\Post(
+   *     path="/api/resource",
+   *     tags={"Resources"},
+   *     description="Get a resources",
+   *     @OA\Parameter(
+   *          name="token",
+   *          in="query",
+   *          description="token",
+   *          required=true,
+   *          @OA\Schema(
+   *              type="string"
+   *          )
+   *      ),
+   *     @OA\Parameter(
+   *          name="resource_id",
+   *          in="query",
+   *          description="resource_id of Resource ",
+   *          required=true,
+   *          @OA\Schema(
+   *              type="integer"
+   *          )
+   *     ),
+   *     @OA\Response(
+   *          response=200,
+   *      description="{[error_code=>0,msg=>'success'],[error_code=>1,msg=>'Resource Id is Invalid'],[error_code=>2,'msg'=>'Resource Id is Compulsory']}"
+   *     )
+   * )
+   */
+   public function wsGetResource(Request $request){
+      if(isset($request['resource_id']))
+      {
+          $resource=Resource::find($request['resource_id']);
+          if($resource!=null){
+              return response()->json(['success'=>true,'error_code'=>0,'resource'=>$resource]); 
+          }
+          else{
+              return response()->json(['success'=>false,'error_code'=>1,'message'=>'No resource Available for this Id']);   
+          }
+      }
+      else{
+          return response()->json(['success'=>false,'error_code'=>2,'message'=>'Resource Id is Compulsory']); 
+      }
+   }
 }

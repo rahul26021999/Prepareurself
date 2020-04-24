@@ -23,6 +23,7 @@ Route::middleware(['auth.jwt','verify'])->group(function () {
 	Route::post('get-courses', 'CourseController@wsGetAllCourses');
 	Route::post('get-topics', 'TopicController@wsGetAllTopics');
 	Route::post('get-resources', 'ResourceController@wsGetAllResources');
+	Route::post('resource', 'ResourceController@wsGetResource');
 	Route::post('get-projects', 'ProjectController@wsGetAllProjects');
 	Route::post('hit-like', 'ResourceProjectLikesController@wsHitlike');
 	Route::post('view-resource-project', 'ResourceProjectViewsController@wsViewResource');

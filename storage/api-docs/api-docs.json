@@ -185,6 +185,40 @@
                 }
             }
         },
+        "/api/resource": {
+            "post": {
+                "tags": [
+                    "Resources"
+                ],
+                "description": "Get a resources",
+                "operationId": "App\\Http\\Controllers\\ResourceController::wsGetResource",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "resource_id",
+                        "in": "query",
+                        "description": "resource_id of Resource ",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{[error_code=>0,msg=>'success'],[error_code=>1,msg=>'Resource Id is Invalid'],[error_code=>2,'msg'=>'Resource Id is Compulsory']}"
+                    }
+                }
+            }
+        },
         "/api/hit-like": {
             "post": {
                 "tags": [
