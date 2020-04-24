@@ -8,8 +8,16 @@ class Project extends Model
 {
      protected $fillable = ['name','description','type','image_url','link','course_id','admin_id','playlist','level'];
 
-     public function Course()
+    public function Course()
     {
         return $this->belongsTo('App\Models\Course');
+    }
+    public function ResourceProjectLikes()
+    {
+        return $this->hasMany('App\Models\ResourceProjectLikes','project_id');
+    }
+    public function ResourceProjectViews()
+    {
+        return $this->hasMany('App\Models\ResourceProjectViews','project_id');
     }
 }

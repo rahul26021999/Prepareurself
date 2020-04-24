@@ -25,8 +25,7 @@ Route::middleware(['auth.jwt','verify'])->group(function () {
 	Route::post('get-resources', 'ResourceController@wsGetAllResources');
 	Route::post('get-projects', 'ProjectController@wsGetAllProjects');
 	Route::post('hit-like', 'ResourceProjectLikesController@wsHitlike');
-	Route::post('view-resource', 'ResourceController@wsViewResource');
-	Route::post('view-project', 'ProjectController@wsViewProject');
+	Route::post('view-resource-project', 'ResourceProjectViewsController@wsViewResource');
 	Route::post('get-all-preferences', 'CourseController@wsGetAllPreferences');
 	Route::post('update-password', 'UserAuthController@updatePassword');
 });

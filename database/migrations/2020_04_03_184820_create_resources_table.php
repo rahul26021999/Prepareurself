@@ -20,7 +20,6 @@ class CreateResourcesTable extends Migration
             $table->enum('type',['theory','video']);
             $table->longText('image_url')->nullable();
             $table->longText('link');
-            $table->bigInteger('views')->default(0);   
             $table->unsignedBigInteger('course_topic_id');
             $table->unsignedBigInteger('admin_id')->nullable();
             $table->timestamps();

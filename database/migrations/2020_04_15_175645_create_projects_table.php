@@ -22,7 +22,6 @@ class CreateProjectsTable extends Migration
             $table->longText('image_url')->nullable();
             $table->longText('link');
             $table->string('playlist')->nullable();
-            $table->bigInteger('views')->default(0);
             $table->unsignedBigInteger('course_id');
             $table->unsignedBigInteger('admin_id');
             $table->timestamps();

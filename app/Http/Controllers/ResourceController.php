@@ -177,6 +177,9 @@ class ResourceController extends Controller
                 $resources=Resource::withCount(['ResourceProjectLikes as like'=>function($query){
                       $query->where('user_id',JWTAuth::user()->id);
                 }])->withCount('ResourceProjectLikes as total_likes')
+                ->withCount(['ResourceProjectViews as view'=>function($query){
+                      $query->where('user_id',JWTAuth::user()->id);
+                }])->withCount('ResourceProjectViews as total_views')
                 ->where('course_topic_id',$request['topic_id'])
                 ->paginate($count);
                 return response()->json(['error_code'=>0,'resources'=>$resources]);
@@ -186,9 +189,12 @@ class ResourceController extends Controller
                 $resources=Resource::withCount(['ResourceProjectLikes as like'=>function($query){
                       $query->where('user_id',JWTAuth::user()->id);
                 }])->withCount('ResourceProjectLikes as total_likes')
-                          ->where('course_topic_id',$request['topic_id'])
-                          ->where('type',$type)
-                          ->paginate($count);
+                ->withCount(['ResourceProjectViews as view'=>function($query){
+                      $query->where('user_id',JWTAuth::user()->id);
+                }])->withCount('ResourceProjectViews as total_views')
+                    ->where('course_topic_id',$request['topic_id'])
+                    ->where('type',$type)
+                    ->paginate($count);
 
                 return response()->json(['error_code'=>0,'resources'=>$resources]);
               }
@@ -202,48 +208,4 @@ class ResourceController extends Controller
       }
       
    }
-
-  /**
-   * @OA\Post(
-   *     path="/api/view-resource",
-   *     tags={"Resources"},
-   *     description="Increment View of a particular Resource",
-   *     @OA\Parameter(
-   *          name="token",
-   *          in="query",
-   *          description="token",
-   *          required=true,
-   *          @OA\Schema(
-   *              type="string"
-   *          )
-   *      ),
-   *     @OA\Parameter(
-   *          name="resource_id",
-   *          in="query",
-   *          description="resource_id ",
-   *          required=true,
-   *          @OA\Schema(
-   *              type="integer"
-   *          )
-   *     ),
-   *     @OA\Response(
-     *          response=200,
-     *      description="{[error_code=>0,msg=>'success'],[error_code=>1,msg=>'Resource Id is Invalid']}"
-     *     )
-     * )
-     */
-   public function wsViewResource(Request $request){
-
-    if(isset($request['resource_id'])){
-          $resource=Resource::find($request['resource_id']);
-          if($resource!=null){
-           $s = Resource::where('id',$request['resource_id'])->increment('views');
-            return response()->json(['error_code'=>0,'msg'=>'success']);
-          }
-          else{
-            return response()->json(['error_code'=>1,'msg'=>'Resource Id is Invalid']);
-          }
-
-    }
-  }
 }

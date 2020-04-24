@@ -16,4 +16,8 @@ class Resource extends Model
     {
         return $this->hasMany('App\Models\ResourceProjectLikes','resource_id');
     }
+    public function ResourceProjectViews()
+    {
+        return $this->hasMany('App\Models\ResourceProjectViews','resource_id');
+    }
 }

@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ResourceProjectLikes extends Model
+class ResourceProjectViews extends Model
 {
-	protected $fillable = [
+    protected $fillable = [
         'user_id','project_id','resource_id'
     ];
 

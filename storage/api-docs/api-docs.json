@@ -124,40 +124,6 @@
                 }
             }
         },
-        "/api/view-project": {
-            "post": {
-                "tags": [
-                    "Projects"
-                ],
-                "description": "Increment View of a particular Project",
-                "operationId": "App\\Http\\Controllers\\ProjectController::wsViewProject",
-                "parameters": [
-                    {
-                        "name": "token",
-                        "in": "query",
-                        "description": "token",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "project_id",
-                        "in": "query",
-                        "description": "project_id ",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{[error_code=>0,msg=>'success'],[error_code=>1,msg=>'Project Id is Invalid']}"
-                    }
-                }
-            }
-        },
         "/api/get-resources": {
             "post": {
                 "tags": [
@@ -219,40 +185,6 @@
                 }
             }
         },
-        "/api/view-resource": {
-            "post": {
-                "tags": [
-                    "Resources"
-                ],
-                "description": "Increment View of a particular Resource",
-                "operationId": "App\\Http\\Controllers\\ResourceController::wsViewResource",
-                "parameters": [
-                    {
-                        "name": "token",
-                        "in": "query",
-                        "description": "token",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "resource_id",
-                        "in": "query",
-                        "description": "resource_id ",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{[error_code=>0,msg=>'success'],[error_code=>1,msg=>'Resource Id is Invalid']}"
-                    }
-                }
-            }
-        },
         "/api/hit-like": {
             "post": {
                 "tags": [
@@ -277,6 +209,49 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "project_id",
+                        "in": "query",
+                        "description": "project id of a particular project u want to like or dislike",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "resource_id",
+                        "in": "query",
+                        "description": "resources id of a particular resource u want to like or dislike",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{[success=>true,message=>'like successfull'],[success=>true,message=>'Dislike successfull']}"
+                    }
+                }
+            }
+        },
+        "/api/view-resource-project": {
+            "post": {
+                "tags": [
+                    "Likes | Dislikes | Views"
+                ],
+                "description": "View a resource or peoject in prepareurself",
+                "operationId": "App\\Http\\Controllers\\ResourceProjectViewsController::wsViewResource",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
                         }
                     },
                     {

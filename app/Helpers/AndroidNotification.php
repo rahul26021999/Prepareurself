@@ -18,7 +18,7 @@ class AndroidNotification {
       $fields = array(
          'to'   => $to,
          'notification' => $notification
-         // 'data' => $message,
+         'data' => $message,
       );
 
       return $this->sendPushNotification( $fields );
@@ -32,7 +32,7 @@ class AndroidNotification {
     *
     * @return bool|string
     */
-   public function sendToTopic( $to, $notification, $message=[] ) {
+   public function sendToTopic( $to, $notification, $message=[''=>''] ) {
       $fields = array(
          'to'   => '/topics/' . $to,
          'notification' => $notification,
