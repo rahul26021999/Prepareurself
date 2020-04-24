@@ -242,7 +242,7 @@
                 "tags": [
                     "Likes | Dislikes | Views"
                 ],
-                "description": "View a resource or peoject in prepareurself",
+                "description": "View a resource or project in prepareurself",
                 "operationId": "App\\Http\\Controllers\\ResourceProjectViewsController::wsViewResource",
                 "parameters": [
                     {
@@ -257,7 +257,7 @@
                     {
                         "name": "project_id",
                         "in": "query",
-                        "description": "project id of a particular project u want to like or dislike",
+                        "description": "project id of a particular project u want to view",
                         "required": false,
                         "schema": {
                             "type": "integer"
@@ -266,7 +266,7 @@
                     {
                         "name": "resource_id",
                         "in": "query",
-                        "description": "resources id of a particular resource u want to like or dislike",
+                        "description": "resources id of a particular resource u want to view",
                         "required": false,
                         "schema": {
                             "type": "integer"

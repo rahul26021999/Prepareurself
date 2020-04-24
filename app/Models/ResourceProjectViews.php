@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ResourceProjectViews extends Model
 {
     protected $fillable = [
-        'user_id','project_id','resource_id'
+        'user_id','project_id','resource_id','course_id','topic_id'
     ];
 
     public function Resource()
