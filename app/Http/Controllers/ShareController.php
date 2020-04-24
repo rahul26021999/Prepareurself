@@ -20,7 +20,7 @@ class ShareController extends Controller
     	$resource=Resource::find($resource_id);
     	if($resource!=null){
             Log::alert('resource share called');
-    		return view('frontend.share.app',['id'=>$resource_id,'type'=>$resource->type]);
+    		return view('frontend.share.app',['id'=>$resource_id,'type'=>$resource->type,'link'=>$resource->link]);
         }
     	else{
             Log::alert('resource share not found');
