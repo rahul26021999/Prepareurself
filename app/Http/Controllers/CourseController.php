@@ -147,7 +147,7 @@ class CourseController extends Controller
    */
    public function wsGetAllPreferences(Request $request)
    {
-      $courses=Course::all('id','name')->where('status','publish');
+      $courses=Course::where('status','publish')->select('id','name')->get();
       return response()->json(['error_code'=>0,'preferences'=>$courses]);
    }
 
