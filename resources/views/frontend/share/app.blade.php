@@ -11,7 +11,7 @@
         2. if user doesn't have app installed, then their browser wouldn't recognize the URL scheme
         and app wouldn't open since it's not installed. In 1 second (1000 milliseconds) user is redirected
         to download app from app store.
-     -->
+     -->     
     <script>
     window.onload = function() {
     // <!-- Deep link URL for existing users with app already installed on their device -->
@@ -20,7 +20,7 @@
     @elseif(isset($type) && $type=='theory')
         window.location ="theory://app.prepareurself/?screen=.resources.ui.activity.ResourcesActivity"+"&id="+{{$id}}+"&link"+{{$link}};
     @elseif(isset($type) && $type=='video')
-        window.location ="video://app.prepareurself/?screen=.resources.youtubevideoplayer.YoutubePlayerActivity"+"&id="+{{$id}}+"&link"+{{$link}};
+        window.location ="video://app.prepareurself/?screen=.youtubeplayer.youtubeplaylistapi.ui.VideoActivity"+"&id="+{{$id}}+"&link"+{{$link}};
     @elseif(isset($type) && $type=='project')
         window.location ="project://app.prepareurself/?screen=.courses.ui.activity.ProjectsActivity"+"&id="+{{$id}};
     @elseif(isset($type) && $type=='course')
