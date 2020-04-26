@@ -9,6 +9,35 @@ use App\Exception;
 
 class BannerController extends Controller
 {
+
+   public function showCreateBanner()
+   {        
+        return view('backend.banner.create');
+   }
+   public function createBanner(Request $request)
+   {    
+      try{
+
+       $fileName = time().'.'.$request->file('bannerImage')->extension();  
+       $request->file('bannerImage')->move(public_path('uploads/banners'), $fileName);
+
+        $banner=Banner::create([
+          'title'=>$request['title'],
+          'image'=>$fileName,
+          'status'=>$request->input('publish','dev')
+        ]);
+      }
+      catch(Exception $e){
+          Log::error("Error in creating Banner ".$e);          
+      }
+      return redirect('admin/banner/show');
+   }
+   public function showbanner(Request $request)
+   {
+      $banner=Banner::all();
+      return view('backend.banner.show',['banners'=>$banner]);
+   }
+
     /**
    * @OA\Post(
    *     path="/api/get-banner",

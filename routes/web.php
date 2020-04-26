@@ -118,6 +118,17 @@ Route::name('admin.')->prefix('admin')->group(function () {
            Route::get('all/{course_name?}','ProjectController@showAllProject');
            Route::post('delete','ProjectController@deleteProject')->name('delete');
        });
+
+        Route::name('banner.')->prefix('banner')->group(function(){
+            Route::get('create','BannerController@showCreateBanner');
+            Route::post('create','BannerController@createBanner');
+            Route::get('show','BannerController@showbanner');
+            Route::get('all','BannerController@showAllBanner');
+            Route::get('delete/{id}','BannerController@deleteBanner');
+
+            Route::post('publish','BannerController@publishBanner')->name('publish');
+        });
+
     });
 });
 // Route::fallback(function () {

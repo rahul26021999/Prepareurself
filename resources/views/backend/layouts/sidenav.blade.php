@@ -278,7 +278,15 @@
             <a href="" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Send Android Notification
+                Android Notification
+              </p>
+            </a>
+          </li>
+           <li class="nav-item">
+            <a href="/admin/banner/show" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Banner
               </p>
             </a>
           </li>
