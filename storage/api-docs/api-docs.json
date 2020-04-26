@@ -13,6 +13,31 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/get-banner": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "description": "Get all banner image and title  in Prepareurself",
+                "operationId": "App\\Http\\Controllers\\BannerController::wsGetBanner",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{[error_code=>0,msg=>'success']}"
+                    }
+                }
+            }
+        },
         "/api/get-courses": {
             "post": {
                 "tags": [
@@ -45,31 +70,6 @@
                 ],
                 "description": "Get all Preferences for a User available in Prepareurself",
                 "operationId": "App\\Http\\Controllers\\CourseController::wsGetAllPreferences",
-                "parameters": [
-                    {
-                        "name": "token",
-                        "in": "query",
-                        "description": "token",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{[error_code=>0,msg=>'success']}"
-                    }
-                }
-            }
-        },
-        "/api/get-banner": {
-            "post": {
-                "tags": [
-                    "User"
-                ],
-                "description": "Get all banner image and title  in Prepareurself",
-                "operationId": "App\\Http\\Controllers\\CourseController::wsGetBanner",
                 "parameters": [
                     {
                         "name": "token",

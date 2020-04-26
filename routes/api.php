@@ -25,7 +25,7 @@ Route::middleware(['auth.jwt','verify'])->group(function () {
 	Route::post('get-suggested-topics', 'TopicController@wsGetAllSuggestedTopics');
 	Route::post('get-resources', 'ResourceController@wsGetAllResources');
 
-	Route::post('get-banner', 'CourseController@wsGetBanner');
+	Route::post('get-banner', 'BannerController@wsGetBanner');
 
 	Route::post('resource', 'ResourceController@wsGetResource');
 	Route::post('get-projects', 'ProjectController@wsGetAllProjects');
