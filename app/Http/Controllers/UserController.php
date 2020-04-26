@@ -9,9 +9,14 @@ use Log;
 
 class UserController extends Controller
 {
-    public function showAllUsers()
+    public function showAllUsers($type='')
     {
-    	$users=User::all();
+    	if($type=='blocked'){
+    		$users=User::where('user_status','blocked')->get();
+    	}
+    	else{
+    		$users=User::all();
+    	}
 		return view('backend.users.show',['users'=>$users]);
     }
 }

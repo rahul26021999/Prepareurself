@@ -92,7 +92,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/admin/users/all" class="nav-link">
+                <a href="/admin/users/all/blocked" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Blocked User</p>
                 </a>
@@ -287,6 +287,14 @@
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Banner
+              </p>
+            </a>
+          </li>
+           <li class="nav-item">
+            <a href="/admin/banner/show" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Gallery
               </p>
             </a>
           </li>

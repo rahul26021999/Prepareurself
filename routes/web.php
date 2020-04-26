@@ -58,7 +58,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
         });
 
         Route::prefix('users')->group(function(){
-            Route::get('all','UserController@showAllUsers');
+            Route::get('all/{type?}','UserController@showAllUsers');
         });
 
         Route::name('quiz.')->prefix('quiz')->group(function(){
