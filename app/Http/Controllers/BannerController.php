@@ -38,6 +38,20 @@ class BannerController extends Controller
       return view('backend.banner.show',['banners'=>$banner]);
    }
 
+   public function publishBanner(Request $request)
+   {
+      if(isset($request['id']) && isset($request['status']) && $request['id']!='' && $request['status']!='')
+      {
+        $banner=Banner::find($request['id']);
+        $banner->status=$request['status'];
+        $banner->save();
+        return response()->json(['success'=>true,'status'=>$banner->status,'message'=>'Banner Status changed to '.$banner->status]);
+      }
+      else{
+        return response()->json(['success'=>false,'message'=>"banner status can't change at this moment"]);
+      }
+   }
+
     /**
    * @OA\Post(
    *     path="/api/get-banner",

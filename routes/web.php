@@ -123,9 +123,8 @@ Route::name('admin.')->prefix('admin')->group(function () {
             Route::get('create','BannerController@showCreateBanner');
             Route::post('create','BannerController@createBanner');
             Route::get('show','BannerController@showbanner');
-            Route::get('all','BannerController@showAllBanner');
-            Route::get('delete/{id}','BannerController@deleteBanner');
 
+            Route::get('delete/{id}','BannerController@deleteBanner');
             Route::post('publish','BannerController@publishBanner')->name('publish');
         });
 

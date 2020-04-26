@@ -16,6 +16,42 @@
 <script src="{{ asset('AdminLTE/dist/js/demo.js')}}"></script>
 <!-- page script -->
 <script>
+
+  function publishBanner(id,status,element){
+    $.ajax({
+            url: '{{route("admin.banner.publish")}}',
+            method: 'post',
+            async:false,
+            data: {id:id,status:status,"_token":"{{ csrf_token() }}"},
+            success: function (data, status, xhr) {
+              if(data.success)
+              {
+                $(element).text(data.status);
+                $(element).toggleClass('badge-success');
+                $(element).toggleClass('badge-danger');
+              }
+              alert(data.message);
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                console.log(errorMessage);
+                alert("Something Went Wrong Please Try Again After Sometime")
+                return false;
+            }
+        });
+  }
+  $('.publish').on('click',function(){
+
+      var status=$(this).data('status');
+      var id=$(this).data('id');
+      if(status=='publish'){
+        status='dev';
+      }
+      else if(status=='dev'){
+        status='publish';
+      }
+      publishBanner(id,status,this)
+  });
+
   $(function () {
     $("#example1").DataTable({
       "responsive": true,
@@ -31,29 +67,7 @@
       "responsive": true,
     });
   });
-  $(".deleteButton").on('click',function() {
-    var id=$(this).data('id');
-    var title=$(this).data('name');
-    var courseName=$(this).data('course');
-    console.log(courseName);
-    $('#deleteTopicCourseName').val(courseName);
-    $('#deleteTopicId').val(id);
-    $('#deleteTopicTitle').text(title);       
-  });
 
-  $("#sortable4").sortable({
-    placeholder: 'drop-placeholder',
-    items: "li:not(.ui-state-disabled)"
-  });
-
-  $(".pin").on('click',function(){
-    var id=$(this).data('id');      
-    $(this).toggleClass('text-light');
-    $(this).toggleClass('text-muted');
-    $('#listItem'+id).toggleClass('bg-danger');
-    $('#listItem'+id).toggleClass('ui-state-disabled');
-
-  });
 </script>
 
 @endsection
@@ -71,6 +85,9 @@
     padding-top: 12px;
     padding-bottom: 12px;
     line-height: 1.2em;
+  }
+  .publish{
+    cursor: pointer;
   }
 </style>
 @endsection
@@ -129,14 +146,13 @@
                   <td>{{$banner['title']}}</td>
                  <td>
                   @if($banner['status']=='publish')
-                  <span class="right badge badge-danger">Publish</span>
+                  <span class="right badge badge-danger publish" data-id="{{$banner['id']}}" data-status="{{$banner['status']}}">Publish</span>
                   @else
-                  <span class="right badge badge-primary">Dev</span>
+                  <span class="right badge badge-primary publish" data-id="{{$banner['id']}}" data-status="{{$banner['status']}}">Dev</span>
                   @endif
                   </td>
                   <td>
-                    <a target="_blank" data-toggle="tooltip" title="View Image" href="/uploads/banners/{{$banner['image_url']}}" class="mr-3"><i class="fas fa-image text-success"></i></a>
-
+                    <a target="_blank" data-toggle="tooltip" title="View Image" href="{{$banner['image_url']}}" class="mr-3"><i class="fas fa-image text-success"></i></a>
                   </td>
                  </tr>
                 @endforeach
