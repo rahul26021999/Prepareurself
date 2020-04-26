@@ -149,6 +149,40 @@
                 }
             }
         },
+        "/api/project": {
+            "post": {
+                "tags": [
+                    "Projects"
+                ],
+                "description": "Get a project",
+                "operationId": "App\\Http\\Controllers\\ProjectController::wsGetProject",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "project_id",
+                        "in": "query",
+                        "description": "project_id of Project ",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{[error_code=>0,msg=>'success'],[error_code=>1,msg=>'Project Id is Invalid'],[error_code=>2,'msg'=>'project Id is Compulsory']}"
+                    }
+                }
+            }
+        },
         "/api/get-resources": {
             "post": {
                 "tags": [

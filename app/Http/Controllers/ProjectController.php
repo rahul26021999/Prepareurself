@@ -269,5 +269,52 @@ class ProjectController extends Controller
       $project=Project::where('course_id',$course_id)->take(5)->get();
       return response()->json(['success'=>true,'course_id'=>$course_id,'projects'=>$project]);
 	}
+
+
+   /**
+   * @OA\Post(
+   *     path="/api/project",
+   *     tags={"Projects"},
+   *     description="Get a project",
+   *     @OA\Parameter(
+   *          name="token",
+   *          in="query",
+   *          description="token",
+   *          required=true,
+   *          @OA\Schema(
+   *              type="string"
+   *          )
+   *      ),
+   *     @OA\Parameter(
+   *          name="project_id",
+   *          in="query",
+   *          description="project_id of Project ",
+   *          required=true,
+   *          @OA\Schema(
+   *              type="integer"
+   *          )
+   *     ),
+   *     @OA\Response(
+   *          response=200,
+   *      description="{[error_code=>0,msg=>'success'],[error_code=>1,msg=>'Project Id is Invalid'],[error_code=>2,'msg'=>'project Id is Compulsory']}"
+   *     )
+   * )
+   */
+   public function wsGetProject(Request $request){
+      if(isset($request['project_id']))
+      {
+          $project=Project::find($request['project_id']);
+          if($project!=null){
+              return response()->json(['success'=>true,'error_code'=>0,'project'=>$project]); 
+          }
+          else{
+              return response()->json(['success'=>false,'error_code'=>1,'message'=>'No project Available for this Id']);   
+          }
+      }
+      else{
+          return response()->json(['success'=>false,'error_code'=>2,'message'=>'project Id is Compulsory']); 
+      }
+   }
+
 }
 //end of class

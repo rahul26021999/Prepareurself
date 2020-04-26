@@ -29,6 +29,7 @@ Route::middleware(['auth.jwt','verify'])->group(function () {
 	Route::post('get-resources', 'ResourceController@wsGetAllResources');
 	Route::post('resource', 'ResourceController@wsGetResource');
 	Route::post('get-projects', 'ProjectController@wsGetAllProjects');
+	Route::post('project', 'ProjectController@wsGetProject');
 
 	Route::post('get-suggested-projects','ProjectController@wsGetAllSuggestedProjects');
 	
