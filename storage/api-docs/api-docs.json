@@ -63,6 +63,31 @@
                 }
             }
         },
+        "/api/get-banner": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "description": "Get all banner image and title  in Prepareurself",
+                "operationId": "App\\Http\\Controllers\\CourseController::wsGetBanner",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{[error_code=>0,msg=>'success']}"
+                    }
+                }
+            }
+        },
         "/api/get-projects": {
             "post": {
                 "tags": [

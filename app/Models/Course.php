@@ -8,6 +8,8 @@ class Course extends Model
 {
     protected $fillable = ['name','image_url'];
 
+    // protected $appends = array('image');
+
     public function CourseTopic()
     {
         return $this->hasMany('App\Models\CourseTopic');
@@ -20,5 +22,9 @@ class Course extends Model
     {
         return $this->hasMany('App\Models\Projects');
     }
-
+    
+    // public function getImageAttribute()
+    // {
+    //     return url('/')."/uploads/courses/"."{$this->image_url}";
+    // }
 }

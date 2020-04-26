@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Course;
 use Log;
+use App\Models\Banner;
 use App\Exception;
 
 class CourseController extends Controller
@@ -150,5 +151,31 @@ class CourseController extends Controller
       $courses=Course::where('status','publish')->select('id','name')->get();
       return response()->json(['error_code'=>0,'preferences'=>$courses]);
    }
+
+/**
+   * @OA\Post(
+   *     path="/api/get-banner",
+   *     tags={"User"},
+   *     description="Get all banner image and title  in Prepareurself",
+   *     @OA\Parameter(
+   *          name="token",
+   *          in="query",
+   *          description="token",
+   *          required=true,
+   *          @OA\Schema(
+   *              type="string"
+   *          )
+   *      ),
+   *   
+   *     @OA\Response(
+   *          response=200,
+   *      description="{[error_code=>0,msg=>'success']}"
+   *     )
+   * )
+   */
+  public function wsGetBanner(Request $request){
+      $banner=Banner::where('status','publish')->select('id','title','image')->get();
+      return response()->json(['error_code'=>0,'banner'=>$banner]);
+  }
 
 }
