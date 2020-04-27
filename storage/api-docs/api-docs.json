@@ -16,7 +16,7 @@
         "/api/get-banner": {
             "post": {
                 "tags": [
-                    "User"
+                    "Banner"
                 ],
                 "description": "Get all banner image and title  in Prepareurself",
                 "operationId": "App\\Http\\Controllers\\BannerController::wsGetBanner",

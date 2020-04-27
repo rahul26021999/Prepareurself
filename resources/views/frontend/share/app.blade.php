@@ -18,13 +18,13 @@
     @if(isset($type) && $type=='home')
         window.location ="install://app.prepareurself/?screen=.authentication.ui.AuthenticationActivity";
     @elseif(isset($type) && $type=='theory')
-        window.location ="theory://app.prepareurself/?screen=.resources.ui.activity.ResourcesActivity"+"&id="+{{$id}}+"&link="+{{$link}};
+        window.location ="theory://app.prepareurself/?screen=.resources.ui.activity.ResourcesActivity&id=+{{$id}}&link={{$link}}";
     @elseif(isset($type) && $type=='video')
-        window.location ="video://app.prepareurself/?screen=.youtubeplayer.youtubeplaylistapi.ui.VideoActivity"+"&id="+{{$id}}+"&link="+{{$link}};
+        window.location ="video://app.prepareurself/?screen=.youtubeplayer.youtubeplaylistapi.ui.VideoActivity&id={{$id}}";
     @elseif(isset($type) && $type=='project')
-        window.location ="project://app.prepareurself/?screen=.courses.ui.activity.ProjectsActivity"+"&id="+{{$id}};
+        window.location ="project://app.prepareurself/?screen=.courses.ui.activity.ProjectsActivity&id={{$id}}";
     @elseif(isset($type) && $type=='course')
-        window.location ="course://app.prepareurself/?screen=.courses.ui.activity.CoursesActivity"+"&id="+{{$id}};
+        window.location ="course://app.prepareurself/?screen=.courses.ui.activity.CoursesActivity&id={{$id}}";
     @endif
     
     // <!-- Download URL (TUNE link) for new users to download the app -->
