@@ -22,7 +22,7 @@
     @elseif(isset($type) && $type=='video')
         window.location ="video://app.prepareurself/?screen=.youtubeplayer.youtubeplaylistapi.ui.VideoActivity&id={{$id}}";
     @elseif(isset($type) && $type=='project')
-        window.location ="project://app.prepareurself/?screen=.courses.ui.activity.ProjectsActivity&id={{$id}}";
+        window.location ="project://app.prepareurself/?screen=.courses.ui.activity.ProjectsActivity&id={{$id}}&courseName={{$couseName}}";
     @elseif(isset($type) && $type=='course')
         window.location ="course://app.prepareurself/?screen=.courses.ui.activity.CoursesActivity&id={{$id}}";
     @endif
