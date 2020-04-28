@@ -33,7 +33,7 @@ class ShareController extends Controller
     	$project=Project::find($project_id);
     	if($project!=null){
             Log::alert('project share ');
-    		return view('frontend.share.app',['id'=>$project_id,'type'=>'project','couseName'=>$project->couse_name]);
+    		return view('frontend.share.app',['id'=>$project_id,'type'=>'project','couseName'=>$project->Course->name]);
         }
     	else{
             Log::alert('project  share not found');
@@ -41,6 +41,7 @@ class ShareController extends Controller
         }
     	
     }
+
     public function shareCourse($id)
     {
 
