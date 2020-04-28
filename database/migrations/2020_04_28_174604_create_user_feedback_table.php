@@ -16,11 +16,12 @@ class CreateUserFeedbackTable extends Migration
         Schema::create('user_feedback', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->enum('question1',['Very Good','Good','Fair','Bad']);
-            $table->enum('question2',['Very Good','Good','Fair','Bad']);
-            $table->enum('question3',['Very Good','Good','Fair','Bad']);
-            $table->enum('question4',['Very Good','Good','Fair','Bad']);
-            $table->longText('question5');
+            $table->longText('answer1');
+            $table->longText('answer2');
+            $table->longText('answer3');
+            $table->longText('answer4');
+            $table->longText('answer5');
+            $table->longText('answer6');
             $table->timestamps();
         });
     }

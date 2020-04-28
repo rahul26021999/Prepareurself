@@ -28,81 +28,44 @@ class UserFeedbackController extends Controller
    *          )
    *      ),
    *     @OA\Parameter(
-   *          name="question1",
+   *          name="answers[]",
    *          in="query",
-   *          description="Type of response: Very Good|Good|Fair|Bad",
-   *          required=true,
+   *          description="User Preferences Please enter only integers",
+   *          required=false,
    *          @OA\Schema(
-   *              type="string"
-   *          )
-   *      ),
-   *     @OA\Parameter(
-   *          name="question2",
-   *          in="query",
-   *          description="Type of response: Very Good|Good|Fair|Bad",
-   *          required=true,
-   *          @OA\Schema(
-   *              type="string"
-   *          )
-   *      ),
-   *     @OA\Parameter(
-   *          name="question3",
-   *          in="query",
-   *          description="Type of response: Very Good|Good|Fair|Bad",
-   *          required=true,
-   *          @OA\Schema(
-   *              type="string"
-   *          )
-   *      ),
-   *     @OA\Parameter(
-   *          name="question4",
-   *          in="query",
-   *          description="Type of response: Very Good|Good|Fair|Bad",
-   *          required=true,
-   *          @OA\Schema(
-   *              type="string"
-   *          )
-   *      ),
-   *     @OA\Parameter(
-   *          name="question5",
-   *          in="query",
-   *          description="Type of response: String value",
-   *          required=true,
-   *          @OA\Schema(
-   *              type="string"
+   *                type="array",
+   *            @OA\Items(type="integer"),
    *          )
    *      ),
    *     @OA\Response(
-     *          response=200,
-     *      description="{[error_code=>0,msg=>'success'],[error_code=>1,msg=>'failure']}"
-     *     )
-     * )
-     */
+   *          response=200,
+   *      description="{[error_code=>0,msg=>'success'],[error_code=>1,msg=>'failure']}"
+   *     )
+   * )
+   */
 
 
 	 public function storeFeedback(Request $request)
 	 {        
-	 	$question1=$request->input('question1',null);
-	 	$question2=$request->input('question2',null);
-	 	$question3=$request->input('question3',null);
-	 	$question4=$request->input('question4',null);
-	 	$question5=$request->input('question5',null);
-	 	if($question1!=null && $question2!=null && $question3!=null && $question4!=null && $question5!=null )
-	 	{
-			UserFeedback::create([
- 			'user_id'=>JWTAuth::user()->id,
- 			'question1'=>$question1,
- 			'question2'=>$question2,
- 			'question3'=>$question3,
- 			'question4'=>$question4,
- 			'question5'=>$question5,
+	 
+      if( $request->filled('answers') && count($request['answers']) == 6)
+      {
+         UserFeedback::create([
+            'user_id'=>JWTAuth::user()->id,
+            'answer1'=>$request['answers'][0],
+            'answer2'=>$request['answers'][1],
+            'answer3'=>$request['answers'][2],
+            'answer4'=>$request['answers'][3],
+            'answer5'=>$request['answers'][4],
+            'answer6'=>$request['answers'][5]
+         ]);
+         return response()->json(['error_code'=>0,'message'=>'success']);
 
- 			]);
- 			return response()->json(['error_code'=>0,'msg'=>'success']);
-	 	}
-	 	else{
-	 		 return response()->json(['error_code'=>1,'msg'=>'failure']);
-	 	}
+      }
+      else{
+         return response()->json(['error_code'=>1,'message'=>'failure']);
+      }
+	 	
 	 }//end of function
 
 
