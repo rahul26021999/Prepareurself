@@ -256,10 +256,10 @@ class ProjectController extends Controller
    */
 	public function wsGetAllSuggestedProjects(Request $request){
 	  $user=JWTAuth::user();
-      if(!is_null($user->preferences)){
+      if(!is_null($user->preferences)  && $user->preferences!=''){
         $preferences=explode(',', $user->preferences);
         $course_id=$preferences['0'];
-        if(is_null(Course::find($course_id))){
+        if(Project::where('course_id',$course_id)->count()==0){
           $course_id=1;
         }
       }
