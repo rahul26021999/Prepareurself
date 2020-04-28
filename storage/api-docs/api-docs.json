@@ -762,6 +762,67 @@
                     }
                 }
             }
+        },
+        "/api/store-feedback": {
+            "post": {
+                "tags": [
+                    "User Feedback"
+                ],
+                "description": "Store Feedback of a user",
+                "operationId": "App\\Http\\Controllers\\UserFeedbackController::storeFeedback",
+                "parameters": [
+                    {
+                        "name": "question1",
+                        "in": "query",
+                        "description": "Type of response: Very Good|Good|Fair|Bad",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "question2",
+                        "in": "query",
+                        "description": "Type of response: Very Good|Good|Fair|Bad",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "question3",
+                        "in": "query",
+                        "description": "Type of response: Very Good|Good|Fair|Bad",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "question4",
+                        "in": "query",
+                        "description": "Type of response: Very Good|Good|Fair|Bad",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "question5",
+                        "in": "query",
+                        "description": "Type of response: String value",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{[error_code=>0,msg=>'success'],[error_code=>1,msg=>'failure']}"
+                    }
+                }
+            }
         }
     },
     "components": {
