@@ -30,11 +30,11 @@ class UserFeedbackController extends Controller
    *     @OA\Parameter(
    *          name="answers[]",
    *          in="query",
-   *          description="User Preferences Please enter only integers",
-   *          required=false,
+   *          description="User Preferences Please enter only String",
+   *          required=true,
    *          @OA\Schema(
    *                type="array",
-   *            @OA\Items(type="integer"),
+   *            @OA\Items(type="string"),
    *          )
    *      ),
    *     @OA\Response(
