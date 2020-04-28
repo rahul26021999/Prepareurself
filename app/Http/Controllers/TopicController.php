@@ -245,7 +245,7 @@ class TopicController extends Controller
       if(!is_null($user->preferences)  && $user->preferences!=''){
         $preferences=explode(',', $user->preferences);
         $course_id=$preferences['0'];
-        if(CourseTopic::where('course_id',$course_id)->count()==0){
+        if(CourseTopic::where('course_id',$course_id)->where('status','publish')->count()==0){
           $course_id=8;
         }
       }
