@@ -783,12 +783,12 @@
                     {
                         "name": "answers[]",
                         "in": "query",
-                        "description": "User Preferences Please enter only integers",
-                        "required": false,
+                        "description": "User Preferences Please enter only String",
+                        "required": true,
                         "schema": {
                             "type": "array",
                             "items": {
-                                "type": "integer"
+                                "type": "string"
                             }
                         }
                     }

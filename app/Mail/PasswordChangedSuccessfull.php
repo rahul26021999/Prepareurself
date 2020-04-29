@@ -30,7 +30,9 @@ class PasswordChangedSuccessfull extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.user.password-changed')
+        return $this->from('noreply@prepareurself.in')
+                ->subject('Password Changed Successfully')
+                ->markdown('emails.user.password-changed')
                 ->with('user',$this->user);
     }
 }

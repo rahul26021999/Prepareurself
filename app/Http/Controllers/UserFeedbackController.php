@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Exception;
 use App\Models\UserFeedback;
+use App\Traits\UserAuthTrait;
 use Session;
 use JWTAuth;
 use Log;
 use Auth;
+use App\User;
 
 class UserFeedbackController extends Controller
 {
@@ -59,6 +61,8 @@ class UserFeedbackController extends Controller
             'answer5'=>$request['answers'][4],
             'answer6'=>$request['answers'][5]
          ]);
+         $user=JWTAuth::user();
+         $user->sendUserFeedbackMail();
          return response()->json(['error_code'=>0,'message'=>'success']);
 
       }

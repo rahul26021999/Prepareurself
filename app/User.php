@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
 use App\Mail\PasswordChangedSuccessfull;
+use App\Mail\UserFeedback;
 use App\Mail\UserEmailVerification;
 use App\Mail\ResetPassword;
 use App\Helpers\AndroidNotification;
@@ -151,4 +152,8 @@ class User extends Authenticatable implements JWTSubject
         }
     }
 
+     public function sendUserFeedbackMail()
+    {
+        Mail::to($this)->send(new UserFeedback($this));
+    }
 }

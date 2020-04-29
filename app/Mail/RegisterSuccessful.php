@@ -10,7 +10,7 @@ use Illuminate\Queue\SerializesModels;
 class RegisterSuccessful extends Mailable
 {
     use Queueable, SerializesModels;
-
+    protected $user;
     /**
      * Create a new message instance.
      *
@@ -18,7 +18,7 @@ class RegisterSuccessful extends Mailable
      */
     public function __construct()
     {
-        //
+        $this->user=$user;
     }
 
     /**
@@ -28,6 +28,9 @@ class RegisterSuccessful extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.user.register');
+        return $this->from('noreply@prepareurself.in')
+                    ->subject('Registered Successfully')
+                    ->markdown('emails.user.register');
+                    ->with('user',$this->user);
     }
 }
