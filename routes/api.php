@@ -24,9 +24,7 @@ Route::middleware(['auth.jwt','verify'])->group(function () {
 	Route::post('get-topics', 'TopicController@wsGetAllTopics');
 	Route::post('get-suggested-topics', 'TopicController@wsGetAllSuggestedTopics');
 	Route::post('get-resources', 'ResourceController@wsGetAllResources');
-
 	Route::post('get-banner', 'BannerController@wsGetBanner');
-
 	Route::post('resource', 'ResourceController@wsGetResource');
 	Route::post('get-projects', 'ProjectController@wsGetAllProjects');
 	Route::post('project', 'ProjectController@wsGetProject');
@@ -35,8 +33,8 @@ Route::middleware(['auth.jwt','verify'])->group(function () {
 	Route::post('view-resource-project', 'ResourceProjectViewsController@wsViewResource');
 	Route::post('get-all-preferences', 'CourseController@wsGetAllPreferences');
 	Route::post('update-password', 'UserAuthController@updatePassword');
-
 	Route::post('store-feedback', 'UserFeedbackController@storeFeedback');
+
 });
 
 Route::post('forget-password', 'UserAuthController@forgetPassword');

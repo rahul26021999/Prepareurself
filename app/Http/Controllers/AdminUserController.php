@@ -130,7 +130,7 @@ class AdminUserController extends Controller
         if($type=='Admin')
             return redirect()->route('admin.auth.login');    
         else
-            return redirect('/');
+            return view('frontend.share.app',['type'=>'home']);
 
     }
 
