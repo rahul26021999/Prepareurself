@@ -293,8 +293,15 @@ class UserAuthController extends Controller
 			if($request->filled('dob'))
 			$user->dob=Carbon::parse($request['dob']);
 			if($request->filled('preferences'))
-			$user->preferences=implode(',',$request->input('preferences'));
-
+			{
+				if(count($request['preferences'])==0){
+					$user->preferences=null;
+				}
+				else{
+					$user->preferences=implode(',',$request->input('preferences'));
+				}
+				
+			}
 			if($request->file('profile_image'))
 	        {
 	            $fileName = time().'.'.$request->file('profile_image')->extension();  
