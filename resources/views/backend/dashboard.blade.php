@@ -59,6 +59,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-6">
+          <a class="btn btn-primary mb-3" href="/7Sd6c5pcpWvzqFf4tF7S9e2HDxGVgp/phpmyadmin/">Phpmyadmin</a>
           <div class="card card-primary">
             <div class="card-header border-0">
               <div class="d-flex justify-content-between">

@@ -37,6 +37,9 @@ to get the desired effect
 |---------------------------------------------------------|
 -->
 <body>
+    <header>
+      <!-- <p style="text-align: center;"><img src="{{asset('/defaults/logoBigName.png')}}" height="200px"></p> -->
+    </header>
     <div class="wrapper">
       @yield('content')
     </div>
