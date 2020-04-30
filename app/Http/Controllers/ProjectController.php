@@ -263,11 +263,18 @@ class ProjectController extends Controller
 	        $preferences=explode(',', $user->preferences);
 	        $course_name=$preferences['0'];
 	        
-	        $course=Course::where('name',$course_name)->with('status','publish')->first();
-	        $count=Project::where('course_id',$course->id)->count();
-
-	        if($course==null && $count<3){
+	        $course=Course::where('name',$course_name)->where('status','publish')->first();
+	        if($course==null){
 	            $course_id=1;
+	        }
+	        else{
+	        	$count=Project::where('course_id',$course->id)->count();
+	        	if($count<3){
+	        		$course_id=1;			
+	        	}
+	        	else{
+	        		$course_id=$course->id;
+	        	}
 	        }
 	    }
 	    else{

@@ -248,10 +248,19 @@ class TopicController extends Controller
         $preferences=explode(',', $user->preferences);
         $course_name=$preferences['0'];
         
-        $course=Course::where('name',$course_name)->with('status','publish')->first();
-
-        if($course==null)
+        $course=Course::where('name',$course_name)->where('status','publish')->first();
+        if($course==null){
             $course_id=8;
+        }else{
+          $count=CourseTopic::where('course_id',$course->id)->where('status','publish')->count();
+          if($count<3)
+          {
+            $course_id=8;
+          }
+          else{
+            $course_id=$course->id;
+          }
+        }
       }
       else{
           $course_id=8;
