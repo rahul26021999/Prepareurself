@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use JWTAuth;
+use Log;
 
 class UserEmailVerificationMiddleware
 {
@@ -17,9 +18,14 @@ class UserEmailVerificationMiddleware
     public function handle($request, Closure $next)
     {
         $user=JWTAuth::user();
-        if(!$user->hasVerifiedEmail()){
-            $user->sendEmailVerificationMail();
-            return response()->json(['error'=>true,'error_code'=>1,'message'=>'Please Verify Your Email']);
+        if(!is_null($user)){
+            if(!$user->hasVerifiedEmail()){
+                $user->sendEmailVerificationMail();
+                return response()->json(['error'=>true,'error_code'=>1,'message'=>'Please Verify Your Email']);
+            }
+        }
+        else{
+            Log::alert("Middleware : EmailVerificattion");
         }
 
         return $next($request);
