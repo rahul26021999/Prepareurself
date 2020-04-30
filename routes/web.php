@@ -12,10 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('frontend.share.app',['type'=>'home']);
 });
 
-Route::get('home', 'HomeController@index')->name('home');
+Route::get('terms-and-conditions',function(){
+    return view('frontend.termsAndConditions');
+});
 
 Route::name('share.')->group(function () {
     Route::get('install','ShareController@share');
@@ -24,11 +26,8 @@ Route::name('share.')->group(function () {
     Route::get('course/{id}','ShareController@shareCourse'); 
 });
 
-Route::get('ray','NotificationController@ray');
+// Route::get('ray','NotificationController@ray');
 
-Route::name('user')->group(function(){
-    
-});
 
 
 Route::get('resetPassword','AdminUserController@showResetPassword')->name('showResetPassword')->middleware('signed');
@@ -130,6 +129,3 @@ Route::name('admin.')->prefix('admin')->group(function () {
 
     });
 });
-// Route::fallback(function () {
-//     return redirect()->guest('/');
-// });
