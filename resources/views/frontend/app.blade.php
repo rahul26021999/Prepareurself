@@ -12,11 +12,17 @@
     }
     .wrapper{
       background: #efefef;
-      margin: 70px 100px 70px 100px;
+      margin: 70px 100px;
       padding: 40px;
     }
     p{
-      font-size: 15px;
+      font-size: 12px;
+    }
+    @media screen and (max-width: 480px) {
+      .wrapper {
+        margin: 10px 5px;
+        padding: 15px;
+      }
     }
   </style>
 </head>
