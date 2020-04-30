@@ -255,19 +255,27 @@ class ProjectController extends Controller
    * )
    */
 	public function wsGetAllSuggestedProjects(Request $request){
-	  $user=JWTAuth::user();
-      if(!is_null($user->preferences)  && $user->preferences!=''){
-        $preferences=explode(',', $user->preferences);
-        $course_id=$preferences['0'];
-        if(Project::where('course_id',$course_id)->count()==0){
-          $course_id=1;
-        }
-      }
-      else{
-        $course_id=1;
-      }
-      $project=Project::where('course_id',$course_id)->take(5)->get();
-      return response()->json(['success'=>true,'course_id'=>$course_id,'projects'=>$project]);
+
+		$user=JWTAuth::user();
+      
+	    if(!is_null($user->preferences)  && $user->preferences!='')
+	    {
+	        $preferences=explode(',', $user->preferences);
+	        $course_name=$preferences['0'];
+	        
+	        $course=Course::where('name',$course_name)->with('status','publish')->first();
+	        $count=Project::where('course_id',$course->id)->count();
+
+	        if($course==null && $count<3){
+	            $course_id=1;
+	        }
+	    }
+	    else{
+	    	$course_id=1;
+	    }
+
+  		$project=Project::where('course_id',$course_id)->take(5)->get();
+  		return response()->json(['success'=>true,'course_id'=>$course_id,'projects'=>$project]);
 	}
 
 
