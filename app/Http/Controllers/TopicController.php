@@ -242,17 +242,23 @@ class TopicController extends Controller
    public function wsGetAllSuggestedTopics(Request $request){
       
       $user=JWTAuth::user();
+      
       if(!is_null($user->preferences)  && $user->preferences!=''){
+        
         $preferences=explode(',', $user->preferences);
-        $course_id=$preferences['0'];
-        if(CourseTopic::where('course_id',$course_id)->where('status','publish')->count()==0){
-          $course_id=8;
-        }
+        $course_name=$preferences['0'];
+        
+        $course=Course::where('name',$course_name)->with('status','publish')->first();
+
+        if($course==null)
+            $course_id=8;
       }
       else{
-        $course_id=8;
+          $course_id=8;
       }
+
       $topic=CourseTopic::where('course_id',$course_id)->where('status','publish')->orderBy('sequence','asc')->take(5)->get();
+    
       return response()->json(['success'=>true,'course_id'=>$course_id,'topics'=>$topic]);
 
    }
