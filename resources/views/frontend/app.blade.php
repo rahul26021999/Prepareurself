@@ -14,9 +14,7 @@
       background: #efefef;
       margin: 70px 100px;
       padding: 40px;
-    }
-    p{
-      font-size: 12px;
+      font-size: 15px;
     }
     @media screen and (max-width: 480px) {
       .wrapper {
