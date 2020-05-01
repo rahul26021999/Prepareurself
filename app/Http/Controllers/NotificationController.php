@@ -29,14 +29,11 @@ class NotificationController extends Controller
 	    	if(count($userToken)>0)
 	    	{
 	    		$response=$this->sendToMany($title,$message,$image,$userToken);
-			    
-			    echo '<pre>';
-			   	print_r($response);
-			   	echo "</pre>";
-			   	return;
+			   
 	    		return response()->json([
 	    			'success'=>true,
-	    			"message"=>"Successfully sent notification to 3 Test Users"
+	    			"message"=>"Successfully sent notification to 3 Test Users",
+	    			"response"=>$response
 	    		]);
 	    	}
     	}
@@ -62,7 +59,8 @@ class NotificationController extends Controller
 	    		$response=$this->sendToMany($title,$message,$image,$userToken);
 	    		return response()->json([
 	    			'success'=>true,
-	    			"message"=>"Successfully sent notification to ".$count($userToken)." Users"
+	    			"message"=>"Successfully sent notification to ".count($userToken)." Users",
+	    			"response"=>$response
 	    		]);
 	    	}
     	}

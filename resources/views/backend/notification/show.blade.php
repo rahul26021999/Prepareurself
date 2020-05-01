@@ -39,11 +39,11 @@
   $(document).ready(function () {
 
     bsCustomFileInput.init();
-    $.validator.setDefaults({
-      submitHandler: function (form) {
-        form.submit();
-      }
-    });
+    // $.validator.setDefaults({
+    //   submitHandler: function (form) {
+    //     form.submit();
+    //   }
+    // });
     $('#createNotification').validate({
       rules: {
         title: {
@@ -109,7 +109,7 @@ function readURL(input) {
 
   <!-- Main content -->
   <section class="content">
-    <form id="createNotification">
+    <form id="createNotification" method="post" action="/admin/notification/send">
       @csrf
       <div class="card card-outline card-primary">
         <div class="card-header">
@@ -140,8 +140,8 @@ function readURL(input) {
           </div>
         </div>    
         <div class="card-footer">
-          <button type="submit" formmethod="post" formaction="/admin/notification/send" class="btn btn-primary float-right">Send to All</button>
-          <button type="submit"  formmethod="post" formaction="/admin/notification/test" class="btn btn-primary float-left">Test</button>
+          <button type="submit" class="btn btn-primary float-right">Send to All</button>
+          <button type="submit" formaction="/admin/notification/test" class="btn btn-primary float-left">Test</button>
         </div>
       </div>
     </form>
