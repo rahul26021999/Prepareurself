@@ -133,8 +133,11 @@ Route::name('admin.')->prefix('admin')->group(function () {
             Route::get('delete/{id}','BannerController@deleteBanner');
             Route::post('publish','BannerController@publishBanner')->name('publish');
         });
+
         Route::name('notification.')->prefix('notification')->group(function(){
             Route::get('/','NotificationController@showNotification');
+            Route::post('test','NotificationController@sendTestNotification');
+            Route::post('send','NotificationController@sendAndroidNotification');
         });
 
     });
