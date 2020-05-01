@@ -292,7 +292,7 @@ class UserAuthController extends Controller
 			$user->android_token=$request->input('android_token');
 			if($request->filled('dob'))
 			$user->dob=Carbon::parse($request['dob']);
-			if(isset($request['preferences[]']))
+			if(isset($request['preferences']))
 			{
 				if(count($request['preferences'])==0){
 					$user->preferences=null;
