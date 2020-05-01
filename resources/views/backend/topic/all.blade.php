@@ -21,8 +21,8 @@
     });
     $('#example2').DataTable({
       "paging": true,
-      "lengthChange": false,
-      "searching": false,
+      "lengthChange": true,
+      "searching": true,
       "ordering": true,
       "info": true,
       "autoWidth": false,
@@ -71,7 +71,7 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <a href="/admin/topic/create/"class="btn btn-success">New</a>
+              <a href="/admin/topic/create/"class="btn btn-success float-right">New</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">

@@ -20,14 +20,16 @@
     });
     $('#example2').DataTable({
       "paging": true,
-      "lengthChange": false,
-      "searching": false,
+      "lengthChange": true,
+      "searching": true,
       "ordering": true,
       "info": true,
       "autoWidth": false,
       "responsive": true,
     });
   });
+</script>
+<script type="text/javascript">
 
   $(".deleteButton").on('click',function() {
     var id=$(this).data('id');
@@ -80,11 +82,11 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <a href="/admin/resource/create/{{$topic['id']}}" class="btn btn-success">NEW</a>
+              <a href="/admin/resource/create/{{$topic['id']}}" class="btn btn-success float-right">NEW</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <table id="example2" class="table table-bordered table-hover">
+              <table id="example2" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                   <th>Id</th>

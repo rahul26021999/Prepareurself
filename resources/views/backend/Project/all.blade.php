@@ -21,8 +21,8 @@
     });
     $('#example2').DataTable({
       "paging": true,
-      "lengthChange": false,
-      "searching": false,
+      "lengthChange": true,
+      "searching": true,
       "ordering": true,
       "info": true,
       "autoWidth": false,
@@ -80,7 +80,7 @@
   <section class="content">
     <div class="row">
       <div class="col-12">
-        <div class="card">
+        <div class="card card-outline card-primary">
           <div class="card-header">
             <a href="/admin/project/create"class="btn btn-success">New</a>
           </div>

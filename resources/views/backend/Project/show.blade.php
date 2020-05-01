@@ -23,8 +23,8 @@
     });
     $('#example2').DataTable({
       "paging": true,
-      "lengthChange": false,
-      "searching": false,
+      "lengthChange": true,
+      "searching": true,
       "ordering": true,
       "info": true,
       "autoWidth": false,
@@ -102,7 +102,7 @@
   <section class="content">
     <div class="row">
       <div class="col-12">
-        <div class="card card-primary">
+        <div class="card card-outline card-primary">
           <div class="card-header">
             <h3 class="card-title"><b>See All Projects</b></h3>
             <div class="card-tools">
@@ -112,7 +112,7 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body">
-            <a href="/admin/project/create/{{$course['name']}}"class="btn btn-success mb-3">Create a New Project in {{$course['name']}}</a>
+            <a href="/admin/project/create/{{$course['name']}}"class="btn btn-success mb-3">New Project in {{$course['name']}}</a>
            
             <table id="example2" class="table table-bordered table-hover">
               <thead>

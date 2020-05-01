@@ -60,8 +60,8 @@
     });
     $('#example2').DataTable({
       "paging": true,
-      "lengthChange": false,
-      "searching": false,
+      "lengthChange": true,
+      "searching": true,
       "ordering": true,
       "info": true,
       "autoWidth": false,
@@ -142,7 +142,7 @@
   <section class="content">
     <div class="row">
       <div class="col-12">
-        <div class="card card-primary">
+        <div class="card card-outline card-primary">
           <div class="card-header">
             <h3 class="card-title"><b>See All Topics</b></h3>
             <div class="card-tools">
