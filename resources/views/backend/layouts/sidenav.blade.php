@@ -281,6 +281,14 @@
                 Android Notification
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/admin/notification/" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Create New</p>
+                </a>
+              </li>
+            </ul>
           </li>
            <li class="nav-item">
             <a href="/admin/banner/show" class="nav-link">
