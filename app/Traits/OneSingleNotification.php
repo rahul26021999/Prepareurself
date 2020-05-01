@@ -24,7 +24,7 @@ trait OneSingleNotification{
 
         return $this->sendPushNotification($fields);
     }
-    public function sendToMany($data){
+    public function sendToMany($title,$message,$image,$ids){
 
         $content = array("en" => $title);
         $heading= array('en' => $message);
