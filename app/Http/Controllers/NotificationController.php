@@ -72,12 +72,18 @@ class NotificationController extends Controller
     	}
     }
 
+    public function sendVerificationEmails(Request $request){
+        $users = User::where('email_verified_at',null)->get();
+        foreach ($users as $user) {
+            // Mail::to($user)->send(new );
+        }
+    }
+
     public function sendEmails(Request $request){
 
     	$users = User::where('email_verified_at','!=',null)->get();
-		foreach ($users as $user) {
-			
-		}
-
+        foreach ($users as $user) {
+            // Mail::to($user)->send(new );
+        }
     }
 }	
