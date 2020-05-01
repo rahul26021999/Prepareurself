@@ -26,7 +26,7 @@ Route::name('share.')->group(function () {
     Route::get('course/{id}','ShareController@shareCourse'); 
 });
 
-Route::get('ray','NotificationController@ray');
+Route::get('ray','NotificationController@sendAndroidNotification');
 
 
 
