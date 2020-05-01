@@ -140,8 +140,8 @@ function readURL(input) {
           </div>
         </div>    
         <div class="card-footer">
-          <input type="submit" formmethod="post" formaction="/admin/notification/send" value="Send To All" class="btn btn-primary float-right"/>
-          <input type="submit" value="Test" formmethod="post" formaction="/admin/notification/test" class="btn btn-primary float-left"/>
+          <button type="submit" formmethod="post" formaction="/admin/notification/send" class="btn btn-primary float-right">Send to All</button>
+          <button type="submit"  formmethod="post" formaction="/admin/notification/test" class="btn btn-primary float-left">Test</button>
         </div>
       </div>
     </form>
