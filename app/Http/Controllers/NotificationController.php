@@ -36,14 +36,14 @@ class NotificationController extends Controller
 			   	return;
 	    		return response()->json([
 	    			'success'=>true,
-	    			"messgae"=>"Successfully sent notification to 3 Test Users";
+	    			"messgae"=>"Successfully sent notification to 3 Test Users"
 	    		]);
 	    	}
     	}
     	else{
     		return response()->json([
     			'success'=>false,
-    			'message'="Title and message cant be empty"
+    			'message'=>"Title and message cant be empty"
     		]);
     	}
     }
@@ -62,14 +62,14 @@ class NotificationController extends Controller
 	    		$response=$this->sendToMany($title,$message,$image,$userToken);
 	    		return response()->json([
 	    			'success'=>true,
-	    			"messgae"=>"Successfully sent notification to ".$count($userToken)." Users";
+	    			"messgae"=>"Successfully sent notification to ".$count($userToken)." Users"
 	    		]);
 	    	}
     	}
     	else{
     		return response()->json([
     			'success'=>false,
-    			'message'="Title and message cant be empty"
+    			'message'=>"Title and message cant be empty"
     		]);
     	}
     }
