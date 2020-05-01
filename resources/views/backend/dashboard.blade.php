@@ -58,41 +58,72 @@
   <div class="content">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-6">
-          <a class="btn btn-primary mb-3" href="/7Sd6c5pcpWvzqFf4tF7S9e2HDxGVgp/phpmyadmin/">Phpmyadmin</a>
-          <a href="/api/documentation" target="_blank" class="btn btn-success mb-3">API Documentation</a>
-          <div class="card card-primary">
-            <div class="card-header border-0">
-              <div class="d-flex justify-content-between">
-                <h3 class="card-title"><b>Default user details</b></h3>
-              </div>
-            </div>
-            <div class="card-body">
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" class="form-control" id="email" value="user@prepareurself.com">
-              </div>
-              <div class="form-group">
-                <label for="email">Password</label>
-                <input type="text" class="form-control" id="email" value="Pass@123">
-              </div>
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>{{$total_user}}</h3>
 
-
-              <div class="form-group">
-                  <label for="token">Token</label>
-                <div class="input-group">
-                  <input type="text" id="token"  class="form-control" value="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9wcmVwYXJldXJzZWxmLnRrXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTg3MjE5ODA1LCJleHAiOjE1OTQ5OTU4MDUsIm5iZiI6MTU4NzIxOTgwNSwianRpIjoiRDVyWDNxSnozb1hVR3FwUCIsInN1YiI6NiwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.54ZLUYD9X6UdrtQeYRdguR1I2o0OiIPiNgaWIc56vr8">
-
-                  <div class="input-group-append">
-                    <span class="input-group-text" id="tokenCopy" style="cursor: pointer;">Copy</span>
-                  </div>
-                </div>
+                <p>User Registrations</p>
               </div>
-
+              <div class="icon">
+                <i class="ion ion-person-add"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>{{$verified_user}}</h3>
+                <p>Verified User</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-person-add"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3>{{$total_resources}}</h3>
 
-          <!-- /.card -->
+                <p>Total Resources</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3>{{$total_projects}}</h3>
+
+                <p>Total Projects</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <a class="btn btn-primary mb-3 mt-3" href="/7Sd6c5pcpWvzqFf4tF7S9e2HDxGVgp/phpmyadmin/">Phpmyadmin</a>
+          <a href="/api/documentation" target="_blank" class="btn btn-success mb-3 mt-3 ml-2">API Documentation</a>
+          <input type="hidden" id="token" class="form-control" value="{{$JWTtoken}}">
+          <button class="btn btn-warning ml-2" id="tokenCopy">Default JWT Token</button>
         </div>
       </div>
       <!-- /.row -->

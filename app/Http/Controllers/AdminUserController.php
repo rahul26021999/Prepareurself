@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Log;
 use Mail;
 use Auth;
+use App\Models\Resource;
+use App\Models\Project;
 use App\Mail\RegisterSuccessful;
 use Illuminate\Support\Facades\Hash;
 use Exception;
@@ -18,7 +20,18 @@ class AdminUserController extends Controller
 
     public function index()
     {
-        return view('backend.dashboard');
+        $verifiedUser=User::where('email_verified_at','!=',null)->count();
+        $totalUser=User::all()->count();
+        $total_resources=Resource::all()->count();
+        $total_projects=Project::all()->count();
+        $token="coming soon";
+        return view('backend.dashboard',[
+            'total_user'=>$totalUser,
+            'verified_user'=>$verifiedUser,
+            'total_resources'=>$total_resources,
+            'total_projects'=>$total_projects,
+            'JWTtoken'=>$token,
+        ]);
     }
     public function showLogin()
     {
