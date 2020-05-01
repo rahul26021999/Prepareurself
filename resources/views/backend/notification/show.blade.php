@@ -41,10 +41,7 @@
     bsCustomFileInput.init();
     $.validator.setDefaults({
       submitHandler: function (form) {
-        if(confirm("Please Check The content below from the attached Link"))
-        {
-          form.submit();  
-        }
+        form.submit();
       }
     });
     $('#createNotification').validate({
@@ -52,22 +49,22 @@
         title: {
           required: true
         },
-        link:{
+        image:{
           required:true
         },
-        description:{
+        message:{
           required:true
         },
       },
       messages: {
-        name: {
+        title: {
           required: "Please enter a name"
         },
-        link: {
+        image: {
           required: "Please enter a link to image"
         },
-        description: {
-          required: "Please enter a description"
+        message: {
+          required: "Please enter a message"
         }
 
       },
@@ -85,26 +82,10 @@
     });
   });
 
-   function testNotification() {
-        if ($('#createNotification').valid()) {
-            $.ajax({
-                type: "post",
-                url: '/admin/notification/testNotification',
-                data: $("#createNotification").serialize(),
-                dataType: "json",
-                success: function(data) {
-                    if (data.msg == '1') {
-                        alert('testing done');
-                    }
-                }
-            })
-        }
-    }
+
 </script>
 
 <script>
-  
-    readURL($("input[name='link'"));
 
 function readURL(input) {
    $('#showURL').attr('src',$(input).val());
@@ -128,7 +109,7 @@ function readURL(input) {
 
   <!-- Main content -->
   <section class="content">
-    <form method="post" action="" id="createNotification" enctype="multipart/form-data">
+    <form id="createNotification">
       @csrf
       <div class="card card-outline card-primary">
         <div class="card-header">
@@ -143,11 +124,11 @@ function readURL(input) {
               </div>
               <div class="form-group">
                 <label>Description Of Notification</label>
-                <input type="text" name="description" class="form-control" placeholder="Enter ...">
+                <input type="text" name="message" class="form-control" placeholder="Enter ...">
               </div>
               <div class="form-group">
                 <label>Image Link Url</label>
-                <input type="text" name="link" onchange="readURL(this)" class="form-control" placeholder="Enter ...">
+                <input type="text" name="image" onchange="readURL(this)" class="form-control" placeholder="Enter ...">
               </div>
             </div>
             <div class="col-sm-6">
@@ -159,8 +140,8 @@ function readURL(input) {
           </div>
         </div>    
         <div class="card-footer">
-          <button class="btn btn-primary float-right">Send to all</button>
-           <button class="btn btn-primary float-left" onclick="testNotification();">Test</button>
+          <input type="submit" formmethod="post" formaction="/admin/notification/send" value="Send To All" class="btn btn-primary float-right"/>
+          <input type="submit" value="Test" formmethod="post" formaction="/admin/notification/test" class="btn btn-primary float-left"/>
         </div>
       </div>
     </form>

@@ -275,20 +275,12 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="/admin/notification/show" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Android Notification
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="/admin/notification/" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Create New</p>
-                </a>
-              </li>
-            </ul>
           </li>
            <li class="nav-item">
             <a href="/admin/banner/show" class="nav-link">

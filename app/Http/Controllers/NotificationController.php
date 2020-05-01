@@ -36,7 +36,7 @@ class NotificationController extends Controller
 			   	return;
 	    		return response()->json([
 	    			'success'=>true,
-	    			"messgae"=>"Successfully sent notification to 3 Test Users"
+	    			"message"=>"Successfully sent notification to 3 Test Users"
 	    		]);
 	    	}
     	}
@@ -62,7 +62,7 @@ class NotificationController extends Controller
 	    		$response=$this->sendToMany($title,$message,$image,$userToken);
 	    		return response()->json([
 	    			'success'=>true,
-	    			"messgae"=>"Successfully sent notification to ".$count($userToken)." Users"
+	    			"message"=>"Successfully sent notification to ".$count($userToken)." Users"
 	    		]);
 	    	}
     	}
@@ -82,8 +82,4 @@ class NotificationController extends Controller
 		}
 
     }
-
-     public function testNotification(){
-     	return json_encode(['msg'=>'1']);
-     }
 }	
