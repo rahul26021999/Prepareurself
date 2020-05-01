@@ -26,8 +26,8 @@ trait OneSingleNotification{
     }
     public function sendToMany($title,$message,$image,$ids){
 
-        $content = array("en" => $title);
-        $heading= array('en' => $message);
+        $content = array("en" => $message);
+        $heading= array('en' => $title);
         $big_picture=$image;
         $include_player_ids=$ids;
 
