@@ -14,6 +14,7 @@ use App\Mail\RegisterSuccessful;
 use Illuminate\Support\Facades\Hash;
 use Exception;
 use Session;
+use JWTAuth;
 
 class AdminUserController extends Controller
 {
@@ -22,9 +23,13 @@ class AdminUserController extends Controller
     {
         $verifiedUser=User::where('email_verified_at','!=',null)->count();
         $totalUser=User::all()->count();
+
+        $firstUser=User::first();
+        $token = JWTAuth::fromUser($firstUser);
+
         $total_resources=Resource::all()->count();
         $total_projects=Project::all()->count();
-        $token="coming soon";
+        
         return view('backend.dashboard',[
             'total_user'=>$totalUser,
             'verified_user'=>$verifiedUser,

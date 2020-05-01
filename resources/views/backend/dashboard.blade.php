@@ -120,10 +120,10 @@
       </div>
       <div class="row">
         <div class="col-sm-12">
-          <a class="btn btn-primary mb-3 mt-3" href="/7Sd6c5pcpWvzqFf4tF7S9e2HDxGVgp/phpmyadmin/">Phpmyadmin</a>
+          <input type="text" id="token" class="form-control" value="{{ $JWTtoken }}">
+          <button class="btn btn-warning" id="tokenCopy">Default JWT Token</button>
+          <a class="btn btn-primary mb-3 mt-3 ml-2" href="/7Sd6c5pcpWvzqFf4tF7S9e2HDxGVgp/phpmyadmin/">Phpmyadmin</a>
           <a href="/api/documentation" target="_blank" class="btn btn-success mb-3 mt-3 ml-2">API Documentation</a>
-          <input type="hidden" id="token" class="form-control" value="{{$JWTtoken}}">
-          <button class="btn btn-warning ml-2" id="tokenCopy">Default JWT Token</button>
         </div>
       </div>
       <!-- /.row -->
