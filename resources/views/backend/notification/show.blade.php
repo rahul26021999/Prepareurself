@@ -84,6 +84,22 @@
       }
     });
   });
+
+   function testNotification() {
+        if ($('#createNotification').valid()) {
+            $.ajax({
+                type: "post",
+                url: '/admin/notification/testNotification',
+                data: $("#createNotification").serialize(),
+                dataType: "json",
+                success: function(data) {
+                    if (data.msg == '1') {
+                        alert('testing done');
+                    }
+                }
+            })
+        }
+    }
 </script>
 
 <script>
@@ -144,7 +160,7 @@ function readURL(input) {
         </div>    
         <div class="card-footer">
           <button class="btn btn-primary float-right">Send to all</button>
-           <button class="btn btn-primary float-left">Test</button>
+           <button class="btn btn-primary float-left" onclick="testNotification();">Test</button>
         </div>
       </div>
     </form>

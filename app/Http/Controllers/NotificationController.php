@@ -83,4 +83,7 @@ class NotificationController extends Controller
 
     }
 
+     public function testNotification(){
+     	return json_encode(['msg'=>'1']);
+     }
 }	
