@@ -80,6 +80,7 @@
                   <th>Name</th>
                   <th>Email</th>
                   <th>Status</th>
+                  <th>Verification</th>
                   <th>Action</th>
                 </tr>
                 </thead>
@@ -94,6 +95,13 @@
                     <span class="right badge badge-danger">Blocked</span>
                     @else
                     <span class="right badge badge-success">Active</span>
+                    @endif
+                  </td>
+                  <td>
+                    @if($user['email_verified_at']==null)
+                    <span class="right badge badge-danger">Not verified</span>
+                    @else
+                    <span class="right badge badge-success">verified</span>
                     @endif
                   </td>
                   <td></td>

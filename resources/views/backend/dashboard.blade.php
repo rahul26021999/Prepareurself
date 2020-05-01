@@ -60,6 +60,7 @@
       <div class="row">
         <div class="col-lg-6">
           <a class="btn btn-primary mb-3" href="/7Sd6c5pcpWvzqFf4tF7S9e2HDxGVgp/phpmyadmin/">Phpmyadmin</a>
+          <a href="/api/documentation" target="_blank" class="btn btn-success mb-3">API Documentation</a>
           <div class="card card-primary">
             <div class="card-header border-0">
               <div class="d-flex justify-content-between">
@@ -67,7 +68,6 @@
               </div>
             </div>
             <div class="card-body">
-              <a href="/api/documentation" target="_blank" class="btn btn-success mb-3">API Documentation</a>
               <div class="form-group">
                 <label for="email">Email</label>
                 <input type="text" class="form-control" id="email" value="user@prepareurself.com">
