@@ -28,7 +28,6 @@ class CreateProjectsTable extends Migration
             $table->unsignedBigInteger('admin_id');
             $table->timestamps();
         });
-        // ALTER TABLE `projects` ADD `sequence` SMALLINT NULL DEFAULT NULL AFTER `level`, ADD `status` ENUM('publish','dev') NOT NULL DEFAULT 'dev' AFTER `sequence`; 
     }
 
     /**

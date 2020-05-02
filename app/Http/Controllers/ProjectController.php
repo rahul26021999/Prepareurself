@@ -224,6 +224,7 @@ class ProjectController extends Controller
 						$query->where('user_id',JWTAuth::user()->id);
 					}])->withCount('ResourceProjectViews as total_views')
 					->where('course_id',$request['course_id'])
+					->where('status','publish')
 					->paginate($count);
 					
 					return response()->json(['error_code'=>0,'Project'=>$Project]);
@@ -238,6 +239,7 @@ class ProjectController extends Controller
 					}])->withCount('ResourceProjectViews as total_views')
 					->where('course_id',$request['course_id'])
 					->where('level',$level)
+					->where('status','publish')
 					->paginate($count);
 
 					return response()->json(['error_code'=>0,'Project'=>$Project]);
@@ -287,7 +289,9 @@ class ProjectController extends Controller
 	            $course_id=1;
 	        }
 	        else{
-	        	$count=Project::where('course_id',$course->id)->count();
+	        	$count=Project::where('course_id',$course->id)
+	        	->where('status','publish')
+	        	->count();
 	        	if($count<3){
 	        		$course_id=1;			
 	        	}
@@ -300,7 +304,10 @@ class ProjectController extends Controller
 	    	$course_id=1;
 	    }
 
-  		$project=Project::where('course_id',$course_id)->take(5)->get();
+  		$project=Project::where('course_id',$course_id)
+  		->where('status','publish')
+  		->take(5)->get();
+  		
   		return response()->json(['success'=>true,'course_id'=>$course_id,'projects'=>$project]);
 	}
 
