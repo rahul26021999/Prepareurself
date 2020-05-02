@@ -16,6 +16,43 @@
 <script src="{{ asset('AdminLTE/dist/js/demo.js')}}"></script>
 <!-- page script -->
 <script>
+
+  function publishProject(id,status,element){
+    $.ajax({
+            url: '{{route("admin.project.publish")}}',
+            method: 'post',
+            async:false,
+            data: {id:id,status:status,"_token":"{{ csrf_token() }}"},
+            success: function (data, status, xhr) {
+              if(data.success)
+              {
+                $(element).text(data.status);
+                $(element).toggleClass('badge-success');
+                $(element).toggleClass('badge-danger');
+              }
+              alert(data.message);
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                console.log(errorMessage);
+                alert("Something Went Wrong Please Try Again After Sometime")
+                return false;
+            }
+        });
+  }
+  $('.publish').on('click',function(){
+
+      var status=$(this).data('status');
+      var id=$(this).data('id');
+      if(status=='publish'){
+        status='dev';
+      }
+      else if(status=='dev'){
+        status='publish';
+      }
+      publishProject(id,status,this)
+  });
+
+
   $(function () {
     $("#example1").DataTable({
       "responsive": true,
@@ -72,6 +109,9 @@
     padding-bottom: 12px;
     line-height: 1.2em;
   }
+    .publish{
+    cursor: pointer;
+  }
 </style>
 @endsection
 
@@ -113,13 +153,14 @@
           <!-- /.card-header -->
           <div class="card-body">
             <a href="/admin/project/create/{{$course['name']}}"class="btn btn-success mb-3">New Project in {{$course['name']}}</a>
-           
+            <a href="/admin/project/publish/{{$course['id']}}"class="btn btn-primary mb-3 ml-3">Publish all Project</a>
             <table id="example2" class="table table-bordered table-hover">
               <thead>
                 <tr>
                   <th>Id</th>
                   <th>Name</th>
                   <th>Type | Level</th>
+                  <th>Status</th>
                   <th>Action</th>
                   
                 </tr>
@@ -143,6 +184,11 @@
                   <a data-toggle="tooltip" title="Hard" class="mr-3"><span class="right badge badge-danger"> H </span></a>
                   @endif
                   </td>
+                  @if($project['status']=='publish')
+                  <td><span data-status="{{$project['status']}}" data-id="{{$project['id']}}" class="right badge badge-success mr-3 publish">{{$project['status']}}</a></td>
+                  @elseif($project['status']=='dev')
+                  <td><span data-status="{{$project['status']}}" data-id="{{$project['id']}}" class="right badge badge-danger mr-3 publish">{{$project['status']}}</a></td>
+                  @endif
                   <td>
                     <a href ="/admin/project/edit/{{$project['id']}}" data-toggle="tooltip" title="Edit"  class="mr-3"><i class="far fa-edit text-info"></i></a>
                     <a target="_blank" data-toggle="tooltip" title="View Image" href="/uploads/projects/{{$project['image_url']}}" class="mr-3"><i class="fas fa-image text-success"></i></a>

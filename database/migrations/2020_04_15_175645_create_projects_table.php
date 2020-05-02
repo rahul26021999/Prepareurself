@@ -19,6 +19,8 @@ class CreateProjectsTable extends Migration
             $table->longText('description')->nullable();
             $table->enum('type',['theory','video']);
             $table->enum('level',['easy','medium','hard']);
+            $table->smallInteger('sequence')->nullable();
+            $table->enum('status',['publish','dev'])->default('dev');
             $table->longText('image_url')->nullable();
             $table->longText('link');
             $table->string('playlist')->nullable();
@@ -26,6 +28,7 @@ class CreateProjectsTable extends Migration
             $table->unsignedBigInteger('admin_id');
             $table->timestamps();
         });
+        // ALTER TABLE `projects` ADD `sequence` SMALLINT NULL DEFAULT NULL AFTER `level`, ADD `status` ENUM('publish','dev') NOT NULL DEFAULT 'dev' AFTER `sequence`; 
     }
 
     /**

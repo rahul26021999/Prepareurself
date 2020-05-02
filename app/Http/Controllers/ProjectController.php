@@ -133,6 +133,25 @@ class ProjectController extends Controller
 
 	}
 
+	public function publishProject(Request $request){
+
+		if(isset($request['id']) && isset($request['status']) && $request['id']!='' && $request['status']!='')
+	    {
+	        $project=Project::find($request['id']);
+	        $project->status=$request['status'];
+	        $project->save();
+	        return response()->json(['success'=>true,'status'=>$project->status,'message'=>'Project Status changed to '.$project->status]);
+	    }
+	    else{
+	        return response()->json(['success'=>false,'message'=>"Project status can't change at this moment"]);
+	    }
+	}
+
+	public function publishAllProject($courseId){
+		Project::where('course_id',$courseId)->update(['status'=>'publish']);
+      	return redirect()->back();
+	}
+
 	/**
 	 * @OA\Post(
 	 *     path="/api/get-projects",

@@ -161,7 +161,7 @@
                 <select name="course_id" class="form-control">
                   @foreach($courses as $course)
                   @if($course['id']==$Project['course_id'])
-                  <option value="{{$course['id']}}">{{$course['name']}}</option>
+                  <option value="{{$course['id']}}" selected="selected">{{$course['name']}}</option>
                   @else
                   <option value="{{$course['id']}}">{{$course['name']}}</option>
                   @endif
