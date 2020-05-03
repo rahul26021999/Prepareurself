@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Log;
 use App\Models\Banner;
+use App\Models\Course;
 use App\Exception;
 
 class BannerController extends Controller
@@ -75,30 +76,17 @@ class BannerController extends Controller
    *     )
    * )
    */
+
   public function wsGetBanner(Request $request){
-      $banner=Banner::where('status','publish')->select('id','title','image')->get();
-      return response()->json(['error_code'=>0,'banner'=>$banner]);
-  }
-
-
-  public function wsGetBannerClickable(Request $request){
       $banners=Banner::where('status','publish')->get();
       foreach ($banners as $banner) {
-          $banner=getBannerDetails($banner);
+          switch ($banner->screen) {
+              case 'allTopic' || 'allProject' || 'allCourse' || 'course' :
+                  $banner->course=Course::find($banner['screen_id']);
+                break;
+          }
       }
       return response()->json(['error_code'=>0,'banner'=>$banners]); 
-  }
-
-
-
-  public function getBannerDetails($banner){
-
-      switch ($type) {
-          case 'allTopic' || 'allProject' || 'allCourse' || 'course' :
-              $banner->course=Course::find($banner['screen_id']);
-            break;
-      }
-      return $banner;    
   }
 
 }
