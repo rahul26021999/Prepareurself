@@ -151,4 +151,14 @@ class CourseController extends Controller
       return response()->json(['error_code'=>0,'preferences'=>$courses]);
    }
 
+   public function changeCourseSequence(Request $request){
+    $id=$request['id'];
+      for ($i=0; $i < count($id); $i++) { 
+        Course::find($id[$i])->update(['sequence'=>$i]);
+      }
+      Session::flash('success','You have Successfully changed sequence !');
+      return redirect()->back();
+
+   }
+
 }
