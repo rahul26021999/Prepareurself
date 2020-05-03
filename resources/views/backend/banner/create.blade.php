@@ -123,25 +123,48 @@
                   </div>
                 </div>
               </div>
-              <div class="form-group">
-               <div class="checkbox">
-                  <label><input type="checkbox" name="publish" value="publish">Publish</label>
+              <div class="row">
+                <div class="col-sm-9">
+                 <div class="form-group">
+                  <label>Select Screen</label>
+                  <select name="screen" id="screen" class="form-control">
+                    <option value="allProject">Open All Project Screen</option>
+                    <option value="topic">Open Topic Screen</option>
+                    <option value="feedback">Open feedback</option>
+                    <option value="prefrence">Open Prefrences</option>
+                    <option value="allCourse">Open All course Screen</option>
+                    <option value="course" disabled="disabled">Open Course Screen</option>
+                  </select>
                 </div>
               </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="text-center">
-                <img src="/defaults/defaultImage.png" id="showImage" alt="Girl in a jacket" width="auto" height="300">
-              </div>
+              <div class="col-sm-3" style="display: none;" id="screen_id" >
+                <div class="form-group">
+                 <label>Id</label>
+                 <input type="number" name="id" class="form-control" placeholder="">
+               </div>    
+             </div>
+           </div>
+
+           <div class="form-group">
+             <div class="checkbox">
+              <label><input type="checkbox" name="publish" value="publish">Publish</label>
             </div>
           </div>
+
         </div>
-        <div class="card-footer">
-          <button type="submit" class="btn btn-primary float-right">Submit</button>
+        <div class="col-sm-6">
+          <div class="text-center">
+            <img src="/defaults/defaultImage.png" id="showImage" alt="Girl in a jacket" width="auto" height="300">
+          </div>
         </div>
       </div>
-    </form>
-  </section>
+    </div>
+    <div class="card-footer">
+      <button type="submit" class="btn btn-primary float-right">Submit</button>
+    </div>
+  </div>
+</form>
+</section>
 </div>
 
 @endsection

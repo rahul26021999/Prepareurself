@@ -241,35 +241,34 @@ class TopicController extends Controller
    */
    public function wsGetAllSuggestedTopics(Request $request){
       
-      $user=JWTAuth::user();
-      
-      if(!is_null($user->preferences)  && $user->preferences!=''){
-        
-        $preferences=explode(',', $user->preferences);
-        $course_name=$preferences['0'];
-        
-        $course=Course::where('name',$course_name)->where('status','publish')->first();
-        if($course==null){
-            $course_id=8;
-        }else{
-          $count=CourseTopic::where('course_id',$course->id)->where('status','publish')->count();
-          if($count<3)
-          {
-            $course_id=8;
-          }
-          else{
-            $course_id=$course->id;
-          }
-        }
-      }
-      else{
-          $course_id=8;
-      }
-
+      $course_id=$this->getSuggestedCourse($request);
       $topic=CourseTopic::where('course_id',$course_id)->where('status','publish')->orderBy('sequence','asc')->take(5)->get();
     
       return response()->json(['success'=>true,'course_id'=>$course_id,'topics'=>$topic]);
 
    }
+
+  public function getSuggestedCourse(Request $request){
+
+      $user=JWTAuth::user();
+      $course_id=8;
+      
+      if(!is_null($user->preferences)  && $user->preferences!='')
+      {
+        $preferences=explode(',', $user->preferences);
+        $course_name=$preferences['0'];
+        
+        $course=Course::where('name',$course_name)->where('status','publish')->first();
+        if($course!=null)
+        {
+          $count=CourseTopic::where('course_id',$course->id)->where('status','publish')->count();
+          if($count>3)
+          {
+            $course_id=$course->id;
+          }
+        }
+      }
+      return $course_id;
+  }
 
 }
