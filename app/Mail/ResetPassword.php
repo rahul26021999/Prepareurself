@@ -12,8 +12,8 @@ class ResetPassword extends Mailable
     use Queueable, SerializesModels;
 
 
-    protected $url;
-    protected $user;
+    public $url;
+    public $user;
     /**
      * Create a new message instance.
      *
@@ -33,8 +33,6 @@ class ResetPassword extends Mailable
     public function build()
     {
         return $this->subject('Request For Reset Password')
-                    ->markdown('emails.user.resetPassword')
-                    ->with('url',$this->url)
-                    ->with('user',$this->user);
+                    ->markdown('emails.user.resetPassword');
     }
 }

@@ -46,6 +46,11 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
+    public function getNameAttribute($value)
+    {
+       return ucfirst($this->first_name) . ' ' . ucfirst($this->last_name);
+    }
+
     /**
      * Determine if the user has verified their email address.
      *

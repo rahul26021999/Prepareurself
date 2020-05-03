@@ -10,7 +10,8 @@ use Illuminate\Queue\SerializesModels;
 class UserFeedback extends Mailable
 {
     use Queueable, SerializesModels;
-    protected $user;
+    
+    public $user;
     /**
      * Create a new message instance.
      *
@@ -29,7 +30,6 @@ class UserFeedback extends Mailable
     public function build()
     {
          return $this->subject('Feedback Recieved')
-                    ->markdown('emails.user.UserFeedback')
-                    ->with('user',$this->user);
+                    ->markdown('emails.user.UserFeedback');
     }
 }

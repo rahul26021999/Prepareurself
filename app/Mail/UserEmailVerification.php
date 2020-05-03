@@ -11,8 +11,8 @@ class UserEmailVerification extends Mailable
 {
     use Queueable, SerializesModels;
 
-    protected $user;
-    protected $link;
+    public $user;
+    public $url;
     /**
      * Create a new message instance.
      *
@@ -21,7 +21,7 @@ class UserEmailVerification extends Mailable
     public function __construct($link,$user)
     {
         $this->user=$user;
-        $this->link=$link;
+        $this->url=$link;
     }
 
     /**
@@ -32,8 +32,6 @@ class UserEmailVerification extends Mailable
     public function build()
     {
         return $this->subject('Verify Your Email')
-                    ->markdown('emails.user.email-verify')
-                    ->with('url',$this->link)
-                    ->with('user',$this->user);
+                    ->markdown('emails.user.email-verify');
     }
 }

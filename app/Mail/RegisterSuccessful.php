@@ -10,7 +10,8 @@ use Illuminate\Queue\SerializesModels;
 class RegisterSuccessful extends Mailable
 {
     use Queueable, SerializesModels;
-    protected $user;
+    
+    public $user;
     /**
      * Create a new message instance.
      *
@@ -30,6 +31,5 @@ class RegisterSuccessful extends Mailable
     {
         return $this->subject('Registered Successfully')
                     ->markdown('emails.user.register');
-                    ->with('user',$this->user);
     }
 }

@@ -17,7 +17,7 @@
       <form action="{{route('resetPassword')}}" method="post" id="resetPasswordForm">
         <div class="input-group mb-3">
           @csrf
-          <input type="hidden" name="id" value="{{$type}}">
+          <input type="hidden" name="type" value="{{$type}}">
           <input type="hidden" name="id" value="{{$id}}">
           <input type="password" class="form-control" required="required" name="password" placeholder="Password">
           <div class="input-group-append">

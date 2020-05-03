@@ -11,8 +11,8 @@ class PasswordChangedSuccessfull extends Mailable
 {
     use Queueable, SerializesModels;
 
-    protected $user;
-    protected $contact_us;
+    public $user;
+    
     /**
      * Create a new message instance.
      *
@@ -31,7 +31,6 @@ class PasswordChangedSuccessfull extends Mailable
     public function build()
     {
         return $this->subject('Password Changed Successfully')
-                ->markdown('emails.user.password-changed')
-                ->with('user',$this->user);
+                ->markdown('emails.user.password-changed');
     }
 }

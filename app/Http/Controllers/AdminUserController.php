@@ -134,10 +134,12 @@ class AdminUserController extends Controller
     {
         $type=base64_decode($request['type']);
         $id=base64_decode($request['id']);
-        if($type=='Admin')
+        if($type=="Admin"){
             $user=Admin::find($id);
-        else
+        }
+        else{
             $user=User::find($id);
+        }
 
         $user->password=Hash::make($request['password']);
         $user->save();
