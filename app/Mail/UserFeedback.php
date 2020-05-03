@@ -28,8 +28,7 @@ class UserFeedback extends Mailable
      */
     public function build()
     {
-         return $this->from('noreply@prepareurself.in')
-                    ->subject('Feedback Recieved')
+         return $this->subject('Feedback Recieved')
                     ->markdown('emails.user.UserFeedback')
                     ->with('user',$this->user);
     }

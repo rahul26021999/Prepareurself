@@ -28,8 +28,7 @@ class RegisterSuccessful extends Mailable
      */
     public function build()
     {
-        return $this->from('noreply@prepareurself.in')
-                    ->subject('Registered Successfully')
+        return $this->subject('Registered Successfully')
                     ->markdown('emails.user.register');
                     ->with('user',$this->user);
     }

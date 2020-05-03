@@ -31,8 +31,7 @@ class UserEmailVerification extends Mailable
      */
     public function build()
     {
-        return $this->from('noreply@prepareurself.in')
-                    ->subject('Verify Your Email')
+        return $this->subject('Verify Your Email')
                     ->markdown('emails.user.email-verify')
                     ->with('url',$this->link)
                     ->with('user',$this->user);
