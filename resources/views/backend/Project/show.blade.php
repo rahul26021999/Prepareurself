@@ -68,14 +68,14 @@
       "responsive": true,
     });
   });
-  $(".deleteButton").on('click',function() {
+  
+ $(".deleteButton").on('click',function() {
     var id=$(this).data('id');
-    var title=$(this).data('name');
-    var courseName=$(this).data('course');
-    console.log(courseName);
-    $('#deleteTopicCourseName').val(courseName);
-    $('#deleteTopicId').val(id);
-    $('#deleteTopicTitle').text(title);       
+    var title=$(this).data('title');
+
+    $('#deleteResourceId').val(id);
+    $('#deleteResourceTitleText').text(title);
+    $('#deleteResourceTitle').val(title);       
   });
 
   $("#sortable4").sortable({
@@ -153,11 +153,13 @@
           <!-- /.card-header -->
           <div class="card-body">
             <a href="/admin/project/create/{{$course['name']}}"class="btn btn-success mb-3">New Project in {{$course['name']}}</a>
+            <button type="button" class="btn btn-danger mb-3 ml-3" data-toggle="modal" data-target="#changeMySequenceModal">Change Sequence</button>
             <a href="/admin/project/publish/{{$course['id']}}"class="btn btn-primary mb-3 ml-3">Publish all Project</a>
             <table id="example2" class="table table-bordered table-hover">
               <thead>
                 <tr>
                   <th>Id</th>
+                  <th>Seq</th>
                   <th>Name</th>
                   <th>Type | Level</th>
                   <th>Status</th>
@@ -169,6 +171,7 @@
                 @foreach($Project as $project)
                 <tr>
                   <td><a href ="" >#{{$project['id']}}</a></td>
+                  <td>{{$project['sequence']}}</td>
                   <td>{{$project['name']}}</td>
                  <td>
                   @if($project['type']=='video')
@@ -192,6 +195,7 @@
                   <td>
                     <a href ="/admin/project/edit/{{$project['id']}}" data-toggle="tooltip" title="Edit"  class="mr-3"><i class="far fa-edit text-info"></i></a>
                     <a target="_blank" data-toggle="tooltip" title="View Image" href="/uploads/projects/{{$project['image_url']}}" class="mr-3"><i class="fas fa-image text-success"></i></a>
+                    <i data-toggle="modal" data-title="{{$project['name']}}" data-id="{{$project['id']}}" data-target="#deleteModal" style="cursor: pointer;" class="deleteButton far fa-trash-alt text-danger"></i>
 
                   </td>
                  </tr>
@@ -211,6 +215,81 @@
     <!-- /.row -->
   </section>
   <!-- /.content -->
+
+   <!-- Change Sequence Modal -->
+
+  <!-- Button trigger modal -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="changeMySequenceModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog"  role="document">
+      <div class="modal-content">
+       <form action="{{route('admin.project.sequence')}}" method="post">
+        <div class="modal-header">
+          @csrf
+          <h5 class="modal-title" id="exampleModalScrollableTitle"><b>Change Sequence of Topics</b></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-12" style="height:400px; overflow-y: scroll;">
+             <ul id="sortable4" class="list-group list-unstyled">
+              @foreach($Project as $project)
+              <li class="list-group-item ui-state-default" id="listItem{{$project['id']}}" style="cursor: pointer;">
+                <input type="hidden" name="id[]" value="{{$project['id']}}">
+                <span><b>{{$project['sequence']}}</b>. &nbsp</span>
+                <span>{{$project['name']}}</span>
+                <span class="float-right"><i class="fas fa-thumbtack pin text-muted"  data-id="{{$project['id']}}" ></i></span>
+              </li>
+              @endforeach
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+
+
+
+  <!-- Delete Modal -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <form method="post" action="{{route('admin.project.delete')}}">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Are You sure ?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <p>Are you sure you Want to delete Project - <b><span id="deleteResourceTitleText"></span></b> </p>
+            @csrf
+            <input type="hidden" name="title" id="deleteResourceTitle">
+            <input type="hidden" name="id" id="deleteResourceId">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+
 
 </div>
 

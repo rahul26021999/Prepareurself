@@ -102,7 +102,7 @@
                 <tr>                      
                   <td><a href ="" ># {{$project['id']}} </a></td>
                   <td>{{$project['name']}}</td>
-                  <td><a href ="/admin/course/all" data-toggle="tooltip" title="Show all Projects" >{{$project['course']['name']}}</a></td>
+                  <td><a href ="/admin/project/all/{{$project->Course->name}}" data-toggle="tooltip" title="Show all Projects" >{{$project['course']['name']}}</a></td>
                   <td>
                   @if($project['type']=='video')
                   <a target="_blank" data-toggle="tooltip" title="Video | Click to view" href="{{$project['link']}}" class="mr-3"><span class="right badge badge-info"> V </span></a>

@@ -116,6 +116,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
            Route::post('edit/{id}','ProjectController@saveEditProject');
            Route::get('all/{course_name?}','ProjectController@showAllProject');
            Route::post('delete','ProjectController@deleteProject')->name('delete');
+           Route::post('sequence','ProjectController@changeProjectSequence')->name('sequence');
 
            Route::post('publish','ProjectController@publishProject')->name('publish');
             Route::get('publish/{courseId}','ProjectController@publishAllProject');

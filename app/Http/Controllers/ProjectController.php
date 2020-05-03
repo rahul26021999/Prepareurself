@@ -133,6 +133,16 @@ class ProjectController extends Controller
 
 	}
 
+	public function changeProjectSequence(Request $request)
+   	{
+      $id=$request['id'];
+      for ($i=0; $i < count($id); $i++) { 
+        Project::find($id[$i])->update(['sequence'=>$i]);
+      }
+      Session::flash('success','You have Successfully change sequence !');
+      return redirect()->back();
+   	}
+
 	public function publishProject(Request $request){
 
 		if(isset($request['id']) && isset($request['status']) && $request['id']!='' && $request['status']!='')
