@@ -87,6 +87,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
             Route::get('delete/{id}','CourseController@deleteCourse');
 
             Route::post('publish','CourseController@publishCourse')->name('publish');
+             Route::post('sequence','CourseController@changeCourseSequence')->name('sequence');
         });
 
         Route::name('courseTopic.')->prefix('topic')->group(function(){

@@ -8,6 +8,8 @@
 <script src="{{ asset('AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
 <script src="{{ asset('AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{ asset('AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('AdminLTE/dist/js/demo.js')}}"></script>
@@ -64,6 +66,20 @@
       "responsive": true,
     });
   });
+
+  $("#sortable4").sortable({
+    placeholder: 'drop-placeholder',
+    items: "li:not(.ui-state-disabled)"
+  });
+
+  $(".pin").on('click',function(){
+    var id=$(this).data('id');      
+    $(this).toggleClass('text-light');
+    $(this).toggleClass('text-muted');
+    $('#listItem'+id).toggleClass('bg-danger');
+    $('#listItem'+id).toggleClass('ui-state-disabled');
+
+  });
 </script>
 
 @endsection
@@ -75,6 +91,13 @@
   <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
   
   <style type="text/css">
+    .drop-placeholder {
+    background-color: lightgray;
+    height: 3.5em;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    line-height: 1.2em;
+  }
     .publish{
       cursor: pointer;
     }
@@ -110,6 +133,7 @@
           <div class="card">
             <dic class="card-header">
               <a href="/admin/course/create" class="btn btn-success">New</a>
+              <button type="button" class="btn btn-danger mb-3 ml-3" data-toggle="modal" data-target="#changeMySequenceModal">Change Sequence</button>
             </dic>
             <div class="card-body">
               <table id="example2" class="table table-bordered table-hover">
@@ -157,6 +181,50 @@
       <!-- /.row -->
     </section>
     <!-- /.content -->
+    <!-- Change Sequence Modal -->
+
+  <!-- Button trigger modal -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="changeMySequenceModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog"  role="document">
+      <div class="modal-content">
+       <form action="{{route('admin.course.sequence')}}" method="post">
+        <div class="modal-header">
+          @csrf
+          <h5 class="modal-title" id="exampleModalScrollableTitle"><b>Change Sequence of Courses</b></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-12" style="height:400px; overflow-y: scroll;">
+             <ul id="sortable4" class="list-group list-unstyled">
+              @foreach($courses as $course)
+              <li class="list-group-item ui-state-default" id="listItem{{$course['id']}}" style="cursor: pointer;">
+                <input type="hidden" name="id[]" value="{{$course['id']}}">
+                <span><b>{{$course['sequence']}}</b>. &nbsp</span>
+                <span>{{$course['name']}}</span>
+                <span class="float-right"><i class="fas fa-thumbtack pin text-muted"  data-id="{{$course['id']}}" ></i></span>
+              </li>
+              @endforeach
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+    </form>
   </div>
+</div>
+</div>
+
+</div>
+
+
+
 
 @endsection

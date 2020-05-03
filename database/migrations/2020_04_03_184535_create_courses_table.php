@@ -18,6 +18,7 @@ class CreateCoursesTable extends Migration
             $table->longText('name');
             $table->enum('status',['publish','dev'])->default('dev');
             $table->longText('image_url');
+            $table->smallInteger('sequence')->nullable();
             $table->timestamps();
         });
     }
