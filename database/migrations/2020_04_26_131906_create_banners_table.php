@@ -18,6 +18,8 @@ class CreateBannersTable extends Migration
             $table->longText('title');
             $table->enum('status',['publish','dev'])->default('dev');
             $table->longText('image');
+            $table->longText('screen')->nullable();
+            $table->integer('screen_id')->nullable();
             $table->timestamps();
         });
     }

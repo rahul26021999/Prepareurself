@@ -39,7 +39,11 @@
         },
         bannerImage:{
           required:true
+        },
+        id:{
+          required:true
         }
+
       },
       messages: {
         name: {
@@ -62,6 +66,18 @@
 </script>
 
 <script>
+
+  $( "#screen" ).on('change',function() {
+    if($(this).val()=="allProject" || $(this).val()=="allTopic" || $(this).val()=="course")
+    {
+      $('#screen_id').show();
+    }
+    else if($(this).val()=="allCourse"){
+      $('#screen_id').hide();
+    }
+  });
+
+
  function readURL(input) {
   if (input.files && input.files[0]) {
     var reader = new FileReader();
@@ -129,17 +145,17 @@
                   <label>Select Screen</label>
                   <select name="screen" id="screen" class="form-control">
                     <option value="allProject">Open All Project Screen</option>
-                    <option value="topic">Open Topic Screen</option>
+                    <option value="allTopic">Open All Topic Screen</option>
+                    <option value="allCourse">Open All course Screen</option>
                     <option value="feedback">Open feedback</option>
                     <option value="prefrence">Open Prefrences</option>
-                    <option value="allCourse">Open All course Screen</option>
                     <option value="course" disabled="disabled">Open Course Screen</option>
                   </select>
                 </div>
               </div>
-              <div class="col-sm-3" style="display: none;" id="screen_id" >
+              <div class="col-sm-3" id="screen_id" >
                 <div class="form-group">
-                 <label>Id</label>
+                 <label>Course Id</label>
                  <input type="number" name="id" class="form-control" placeholder="">
                </div>    
              </div>

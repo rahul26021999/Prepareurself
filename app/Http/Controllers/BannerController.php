@@ -24,7 +24,9 @@ class BannerController extends Controller
         $banner=Banner::create([
           'title'=>$request['title'],
           'image'=>$fileName,
-          'status'=>$request->input('publish','dev')
+          'status'=>$request->input('publish','dev'),
+          'screen'=>$request['screen'],
+          'screen_id'=>$request->input('id',null),
         ]);
       }
       catch(Exception $e){
@@ -77,4 +79,26 @@ class BannerController extends Controller
       $banner=Banner::where('status','publish')->select('id','title','image')->get();
       return response()->json(['error_code'=>0,'banner'=>$banner]);
   }
+
+
+  public function wsGetBannerClickable(Request $request){
+      $banners=Banner::where('status','publish')->get();
+      foreach ($banners as $banner) {
+          $banner=getBannerDetails($banner);
+      }
+      return response()->json(['error_code'=>0,'banner'=>$banners]); 
+  }
+
+
+
+  public function getBannerDetails($banner){
+
+      switch ($type) {
+          case 'allTopic' || 'allProject' || 'allCourse' || 'course' :
+              $banner->course=Course::find($banner['screen_id']);
+            break;
+      }
+      return $banner;    
+  }
+
 }

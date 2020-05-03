@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Banner extends Model
 {
-    protected $fillable = ['title','image','status'];
+    protected $fillable = ['title','image','status','screen','screen_id'];
 
     protected $appends = array('image_url');
 
