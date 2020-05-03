@@ -433,4 +433,26 @@ class UserAuthController extends Controller
 			return response()->json(['success'=>false,'error_code'=>1,"message"=>"User Email is Missing"]);
 		}
 	}
+
+	public function getHomePage(Request $request){
+		$user=JWTAuth::user();
+		if($user!=null){
+			$course=Course::where('status','publish')->orderBy('sequence','asc')->take(5)->get();
+			
+			// for suggested topics
+			$topic_course_id=TopicController::getSuggestedCourse($request);
+      		$topic=CourseTopic::where('course_id',$topic_course_id)->where('status','publish')->orderBy('sequence','asc')->take(5)->get();
+
+      		// for suggested projects
+      		$project_course_id=$this->getSuggestedCourse($request);
+	  		$project=Project::where('course_id',$project_course_id)
+	  		->where('status','publish')
+	  		->orderBy('sequence','asc')
+	  		->take(5)->get();
+		}
+		else{
+			return response()->json(['success'=>false,'error_code'=>1,"message"=>"User not valid"]);
+		}
+
+	}
 }

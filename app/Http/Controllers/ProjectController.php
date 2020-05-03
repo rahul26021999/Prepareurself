@@ -288,34 +288,7 @@ class ProjectController extends Controller
    * )
    */
 	public function wsGetAllSuggestedProjects(Request $request){
-
-		$user=JWTAuth::user();
-      
-	    if(!is_null($user->preferences)  && $user->preferences!='')
-	    {
-	        $preferences=explode(',', $user->preferences);
-	        $course_name=$preferences['0'];
-	        
-	        $course=Course::where('name',$course_name)->where('status','publish')->first();
-	        if($course==null){
-	            $course_id=1;
-	        }
-	        else{
-	        	$count=Project::where('course_id',$course->id)
-	        	->where('status','publish')
-	        	->count();
-	        	if($count<3){
-	        		$course_id=1;			
-	        	}
-	        	else{
-	        		$course_id=$course->id;
-	        	}
-	        }
-	    }
-	    else{
-	    	$course_id=1;
-	    }
-
+		$course_id=$this->getSuggestedCourse($request);
   		$project=Project::where('course_id',$course_id)
   		->where('status','publish')
   		->orderBy('sequence','asc')
@@ -324,6 +297,29 @@ class ProjectController extends Controller
   		return response()->json(['success'=>true,'course_id'=>$course_id,'projects'=>$project]);
 	}
 
+	public function getSuggestedCourse(Request $request){
+		$user=JWTAuth::user();
+		$course_id=1;
+
+		if(!is_null($user->preferences)  && $user->preferences!='')
+		{
+			$preferences=explode(',', $user->preferences);
+			$course_name=$preferences['0'];
+
+			$course=Course::where('name',$course_name)->where('status','publish')->first();
+			if($course!=null)
+			{
+				$count=Project::where('course_id',$course->id)
+	        	->where('status','publish')
+	        	->count();
+				if($count>3)
+				{
+					$course_id=$course->id;
+				}
+			}
+		}
+		return $course_id;
+	}
 
    /**
    * @OA\Post(
