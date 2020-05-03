@@ -235,6 +235,7 @@ class ProjectController extends Controller
 					}])->withCount('ResourceProjectViews as total_views')
 					->where('course_id',$request['course_id'])
 					->where('status','publish')
+					->orderBy('sequence','asc')
 					->paginate($count);
 					
 					return response()->json(['error_code'=>0,'Project'=>$Project]);
@@ -250,6 +251,7 @@ class ProjectController extends Controller
 					->where('course_id',$request['course_id'])
 					->where('level',$level)
 					->where('status','publish')
+					->orderBy('sequence','asc')
 					->paginate($count);
 
 					return response()->json(['error_code'=>0,'Project'=>$Project]);
@@ -316,6 +318,7 @@ class ProjectController extends Controller
 
   		$project=Project::where('course_id',$course_id)
   		->where('status','publish')
+  		->orderBy('sequence','asc')
   		->take(5)->get();
   		
   		return response()->json(['success'=>true,'course_id'=>$course_id,'projects'=>$project]);
