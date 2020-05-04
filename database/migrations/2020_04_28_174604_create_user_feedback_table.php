@@ -21,7 +21,7 @@ class CreateUserFeedbackTable extends Migration
             $table->longText('answer3');
             $table->longText('answer4');
             $table->longText('answer5');
-            $table->longText('answer6');
+            $table->longText('answer6')->nullable();
             $table->timestamps();
         });
     }

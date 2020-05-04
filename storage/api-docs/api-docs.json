@@ -355,6 +355,31 @@
                 }
             }
         },
+        "/api/get-my-liked-things": {
+            "post": {
+                "tags": [
+                    "Likes | Dislikes | Views"
+                ],
+                "description": "Get all my liked things data",
+                "operationId": "App\\Http\\Controllers\\ResourceProjectLikesController::wsGetMyLikedThing",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{[error_code=>0,msg=>'success']}"
+                    }
+                }
+            }
+        },
         "/api/view-resource-project": {
             "post": {
                 "tags": [
@@ -759,6 +784,31 @@
                 "responses": {
                     "200": {
                         "description": "{[error_code=>0,msg=>'Forgot password Mail sent to your email']}"
+                    }
+                }
+            }
+        },
+        "/api/get-home-page": {
+            "post": {
+                "tags": [
+                    "HomePage"
+                ],
+                "description": "Get all home page data",
+                "operationId": "App\\Http\\Controllers\\UserAuthController::wsGetHomePage",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{[error_code=>0,msg=>'success']}"
                     }
                 }
             }

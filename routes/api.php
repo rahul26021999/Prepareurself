@@ -35,6 +35,9 @@ Route::middleware(['auth.jwt','verify'])->group(function () {
 	Route::post('update-password', 'UserAuthController@updatePassword');
 	Route::post('store-feedback', 'UserFeedbackController@storeFeedback');
 
+	Route::post('get-home-page', 'UserAuthController@wsGetHomePage');
+	Route::post('get-my-liked-things','ResourceProjectLikesController@wsGetMyLikedThing');
+
 });
 
 Route::post('forget-password', 'UserAuthController@forgetPassword');
