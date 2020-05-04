@@ -486,25 +486,28 @@ class UserAuthController extends Controller
 			$courseArray = array(
 				'title' => 'Tech - Stack',
 				'type'	=>	'course',
-				'seeAll'=> 'courses',
+				'seeAll'=>  true,
 				'courses' => $course
 			);
 			array_push($result, $courseArray);
 			
 			# for suggested topics
 			$topic_course_id=$this->getSuggestedTopicCourse($request);
+			$topic_course=Course::find($topic_course_id);
       		$topic=CourseTopic::where('course_id',$topic_course_id)->where('status','publish')->orderBy('sequence','asc')->take(5)->get();
 
       		$topicArray = array(
 				'title' => 'Topics u may like',
 				'type'	=>	'topic',
-				'seeAll' => 'topics',
+				'seeAll' => true,
+				'course'=> $topic_course,
 				'topics' => $topic
 			);
 			array_push($result, $topicArray);
 
       		# for suggested projects
       		$project_course_id=$this->getSuggestedProjectCourse($request);
+      		$project_course=Course::find($project_course_id);
 	  		$project=Project::where('course_id',$project_course_id)
 	  		->where('status','publish')
 	  		->orderBy('sequence','asc')
@@ -512,8 +515,9 @@ class UserAuthController extends Controller
 			
 			$projectArray = array(
 				'title' => 'Projects u may like',
-				'seeAll' => 'projects',
+				'seeAll' => true,
 				'type'	=>	'project',
+				'course'=> $project_course,
 				'project' => $project
 			);
 			array_push($result, $projectArray);
