@@ -46,8 +46,8 @@ class SearchController extends Controller
     	$result = array();
     	$query=$request['query'];
 
-    	$courses=Course::where('name', 'like', '%' . $query . '%')
-    		->where('status', 'publish')
+    	$courses=Course::where('status', 'publish')
+    		->where('name', 'like', '%' . $query . '%')
 	        ->get();
 
 	    if(count($courses)>0){
@@ -59,9 +59,8 @@ class SearchController extends Controller
 		    array_push($result,$courseArray);
 	    }
 
-    	$topics=CourseTopic::where('name', 'like', '%' . $query . '%')
-	        ->where('description', 'like', '%' . $query . '%')
-	        ->where('status', 'publish')
+    	$topics=CourseTopic::where('status', 'publish')
+    		->where('name', 'like', '%' . $query . '%')
 	        ->get();
 
 	    if(count($topics)>0){
@@ -72,9 +71,8 @@ class SearchController extends Controller
 		    array_push($result,$topicsArray);	
 	    }
 	    
-    	$projects=Project::where('name', 'like', '%' . $query . '%')
-	        ->where('description', 'like', '%' . $query . '%')
-	        ->where('status', 'publish')
+    	$projects=Project::where('status', 'publish')
+	        ->where('name', 'like', '%' . $query . '%')
 	        ->get();
 
 	    if(count($projects)>0){
@@ -87,7 +85,7 @@ class SearchController extends Controller
 	    
 
 	    $resources=Resource::where('title', 'like', '%' . $query . '%')
-	        ->where('description', 'like', '%' . $query . '%')
+	        ->orWhere('description', 'like', '%' . $query . '%')
 	        ->get();
 
 	  	if(count($resources)>0)
