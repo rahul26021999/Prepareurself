@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ResourceProjectLikes;
+use App\Models\Resource;
+use App\Models\Project;
 use JWTAuth;
 
 class ResourceProjectLikesController extends Controller
@@ -96,5 +98,80 @@ class ResourceProjectLikesController extends Controller
     	else{
     		return response()->json(['success'=>false,'error_code'=>2,'message'=>"like field is required"]);
     	}
+    }
+
+
+    /**
+   * @OA\Post(
+   *     path="/api/get-my-liked-things",
+   *     tags={"Likes | Dislikes | Views"},
+   *     description="Get all my liked things data",
+   *     @OA\Parameter(
+   *          name="token",
+   *          in="query",
+   *          description="token",
+   *          required=true,
+   *          @OA\Schema(
+   *              type="string"
+   *          )
+   *      ),
+   *     @OA\Parameter(
+   *          name="count",
+   *          in="query",
+   *          description="Count ,If not passed by default value of count is 10",
+   *          required=false,
+   *          @OA\Schema(
+   *              type="integer"
+   *          )
+   *      ),
+   *     @OA\Parameter(
+   *           name="page",
+   *          in="query",
+   *          description="Page number , if not then by default page 1",
+   *          required=false,
+   *          @OA\Schema(
+   *              type="integer"
+   *          )
+   *      ),
+   *     @OA\Response(
+   *          response=200,
+   *      description="{[error_code=>0,msg=>'success']}"
+   *     )
+   * )
+   */
+    public function wsGetMyLikedThing(Request $request){
+
+    	$user=JWTAuth::user();
+    	$count= isset($request['count'])?$request['count']:'10';
+    	$likesItem=ResourceProjectLikes::where('user_id',$user->id)->paginate($count);
+
+    	foreach ($likesItem as $item) {
+    		if($item->resource_id!=null){
+    			$resource=Resource::find($item->resource_id);
+    			if($resource==null){
+    				unset($item);
+    			}
+    			else{
+    				$item->resource=$resource;
+    			}
+    		}
+    		elseif($item->project_id!=null){
+    			$project=Project::find($item->project_id);
+    			if($project==null){
+    				unset($item);
+    			}
+    			else{
+    				$item->project=$project;
+    			}
+    		}
+    		else{
+    			unset($item);
+    		}
+    	}
+
+    	return response()->json([
+    		'error_code'=>0,
+    		'likedItems'=>$likesItem
+    	]);
     }
 }

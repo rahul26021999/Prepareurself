@@ -9,12 +9,17 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Traits\UserAuthTrait;
+use App\Traits\SuggestedCourseTrait;
 use JWTAuth;
 use Illuminate\Support\Carbon;
+use App\Models\Course;
+use App\Models\CourseTopic;
+use App\Models\Project;
 
 class UserAuthController extends Controller
 {
 	use UserAuthTrait;
+	use SuggestedCourseTrait;
 
 	/**
      * @OA\Post(
@@ -432,5 +437,78 @@ class UserAuthController extends Controller
 		else{
 			return response()->json(['success'=>false,'error_code'=>1,"message"=>"User Email is Missing"]);
 		}
+	}
+
+
+	/**
+   * @OA\Post(
+   *     path="/api/get-home-page",
+   *     tags={"HomePage"},
+   *     description="Get all home page data",
+   *     @OA\Parameter(
+   *          name="token",
+   *          in="query",
+   *          description="token",
+   *          required=true,
+   *          @OA\Schema(
+   *              type="string"
+   *          )
+   *      ),
+   *   
+   *     @OA\Response(
+   *          response=200,
+   *      description="{[error_code=>0,msg=>'success']}"
+   *     )
+   * )
+   */
+	public function wsGetHomePage(Request $request){
+
+		$user=JWTAuth::user();
+		if($user!=null){
+
+			$result=array();
+
+			# for latest 5 courses as per sequence
+			$course=Course::where('status','publish')->orderBy('sequence','asc')->take(5)->get();
+
+			$courseArray = array(
+				'title' => 'Tech - Stack',
+				'type'	=>	'course',
+				'courses' => $course
+			);
+			array_push($result, $courseArray);
+			
+			# for suggested topics
+			$topic_course_id=$this->getSuggestedTopicCourse($request);
+      		$topic=CourseTopic::where('course_id',$topic_course_id)->where('status','publish')->orderBy('sequence','asc')->take(5)->get();
+
+      		$topicArray = array(
+				'title' => 'Topics u may like',
+				'type'	=>	'topic',
+				'topics' => $topic
+			);
+			array_push($result, $topicArray);
+
+      		# for suggested projects
+      		$project_course_id=$this->getSuggestedProjectCourse($request);
+	  		$project=Project::where('course_id',$project_course_id)
+	  		->where('status','publish')
+	  		->orderBy('sequence','asc')
+	  		->take(5)->get();
+			
+			$projectArray = array(
+				'title' => 'Projects u may like',
+				'type'	=>	'project',
+				'project' => $project
+			);
+			array_push($result, $projectArray);
+
+			return response()->json(['success'=>true,'error_code'=>0,"message"=>"success",'data'=>$result]);
+
+		}
+		else{
+			return response()->json(['success'=>false,'error_code'=>1,"message"=>"User not valid"]);
+		}
+
 	}
 }

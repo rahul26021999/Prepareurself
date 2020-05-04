@@ -6,6 +6,7 @@ use App\Models\Project;
 use App\Models\Course;
 use Log;
 use App\Exception;
+use App\Traits\SuggestedCourseTrait;
 use Session;
 use Auth;
 use JWTAuth;
@@ -13,6 +14,8 @@ use JWTAuth;
 
 class ProjectController extends Controller
 {
+	use SuggestedCourseTrait;
+	
 	public function showCreateProject($courseName='')
 	{     
 		if($courseName!='')
@@ -288,34 +291,7 @@ class ProjectController extends Controller
    * )
    */
 	public function wsGetAllSuggestedProjects(Request $request){
-
-		$user=JWTAuth::user();
-      
-	    if(!is_null($user->preferences)  && $user->preferences!='')
-	    {
-	        $preferences=explode(',', $user->preferences);
-	        $course_name=$preferences['0'];
-	        
-	        $course=Course::where('name',$course_name)->where('status','publish')->first();
-	        if($course==null){
-	            $course_id=1;
-	        }
-	        else{
-	        	$count=Project::where('course_id',$course->id)
-	        	->where('status','publish')
-	        	->count();
-	        	if($count<3){
-	        		$course_id=1;			
-	        	}
-	        	else{
-	        		$course_id=$course->id;
-	        	}
-	        }
-	    }
-	    else{
-	    	$course_id=1;
-	    }
-
+		$course_id=$this->getSuggestedProjectCourse($request);
   		$project=Project::where('course_id',$course_id)
   		->where('status','publish')
   		->orderBy('sequence','asc')
@@ -323,7 +299,6 @@ class ProjectController extends Controller
   		
   		return response()->json(['success'=>true,'course_id'=>$course_id,'projects'=>$project]);
 	}
-
 
    /**
    * @OA\Post(
