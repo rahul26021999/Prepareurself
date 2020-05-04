@@ -12,7 +12,6 @@ use App\Mail\PasswordChangedSuccessfull;
 use App\Mail\UserFeedback;
 use App\Mail\UserEmailVerification;
 use App\Mail\ResetPassword;
-use App\Helpers\AndroidNotification;
 use Mail;
 
 class User extends Authenticatable implements JWTSubject
@@ -138,23 +137,6 @@ class User extends Authenticatable implements JWTSubject
     public function sendPasswordUpdateMail()
     {
         Mail::to($this)->send(new PasswordChangedSuccessfull($this));
-    }
-
-    public function makeNotification()
-    {
-        return [
-            'title'=>'ray chodu',
-            'body' => 'ray sabko apne gand deta hai',
-            'image' => 'http://www.prepareurself.tk/defaults/admin/superAdmin.jpg'
-        ];
-    }
-    public function sendAndroidNotification()
-    {
-        if(!is_null($this->android_token)){
-            $notification=$this->makeNotification();
-            $a=new AndroidNotification();
-            $a->send($this->android_token,$notification);
-        }
     }
 
      public function sendUserFeedbackMail()

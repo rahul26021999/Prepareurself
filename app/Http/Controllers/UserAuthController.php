@@ -284,14 +284,24 @@ class UserAuthController extends Controller
 		{
 			if($request->filled('first_name'))
 			$user->first_name=$request->input('first_name');
-			if($request->filled('last_name'))
-			$user->last_name=$request->input('last_name');
+
+			if(isset($request['last_name'])){
+				if($request['last_name']=='')
+					$user->last_name=null;
+				else
+					$user->last_name=$request->input('last_name');
+			}
+
 			if($request->filled('phone_number'))
-			$user->phone_number=$request->input('phone_number');
+				$user->phone_number=$request->input('phone_number');
+
 			if($request->filled('android_token'))
-			$user->android_token=$request->input('android_token');
+				$user->android_token=$request->input('android_token');
+			
 			if($request->filled('dob'))
-			$user->dob=Carbon::parse($request['dob']);
+				$user->dob=Carbon::parse($request['dob']);
+
+
 			if(isset($request['preferences']))
 			{
 				if(count($request['preferences'])==0){
@@ -302,6 +312,7 @@ class UserAuthController extends Controller
 				}
 				
 			}
+
 			if($request->file('profile_image'))
 	        {
 	            $fileName = time().'.'.$request->file('profile_image')->extension();  
@@ -310,6 +321,7 @@ class UserAuthController extends Controller
 	        }    
 			
 			$user->save();
+			
 			return json_encode(['error_code'=>0,"user_data"=>$user,"msg"=>"update Successfully Done"]);
 		}
 		else{
