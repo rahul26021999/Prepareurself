@@ -486,7 +486,7 @@ class UserAuthController extends Controller
 			$courseArray = array(
 				'title' => 'Tech - Stack',
 				'type'	=>	'course',
-				'seeAll'=> 'courses'
+				'seeAll'=> 'courses',
 				'courses' => $course
 			);
 			array_push($result, $courseArray);
@@ -498,7 +498,7 @@ class UserAuthController extends Controller
       		$topicArray = array(
 				'title' => 'Topics u may like',
 				'type'	=>	'topic',
-				'seeAll' => 'topics'
+				'seeAll' => 'topics',
 				'topics' => $topic
 			);
 			array_push($result, $topicArray);
@@ -512,7 +512,7 @@ class UserAuthController extends Controller
 			
 			$projectArray = array(
 				'title' => 'Projects u may like',
-				'seeAll' => 'projects'
+				'seeAll' => 'projects',
 				'type'	=>	'project',
 				'project' => $project
 			);
