@@ -13,6 +13,7 @@ use App\Traits\SuggestedCourseTrait;
 use JWTAuth;
 use Illuminate\Support\Carbon;
 use App\Models\Course;
+use App\Models\Resource;
 use App\Models\CourseTopic;
 use App\Models\Project;
 
@@ -480,6 +481,8 @@ class UserAuthController extends Controller
 
 			$result=array();
 
+
+
 			# for latest 5 courses as per sequence
 			$course=Course::where('status','publish')->orderBy('sequence','asc')->take(5)->get();
 
@@ -490,7 +493,52 @@ class UserAuthController extends Controller
 				'courses' => $course
 			);
 			array_push($result, $courseArray);
-			
+
+
+			#Trending Projects
+			$project=Project::withCount('ResourceProjectViews as views')
+					->where('status','publish')
+					->orderBy('views','asc')
+	  				->take(10)->get();
+
+			$projectArray = array(
+				'title' => 'Trending Projects',
+				'seeAll' => false,
+				'type'	=>	'project',
+				'project' => $project
+			);
+
+			array_push($result, $projectArray);
+
+
+			// #Trending Resources
+			// $project=Resources::orderBy('updated_at','asc')
+	  // 				->take(10)->get();
+
+			// $projectArray = array(
+			// 	'title' => 'Newly Added',
+			// 	'seeAll' => false,
+			// 	'type'	=>	'resources',
+			// 	'project' => $resources
+			// );
+
+			// array_push($result, $projectArray);
+
+
+			#Newly Resources
+			$resources=Resource::orderBy('updated_at','asc')
+	  				->take(10)->get();
+
+			$resourceArray = array(
+				'title' => 'Newly Added',
+				'seeAll' => false,
+				'type'	=>	'resources',
+				'project' => $resources
+			);
+
+			array_push($result, $resourceArray);
+
+
 			# for suggested topics
 			$topic_course_id=$this->getSuggestedTopicCourse($request);
 			$topic_course=Course::find($topic_course_id);
@@ -514,7 +562,7 @@ class UserAuthController extends Controller
 	  		->take(5)->get();
 			
 			$projectArray = array(
-				'title' => 'Projects u may like',
+				'title' => 'Recommended Projects',
 				'seeAll' => true,
 				'type'	=>	'project',
 				'course'=> $project_course,
