@@ -88,14 +88,32 @@ trait OneSingleNotification{
             $project=Project::find($request['id']);
             return "project://app.prepareurself/?screen=.courses.ui.activity.ProjectsActivity&id=".$project['id']."&courseName=".$project->Course->name;
 
-        }elseif($request['screen']=='course'){
-
-            $course=Course::find($request['id']);
-            return "course://app.prepareurself/?screen=.courses.ui.activity.CoursesActivity&id=".$course['id'];
         }elseif($request['screen']=='feedback'){
 
-            return "install://app.prepareurself/?screen=.authentication.ui.AuthenticationActivity";
+            return "install://app.prepareurself/?screen=.authentication.ui.AuthenticationActivity&type=feedback";
             
+        }
+        elseif ($request['screen']=='profile') {
+            return "install://app.prepareurself/?screen=.authentication.ui.AuthenticationActivity&type=profile";
+        }
+        elseif($request['screen']=='allCourses'){
+
+        }
+        elseif($request['screen']=='allProjects'){
+
+        }
+        elseif($request['screen']=='allTopics'){
+            
+            $course=Course::find($request['id']);
+            return "course://app.prepareurself/?screen=.courses.ui.activity.CoursesActivity&id=".$course['id'];
+        }
+        elseif($request['screen']=='allVideos'){
+
+        }
+        elseif($request['screen']=='allTheory'){
+
+        }
+        elseif($request['screen']=='course'){
         }
     }
 }

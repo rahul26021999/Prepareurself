@@ -38,6 +38,8 @@ Route::middleware(['auth.jwt','verify'])->group(function () {
 	Route::post('get-home-page', 'UserAuthController@wsGetHomePage');
 	Route::post('get-my-liked-things','ResourceProjectLikesController@wsGetMyLikedThing');
 
+	Route::post('search' , 'SearchController@search');
+
 });
 
 Route::post('forget-password', 'UserAuthController@forgetPassword');

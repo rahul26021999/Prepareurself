@@ -371,6 +371,24 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": "Count ,If not passed by default value of count is 10",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number , if not then by default page 1",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
                     }
                 ],
                 "responses": {
@@ -419,6 +437,40 @@
                 "responses": {
                     "200": {
                         "description": "{[success=>true,message=>'like successfull'],[success=>true,message=>'Dislike successfull']}"
+                    }
+                }
+            }
+        },
+        "/api/search": {
+            "post": {
+                "tags": [
+                    "Search"
+                ],
+                "description": "Get all search related items",
+                "operationId": "App\\Http\\Controllers\\SearchController::search",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "description": "string data needs to be search",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{[error_code=>0,msg=>'success']}"
                     }
                 }
             }
