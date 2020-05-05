@@ -498,7 +498,7 @@ class UserAuthController extends Controller
 			#Trending Projects
 			$project=Project::withCount('ResourceProjectViews as views')
 					->where('status','publish')
-					->orderBy('views','asc')
+					->orderBy('views','DESC')
 	  				->take(10)->get();
 
 			$projectArray = array(
@@ -524,16 +524,33 @@ class UserAuthController extends Controller
 
 			// array_push($result, $projectArray);
 
+			
+			#Newly Android Resources
+			$topic=CourseTopic::where("course_id",1)->first();
+			$resources=Resource::where('course_topic_id',$topic->id)
+					->orderBy('updated_at','DESC')
+	  				->take(10)->get();
+	  				
+			$resourceArray = array(
+				'title' => 'New Android Resources',
+				'seeAll' => true,
+				'type'	=>	'resource',
+				'topic' =>$topic,
+				'resource' => $resources
+			);
 
-			#Newly Resources
-			$resources=Resource::orderBy('updated_at','asc')
+			array_push($result, $resourceArray);
+
+
+			#Newly Mix Resources
+			$resources=Resource::orderBy('updated_at','DESC')
 	  				->take(10)->get();
 
 			$resourceArray = array(
-				'title' => 'Newly Added',
+				'title' => 'Newly Added Resource',
 				'seeAll' => false,
-				'type'	=>	'resources',
-				'project' => $resources
+				'type'	=>	'resource',
+				'resource' => $resources
 			);
 
 			array_push($result, $resourceArray);

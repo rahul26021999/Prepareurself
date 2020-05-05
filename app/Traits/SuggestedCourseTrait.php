@@ -16,7 +16,7 @@ trait SuggestedCourseTrait {
 	
 	public function getSuggestedTopicCourse(Request $request){
 		$user=JWTAuth::user();
-		$course_id=8;
+		$course_id=1; // Android
 		
 		if(!is_null($user->preferences)  && $user->preferences!='')
 		{
@@ -39,7 +39,7 @@ trait SuggestedCourseTrait {
 
 	public function getSuggestedProjectCourse(Request $request){
 		$user=JWTAuth::user();
-		$course_id=1;
+		$course_id=4;//PHP
 
 		if(!is_null($user->preferences)  && $user->preferences!='')
 		{
