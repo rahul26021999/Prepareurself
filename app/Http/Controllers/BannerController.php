@@ -41,6 +41,40 @@ class BannerController extends Controller
       return view('backend.banner.show',['banners'=>$banner]);
    }
 
+   public function showEditBanner($id){
+    $banner=Banner::find($id);
+    return view('backend.banner.edit',['banner'=>$banner]); 
+   }
+
+   public function saveEditBanner(Request $request, $id)
+   {
+     try
+    {
+      $banner=Banner::find($id);
+      if($banner!=null)
+      {
+        if($request->file('bannerImage'))
+        { 
+          $fileName = time().'.'.$request->file('bannerImage')->extension();  
+          $request->file('bannerImage')->move(public_path('uploads/banners'), $fileName);
+          $banner->image=$fileName;
+        }
+        $banner->title=$request['title'];
+        $banner->status=$request->input('publish','dev');
+        $banner->screen=$request['screen'];
+        $banner->screen_id=$request['id'];
+          $banner->save();
+      }
+      else{
+        abort(404);
+      }
+    }
+    catch(Exception $e){
+      Log::error("Error in saving banner".$e);    
+    }
+    return redirect('admin/banner/show');
+
+   }
    public function publishBanner(Request $request)
    {
       if(isset($request['id']) && isset($request['status']) && $request['id']!='' && $request['status']!='')
@@ -81,7 +115,7 @@ class BannerController extends Controller
       $banners=Banner::where('status','publish')->get();
       foreach ($banners as $banner) {
           switch ($banner->screen) {
-              case 'allTopic' || 'allProject' || 'allCourse' || 'course' :
+              case 'allTopic' || 'allbanner' || 'allCourse' || 'course' :
                   $banner->course=Course::find($banner['screen_id']);
                 break;
           }

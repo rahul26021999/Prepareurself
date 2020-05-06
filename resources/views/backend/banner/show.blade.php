@@ -136,7 +136,7 @@
                   <th>Id</th>
                   <th>Title</th>
                   <th>Status</th>
-                  <th>Image</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -153,6 +153,7 @@
                   </td>
                   <td>
                     <a target="_blank" data-toggle="tooltip" title="View Image" href="{{$banner['image_url']}}" class="mr-3"><i class="fas fa-image text-success"></i></a>
+                    <a href ="/admin/banner/edit/{{$banner['id']}}" data-toggle="tooltip" title="Edit"  class="mr-3"><i class="far fa-edit text-info"></i></a>
                   </td>
                  </tr>
                 @endforeach

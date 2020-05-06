@@ -128,17 +128,12 @@ Route::name('admin.')->prefix('admin')->group(function () {
             Route::post('create','BannerController@createBanner');
             Route::get('show','BannerController@showbanner');
 
-            Route::get('delete/{id}','BannerController@deleteBanner');
-            Route::post('publish','BannerController@publishBanner')->name('publish');
-        });Route::name('banner.')->prefix('banner')->group(function(){
-            Route::get('create','BannerController@showCreateBanner');
-            Route::post('create','BannerController@createBanner');
-            Route::get('show','BannerController@showbanner');
+            Route::get('edit/{id}','BannerController@showEditBanner');
+            Route::post('edit/{id}','BannerController@saveEditBanner');
 
             Route::get('delete/{id}','BannerController@deleteBanner');
             Route::post('publish','BannerController@publishBanner')->name('publish');
         });
-
         Route::name('notification.')->prefix('notification')->group(function(){
             Route::get('show','NotificationController@showNotification');
 
