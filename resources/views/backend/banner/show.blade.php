@@ -51,7 +51,14 @@
       }
       publishBanner(id,status,this)
   });
+   $(".deleteButton").on('click',function() {
+    var id=$(this).data('id');
+    var title=$(this).data('title');
 
+    $('#deleteResourceId').val(id);
+    $('#deleteResourceTitleText').text(title);
+    $('#deleteResourceTitle').val(title);       
+  });
   $(function () {
     $("#example1").DataTable({
       "responsive": true,
@@ -154,6 +161,7 @@
                   <td>
                     <a target="_blank" data-toggle="tooltip" title="View Image" href="{{$banner['image_url']}}" class="mr-3"><i class="fas fa-image text-success"></i></a>
                     <a href ="/admin/banner/edit/{{$banner['id']}}" data-toggle="tooltip" title="Edit"  class="mr-3"><i class="far fa-edit text-info"></i></a>
+                    <i data-toggle="modal" data-title="{{$banner['title']}}" data-id="{{$banner['id']}}" data-target="#deleteModal" style="cursor: pointer;" class="deleteButton far fa-trash-alt text-danger"></i>
                   </td>
                  </tr>
                 @endforeach
@@ -172,6 +180,36 @@
     <!-- /.row -->
   </section>
   <!-- /.content -->
+
+
+   <!-- Delete Modal -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <form method="post" action="{{route('admin.banner.delete')}}">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Are You sure ?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <p>Are you sure you Want to delete this banner - <b><span id="deleteResourceTitleText"></span></b> </p>
+            @csrf
+            <input type="hidden" name="title" id="deleteResourceTitle">
+            <input type="hidden" name="id" id="deleteResourceId">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 
 </div>
 

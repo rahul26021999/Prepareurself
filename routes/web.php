@@ -131,6 +131,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
             Route::get('edit/{id}','BannerController@showEditBanner');
             Route::post('edit/{id}','BannerController@saveEditBanner');
 
+            Route::post('delete','BannerController@deleteBanner')->name('delete');
             Route::get('delete/{id}','BannerController@deleteBanner');
             Route::post('publish','BannerController@publishBanner')->name('publish');
         });

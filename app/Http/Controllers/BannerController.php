@@ -7,6 +7,7 @@ use Log;
 use App\Models\Banner;
 use App\Models\Course;
 use App\Exception;
+use Session;
 
 class BannerController extends Controller
 {
@@ -75,6 +76,19 @@ class BannerController extends Controller
     return redirect('admin/banner/show');
 
    }
+
+   public function deleteBanner(Request $request)
+  {
+    $id=$request['id'];
+    $name=$request['title'];
+    $success=Banner::find($id)->delete();
+    if($success!=null)
+    {
+      Session::flash("success","You have Successfully Deleted ".$name);
+      return redirect()->back();
+    }
+
+  }
    public function publishBanner(Request $request)
    {
       if(isset($request['id']) && isset($request['status']) && $request['id']!='' && $request['status']!='')
