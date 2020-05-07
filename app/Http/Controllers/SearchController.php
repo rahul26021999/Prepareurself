@@ -10,7 +10,6 @@ use App\Models\CourseTopic;
 
 class SearchController extends Controller
 {
-
 	 /**
 	 * @OA\Post(
 	 *     path="/api/search",
@@ -34,6 +33,24 @@ class SearchController extends Controller
 	 *              type="string"
 	 *          )
 	 *      ),
+	 *     @OA\Parameter(
+	 *          name="count",
+	 *          in="query",
+	 *          description="Count of result,If not passed by default value of count is 10",
+	 *          required=false,
+	 *          @OA\Schema(
+	 *              type="integer"
+	 *          )
+	 *      ),
+	 *     @OA\Parameter(
+	 *          name="page",
+	 *          in="query",
+	 *          description="Page number , if not then by default page 1",
+	 *          required=false,
+	 *          @OA\Schema(
+	 *              type="integer"
+	 *          )
+	 *      ),
 	 *     @OA\Response(
 	 *          response=200,
 	 *      description="{[error_code=>0,msg=>'success']}"
@@ -41,68 +58,82 @@ class SearchController extends Controller
 	 * )
 	 */
 
-    public function search(Request $request)
-    {
-    	$result = array();
-    	$query=$request['query'];
+	 public function search(Request $request)
+	 {
+	 	$result = array();
+	 	$query=$request['query'];
+	 	$count=isset($request['count'])?$request['count']:10;
+	 	$pageNumber=isset($request['page'])?$request['page']:1;
+	 	$totalResult=0;
 
-    	$courses=Course::where('status', 'publish')
-    		->where('name', 'like', '%' . $query . '%')
-	        ->get();
+	 	$topics=CourseTopic::where('status', 'publish')
+	 	->where('name', 'like', '%' . $query . '%')->skip($count*($pageNumber-1))->take($count)->get();
 
-	    if(count($courses)>0){
+	 	if(count($topics)>0){
+	 		$totalResult=count($topics);
+	 		$topicsArray = array(
+	 			'type' => 'topics',
+	 			'topics' => $topics
+	 		);
+	 		array_push($result,$topicsArray);	
+	 	}
 
-	    	$courseArray = array(
-		    	'type' => 'courses',
-		    	'courses' => $courses
-		    );
-		    array_push($result,$courseArray);
-	    }
+	 	if($totalResult<$count){
 
-    	$topics=CourseTopic::where('status', 'publish')
-    		->where('name', 'like', '%' . $query . '%')
-	        ->get();
+	 		$topicCountTotal=CourseTopic::where('status', 'publish')
+	 		->where('name', 'like', '%' . $query . '%')->count();
 
-	    if(count($topics)>0){
-	    	$topicsArray = array(
-		    	'type' => 'topics',
-		    	'topics' => $topics
-		    );
-		    array_push($result,$topicsArray);	
-	    }
-	    
-    	$projects=Project::where('status', 'publish')
-	        ->where('name', 'like', '%' . $query . '%')
-	        ->get();
+	 		$remaining=$count-$totalResult;
+	 		$skip=$count*($pageNumber-1)-$topicCountTotal;
 
-	    if(count($projects)>0){
-	    	$projectsArray = array(
-		    	'type' => 'projects',
-		    	'projects' => $projects
-		    );
-		    array_push($result,$projectsArray);	
-	    }
-	    
+	 		$projects=Project::where('status', 'publish')
+	 		->where('name', 'like', '%' . $query . '%')
+	 		->skip($skip)->take($remaining)
+	 		->get();
 
-	    $resources=Resource::where('title', 'like', '%' . $query . '%')
-	        ->orWhere('description', 'like', '%' . $query . '%')
-	        ->get();
+	 		if(count($projects)>0){
+	 			$totalResult=$totalResult+count($projects);
+	 			$topicsArray = array(
+	 				'type' => 'projects',
+	 				'projects' => $projects
+	 			);
+	 			array_push($result,$topicsArray);	
 
-	  	if(count($resources)>0)
-	  	{
-	  		  $resourcesArray = array(
-		    	'type' => 'resources',
-		    	'resources' => $resources
-		    );
+	 		}
+	 	}
+	 	if($totalResult<$count){
 
-		    array_push($result,$resourcesArray);
+	 		$remaining=$count-$totalResult;
 
-	  	}
+	 		$totalProjectsCount=Project::where('status', 'publish')
+	 		->where('name', 'like', '%' . $query . '%')->count();
 
-	    return response()->json([
-	    	'error_code'=>0,
-	    	'data'=>$result
-	    ]);
+	 		$skip=$count*($pageNumber-1)-$topicCountTotal-$totalProjectsCount;
 
-    }
+	 		$resource=Resource::whereHas('CourseTopic', function ($query) {
+									$query->where('status', 'publish');
+								})
+	 							->where(function($q) use ($query) {
+	 								$q->where('title', 'like', '%' . $query . '%')
+	 								->orWhere('description', 'like', '%' . $query . '%');
+	 							})
+					    		->skip($skip)->take($remaining)->get();
+
+	 		if(count($resource)>0){
+	 			$totalResult=$totalResult+count($resource);
+	 			$topicsArray = array(
+	 				'type' => 'resource',
+	 				'resource' => $resource
+	 			);
+	 			array_push($result,$topicsArray);	
+	 		}
+	 	}
+
+	 	return response()->json([
+	 		'error_code'=>0,
+	 		'success'=>true,
+	 		'data'=>$result
+	 	]);
+
+	}
 }

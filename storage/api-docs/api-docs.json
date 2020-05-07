@@ -466,6 +466,24 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": "Count of result,If not passed by default value of count is 10",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number , if not then by default page 1",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
                     }
                 ],
                 "responses": {
