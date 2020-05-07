@@ -124,7 +124,53 @@ function readURL(input) {
       reader.readAsDataURL(input.files[0]);
     }
   }
+
+$("input[type='radio'][name='type']").on('change',function() {
+    if($(this).val()=='video') {
+     $('#ifVideo').show();
+  }
+  else{
+    $('#ifVideo').hide();
+  }
+  });
+
+$("input[type='radio'][name='videoLink']").on('change',function() {
+    if($(this).val()=='hasPlaylist') {
+     $('#playlist').show();
+     $('#relatedLinks').hide();
+      $('#relatedLinksButton').hide();
+  }else if($(this).val()=='hasRelatedLinks'){
+    $('#playlist').hide();
+    $('#relatedLinks').show();
+    $('#relatedLinksButton').show();
+
+  }
+  else{
+    $('#playlist').hide();
+    $('#relatedLinks').hide();
+     $('#relatedLinksButton').hide();
+  }
+
+  });
+
+
+
+var counter =2 ;
+function addInput(divName){
+     var newdiv = document.createElement('div');
+          newdiv.innerHTML="<label>Related Link "+ (counter) +"</label>" + "<input type='text'  class='form-control' placeholder='Enter  url' name='related[]'>";
+          document.getElementById(divName).appendChild(newdiv);
+          counter++;
+}
+
 </script>
+<style>
+  
+  #playlist ,#relatedLinks ,#relatedLinksButton{
+    display: none;
+  }
+
+</style>
 @endsection
 
 @section('content')
@@ -177,6 +223,27 @@ function readURL(input) {
                   </label>
                 </div>
               </div>
+              <!-- If video is checked -->
+              <div class="form-group" id="ifVideo">
+                <div class="icheck-primary d-inline">
+                  <input type="radio" id="radioPrimary7" value="hasRelatedLinks" name="videoLink">
+                  <label for="radioPrimary7">
+                    Has Related Links
+                  </label>
+                </div>
+                <div class="icheck-primary d-inline">
+                  <input type="radio" id="radioPrimary8" value="hasPlaylist" name="videoLink">
+                  <label for="radioPrimary8">
+                    Has Playlist 
+                  </label>
+                </div>
+                <div class="icheck-primary d-inline">
+                  <input type="radio" id="radioPrimary9" checked  value="hasNoPlaylist" name="videoLink">
+                  <label for="radioPrimary9">
+                    Has No Playlist 
+                  </label>
+                </div>
+              </div>
 
               <label>Level</label>
               <div class="form-group">
@@ -199,15 +266,25 @@ function readURL(input) {
                   </label>
                 </div>
               </div>
+
               <div class="form-group">
                 <label>Link Url</label>
                 <input type="text" name="link" onchange="readURL(this)" class="form-control" placeholder="Enter ...">
               </div>
-              <div class="form-group">
+
+              <div class="form-group" id="playlist">
                 <label>If it is a playlist then only</label>
                 <input type="text" name="playlist" class="form-control" placeholder="Enter playlist url">
               </div>
+
+              <div class="form-group" id="relatedLinks">
+                <label>Related Link 1</label>
+                <input type="text" name="related[]" class="form-control" placeholder="Enter  url">
+              </div>
+              <input type="button" id="relatedLinksButton" class="btn btn-primary" value="Add" onClick="addInput('relatedLinks');">
             </div>
+
+
             <div class="col-sm-6">
                <div class="form-group">
                 <label>Description</label>
