@@ -510,6 +510,7 @@ class UserAuthController extends Controller
 
 			array_push($result, $projectArray);
 
+			array_push($result, ["type"=>"ads"]);
 
 			// #Trending Resources
 			// $project=Resources::orderBy('updated_at','asc')
