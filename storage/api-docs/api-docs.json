@@ -382,6 +382,15 @@
                         }
                     },
                     {
+                        "name": "type",
+                        "in": "query",
+                        "description": "type=>project|resource",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
                         "name": "page",
                         "in": "query",
                         "description": "Page number , if not then by default page 1",

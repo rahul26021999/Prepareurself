@@ -124,6 +124,15 @@ class ResourceProjectLikesController extends Controller
    *              type="integer"
    *          )
    *      ),
+    *     @OA\Parameter(
+   *          name="type",
+   *          in="query",
+   *          description="type=>project|resource",
+   *          required=true,
+   *          @OA\Schema(
+   *              type="string"
+   *          )
+   *      ),
    *     @OA\Parameter(
    *           name="page",
    *          in="query",
@@ -143,35 +152,40 @@ class ResourceProjectLikesController extends Controller
 
     	$user=JWTAuth::user();
     	$count= isset($request['count'])?$request['count']:'10';
-    	$likesItem=ResourceProjectLikes::where('user_id',$user->id)->paginate($count);
 
-    	foreach ($likesItem as $item) {
-    		if($item->resource_id!=null){
-    			$resource=Resource::find($item->resource_id);
-    			if($resource==null){
-    				unset($item);
-    			}
-    			else{
-    				$item->resource=$resource;
-    			}
-    		}
-    		elseif($item->project_id!=null){
-    			$project=Project::find($item->project_id);
-    			if($project==null){
-    				unset($item);
-    			}
-    			else{
-    				$item->project=$project;
-    			}
-    		}
-    		else{
-    			unset($item);
-    		}
-    	}
+      if(isset($request['type'])){
 
-    	return response()->json([
-    		'error_code'=>0,
-    		'likedItems'=>$likesItem
-    	]);
+          if($request['type']=='resource'){
+               $resource=Resource::whereHas('ResourceProjectLikes',function($query){
+                    $query->where('user_id',JWTAuth::user()->id);
+                })->paginate($count);
+
+                return response()->json([
+                  'error_code'=>0,
+                  'success'=>true,
+                  'resources'=>$resource,
+                  'message'=>"Success"
+              ]);
+          }
+          elseif($request['type']=='project'){
+              $projects=Project::whereHas('ResourceProjectLikes',function($query){
+                    $query->where('user_id',JWTAuth::user()->id);
+                })->where('status','publish')
+                ->paginate($count);
+                return response()->json([
+                  'error_code'=>0,
+                  'success'=>true,
+                  'projects'=>$projects,
+                  'message'=>"Success"
+              ]);
+          }  
+      }
+      else{
+          return response()->json([
+            'error_code'=>1,
+            'success'=>false,
+            'message'=>"Either select resource or project"
+          ]);
+      }
     }
 }

@@ -87,7 +87,10 @@ class SearchController extends Controller
 	 		$skip=$count*($pageNumber-1)-$topicCountTotal;
 
 	 		$projects=Project::where('status', 'publish')
-	 		->where('name', 'like', '%' . $query . '%')
+	 		->where(function($q) use ($query) {
+				$q->where('name', 'like', '%' . $query . '%')
+				->orWhere('description', 'like', '%' . $query . '%');
+			})
 	 		->skip($skip)->take($remaining)
 	 		->get();
 
