@@ -99,9 +99,7 @@
     }
     readURL($("input[name='link'"));
   });
-
-  
-  function readURL(input) {
+function readURL(input) {
     if(type=='video')
     {
       var url=$(input).val();
@@ -126,34 +124,36 @@
     }
   }
 
-
-
-  $("input[type='radio'][name='type']").on('change',function() {
-    if($(this).val()=='video') {
+$("input[type='radio'][name='type']").on('change',function() {
+    if($(this).val()=='video') 
+    {
      $('#ifVideo').show();
-  }
-  else{
-    $('#ifVideo').hide();
-  }
+    }
+    else{
+      $("input[name='videoLink'][value='hasNoPlaylist']").prop('checked',true);
+      $('#ifVideo').hide();
+      $('#playlist').hide();
+      $('#relatedBox').hide();
+    }
   });
 
 $("input[type='radio'][name='videoLink']").on('change',function() {
     if($(this).val()=='hasPlaylist') {
      $('#playlist').show();
-     $('#relatedLinks').hide();
-      $('#relatedLinksButton').hide();
+     $('#relatedBox').hide();
   }else if($(this).val()=='hasRelatedLinks'){
     $('#playlist').hide();
-    $('#relatedLinks').show();
-    $('#relatedLinksButton').show();
-
+    $('#relatedBox').show();
   }
   else{
     $('#playlist').hide();
-    $('#relatedLinks').hide();
-     $('#relatedLinksButton').hide();
+    $('#relatedBox').hide();
+    
   }
-});
+
+  });
+
+
 
 var counter =2 ;
 function addInput(divName){
@@ -162,7 +162,15 @@ function addInput(divName){
           document.getElementById(divName).appendChild(newdiv);
           counter++;
 }
+
 </script>
+<style>
+  
+  #playlist, #relatedBox{
+    display: none;
+  }
+
+</style>
 @endsection
 
 @section('content')
@@ -292,16 +300,28 @@ function addInput(divName){
                 <input type="text" value="{{$Project['link']}}" name="link" onchange="readURL(this)" class="form-control" placeholder="Enter ...">
               </div>
 
-              <div class="form-group">
+
+             <div class="form-group" id="playlist">
                 <label>If it is a playlist then only</label>
-                <input type="text" name="playlist" value="{{$Project['playlist']}}" class="form-control" placeholder="Enter playlist url">
+                <input type="text" name="playlist" class="form-control" value="{{$Project['playlist']}}" placeholder="Enter playlist url">
+                <div class="col-xs-4 float-left">
+                  <label for="startCount">Initial count of playlist</label>
+                  <input class="form-control" id="startCount"  type="number">
+                </div>
+                <div class="col-xs-4 float-right">
+                  <label for="totalCount">Count of videos</label>
+                  <input class="form-control" id="totalCount" type="number">
+                </div>
+              
               </div>
 
-              <div class="form-group" id="relatedLinks">
+              <div id="relatedBox">
+                <div class="form-group" id="relatedLinks">
                 <label>Related Link 1</label>
                 <input type="text" name="related[]" class="form-control" placeholder="Enter  url">
+                </div>
+                <input type="button" id="relatedLinksButton" class="btn btn-primary" value="Add" onClick="addInput('relatedLinks');">
               </div>
-              <input type="button" id="relatedLinksButton" class="btn btn-primary" value="Add" onClick="addInput('relatedLinks');">
             </div>
 
             <div class="col-sm-6">

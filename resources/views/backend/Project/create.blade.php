@@ -126,29 +126,30 @@ function readURL(input) {
   }
 
 $("input[type='radio'][name='type']").on('change',function() {
-    if($(this).val()=='video') {
+    if($(this).val()=='video') 
+    {
      $('#ifVideo').show();
-  }
-  else{
-    $('#ifVideo').hide();
-  }
+    }
+    else{
+      $("input[name='videoLink'][value='hasNoPlaylist']").prop('checked',true);
+      $('#ifVideo').hide();
+      $('#playlist').hide();
+      $('#relatedBox').hide();
+    }
   });
 
 $("input[type='radio'][name='videoLink']").on('change',function() {
     if($(this).val()=='hasPlaylist') {
      $('#playlist').show();
-     $('#relatedLinks').hide();
-      $('#relatedLinksButton').hide();
+     $('#relatedBox').hide();
   }else if($(this).val()=='hasRelatedLinks'){
     $('#playlist').hide();
-    $('#relatedLinks').show();
-    $('#relatedLinksButton').show();
-
+    $('#relatedBox').show();
   }
   else{
     $('#playlist').hide();
-    $('#relatedLinks').hide();
-     $('#relatedLinksButton').hide();
+    $('#relatedBox').hide();
+    
   }
 
   });
@@ -166,7 +167,7 @@ function addInput(divName){
 </script>
 <style>
   
-  #playlist ,#relatedLinks ,#relatedLinksButton{
+  #playlist, #relatedBox{
     display: none;
   }
 
@@ -275,13 +276,25 @@ function addInput(divName){
               <div class="form-group" id="playlist">
                 <label>If it is a playlist then only</label>
                 <input type="text" name="playlist" class="form-control" placeholder="Enter playlist url">
+                <div class="col-xs-4 float-left">
+                  <label for="startCount">Initial count of playlist</label>
+                  <input class="form-control" id="startCount" type="number">
+                </div>
+                <div class="col-xs-4 float-right">
+                  <label for="totalCount">Count of videos</label>
+                  <input class="form-control" id="totalCount" type="number">
+                </div>
+              
               </div>
 
-              <div class="form-group" id="relatedLinks">
+              <div id="relatedBox">
+                <div class="form-group" id="relatedLinks">
                 <label>Related Link 1</label>
                 <input type="text" name="related[]" class="form-control" placeholder="Enter  url">
+                </div>
+                <input type="button" id="relatedLinksButton" class="btn btn-primary" value="Add" onClick="addInput('relatedLinks');">
+
               </div>
-              <input type="button" id="relatedLinksButton" class="btn btn-primary" value="Add" onClick="addInput('relatedLinks');">
             </div>
 
 
