@@ -332,7 +332,14 @@ class ProjectController extends Controller
    public function wsGetProject(Request $request){
       if(isset($request['project_id']))
       {
-          $project=Project::find($request['project_id']);
+
+			$project=Project::find($request['project_id'])->withCount(['ResourceProjectLikes as like'=>function($query){
+				$query->where('user_id',JWTAuth::user()->id);
+			}])->withCount('ResourceProjectLikes as total_likes')
+			->withCount(['ResourceProjectViews as view'=>function($query){
+				$query->where('user_id',JWTAuth::user()->id);
+			}])->withCount('ResourceProjectViews as total_views')->first();
+		
           if($project!=null){
               return response()->json(['success'=>true,'error_code'=>0,'project'=>$project]); 
           }
