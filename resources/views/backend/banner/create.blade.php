@@ -72,7 +72,7 @@
     {
       $('#screen_id').show();
     }
-    else if($(this).val()=="allCourse"){
+    else if($(this).val()=="allCourse" || $(this).val()=="feedback" || $(this).val()=="prefrence"){
       $('#screen_id').hide();
     }
   });

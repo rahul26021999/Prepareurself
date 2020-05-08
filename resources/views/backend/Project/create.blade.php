@@ -124,7 +124,54 @@ function readURL(input) {
       reader.readAsDataURL(input.files[0]);
     }
   }
+
+$("input[type='radio'][name='type']").on('change',function() {
+    if($(this).val()=='video') 
+    {
+     $('#ifVideo').show();
+    }
+    else{
+      $("input[name='videoLink'][value='hasNoPlaylist']").prop('checked',true);
+      $('#ifVideo').hide();
+      $('#playlist').hide();
+      $('#relatedBox').hide();
+    }
+  });
+
+$("input[type='radio'][name='videoLink']").on('change',function() {
+    if($(this).val()=='hasPlaylist') {
+     $('#playlist').show();
+     $('#relatedBox').hide();
+  }else if($(this).val()=='hasRelatedLinks'){
+    $('#playlist').hide();
+    $('#relatedBox').show();
+  }
+  else{
+    $('#playlist').hide();
+    $('#relatedBox').hide();
+    
+  }
+
+  });
+
+
+
+var counter =2 ;
+function addInput(divName){
+     var newdiv = document.createElement('div');
+          newdiv.innerHTML="<label>Related Link "+ (counter) +"</label>" + "<input type='text'  class='form-control' placeholder='Enter  url' name='related[]'>";
+          document.getElementById(divName).appendChild(newdiv);
+          counter++;
+}
+
 </script>
+<style>
+  
+  #playlist, #relatedBox{
+    display: none;
+  }
+
+</style>
 @endsection
 
 @section('content')
@@ -177,6 +224,27 @@ function readURL(input) {
                   </label>
                 </div>
               </div>
+              <!-- If video is checked -->
+              <div class="form-group" id="ifVideo">
+                <div class="icheck-primary d-inline">
+                  <input type="radio" id="radioPrimary7" value="hasRelatedLinks" name="videoLink">
+                  <label for="radioPrimary7">
+                    Has Related Links
+                  </label>
+                </div>
+                <div class="icheck-primary d-inline">
+                  <input type="radio" id="radioPrimary8" value="hasPlaylist" name="videoLink">
+                  <label for="radioPrimary8">
+                    Has Playlist 
+                  </label>
+                </div>
+                <div class="icheck-primary d-inline">
+                  <input type="radio" id="radioPrimary9" checked  value="hasNoPlaylist" name="videoLink">
+                  <label for="radioPrimary9">
+                    Has No Playlist 
+                  </label>
+                </div>
+              </div>
 
               <label>Level</label>
               <div class="form-group">
@@ -199,15 +267,37 @@ function readURL(input) {
                   </label>
                 </div>
               </div>
+
               <div class="form-group">
                 <label>Link Url</label>
                 <input type="text" name="link" onchange="readURL(this)" class="form-control" placeholder="Enter ...">
               </div>
-              <div class="form-group">
+
+              <div class="form-group" id="playlist">
                 <label>If it is a playlist then only</label>
                 <input type="text" name="playlist" class="form-control" placeholder="Enter playlist url">
+                <div class="col-xs-4 float-left">
+                  <label for="startCount">Initial count of playlist</label>
+                  <input class="form-control" id="startCount" type="number">
+                </div>
+                <div class="col-xs-4 float-right">
+                  <label for="totalCount">Count of videos</label>
+                  <input class="form-control" id="totalCount" type="number">
+                </div>
+              
+              </div>
+
+              <div id="relatedBox">
+                <div class="form-group" id="relatedLinks">
+                <label>Related Link 1</label>
+                <input type="text" name="related[]" class="form-control" placeholder="Enter  url">
+                </div>
+                <input type="button" id="relatedLinksButton" class="btn btn-primary" value="Add" onClick="addInput('relatedLinks');">
+
               </div>
             </div>
+
+
             <div class="col-sm-6">
                <div class="form-group">
                 <label>Description</label>

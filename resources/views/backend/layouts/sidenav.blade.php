@@ -291,7 +291,7 @@
             </a>
           </li>
            <li class="nav-item">
-            <a href="/admin/banner/show" class="nav-link">
+            <a href="/admin/gallery/show" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Gallery
