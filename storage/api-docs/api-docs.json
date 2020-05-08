@@ -502,6 +502,40 @@
                 }
             }
         },
+        "/api/search-without-pagination": {
+            "post": {
+                "tags": [
+                    "Search"
+                ],
+                "description": "Get all search related items",
+                "operationId": "App\\Http\\Controllers\\SearchController::searchWithOutPagination",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "description": "string data needs to be search",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{[error_code=>0,msg=>'success']}"
+                    }
+                }
+            }
+        },
         "/api/get-topics": {
             "post": {
                 "tags": [
