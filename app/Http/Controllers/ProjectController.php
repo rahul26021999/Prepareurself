@@ -333,7 +333,7 @@ class ProjectController extends Controller
       if(isset($request['project_id']))
       {
 
-			$project=Project::find($request['project_id'])->withCount(['ResourceProjectLikes as like'=>function($query){
+			$project=Project::where("id",$request['project_id'])->withCount(['ResourceProjectLikes as like'=>function($query){
 				$query->where('user_id',JWTAuth::user()->id);
 			}])->withCount('ResourceProjectLikes as total_likes')
 			->withCount(['ResourceProjectViews as view'=>function($query){
