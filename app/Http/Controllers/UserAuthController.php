@@ -297,6 +297,9 @@ class UserAuthController extends Controller
 				else
 					$user->last_name=$request->input('last_name');
 			}
+			else{
+				$user->last_name=null;
+			}
 
 			if($request->filled('phone_number'))
 				$user->phone_number=$request->input('phone_number');
