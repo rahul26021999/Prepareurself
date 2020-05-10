@@ -557,6 +557,8 @@ class UserAuthController extends Controller
 			$projectArray = array(
 				'title' => 'Trending Projects',
 				'seeAll' => false,
+				'views'=>true,
+				'postedOn'=>false,
 				'type'	=>	'project',
 				'project' => $project
 			);
@@ -564,13 +566,17 @@ class UserAuthController extends Controller
 			array_push($result, $projectArray);
 			array_push($result, ["type"=>"ads"]);
 
+
 			#Newly Mix Resources
-			$resources=Resource::orderBy('updated_at','DESC')
+			$resources=Resource::withCount('ResourceProjectViews as total_views')
+								->orderBy('updated_at','DESC')
 	  							->take(10)->get();
-	  							
+
 			$resourceArray = array(
 				'title' => 'New Resources',
 				'seeAll' => false,
+				'postedOn'=>true,
+				'views'=>true,
 				'type'	=>	'resource',
 				'resource' => $resources
 			);
