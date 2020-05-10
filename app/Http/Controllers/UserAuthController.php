@@ -565,9 +565,9 @@ class UserAuthController extends Controller
 			array_push($result, ["type"=>"ads"]);
 
 			#Newly Mix Resources
-			$resources=Resource::withCount('ResourceProjectViews as total_views')
-								->orderBy('updated_at','DESC')
+			$resources=Resource::orderBy('updated_at','DESC')
 	  							->take(10)->get();
+	  							
 			$resourceArray = array(
 				'title' => 'New Resources',
 				'seeAll' => false,
@@ -596,9 +596,9 @@ class UserAuthController extends Controller
       		$project_course_id=$this->getSuggestedProjectCourse($request);
       		$project_course=Course::find($project_course_id);
 	  		$project=Project::where('course_id',$project_course_id)
-	  		->where('status','publish')
-	  		->orderBy('sequence','asc')
-	  		->take(5)->get();
+					  		->where('status','publish')
+					  		->orderBy('sequence','asc')
+					  		->take(5)->get();
 			
 			$projectArray = array(
 				'title' => 'Recommended Projects',
