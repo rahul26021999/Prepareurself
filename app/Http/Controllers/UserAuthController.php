@@ -551,7 +551,7 @@ class UserAuthController extends Controller
 			#Trending Projects
 			$project=Project::withCount('ResourceProjectViews as total_views')
 					->where('status','publish')
-					->orderBy('views','DESC')
+					->orderBy('total_views','DESC')
 	  				->take(10)->get();
 
 			$projectArray = array(
