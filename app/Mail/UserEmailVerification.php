@@ -13,6 +13,8 @@ class UserEmailVerification extends Mailable
 
     public $user;
     public $url;
+
+    protected $theme = 'promotion-theme';
     /**
      * Create a new message instance.
      *
