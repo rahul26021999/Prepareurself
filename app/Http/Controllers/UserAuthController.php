@@ -509,53 +509,21 @@ class UserAuthController extends Controller
 			);
 
 			array_push($result, $projectArray);
-
 			array_push($result, ["type"=>"ads"]);
 
-			// #Trending Resources
-			// $project=Resources::orderBy('updated_at','asc')
-	  // 				->take(10)->get();
-
-			// $projectArray = array(
-			// 	'title' => 'Newly Added',
-			// 	'seeAll' => false,
-			// 	'type'	=>	'resources',
-			// 	'project' => $resources
-			// );
-
-			// array_push($result, $projectArray);
-
-			
-			#Newly Android Resources
-			$topic=CourseTopic::where("course_id",1)->first();
-			$resources=Resource::where('course_topic_id',$topic->id)
-					->orderBy('updated_at','DESC')
-	  				->take(10)->get();
-	  				
-			$resourceArray = array(
-				'title' => 'New Android Resources',
-				'seeAll' => true,
-				'type'	=>	'resource',
-				'topic' =>$topic,
-				'resource' => $resources
-			);
-
-			array_push($result, $resourceArray);
-
-
 			#Newly Mix Resources
-			$resources=Resource::orderBy('updated_at','DESC')
-	  				->take(10)->get();
-
+			$resources=Resource::withCount('ResourceProjectViews as views')
+								->orderBy('updated_at','DESC')
+	  							->take(10)->get();
 			$resourceArray = array(
-				'title' => 'Newly Added Resource',
+				'title' => 'New Resources',
 				'seeAll' => false,
 				'type'	=>	'resource',
 				'resource' => $resources
 			);
 
 			array_push($result, $resourceArray);
-
+			array_push($result, ["type"=>"ads"]);
 
 			# for suggested topics
 			$topic_course_id=$this->getSuggestedTopicCourse($request);
@@ -563,7 +531,7 @@ class UserAuthController extends Controller
       		$topic=CourseTopic::where('course_id',$topic_course_id)->where('status','publish')->orderBy('sequence','asc')->take(5)->get();
 
       		$topicArray = array(
-				'title' => 'Topics u may like',
+				'title' => 'Topics you may like',
 				'type'	=>	'topic',
 				'seeAll' => true,
 				'course'=> $topic_course,
