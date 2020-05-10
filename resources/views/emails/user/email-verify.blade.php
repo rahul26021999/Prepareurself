@@ -3,11 +3,12 @@
 
 Please click the button below or click on the link to verify your email address.
 
-<a href="{{$url}}">{{$url}}</a>
 
 @component('mail::button', ['url' =>  $url ])
 Verify Email Address
 @endcomponent
+
+<a href="{{$url}}">{{$url}}</a>
 
 If you did not create an account, no further action is required.
 
