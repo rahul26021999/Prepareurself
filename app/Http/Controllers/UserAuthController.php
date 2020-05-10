@@ -550,6 +550,7 @@ class UserAuthController extends Controller
 
 			#Trending Projects
 			$project=Project::withCount('ResourceProjectViews as total_views')
+					->withCount('ResourceProjectLikes as total_likes')	
 					->where('status','publish')
 					->orderBy('total_views','DESC')
 	  				->take(10)->get();
@@ -558,6 +559,7 @@ class UserAuthController extends Controller
 				'title' => 'Trending Projects',
 				'seeAll' => false,
 				'views'=>true,
+				'likes'=>true,
 				'postedOn'=>false,
 				'type'	=>	'project',
 				'project' => $project
@@ -577,6 +579,7 @@ class UserAuthController extends Controller
 				'seeAll' => false,
 				'postedOn'=>true,
 				'views'=>true,
+				'likes'=>false,
 				'type'	=>	'resource',
 				'resource' => $resources
 			);
@@ -610,6 +613,9 @@ class UserAuthController extends Controller
 				'title' => 'Recommended Projects',
 				'seeAll' => true,
 				'type'	=>	'project',
+				'postedOn'=>false,
+				'views'=>false,
+				'likes'=>false,
 				'course'=> $project_course,
 				'project' => $project
 			);
