@@ -570,8 +570,7 @@ class UserAuthController extends Controller
 
 
 			#Newly Mix Resources
-			$resources=Resource::withCount('ResourceProjectViews as total_views')
-								->orderBy('updated_at','DESC')
+			$resources=Resource::orderBy('updated_at','DESC')
 	  							->take(10)->get();
 
 			$resourceArray = array(
