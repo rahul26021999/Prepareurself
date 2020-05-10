@@ -508,6 +508,7 @@ class UserAuthController extends Controller
 	/**
    * @OA\Post(
    *     path="/api/get-home-page",
+   
    *     tags={"HomePage"},
    *     description="Get all home page data",
    *     @OA\Parameter(
@@ -548,7 +549,7 @@ class UserAuthController extends Controller
 
 
 			#Trending Projects
-			$project=Project::withCount('ResourceProjectViews as views')
+			$project=Project::->withCount('ResourceProjectViews as total_views')
 					->where('status','publish')
 					->orderBy('views','DESC')
 	  				->take(10)->get();
@@ -564,7 +565,7 @@ class UserAuthController extends Controller
 			array_push($result, ["type"=>"ads"]);
 
 			#Newly Mix Resources
-			$resources=Resource::withCount('ResourceProjectViews as views')
+			$resources=Resource::->withCount('ResourceProjectViews as total_views')
 								->orderBy('updated_at','DESC')
 	  							->take(10)->get();
 			$resourceArray = array(
