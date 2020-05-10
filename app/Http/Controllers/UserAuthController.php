@@ -560,13 +560,13 @@ class UserAuthController extends Controller
 				'seeAll' => false,
 				'views'=>true,
 				'likes'=>true,
-				'postedOn'=>false,
+				'postedOn'=>true,
 				'type'	=>	'project',
 				'project' => $project
 			);
 
 			array_push($result, $projectArray);
-			array_push($result, ["type"=>"ads"]);
+		//	array_push($result, ["type"=>"ads"]);
 
 
 			#Newly Mix Resources
@@ -577,14 +577,14 @@ class UserAuthController extends Controller
 				'title' => 'New Resources',
 				'seeAll' => false,
 				'postedOn'=>true,
-				'views'=>true,
+				'views'=>false,
 				'likes'=>false,
 				'type'	=>	'resource',
 				'resource' => $resources
 			);
 
 			array_push($result, $resourceArray);
-			array_push($result, ["type"=>"ads"]);
+		//	array_push($result, ["type"=>"ads"]);
 
 			# for suggested topics
 			$topic_course_id=$this->getSuggestedTopicCourse($request);
@@ -619,7 +619,7 @@ class UserAuthController extends Controller
 				'project' => $project
 			);
 			array_push($result, $projectArray);
-
+array_push($result, ["type"=>"ads"]);
 			return response()->json(['success'=>true,'error_code'=>0,"message"=>"success",'data'=>$result]);
 
 		}
