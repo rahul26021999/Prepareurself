@@ -15,6 +15,8 @@ use Illuminate\Http\Request;
 
 Route::post('register', 'UserAuthController@register');
 Route::post('login', 'UserAuthController@login');
+Route::post('forget-password', 'UserAuthController@forgetPassword');
+Route::post('resend-verification-mail', 'UserAuthController@wsResendVerificationMail');
 
 Route::middleware(['auth.jwt','verify'])->group(function () {
  	Route::post('user','UserAuthController@getUser');
@@ -43,4 +45,3 @@ Route::middleware(['auth.jwt','verify'])->group(function () {
 
 });
 
-Route::post('forget-password', 'UserAuthController@forgetPassword');

@@ -420,6 +420,51 @@ class UserAuthController extends Controller
 
 	}
 
+
+/**
+     * @OA\Post(
+     *     path="/api/resend-verification-mail",
+     *     tags={"User"},
+     *     description="resend verification mail if not received in prepareurself",
+	 *     @OA\Parameter(
+	 *          name="email",
+	 *          in="query",
+	 *          description="Email of user",
+	 *          required=true,
+	 *          @OA\Schema(
+	 *              type="string"
+	 *          )
+	 *      ),
+     *     @OA\Response(
+     *          response=200,
+     *			description="{[error_code=>0,msg=>'resend mail Successfully Done']}"
+     *     )
+     * )
+     */
+	public function wsResendVerificationMail(Request $request)
+	{
+		if($request->filled('email'))
+		{
+			$user=User::where('email',$request['email'])->first();
+			if($user!=null)
+			{
+				if(!$user->hasVerifiedEmail()){
+			        $user->sendEmailVerificationMail();
+			        return response()->json(['error'=>false,'error_code'=>0,'message'=>'We have sent you verification Email again Please check']);
+			    }
+			    else{
+			    	return response()->json(['error'=>false,'error_code'=>0,'message'=>'User is Already Verified Please login']);
+			    }
+
+			}else{
+				return response()->json(['error'=>true,'error_code'=>2,'message'=>'User does not exists']);
+			}
+		}
+		else{
+			return response()->json(['error'=>true,'error_code'=>1,'message'=>'Email is required']);
+		}
+	}
+
 	/**
      * @OA\Post(
      *     path="/api/forget-password",

@@ -876,6 +876,31 @@
                 }
             }
         },
+        "/api/resend-verification-mail": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "description": "resend verification mail if not received in prepareurself",
+                "operationId": "App\\Http\\Controllers\\UserAuthController::wsResendVerificationMail",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email of user",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{[error_code=>0,msg=>'resend mail Successfully Done']}"
+                    }
+                }
+            }
+        },
         "/api/forget-password": {
             "post": {
                 "tags": [
