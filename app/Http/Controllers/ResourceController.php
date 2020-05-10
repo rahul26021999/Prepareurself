@@ -174,27 +174,15 @@ class ResourceController extends Controller
               $count= isset($request['count'])?$request['count']:'10';
               if($type=='')
               {
-                $resources=Resource::withCount(['ResourceProjectLikes as like'=>function($query){
-                      $query->where('user_id',JWTAuth::user()->id);
-                }])->withCount('ResourceProjectLikes as total_likes')
-                ->withCount(['ResourceProjectViews as view'=>function($query){
-                      $query->where('user_id',JWTAuth::user()->id);
-                }])->withCount('ResourceProjectViews as total_views')
-                ->where('course_topic_id',$request['topic_id'])
-                ->paginate($count);
+                $resources=Resource::where('course_topic_id',$request['topic_id'])                                    
+                                    ->paginate($count);
                 return response()->json(['error_code'=>0,'resources'=>$resources]);
               }
               else{
                 
-                $resources=Resource::withCount(['ResourceProjectLikes as like'=>function($query){
-                      $query->where('user_id',JWTAuth::user()->id);
-                }])->withCount('ResourceProjectLikes as total_likes')
-                ->withCount(['ResourceProjectViews as view'=>function($query){
-                      $query->where('user_id',JWTAuth::user()->id);
-                }])->withCount('ResourceProjectViews as total_views')
-                    ->where('course_topic_id',$request['topic_id'])
-                    ->where('type',$type)
-                    ->paginate($count);
+                $resources=Resource::where('course_topic_id',$request['topic_id'])
+                                    ->where('type',$type)
+                                    ->paginate($count);
 
                 return response()->json(['error_code'=>0,'resources'=>$resources]);
               }
