@@ -560,7 +560,7 @@ class UserAuthController extends Controller
 				'seeAll' => false,
 				'views'=>true,
 				'likes'=>true,
-				'postedOn'=>true,
+				'postedOn'=>false,
 				'type'	=>	'project',
 				'project' => $project
 			);
@@ -570,14 +570,14 @@ class UserAuthController extends Controller
 
 
 			#Newly Mix Resources
-			$resources=Resource::orderBy('created_at','Asc')
+			$resources=Resource::orderBy('created_at','DESC')
 	  							->take(10)->get();
 
 			$resourceArray = array(
 				'title' => 'New Resources',
 				'seeAll' => false,
 				'postedOn'=>true,
-				'views'=>false,
+				'views'=>true,
 				'likes'=>false,
 				'type'	=>	'resource',
 				'resource' => $resources
@@ -613,8 +613,8 @@ class UserAuthController extends Controller
 				'seeAll' => true,
 				'type'	=>	'project',
 				'postedOn'=>false,
-				'views'=>false,
-				'likes'=>false,
+				'views'=>true,
+				'likes'=>true,
 				'course'=> $project_course,
 				'project' => $project
 			);
