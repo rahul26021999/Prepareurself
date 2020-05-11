@@ -613,8 +613,8 @@ class UserAuthController extends Controller
 				'seeAll' => true,
 				'type'	=>	'project',
 				'postedOn'=>false,
-				'views'=>true,
-				'likes'=>true,
+				'views'=>false,
+				'likes'=>false,
 				'course'=> $project_course,
 				'project' => $project
 			);
