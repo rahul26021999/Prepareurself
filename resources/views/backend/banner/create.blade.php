@@ -34,9 +34,6 @@
     });
     $('#createBanner').validate({
       rules: {
-        title: {
-          required: true
-        },
         bannerImage:{
           required:true
         },

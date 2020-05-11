@@ -34,9 +34,6 @@
     });
     $('#editBanner').validate({
       rules: {
-        title: {
-          required: true
-        },
         id:{
           required:true
         }
