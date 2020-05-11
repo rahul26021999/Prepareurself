@@ -22,9 +22,14 @@ class BannerController extends Controller
 
        $fileName = time().'.'.$request->file('bannerImage')->extension();  
        $request->file('bannerImage')->move(public_path('uploads/banners'), $fileName);
+       if($request['title']==null){
+        $title='';
+       }else{
+        $title=$request['title'];
+       }
 
         $banner=Banner::create([
-          'title'=>$request['title'],
+          'title'=>$title,
           'image'=>$fileName,
           'status'=>$request->input('publish','dev'),
           'screen'=>$request['screen'],
@@ -60,7 +65,11 @@ class BannerController extends Controller
           $request->file('bannerImage')->move(public_path('uploads/banners'), $fileName);
           $banner->image=$fileName;
         }
-        $banner->title=$request['title'];
+        if($request['title']==null){
+          $banner->title='';
+         }else{
+          $banner->title=$request['title'];
+         }
         $banner->status=$request->input('publish','dev');
         $banner->screen=$request['screen'];
         $banner->screen_id=$request['id'];
