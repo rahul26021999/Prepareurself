@@ -570,7 +570,7 @@ class UserAuthController extends Controller
 
 
 			#Newly Mix Resources
-			$resources=Resource::orderBy('updated_at','DESC')
+			$resources=Resource::orderBy('created_at','Asc')
 	  							->take(10)->get();
 
 			$resourceArray = array(
