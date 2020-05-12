@@ -144,7 +144,7 @@
                       <option value="allCourse" <?php if($banner['screen']=='allCourse') echo 'selected'; ?> >Open All course Screen</option>
                       <option value="feedback" <?php if($banner['screen']=='feedback') echo 'selected'; ?> >Open feedback</option>
                       <option value="prefrence" <?php if($banner['screen']=='prefrence') echo 'selected'; ?> >Open Prefrences</option>
-                      <option value="course" disabled="disabled" <?php  if($banner['screen']=='course') echo 'selected'; ?> >Open Course Screen</option>
+                      <option value="project" <?php  if($banner['screen']=='project') echo 'selected'; ?> >Open Course Screen</option>
                     </select>
                 </div>
               </div>
