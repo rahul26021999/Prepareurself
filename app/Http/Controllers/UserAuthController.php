@@ -508,7 +508,6 @@ class UserAuthController extends Controller
 	/**
    * @OA\Post(
    *     path="/api/get-home-page",
-
    *     tags={"HomePage"},
    *     description="Get all home page data",
    *     @OA\Parameter(
@@ -520,7 +519,6 @@ class UserAuthController extends Controller
    *              type="string"
    *          )
    *      ),
-   *   
    *     @OA\Response(
    *          response=200,
    *      description="{[error_code=>0,msg=>'success']}"
@@ -629,11 +627,12 @@ array_push($result, ["type"=>"ads"]);
 
 	}
 
+
 	/**
    * @OA\Post(
    *     path="/api/user",
    *     tags={"User"},
-   *     description="Get current user details,
+   *     description="Get User details",
    *     @OA\Parameter(
    *          name="token",
    *          in="query",

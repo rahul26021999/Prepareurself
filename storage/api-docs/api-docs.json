@@ -951,6 +951,31 @@
                 }
             }
         },
+        "/api/user": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "description": "Get User details",
+                "operationId": "App\\Http\\Controllers\\UserAuthController::getUser",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{[error_code=>0,msg=>'success']}"
+                    }
+                }
+            }
+        },
         "/api/store-feedback": {
             "post": {
                 "tags": [
