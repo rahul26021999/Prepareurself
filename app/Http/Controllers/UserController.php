@@ -19,4 +19,10 @@ class UserController extends Controller
     	}
 		return view('backend.users.show',['users'=>$users]);
     }
+
+    public function showUser(Request $request,$id)
+    {
+        $user=User::find($id);
+        return view('backend.users.details',['user'=>$user]);
+    }
 }

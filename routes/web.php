@@ -56,8 +56,9 @@ Route::name('admin.')->prefix('admin')->group(function () {
             Route::post('create','AdminUserController@createAdmin');
         });
 
-        Route::prefix('users')->group(function(){
+        Route::prefix('users')->name('users.')->group(function(){
             Route::get('all/{type?}','UserController@showAllUsers');
+            Route::get('show/{id}','UserController@showUser');
         });
 
         Route::name('quiz.')->prefix('quiz')->group(function(){

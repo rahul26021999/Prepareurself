@@ -69,45 +69,48 @@
         <div class="col-12">
           <div class="card card-outline card-primary">
             <div class="card-header">
-              <h3 class="card-title">All users</h3>
+              <h3 class="card-title">{{$user['name']}}'s Details</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
               <table id="example2" class="table table-bordered table-hover">
-                <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Status</th>
-                  <th>Verification</th>
-                  <th>Action</th>
-                </tr>
-                </thead>
                 <tbody>
-                  @foreach($users as $user)
-                <tr>
-                  <td><a href="/admin/users/show/{{$user['id']}}">{{$user['id']}}</a></td>
-                  <td>{{$user['first_name']}} {{$user['last_name']}}</td>
-                  <td>{{$user['email']}}</td>
-                  <td>
-                    @if($user['status']=='blocked')
-                    <span class="right badge badge-danger">Blocked</span>
-                    @else
-                    <span class="right badge badge-success">Active</span>
-                    @endif
-                  </td>
-                  <td>
-                    @if($user['email_verified_at']==null)
-                    <span class="right badge badge-danger">Not verified</span>
-                    @else
-                    <span class="right badge badge-success">verified</span>
-                    @endif
-                  </td>
-                  <td></td>
-                </tr>
-                @endforeach
-              </table>
+                  <tr>
+                    <td colspan="2" class="text-center"><img src="{{$user->image}}" height="100px"></td>
+                  </tr>
+                  <tr>
+                    <td><b>Name</b></td>
+                    <td>{{$user['name']}}</td>
+                  </tr>
+                  <tr>
+                    <td><b>Email</b></td>
+                    <td>{{$user['email']}}</td>
+                  </tr>
+                  <tr>
+                    <td><b>Date of Birth</b></td>
+                    <td>{{$user['dob']}}</td>
+                  </tr>
+                  <tr>
+                    <td><b>Phone number</b></td>
+                    <td>{{$user['phone_number']}}</td>
+                  </tr>
+                  <tr>
+                    <td><b>Android Token</b></td>
+                    <td>{{$user['android_token']}}</td>
+                  </tr>
+                  <tr>
+                    <td><b>Preferences</b></td>
+                    <td>{{$user['preferences']}}</td>
+                  </tr>
+                  <tr>
+                    <td><b>Joined on</b></td>
+                    <td>{{$user['created_at']}}</td>
+                  </tr>
+                  <tr>
+                    <td><b>Email Verified</b></td>
+                    <td>{{$user['email_verified_at']}}</td>
+                  </tr>
+                </table>
             </div>
             <!-- /.card-body -->
           </div>
