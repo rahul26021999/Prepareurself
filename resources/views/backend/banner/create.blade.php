@@ -146,7 +146,7 @@
                     <option value="allCourse">Open All course Screen</option>
                     <option value="feedback">Open feedback</option>
                     <option value="prefrence">Open Prefrences</option>
-                    <option value="course" disabled="disabled">Open Course Screen</option>
+                    <option value="project">project Screen</option>
                   </select>
                 </div>
               </div>
