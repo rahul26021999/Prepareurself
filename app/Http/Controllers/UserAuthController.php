@@ -628,4 +628,41 @@ array_push($result, ["type"=>"ads"]);
 		}
 
 	}
+
+	/**
+   * @OA\Post(
+   *     path="/api/user",
+   *     tags={"User"},
+   *     description="Get current user details,
+   *     @OA\Parameter(
+   *          name="token",
+   *          in="query",
+   *          description="token",
+   *          required=true,
+   *          @OA\Schema(
+   *              type="string"
+   *          )
+   *      ),
+   *     @OA\Response(
+   *          response=200,
+   *      description="{[error_code=>0,msg=>'success']}"
+   *     )
+   * )
+   */
+	public function getUser(Request $request)
+	{
+		$user=JWTAuth::user();
+		if($user!=null){
+			return response()->json([
+				'success'=>true,
+				'error_code'=>0,
+				'user'=>$user
+			]);
+		}else{
+			return response()->json([
+				'success'=>false,
+				'error_code'=>1
+			]);
+		}
+	}
 }

@@ -23,6 +23,8 @@ class AdminUserController extends Controller
     {
         $verifiedUser=User::where('email_verified_at','!=',null)->count();
         $totalUser=User::all()->count();
+        $preferencedUsers=User::where('preferences','!=',null)->count();
+        $notificationTokenFound=User::where('android_token','!=',null)->count();
 
         $firstUser=User::first();
         $token = JWTAuth::fromUser($firstUser);
@@ -33,6 +35,8 @@ class AdminUserController extends Controller
         return view('backend.dashboard',[
             'total_user'=>$totalUser,
             'verified_user'=>$verifiedUser,
+            'preferenced_user'=>$preferencedUsers,
+            'token_user'=>$notificationTokenFound,
             'total_resources'=>$total_resources,
             'total_projects'=>$total_projects,
             'JWTtoken'=>$token,
