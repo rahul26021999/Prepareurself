@@ -568,7 +568,10 @@ class UserAuthController extends Controller
 
 
 			#Newly Mix Resources
-			$resources=Resource::orderBy('created_at','DESC')
+
+			$resources=Resource::whereHas('CourseTopic', function ($query) {
+									$query->where('status', 'publish');
+								})->orderBy('created_at','DESC')
 	  							->take(10)->get();
 
 			$resourceArray = array(
