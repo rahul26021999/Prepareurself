@@ -67,28 +67,49 @@
 </script>
 
 <script>
+
   var type='video';
+
   $('input[type=radio][name=type]').change(function() {
     if (this.value == 'video') {
       type='video';
+      $('#imageBox').hide();
     }
     else if (this.value == 'theory') {
+      $('#imageBox').show();
       type='theory';
     }
     readURL($("input[name='link'"));
   });
+
   readURL($("input[name='link'"));
+  
   function readURL(input) {
     if(type=='video')
     {
       var url=$(input).val();
-      url=url.replace("watch?v=", "embed/");
+      if(url.includes('youtu.be'))
+      {
+        var result=url.split("/");
+        id=result[result.length-1];
+        url="https://www.youtube.com/embed/"+id;
+        $('#imageBox').hide();
+      }
+      else if(url.includes('youtube')){
+        url=url.replace("watch?v=", "embed/");
+        $('#imageBox').hide();
+      }
+      else{
+        $('#imageBox').show();
+      }
       $('#showURL').attr('src',url);
     }
     else{
       $('#showURL').attr('src',$(input).val());
+
     }
   }
+
   function readImageURL(input)
   {
     if (input.files && input.files[0]) {
@@ -170,7 +191,7 @@
                 <input type="text"  value="{{$resource['link']}}" name="link" onchange="readURL(this)" class="form-control" placeholder="Enter ...">
               </div>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-6" id="imageBox">
               <div class="form-group">
                 <label for="exampleInputFile">Background Image</label>
                 <div class="input-group">
@@ -184,7 +205,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-sm-6">
+              <div class="text-center">
                 @if($resource['image_url']!='')
                 <img src="{{url('/')}}/uploads/resources/{{$resource['image_url'] }}" id="showImage" alt="" width="auto" height="200">
                 @else

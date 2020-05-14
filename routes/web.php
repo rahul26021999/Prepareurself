@@ -138,10 +138,13 @@ Route::name('admin.')->prefix('admin')->group(function () {
         });
         Route::name('notification.')->prefix('notification')->group(function(){
             Route::get('show','NotificationController@showNotification');
-
             Route::post('test','NotificationController@sendTestNotification');
             Route::post('send','NotificationController@sendAndroidNotification');
 
+        });
+        Route::name('email.')->prefix('email')->group(function()
+        {
+            Route::get('/','NotificationController@showEmailNotification'); 
         });
 
     });
