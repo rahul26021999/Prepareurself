@@ -24,7 +24,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'first_name','last_name', 'email', 'password','phone_number','username','android_token','dob','preferences','profile_image'
+        'first_name','last_name', 'email', 'password','phone_number','username','android_token','dob','preferences','profile_image','google_id'
     ];
 
     /**
@@ -48,15 +48,15 @@ class User extends Authenticatable implements JWTSubject
     public function getNameAttribute($value)
     {
        return ucfirst($this->first_name) . ' ' . ucfirst($this->last_name);
-    }
+   }
 
-    public function getImageAttribute($value)
-    {
-        if($this->profile_image!=null)
-            return url('/')."/uploads/users/".$this->profile_image;
-        else
-            return url('/')."/defaults/defaultImage.png";
-    }
+   public function getImageAttribute($value)
+   {
+    if($this->profile_image!=null)
+        return url('/')."/uploads/users/".$this->profile_image;
+    else
+        return url('/')."/defaults/defaultImage.png";
+}
 
     /**
      * Determine if the user has verified their email address.
@@ -131,15 +131,15 @@ class User extends Authenticatable implements JWTSubject
     public function getResetPasswordLink()
     {
         return URL::temporarySignedRoute(
-                'showResetPassword', now()->addHour(), ['id' => base64_encode($this->id),'type'=>base64_encode('user')]
-            );
+            'showResetPassword', now()->addHour(), ['id' => base64_encode($this->id),'type'=>base64_encode('user')]
+        );
     }
 
     public function getEmailVerificationLink()
     {
         return URL::temporarySignedRoute(
-                'showVerify', now()->addDay(), ['id' => base64_encode($this->id),'type'=>base64_encode('user')]
-            );
+            'showVerify', now()->addDay(), ['id' => base64_encode($this->id),'type'=>base64_encode('user')]
+        );
     }
 
     public function sendPasswordUpdateMail()
@@ -147,7 +147,7 @@ class User extends Authenticatable implements JWTSubject
         Mail::to($this)->send(new PasswordChangedSuccessfull($this));
     }
 
-     public function sendUserFeedbackMail()
+    public function sendUserFeedbackMail()
     {
         Mail::to($this)->send(new UserFeedback($this));
     }

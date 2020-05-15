@@ -78,7 +78,7 @@ class UserAuthController extends Controller
      *     )
      * )
      */
-    public function register(Request $request)
+	public function register(Request $request)
 	{
 
 		$validator=$this->authenticateNewRegisterationRule($request);
@@ -87,15 +87,127 @@ class UserAuthController extends Controller
 			return json_encode(["success"=>false,'error_code'=>1,"errors"=>$errors,"message"=>"Invalid user data"]);
 		}
 		else{
-			$user=$this->saveUserData($request);
+			$user=$this->registerNewUser($request);
 			$user->sendEmailVerificationMail();
 			return response()->json([
-	            'success' => true,
-	            'error_code'=>0,	
-	            'message'=>'User Registeration Successfully'            
-	        ]);
+				'success' => true,
+				'error_code'=>0,	
+				'message'=>'User Registeration Successfully'            
+			]);
 		}
 	}
+
+	/**
+     * @OA\Post(
+     *     path="/api/social-register",
+     *     tags={"User"},
+     *     description="Register a user to prepareurself through google",
+	 *     @OA\Parameter(
+	 *          name="first_name",
+	 *          in="query",
+	 *          description="first name of user",
+	 *          required=true,
+	 *          @OA\Schema(
+	 *              type="string"
+	 *          )
+	 *      ),
+	 *     @OA\Parameter(
+	 *          name="last_name",
+	 *          in="query",
+	 *          description="last name of user",
+	 *          required=false,
+	 *          @OA\Schema(
+	 *              type="string"
+	 *          )
+	 *      ),
+	 *     @OA\Parameter(
+	 *          name="android_token",
+	 *          in="query",
+	 *          description="android token of user",
+	 *          required=false,
+	 *          @OA\Schema(
+	 *              type="string"
+	 *          )
+	 *      ),
+	 *     @OA\Parameter(
+	 *          name="google_id",
+	 *          in="query",
+	 *          description="Password of user Min length 8 characters",
+	 *          required=true,
+	 *          @OA\Schema(
+	 *              type="string"
+	 *          )
+	 *      ),
+	 *     @OA\Parameter(
+	 *          name="email",
+	 *          in="query",
+	 *          description="Email of user",
+	 *          required=true,
+	 *          @OA\Schema(
+	 *              type="string"
+	 *          )
+	 *      ),
+	 *     @OA\Parameter(
+	 *          name="phone_number",
+	 *          in="query",
+	 *          description="phone_number of user",
+	 *          required=false,
+	 *          @OA\Schema(
+	 *              type="string"
+	 *          )
+	 *      ),
+	 *     @OA\Parameter(
+	 *          name="dob",
+	 *          in="query",
+	 *          description="dob of user",
+	 *          required=false,
+	 *          @OA\Schema(
+	 *              type="string"
+	 *          )
+	 *      ),
+	 *     @OA\Parameter(
+	 *          name="profile_image",
+	 *          in="query",
+	 *          description="profile_image of user",
+	 *          required=false,
+	 *          @OA\Schema(
+	 *              type="string"
+	 *          )
+	 *      ),
+     *     @OA\Response(
+     *          response=200,
+     *			description="{[error_code=>1,msg=>'Invalid user data'],[error_code=>0,msg=>'Registeration Successfully Done']}"
+     *     )
+     * )
+     */
+
+	public function socialRegisterLogin(Request $request)
+	{
+		$user=User::where('email',$request['email'])->first();
+		if($user==null){
+			$user=$this->registerNewUser($request);
+		}
+		else{
+			$user->first_name=$request->input('first_name',$user->first_name);
+			$user->last_name=$request->input('last_name',$user->last_name);
+			$user->phone_number=$request->input('phone_number',$user->phone_number);
+			$user->dob=$request->input('dob',$user->dob);
+			$user->android_token=$request->input('android_token',$user->android_token);
+			$user->profile_image=$request->input('profile_image',$user->profile_image);
+			$user->google_id=$request->input('google_id',$user->google_id);
+			$user->save();
+			$user->refresh();
+		}
+
+		$token = JWTAuth::fromUser($user);
+		return response()->json([
+			'success' => true,
+			'error_code'=>0,
+			'token' => $token,
+			'user' => $user
+		]);
+	}
+
 	/**
      * @OA\Post(
      *     path="/api/check-username",
@@ -170,28 +282,28 @@ class UserAuthController extends Controller
 		if($request->filled('email') && $request->filled('password'))
 		{
 			$credentials = $request->only('email', 'password');
-	        if (!$token = JWTAuth::attempt($credentials)) {
-	            return response()->json([
-	                'success' => false,
-	                'error_code'=>3,
-	                'message' => 'Invalid Email or Password'
-	            ]);
-	        }
-	        $user=JWTAuth::user();
-	        if(!$user->hasVerifiedEmail()){
-	            $user->sendEmailVerificationMail();
-	            return response()->json(['error'=>true,'error_code'=>2,'message'=>'Please Verify Your Email']);
-	        }
-	        if($request->filled('android_token')){
-	        	$user->android_token=$request->input('android_token');
-	        	$user->save();
-	        }
-	        return response()->json([
-	            'success' => true,
-	            'error_code'=>0,
-	            'token' => $token,
-	            'user' => $user
-	        ]);
+			if (!$token = JWTAuth::attempt($credentials)) {
+				return response()->json([
+					'success' => false,
+					'error_code'=>3,
+					'message' => 'Invalid Email or Password'
+				]);
+			}
+			$user=JWTAuth::user();
+			if(!$user->hasVerifiedEmail()){
+				$user->sendEmailVerificationMail();
+				return response()->json(['error'=>true,'error_code'=>2,'message'=>'Please Verify Your Email']);
+			}
+			if($request->filled('android_token')){
+				$user->android_token=$request->input('android_token');
+				$user->save();
+			}
+			return response()->json([
+				'success' => true,
+				'error_code'=>0,
+				'token' => $token,
+				'user' => $user
+			]);
 		}
 		else{
 			return json_encode(['success'=>false,'error_code'=>1,"message"=>'Missing email or password']);
@@ -289,7 +401,7 @@ class UserAuthController extends Controller
 		if($user!=null)
 		{
 			if($request->filled('first_name'))
-			$user->first_name=$request->input('first_name');
+				$user->first_name=$request->input('first_name');
 
 			if(isset($request['last_name'])){
 				if($request['last_name']=='')
@@ -327,11 +439,11 @@ class UserAuthController extends Controller
 			}
 
 			if($request->file('profile_image'))
-	        {
-	            $fileName = time().'.'.$request->file('profile_image')->extension();  
-	            $request->file('profile_image')->move(public_path('uploads/users'), $fileName);
-	            $user->profile_image=$fileName;
-	        }    
+			{
+				$fileName = time().'.'.$request->file('profile_image')->extension();  
+				$request->file('profile_image')->move(public_path('uploads/users'), $fileName);
+				$user->profile_image=$fileName;
+			}    
 			
 			$user->save();
 			
@@ -388,12 +500,12 @@ class UserAuthController extends Controller
 			$credentials=['email'=>JWTAuth::user()->email,'password'=>$request['oldPassword']];
 
 			if (!$token = JWTAuth::attempt($credentials)) {
-	            return response()->json([
-		                'success' => false,
-		                'error_code'=>2,
-		                'message' => 'Invalid old Password',
-	            	]);
-	        }
+				return response()->json([
+					'success' => false,
+					'error_code'=>2,
+					'message' => 'Invalid old Password',
+				]);
+			}
 
 			$validator=$this->newPasswordRule($request);
 			if($validator->fails()){			
@@ -402,16 +514,16 @@ class UserAuthController extends Controller
 			}
 			else{
 				$user = JWTAuth::user();
-		        $user->password=Hash::make($request['newPassword']);
-		        $user->save();
-		        $user->sendPasswordUpdateMail();
+				$user->password=Hash::make($request['newPassword']);
+				$user->save();
+				$user->sendPasswordUpdateMail();
 
-		        return response()->json([
-		        	'success' => true,
-		            'error_code'=>0,
-		            'token' => $token,
-		           	'message'=>"Successfully Password Changed"
-		        ]);
+				return response()->json([
+					'success' => true,
+					'error_code'=>0,
+					'token' => $token,
+					'message'=>"Successfully Password Changed"
+				]);
 			}
 		}
 		else{
@@ -441,29 +553,29 @@ class UserAuthController extends Controller
      *     )
      * )
      */
-	public function wsResendVerificationMail(Request $request)
+public function wsResendVerificationMail(Request $request)
+{
+	if($request->filled('email'))
 	{
-		if($request->filled('email'))
+		$user=User::where('email',$request['email'])->first();
+		if($user!=null)
 		{
-			$user=User::where('email',$request['email'])->first();
-			if($user!=null)
-			{
-				if(!$user->hasVerifiedEmail()){
-			        $user->sendEmailVerificationMail();
-			        return response()->json(['error'=>false,'error_code'=>0,'message'=>'We have sent you verification Email again Please check']);
-			    }
-			    else{
-			    	return response()->json(['error'=>false,'error_code'=>0,'message'=>'User is Already Verified Please login']);
-			    }
-
-			}else{
-				return response()->json(['error'=>true,'error_code'=>2,'message'=>'User does not exists']);
+			if(!$user->hasVerifiedEmail()){
+				$user->sendEmailVerificationMail();
+				return response()->json(['error'=>false,'error_code'=>0,'message'=>'We have sent you verification Email again Please check']);
 			}
-		}
-		else{
-			return response()->json(['error'=>true,'error_code'=>1,'message'=>'Email is required']);
+			else{
+				return response()->json(['error'=>false,'error_code'=>0,'message'=>'User is Already Verified Please login']);
+			}
+
+		}else{
+			return response()->json(['error'=>true,'error_code'=>2,'message'=>'User does not exists']);
 		}
 	}
+	else{
+		return response()->json(['error'=>true,'error_code'=>1,'message'=>'Email is required']);
+	}
+}
 
 	/**
      * @OA\Post(
@@ -548,10 +660,10 @@ class UserAuthController extends Controller
 
 			#Trending Projects
 			$project=Project::withCount('ResourceProjectViews as total_views')
-					->withCount('ResourceProjectLikes as total_likes')	
-					->where('status','publish')
-					->orderBy('total_views','DESC')
-	  				->take(10)->get();
+			->withCount('ResourceProjectLikes as total_likes')	
+			->where('status','publish')
+			->orderBy('total_views','DESC')
+			->take(10)->get();
 
 			$projectArray = array(
 				'title' => 'Trending Projects',
@@ -570,9 +682,9 @@ class UserAuthController extends Controller
 			#Newly Mix Resources
 
 			$resources=Resource::whereHas('CourseTopic', function ($query) {
-									$query->where('status', 'publish');
-								})->orderBy('created_at','DESC')
-	  							->take(10)->get();
+				$query->where('status', 'publish');
+			})->orderBy('created_at','DESC')
+			->take(10)->get();
 
 			$resourceArray = array(
 				'title' => 'New Resources',
@@ -590,9 +702,9 @@ class UserAuthController extends Controller
 			# for suggested topics
 			$topic_course_id=$this->getSuggestedTopicCourse($request);
 			$topic_course=Course::find($topic_course_id);
-      		$topic=CourseTopic::where('course_id',$topic_course_id)->where('status','publish')->orderBy('sequence','asc')->take(5)->get();
+			$topic=CourseTopic::where('course_id',$topic_course_id)->where('status','publish')->orderBy('sequence','asc')->take(5)->get();
 
-      		$topicArray = array(
+			$topicArray = array(
 				'title' => 'Topics you may like',
 				'type'	=>	'topic',
 				'seeAll' => true,
@@ -602,12 +714,12 @@ class UserAuthController extends Controller
 			array_push($result, $topicArray);
 
       		# for suggested projects
-      		$project_course_id=$this->getSuggestedProjectCourse($request);
-      		$project_course=Course::find($project_course_id);
-	  		$project=Project::where('course_id',$project_course_id)
-					  		->where('status','publish')
-					  		->orderBy('sequence','asc')
-					  		->take(5)->get();
+			$project_course_id=$this->getSuggestedProjectCourse($request);
+			$project_course=Course::find($project_course_id);
+			$project=Project::where('course_id',$project_course_id)
+			->where('status','publish')
+			->orderBy('sequence','asc')
+			->take(5)->get();
 			
 			$projectArray = array(
 				'title' => 'Recommended Projects',
@@ -620,7 +732,7 @@ class UserAuthController extends Controller
 				'project' => $project
 			);
 			array_push($result, $projectArray);
-array_push($result, ["type"=>"ads"]);
+			array_push($result, ["type"=>"ads"]);
 			return response()->json(['success'=>true,'error_code'=>0,"message"=>"success",'data'=>$result]);
 
 		}

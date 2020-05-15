@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->bigIncrements('id');
             $table->string('first_name');
             $table->string('last_name')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->string('email')->unique();
             $table->string('username')->nullable();
             $table->string('profile_image')->nullable();
@@ -27,6 +27,7 @@ class CreateUsersTable extends Migration
             $table->enum('user_status', ['active','blocked'])->default('active');
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('last_login_at')->nullable();
+            $table->text('google_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -14,12 +14,13 @@ use Illuminate\Http\Request;
 */
 
 Route::post('register', 'UserAuthController@register');
+Route::post('social-register', 'UserAuthController@socialRegisterLogin');
 Route::post('login', 'UserAuthController@login');
 Route::post('forget-password', 'UserAuthController@forgetPassword');
 Route::post('resend-verification-mail', 'UserAuthController@wsResendVerificationMail');
 
 Route::middleware(['auth.jwt','verify'])->group(function () {
- 	Route::post('user','UserAuthController@getUser');
+	Route::post('user','UserAuthController@getUser');
 	Route::post('update-user', 'UserAuthController@updateUserData');
 	Route::post('check-username', 'UserAuthController@checkUserName');
 	Route::post('get-courses', 'CourseController@wsGetAllCourses');

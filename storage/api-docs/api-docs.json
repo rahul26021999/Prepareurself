@@ -674,6 +674,94 @@
                 }
             }
         },
+        "/api/social-register": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "description": "Register a user to prepareurself through google",
+                "operationId": "App\\Http\\Controllers\\UserAuthController::socialRegisterLogin",
+                "parameters": [
+                    {
+                        "name": "first_name",
+                        "in": "query",
+                        "description": "first name of user",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "last_name",
+                        "in": "query",
+                        "description": "last name of user",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "android_token",
+                        "in": "query",
+                        "description": "android token of user",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "google_id",
+                        "in": "query",
+                        "description": "Password of user Min length 8 characters",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email of user",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "phone_number",
+                        "in": "query",
+                        "description": "phone_number of user",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "dob",
+                        "in": "query",
+                        "description": "dob of user",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "profile_image",
+                        "in": "query",
+                        "description": "profile_image of user",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{[error_code=>1,msg=>'Invalid user data'],[error_code=>0,msg=>'Registeration Successfully Done']}"
+                    }
+                }
+            }
+        },
         "/api/check-username": {
             "post": {
                 "tags": [
