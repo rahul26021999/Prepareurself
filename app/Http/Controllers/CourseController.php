@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Course;
-use Log;
 use App\Exception;
+use Log;
+use Session;
 
 class CourseController extends Controller
 {

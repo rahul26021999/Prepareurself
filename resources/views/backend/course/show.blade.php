@@ -133,14 +133,15 @@
           <div class="card">
             <dic class="card-header">
               <a href="/admin/course/create" class="btn btn-success">New</a>
-              <button type="button" class="btn btn-danger mb-3 ml-3" data-toggle="modal" data-target="#changeMySequenceModal">Change Sequence</button>
+              <button type="button" class="btn btn-danger ml-3" data-toggle="modal" data-target="#changeMySequenceModal">Change Sequence</button>
             </dic>
             <div class="card-body">
               <table id="example2" class="table table-bordered table-hover">
                 <thead>
                 <tr>
                   <th>Id</th>
-                  <th>name</th>
+                  <th>Sequence</th>
+                  <th>Name</th>
                   <th>status</th>
                   <th>Action</th>
                 </tr>
@@ -149,6 +150,7 @@
                   @foreach($courses as $course)
                      <tr>
                       <td><a href ="" >#{{$course['id']}}</a></td>
+                      <td>{{$course['sequence']}}</td>
                       <td>{{$course['name']}}</td>     
                       @if($course['status']=='publish')
                       <td><span data-status="{{$course['status']}}" data-id="{{$course['id']}}" class="right badge badge-success mr-3 publish">{{$course['status']}}</a></td>
