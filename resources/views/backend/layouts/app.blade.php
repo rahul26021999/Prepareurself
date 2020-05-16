@@ -22,6 +22,11 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
 
+  <!-- Include all Editor plugins CSS style. -->
+  <link rel="stylesheet" href="{{ asset('FroalaEditor/css/froala_editor.pkgd.min.css') }}">
+
+  <!-- Include Code Mirror CSS. -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css">
 
 </head>
 <!--
@@ -46,6 +51,23 @@ to get the desired effect
 
   </div>
   <!-- REQUIRED SCRIPTS -->
+
+    <!-- Include all Editor plugins JS files. -->
+  <script type="text/javascript" src="{{ asset('FroalaEditor/js/froala_editor.pkgd.min.js')}}"></script>
+
+  <!-- Include Code Mirror JS. -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script>
+
+  <!-- Include PDF export JS lib. -->
+  <script type="text/javascript" src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+
+  <script>
+    new FroalaEditor('textarea#froala-editor',{
+        height: 400,
+    })
+  </script>
+
 
   <!-- jQuery -->
   <script src="{{ asset('AdminLTE/plugins/jquery/jquery.min.js')}}"></script>

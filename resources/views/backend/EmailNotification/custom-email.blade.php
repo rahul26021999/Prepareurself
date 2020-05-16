@@ -1,3 +1,4 @@
+
 @extends('backend.layouts.app')
 
 @section('headContent')
@@ -25,47 +26,25 @@
 
 <script type="text/javascript">
 
-  $( "#screen" ).on('change',function() {
-    if($(this).val()=="app" || $(this).val()=="feedback")
-    {
-      $('#screen_id').hide();
-    }
-    else{
-      $('#screen_id').show();
-    }
-  });
-
-  function readURL(input) {
-   $('#showURL').attr('src',$(input).val());
-}
-
-
 $(document).ready(function () {
 
   bsCustomFileInput.init();
-  $('#createNotification').validate({
+  $('#createEmail').validate({
     rules: {
-      title: {
+      subject: {
         required: true
       },
-      message:{
-        required:true
-      },
-      id:{
+      body:{
         required:true
       }
     },
     messages: {
-      title: {
-        required: "Please enter a name"
+      subject: {
+        required: "Please enter a subject"
       },
-      message: {
-        required: "Please enter a message"
-      },
-      id:{
-        required:"Please Enter Id"
+      body: {
+        required: "Please enter a body"
       }
-
     },
     errorElement: 'span',
     errorPlacement: function (error, element) {
@@ -94,56 +73,48 @@ $(document).ready(function () {
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Send Email Notification</h1>
+          <h1>Send Custom Email</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="/admin/home">Home</a></li>
-            <li class="breadcrumb-item">Email</li>
+            <li class="breadcrumb-item">Custom Email</li>
           </ol>
         </div>
       </div>
     </div><!-- /.container-fluid -->
   </section>
+  <!-- <button type="submit" class="btn btn-primary float-right">Send</button> -->
 
   <!-- Main content -->
   <section class="content">
     <div class="row">
-      <div class="col-sm-12">
-        <form id="createNotification" method="post" action="/admin/notification/send">
+      <div class="col-sm-9">
+        <form id="createEmail" method="post" action="/admin/email/send">
+          @csrf
+          <div class="card">
+            <div class="card-body">
+              <div class="form-group">
+                <input type="text" class="form-control" name="subject" placeholder="Subject Here..">
+              </div>
+              <textarea id="froala-editor" name="body">Email Body here ...</textarea>
+            </div>   
+            <div class="card-footer">
+              <button type="submit" class="btn btn-primary float-right">Save</button>
+            </div>     
+          </div>
+        </form>
+      </div>
+      <div class="col-sm-3">
+        <form id="createEmail" method="post" action="/admin/notification/send">
           @csrf
           <div class="card card-outline card-primary">
             <div class="card-header">
-              <a href="/admin/email/custom" class="btn btn-primary">Send Custom Email</a>
+              Previous Saved Emails
             </div>
             <div class="card-body">
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <label>Which Type of Email You want to send To users</label>
-                    <select name="screen" id="screen" class="form-control">
-                      <option value="app">New Course Added</option>
-                      <option value="project">New Resources Added</option>
-                      <option value="theory">New Projects Added</option>
-                      <option value="video">Particular Project</option>
-                      <option value="feedback">Feedback Notification</option>
-                      <option value="profile" disabled="disabled">Set Your Prefrences Email</option>
-                    </select>
-                  </div>
-                  <div class="form-group" id="course_id">
-                    <label for="course_id">Course Id</label>
-                    <input type="number"  class="form-control"  name="course_id">
-                  </div>
-                  <div class="form-group" id="project_id">
-                    <label for="project_id">Project Id</label>
-                    <input type="number"  class="form-control" name="project_id">
-                  </div>
-                </div>
-              </div>
+              
             </div>   
-            <div class="card-footer">
-              <button type="submit" class="btn btn-primary float-right">Send</button>
-            </div>     
           </div>
         </form>
       </div>

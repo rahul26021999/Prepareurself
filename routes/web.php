@@ -49,6 +49,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
 
     Route::middleware(['auth:admin'])->group(function(){
 
+        Route::any('froala/upload-image','AdminUserController@uploadImageFroalaEditor');
         Route::get('home','AdminUserController@index')->name('home');
 
         Route::prefix('manage')->group(function(){
@@ -144,7 +145,10 @@ Route::name('admin.')->prefix('admin')->group(function () {
         });
         Route::name('email.')->prefix('email')->group(function()
         {
-            Route::get('/','NotificationController@showEmailNotification'); 
+            Route::get('/','NotificationController@showEmail'); 
+            Route::get('/custom','NotificationController@showCustomEmail'); 
+            Route::post('/save','NotificationController@saveCustomEmail'); 
+            Route::post('/send','NotificationController@sendCustomEmail');
         });
 
     });

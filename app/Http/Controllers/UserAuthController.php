@@ -194,7 +194,7 @@ class UserAuthController extends Controller
 			$user->dob=$request->input('dob',$user->dob);
 			$user->android_token=$request->input('android_token',$user->android_token);
 			$user->profile_image=$request->input('profile_image',$user->profile_image);
-			$user->google_id=$request->input('google_id',$user->google_id);
+			$user->google_id=$request->input('google_idp',$user->google_id);
 			$user->save();
 			$user->refresh();
 		}
