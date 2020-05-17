@@ -97,10 +97,11 @@ $(document).ready(function () {
               <div class="form-group">
                 <input type="text" class="form-control" name="subject" placeholder="Subject Here..">
               </div>
-              <textarea id="froala-editor" data-height=300px name="body">Email Body here ...</textarea>
+              <textarea id="froala-editor" data-height=300px name="body"></textarea>
             </div>   
             <div class="card-footer">
-              <button type="submit" class="btn btn-primary float-right">Send</button>
+              <button type="submit" formaction="/admin/email/test" class="btn btn-primary float-left">Test</button>
+              <button type="submit" class="btn btn-danger float-right">Send</button>
             </div>     
           </div>
         </form>

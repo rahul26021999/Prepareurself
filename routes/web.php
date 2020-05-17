@@ -148,7 +148,8 @@ Route::name('admin.')->prefix('admin')->group(function () {
             Route::get('/','EmailController@showEmail'); 
             Route::get('/custom','EmailController@showCustomEmail'); 
             Route::post('/save','EmailController@saveCustomEmail'); 
-            Route::post('/send','EmailController@sendCustomEmail');
+            Route::post('/send','EmailController@sendCustomEmailToAll');
+            Route::post('/test','EmailController@sendTestCustomEmail');
         });
 
     });

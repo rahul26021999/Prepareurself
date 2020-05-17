@@ -22,7 +22,7 @@ class EmailController extends Controller
 		
 	}
 
-	public function sendCustomEmail(Request $request)
+	public function sendCustomEmailToAll(Request $request)
 	{
 		$subject=$request['subject'];
 		$body=$request['body'];
@@ -31,10 +31,22 @@ class EmailController extends Controller
 		foreach ($users as $user) {
             Mail::to($user)->queue(new CustomEmail($user,$subject,$body));
 		}
-
-		// $user = User::first();
-		// Mail::to($user)->queue(new CustomEmail($user,$subject,$body));
 	}
+
+	public function sendTestCustomEmail(Request $request)
+	{
+		$subject=$request['subject'];
+		$body=$request['body'];
+
+		$emails=array('rahul26021999@gmail.com','rahul9650ray@gmail.com','tanyagarg2509@gmail.com','rimjhimvaish@gmail.com');
+
+		$users = User::whereIn('email',$emails)->get();
+		// dd($users);
+		foreach ($users as $user) {
+            Mail::to($user)->send(new CustomEmail($user,$subject,$body));
+		}
+	}
+
 
 	public function sendVerificationEmails(Request $request){
 		$users = User::where('email_verified_at',null)->get();

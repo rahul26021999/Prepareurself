@@ -1,5 +1,5 @@
 @component('mail::message')
-# Hey, {{ $user['first_name']}}
+# Hey, {{ $user['first_name'] }}
 
 {!! html_entity_decode($body) !!} 
 
