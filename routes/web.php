@@ -145,10 +145,10 @@ Route::name('admin.')->prefix('admin')->group(function () {
         });
         Route::name('email.')->prefix('email')->group(function()
         {
-            Route::get('/','NotificationController@showEmail'); 
-            Route::get('/custom','NotificationController@showCustomEmail'); 
-            Route::post('/save','NotificationController@saveCustomEmail'); 
-            Route::post('/send','NotificationController@sendCustomEmail');
+            Route::get('/','EmailController@showEmail'); 
+            Route::get('/custom','EmailController@showCustomEmail'); 
+            Route::post('/save','EmailController@saveCustomEmail'); 
+            Route::post('/send','EmailController@sendCustomEmail');
         });
 
     });
