@@ -79,8 +79,8 @@ to get the desired effect
 
   <script>
     var froala=new FroalaEditor('textarea#froala-editor',{
-      height: 300,
-      
+      height: $('textarea#froala-editor').data('height'),
+    
       useClasses:false,
 
       // Set the image upload parameter.

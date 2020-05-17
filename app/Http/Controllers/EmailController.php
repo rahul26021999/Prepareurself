@@ -27,15 +27,15 @@ class EmailController extends Controller
 		$subject=$request['subject'];
 		$body=$request['body'];
 
-		// $users = User::where('email_verified_at','!=',null)->get();
-		// foreach ($users as $user) {
-  //           Mail::to($user)->send(new CustomEmail($user,$subject,$body));
-		// }
+		$users = User::where('email_verified_at','!=',null)->get();
+		foreach ($users as $user) {
+            Mail::to($user)->queue(new CustomEmail($user,$subject,$body));
+		}
 
-		$user = User::where('email','rahul26021999@gmail.com')->get();
-		Mail::to($user)->send(new CustomEmail($user,$subject,$body));
+		// $user = User::first();
+		// Mail::to($user)->queue(new CustomEmail($user,$subject,$body));
 	}
-	
+
 	public function sendVerificationEmails(Request $request){
 		$users = User::where('email_verified_at',null)->get();
 		foreach ($users as $user) {
