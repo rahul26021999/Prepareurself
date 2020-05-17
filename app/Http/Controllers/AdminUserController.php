@@ -171,14 +171,12 @@ class AdminUserController extends Controller
 
     public function uploadImageFroalaEditor(Request $request)
     {
-        \Log::info("hello");
         if($request->file('file'))
         {
-            \Log::info("hello");
             $fileName = time().'.'.$request->file('file')->extension();  
             $request->file('file')->move(public_path('uploads/froalaImage'), $fileName);
         }    
-        return response()->json(["link"=>"/froalaImage/".$$fileName]);
+        return response()->json(["link"=>url("/")."/uploads/froalaImage/".$fileName]);
     }
 
 }

@@ -11,7 +11,7 @@
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
-<!-- SweetAlert2 -->
+  <!-- SweetAlert2 -->
   <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
   @yield('headContent')
   
@@ -52,23 +52,6 @@ to get the desired effect
   </div>
   <!-- REQUIRED SCRIPTS -->
 
-    <!-- Include all Editor plugins JS files. -->
-  <script type="text/javascript" src="{{ asset('FroalaEditor/js/froala_editor.pkgd.min.js')}}"></script>
-
-  <!-- Include Code Mirror JS. -->
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script>
-
-  <!-- Include PDF export JS lib. -->
-  <script type="text/javascript" src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
-
-  <script>
-    new FroalaEditor('textarea#froala-editor',{
-        height: 400,
-    })
-  </script>
-
-
   <!-- jQuery -->
   <script src="{{ asset('AdminLTE/plugins/jquery/jquery.min.js')}}"></script>
   <!-- Bootstrap 4 -->
@@ -82,6 +65,40 @@ to get the desired effect
   @include('backend.layouts.modal')
 
   @yield('javascriptsContent')
-  
+
+
+  <!-- Include all Editor plugins JS files. -->
+  <script type="text/javascript" src="{{ asset('FroalaEditor/js/froala_editor.pkgd.min.js')}}"></script>
+  <script type="text/javascript" src="{{ asset('FroalaEditor/js/plugins/image.min.js')}}"></script>
+  <!-- Include Code Mirror JS. -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script>
+
+  <!-- Include PDF export JS lib. -->
+  <script type="text/javascript" src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+
+  <script>
+    var froala=new FroalaEditor('textarea#froala-editor',{
+      height: 300,
+      
+      useClasses:false,
+
+      // Set the image upload parameter.
+      imageUploadParam: 'file',
+
+      // Set the image upload URL.
+      imageUploadURL: '{{url("/")}}/admin/froala/upload-image',
+
+      // Additional upload params.
+      imageUploadParams: {_token: '{{csrf_token()}}'},
+
+      // Set request type.
+      imageUploadMethod: 'POST',
+
+      // Allow to upload PNG and JPG.
+      imageAllowedTypes: ['jpeg', 'jpg', 'png'],
+  });
+</script>
+
 </body>
 </html>
