@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Mail\CustomEmail;
 use Mail;
+use Session;
 
 class EmailController extends Controller
 {
@@ -31,6 +32,9 @@ class EmailController extends Controller
 		foreach ($users as $user) {
             Mail::to($user)->queue(new CustomEmail($user,$subject,$body));
 		}
+
+		Session::flash('success','Successfully send Email to '.count($users).' Users!');
+        return redirect()->back();
 	}
 
 	public function sendTestCustomEmail(Request $request)
@@ -45,6 +49,9 @@ class EmailController extends Controller
 		foreach ($users as $user) {
             Mail::to($user)->send(new CustomEmail($user,$subject,$body));
 		}
+		
+		Session::flash('success','Successfully send Email to all test users!');
+        return redirect()->back();
 	}
 
 
