@@ -122,7 +122,7 @@
               <div class="form-group">
                 @if(isset($email))
                   <input type="hidden" name="id" value="{{$email['id'] ?? ''}}">
-                  <input type="hidden" nam="type" value="{{$email['type'] ?? ''}}">
+                  <input type="hidden" name="type" value="{{$email['type'] ?? ''}}">
                 @endif
 
                 <input type="text" class="form-control" name="subject" placeholder="Subject Here.." required="required" value="{{$email['subject'] ?? ''}}">
