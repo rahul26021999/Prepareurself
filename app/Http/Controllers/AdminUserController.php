@@ -10,6 +10,7 @@ use Mail;
 use Auth;
 use App\Models\Resource;
 use App\Models\Project;
+use App\Models\Job;
 use App\Mail\RegisterSuccessful;
 use Illuminate\Support\Facades\Hash;
 use Exception;
@@ -25,9 +26,16 @@ class AdminUserController extends Controller
         $totalUser=User::all()->count();
         $preferencedUsers=User::where('preferences','!=',null)->count();
         $notificationTokenFound=User::where('android_token','!=',null)->count();
+        $jobCount=Job::all()->count();
 
-        $firstUser=User::first();
-        $token = JWTAuth::fromUser($firstUser);
+
+        if($totalUser>0){
+            $firstUser=User::first();
+            $token = JWTAuth::fromUser($firstUser);
+        }
+        else{
+            $token='';
+        }
 
         $total_resources=Resource::all()->count();
         $total_projects=Project::all()->count();
@@ -40,6 +48,7 @@ class AdminUserController extends Controller
             'total_resources'=>$total_resources,
             'total_projects'=>$total_projects,
             'JWTtoken'=>$token,
+            'job_count'=>$jobCount
         ]);
     }
     public function showLogin()

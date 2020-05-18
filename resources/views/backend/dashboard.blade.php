@@ -119,16 +119,16 @@
 
           <div class="col-lg-3 col-6">
             <!-- small box -->
-         <!--    <div class="small-box bg-info">
+            <div class="small-box bg-secondary">
               <div class="inner">
-                <h3>{{$preferenced_user}}</h3>
-                <p>User Preferences</p>
+                <h3>{{$job_count}}</h3>
+                <p>Remaining Jobs</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
               </div>
               <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div> -->
+            </div>
           </div>
           <div class="col-lg-3 col-6">
             <!-- small box -->
