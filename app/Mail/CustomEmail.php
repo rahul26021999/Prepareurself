@@ -16,7 +16,7 @@ class CustomEmail extends Mailable
     public $subject;
     public $body;
 
-    protected $theme = 'promotion-theme';
+    // protected $theme = 'promotion-theme';
     
     /**
      * Create a new message instance.

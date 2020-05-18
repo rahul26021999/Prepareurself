@@ -3,6 +3,6 @@
 
 {!! html_entity_decode($body) !!} 
 
-Thanks<br>
+Thanks,<br>
 {{ config('app.name') }}
 @endcomponent
