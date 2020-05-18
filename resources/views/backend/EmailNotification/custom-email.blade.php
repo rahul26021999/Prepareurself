@@ -63,7 +63,7 @@
   $('.submitBtn').on('click',function(){
     
     var btn=$(this).data('value');
-    alert(btn);
+    
     if(btn=='draft'){
       $('#createEmail').attr('action', '/admin/email/save');
     }else if(btn=='sent'){
@@ -73,11 +73,16 @@
     }
 
     var content=$('#froala-editor').val();
+    $('#preview-email').html(content);
+    $('#preview-email p[data-f-id="pbf"]').remove();
+    $('#body').val($('#preview-email').html());
 
-    $('#hello').html(content);
-    alert("hello check now");
-    $('#hello p[data-f-id="pbf"]').remove();
+    $('#confirmModal').modal();
 
+  });
+
+  $('#continueSubmit').on('click',function(){
+      $('#createEmail').submit();
   });
 
 
@@ -122,10 +127,7 @@
 
                 <input type="text" class="form-control" name="subject" placeholder="Subject Here.." required="required" value="{{$email['subject'] ?? ''}}">
               </div>
-              <div id='hello'>
-                
-              </div>
-              <input type="hidden" name="body" id='body'>
+              <input type="hidden" name="body" id="body">
               <textarea id="froala-editor" data-height=300px required="required">{{$email['body'] ?? ""}}</textarea>
             </div>   
             <div class="card-footer">
@@ -169,6 +171,34 @@
       </div>
     </div>
   </section>
+
+
+  <!-- Show Email Confirmation Modal -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleShowLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleShowLabel">Email Will look something like this</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <div id="preview-email"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="continueSubmit">Continue</button>
+          </div>
+        </div>
+
+    </div>
+  </div>
+
+
 </div>
 
 @endsection
