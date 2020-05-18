@@ -72,7 +72,7 @@ class EmailController extends Controller
 		foreach ($users as $user) {
             Mail::to($user)->queue(new CustomEmail($user,$subject,$body));
 		}
-
+		$request['type']="sent";
 		$request['to']=implode(",",$users->pluck('email')->toArray());
 		$email=$this->createEmail($request);
 
@@ -91,7 +91,7 @@ class EmailController extends Controller
 		foreach ($users as $user) {
             Mail::to($user)->send(new CustomEmail($user,$subject,$body));
 		}
-
+		$request['type']="sent";
 		$request['to']=implode(",",$users->pluck('email')->toArray());
 		$email=$this->createEmail($request);
 		
