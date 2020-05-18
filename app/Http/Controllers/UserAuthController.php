@@ -186,6 +186,7 @@ class UserAuthController extends Controller
 		$user=User::where('email',$request['email'])->first();
 		if($user==null){
 			$user=$this->registerNewUser($request);
+			$user->markEmailAsVerified();
 		}
 		else{
 			$user->first_name=$request->input('first_name',$user->first_name);
@@ -197,6 +198,7 @@ class UserAuthController extends Controller
 			$user->google_id=$request->input('google_idp',$user->google_id);
 			$user->save();
 			$user->refresh();
+			$user->markEmailAsVerified();
 		}
 
 		$token = JWTAuth::fromUser($user);
