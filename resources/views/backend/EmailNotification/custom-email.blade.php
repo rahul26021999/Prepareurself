@@ -81,19 +81,24 @@
   <section class="content">
     <div class="row">
       <div class="col-sm-8">
-        <form id="createEmail" method="post" action="/admin/email/send">
+        <form id="createEmail" method="post" action="/admin/email/save">
           @csrf
           <div class="card">
             <div class="card-body">
               <div class="form-group">
+                @if(isset($email))
+                  <input type="hidden" name="id" value="{{$email['id'] ?? ''}}">
+                  <input type="hidden" nam="type" value="{{$email['type'] ?? ''}}">
+                @endif
+
                 <input type="text" class="form-control" name="subject" placeholder="Subject Here.." required="required" value="{{$email['subject'] ?? ''}}">
               </div>
               <textarea id="froala-editor" data-height=300px name="body" required="required">{{$email['body'] ?? ""}}</textarea>
             </div>   
             <div class="card-footer">
               <button type="submit" formaction="/admin/email/test" class="btn btn-primary"><i class="far fa-envelope"></i> Test</button>
-              <button type="submit" formaction="/admin/email/save" class="btn btn-default"><i class="fas fa-pencil-alt"></i> Draft</button>
-              <button type="submit" class="btn btn-danger float-right"><i class="far fa-envelope"></i> Send</button>
+              <button type="submit" class="btn btn-default"><i class="fas fa-pencil-alt"></i> Draft</button>
+              <button type="submit" formaction="/admin/email/sent" class="btn btn-danger float-right"><i class="far fa-envelope"></i> Sent</button>
             </div>     
           </div>
         </form>

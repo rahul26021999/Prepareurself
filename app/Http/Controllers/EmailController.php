@@ -30,7 +30,7 @@ class EmailController extends Controller
 	}
 	public function createEmail(Request $request)
 	{
-		return Email::create([
+		return Email::Create([
 			'type'=>$request->input('type','sent'),
 			'body'=>$request['body'],
 			'subject'=>$request['subject'],
@@ -39,10 +39,26 @@ class EmailController extends Controller
 			'admin_id'=>Auth::user()->id,
 		]);
 	}
+	public function saveEmail(Request $request)
+	{
+		return Email::where('id',$request['id'])
+					->update([
+						'body'=>$request['body'],
+						'subject'=>$request['subject'],
+						'to'=>$request->input('to',null),
+						'admin_id'=>Auth::user()->id,
+					]);
+	}
 	public function saveCustomEmail(Request $request)
 	{
-		$request['type']='draft';
-		$email=$this->createEmail($request);
+		if($request['type']=='draft'){
+			$email=$this->saveEmail($request);
+		}
+		else{
+			$request['type']='draft';
+			$email=$this->createEmail($request);
+		}
+
 		Session::flash('success','Email Successfully saved');
 		return redirect()->back();
 	}
