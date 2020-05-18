@@ -31,6 +31,15 @@
 <script src="{{ asset('AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
 
 <script>
+
+  $('#createEmail').on('keyup keypress', function(e) {
+    var keyCode = e.keyCode || e.which;
+    if (keyCode === 13) { 
+      e.preventDefault();
+      return false;
+    }
+  });
+
   $(function () {
     $('#example2').DataTable({
       "paging": true,
@@ -49,6 +58,26 @@
   $('.email-container').on('click',function(){
       var id=$(this).data('id');
       location.href='/admin/email/compose/'+id;
+  });
+
+  $('.submitBtn').on('click',function(){
+    
+    var btn=$(this).data('value');
+    alert(btn);
+    if(btn=='draft'){
+      $('#createEmail').attr('action', '/admin/email/save');
+    }else if(btn=='sent'){
+      $('#createEmail').attr('action', '/admin/email/send');
+    }else if(btn=='test'){
+      $('#createEmail').attr('action', '/admin/email/test');
+    }
+
+    var content=$('#froala-editor').val();
+
+    $('#hello').html(content);
+    alert("hello check now");
+    $('#hello p[data-f-id="pbf"]').remove();
+
   });
 
 
@@ -81,7 +110,7 @@
   <section class="content">
     <div class="row">
       <div class="col-sm-8">
-        <form id="createEmail" method="post" action="/admin/email/save">
+        <form id="createEmail" method="post" action="#">
           @csrf
           <div class="card">
             <div class="card-body">
@@ -93,12 +122,16 @@
 
                 <input type="text" class="form-control" name="subject" placeholder="Subject Here.." required="required" value="{{$email['subject'] ?? ''}}">
               </div>
-              <textarea id="froala-editor" data-height=300px name="body" required="required">{{$email['body'] ?? ""}}</textarea>
+              <div id='hello'>
+                
+              </div>
+              <input type="hidden" name="body" id='body'>
+              <textarea id="froala-editor" data-height=300px required="required">{{$email['body'] ?? ""}}</textarea>
             </div>   
             <div class="card-footer">
-              <button type="submit" formaction="/admin/email/test" class="btn btn-primary"><i class="far fa-envelope"></i> Test</button>
-              <button type="submit" class="btn btn-default"><i class="fas fa-pencil-alt"></i> Draft</button>
-              <button type="submit" formaction="/admin/email/sent" class="btn btn-danger float-right"><i class="far fa-envelope"></i> Sent</button>
+              <button type="button" class="btn btn-primary submitBtn" data-value="test"><i class="far fa-envelope"></i> Test</button>
+              <button type="button" class="btn btn-default submitBtn" data-value="draft"><i class="fas fa-pencil-alt"></i> Draft</button>
+              <button type="button" class="btn btn-danger float-right submitBtn" data-value="sent"><i class="far fa-envelope"></i> Sent</button>
             </div>     
           </div>
         </form>
