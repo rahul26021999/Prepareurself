@@ -106,7 +106,7 @@
       $('#showURL').attr('src',url);
     }
     else{
-      $('#showURL').attr('src',$(input).val());
+      $('#showURL').attr('src',url);
 
     }
   }
@@ -212,7 +212,7 @@
     </form>
     <br>
     <h3 style="text-align: center;">Content in Link</h3> 
-    <iframe id="showURL" width="100%" height="400" src="https://cdn.dribbble.com/users/727458/screenshots/4153279/dribbble-icons.jpg">
+    <iframe id="showURL" target="_self" width="100%" height="400" src="https://cdn.dribbble.com/users/727458/screenshots/4153279/dribbble-icons.jpg">
     </iframe>
   </section>
 </div>
