@@ -114,7 +114,7 @@ $(document).ready(function () {
           @csrf
           <div class="card card-outline card-primary">
             <div class="card-header">
-              <a href="/admin/email/custom" class="btn btn-primary">Send Custom Email</a>
+              <a href="/admin/email/compose" class="btn btn-primary">Send Custom Email</a>
             </div>
             <div class="card-body">
               <div class="row">

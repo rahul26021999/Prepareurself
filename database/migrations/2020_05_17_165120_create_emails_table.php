@@ -18,8 +18,8 @@ class CreateEmailsTable extends Migration
             $table->enum('type',['sent','draft']);
             $table->longText('body');
             $table->text('subject');
-            $table->text('from')->default('noreply@prepareurself.in');
-            $table->longText('to');
+            $table->text('from');
+            $table->longText('to')->nullable();
             $table->unsignedBigInteger('admin_id');
             $table->timestamps();
         });

@@ -2,8 +2,6 @@
 @extends('backend.layouts.app')
 
 @section('headContent')
-<!-- summernote -->
-<link rel="stylesheet" href="{{ asset('AdminLTE/plugins/summernote/summernote-bs4.css')}}">
 
 <!-- iCheck for checkboxes and radio inputs -->
 <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
@@ -14,8 +12,6 @@
 
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('AdminLTE/dist/js/demo.js')}}"></script>
-<!-- Summernote -->
-<script src="{{ asset('AdminLTE/plugins/summernote/summernote-bs4.min.js')}}"></script>
 
 <!-- jquery-validation -->
 <script src="{{ asset('AdminLTE/plugins/jquery-validation/jquery.validate.min.js')}}"></script>

@@ -145,8 +145,10 @@ Route::name('admin.')->prefix('admin')->group(function () {
         });
         Route::name('email.')->prefix('email')->group(function()
         {
+            Route::get('/compose/{id?}','EmailController@showComposeEmail');
             Route::get('/','EmailController@showEmail'); 
-            Route::get('/custom','EmailController@showCustomEmail'); 
+
+
             Route::post('/save','EmailController@saveCustomEmail'); 
             Route::post('/send','EmailController@sendCustomEmailToAll');
             Route::post('/test','EmailController@sendTestCustomEmail');

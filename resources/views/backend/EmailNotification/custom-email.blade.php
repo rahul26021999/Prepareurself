@@ -2,11 +2,16 @@
 @extends('backend.layouts.app')
 
 @section('headContent')
-<!-- summernote -->
-<link rel="stylesheet" href="{{ asset('AdminLTE/plugins/summernote/summernote-bs4.css')}}">
 
-<!-- iCheck for checkboxes and radio inputs -->
-<link rel="stylesheet" href="{{ asset('AdminLTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+<!-- DataTables -->
+<link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+
+<style>
+  .pointer{
+    cursor: pointer;
+  }
+</style>
 
 @endsection
 
@@ -14,51 +19,37 @@
 
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('AdminLTE/dist/js/demo.js')}}"></script>
-<!-- Summernote -->
-<script src="{{ asset('AdminLTE/plugins/summernote/summernote-bs4.min.js')}}"></script>
 
 <!-- jquery-validation -->
 <script src="{{ asset('AdminLTE/plugins/jquery-validation/jquery.validate.min.js')}}"></script>
 <script src="{{ asset('AdminLTE/plugins/jquery-validation/additional-methods.min.js')}}"></script>
 
-<!-- bs-custom-file-input -->
-<script src="{{ asset('AdminLTE/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
+<!-- DataTables -->
+<script src="{{ asset('AdminLTE/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{ asset('AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{ asset('AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{ asset('AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+
+<script>
+  $(function () {
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
 
 <script type="text/javascript">
 
-$(document).ready(function () {
-
-  bsCustomFileInput.init();
-  $('#createEmail').validate({
-    rules: {
-      subject: {
-        required: true
-      },
-      body:{
-        required:true
-      }
-    },
-    messages: {
-      subject: {
-        required: "Please enter a subject"
-      },
-      body: {
-        required: "Please enter a body"
-      }
-    },
-    errorElement: 'span',
-    errorPlacement: function (error, element) {
-      error.addClass('invalid-feedback');
-      element.closest('.form-group').append(error);
-    },
-    highlight: function (element, errorClass, validClass) {
-      $(element).addClass('is-invalid');
-    },
-    unhighlight: function (element, errorClass, validClass) {
-      $(element).removeClass('is-invalid');
-    }
+  $('.email-container').on('click',function(){
+      var id=$(this).data('id');
+      location.href='/admin/email/compose/'+id;
   });
-});
 
 
 </script>
@@ -89,35 +80,54 @@ $(document).ready(function () {
   <!-- Main content -->
   <section class="content">
     <div class="row">
-      <div class="col-sm-9">
+      <div class="col-sm-8">
         <form id="createEmail" method="post" action="/admin/email/send">
           @csrf
           <div class="card">
             <div class="card-body">
               <div class="form-group">
-                <input type="text" class="form-control" name="subject" placeholder="Subject Here..">
+                <input type="text" class="form-control" name="subject" placeholder="Subject Here.." required="required" value="{{$email['subject'] ?? ''}}">
               </div>
-              <textarea id="froala-editor" data-height=300px name="body"></textarea>
+              <textarea id="froala-editor" data-height=300px name="body" required="required">{{$email['body'] ?? ""}}</textarea>
             </div>   
             <div class="card-footer">
-              <button type="submit" formaction="/admin/email/test" class="btn btn-primary float-left">Test</button>
-              <button type="submit" class="btn btn-danger float-right">Send</button>
+              <button type="submit" formaction="/admin/email/test" class="btn btn-primary"><i class="far fa-envelope"></i> Test</button>
+              <button type="submit" formaction="/admin/email/save" class="btn btn-default"><i class="fas fa-pencil-alt"></i> Draft</button>
+              <button type="submit" class="btn btn-danger float-right"><i class="far fa-envelope"></i> Send</button>
             </div>     
           </div>
         </form>
       </div>
-      <div class="col-sm-3">
-        <form id="createEmail" method="post" action="/admin/notification/send">
-          @csrf
-          <div class="card card-outline card-primary">
-            <div class="card-header">
-              Previous Saved Emails
-            </div>
-            <div class="card-body">
-              
-            </div>   
+      <div class="col-sm-12" >
+        <div class="card card-outline card-primary">
+          <div class="card-header">
+            Previous Emails
           </div>
-        </form>
+          <div class="card-body">
+            <table id="example2" class="table table-hover">
+             <thead>
+                <tr>
+                  <th>Subject</th>
+                  <th>Type</th>
+                  <th>Created on</th>
+                </tr>
+                </thead>
+              <tbody>
+                @foreach($emails as $email)
+                <tr class="email-container pointer" data-id="{{$email['id']}}">
+                 <td>{{$email['subject']}}</td>
+                 @if($email['type']=='sent')
+                 <td><span class="badge badge-danger">{{$email['type']}}</span></td>
+                 @else
+                 <td><span class="badge badge-success">{{$email['type']}}</span></td>
+                 @endif
+                 <td>{{$email['created_at']}}</td>
+                </tr>
+                @endforeach      
+              </tbody>
+            </table>       
+          </div>   
+        </div>
       </div>
     </div>
   </section>
