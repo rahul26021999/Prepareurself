@@ -58,8 +58,9 @@ Route::name('admin.')->prefix('admin')->group(function () {
         });
 
         Route::prefix('users')->name('users.')->group(function(){
-            Route::get('all/{type?}','UserController@showAllUsers');
+            Route::get('all/{type?}','UserController@showAllUsers')->name('all');
             Route::get('show/{id}','UserController@showUser');
+            Route::post('delete','UserController@deleteUser');
         });
 
         Route::name('quiz.')->prefix('quiz')->group(function(){
