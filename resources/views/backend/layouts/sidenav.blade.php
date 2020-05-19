@@ -237,7 +237,7 @@
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
+              <i class="nav-icon fas fa-project-diagram"></i>
               <p>
                 Projects
                 <i class="fas fa-angle-left right"></i>
@@ -276,7 +276,7 @@
           </li>
           <li class="nav-item">
             <a href="/admin/notification/show" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="nav-icon fab fa-android"></i>
               <p>
                 Android Notification
               </p>
@@ -292,9 +292,17 @@
           </li>
            <li class="nav-item">
             <a href="/admin/gallery/show" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="nav-icon fas fa-images"></i>
               <p>
                 Gallery
+              </p>
+            </a>
+          </li>
+             <li class="nav-item">
+            <a href="/admin/users/feedback" class="nav-link">
+              <i class="nav-icon far fa-comment-dots"></i>
+              <p>
+                User Feedback
               </p>
             </a>
           </li>

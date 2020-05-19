@@ -45,18 +45,23 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
+    public function UserFeedback()
+    {
+        $this->hasMany('App\Models\UserFeedback');
+    }
+    
     public function getNameAttribute($value)
     {
        return ucfirst($this->first_name) . ' ' . ucfirst($this->last_name);
-   }
+    }
 
    public function getImageAttribute($value)
    {
-    if($this->profile_image!=null)
-        return url('/')."/uploads/users/".$this->profile_image;
-    else
-        return url('/')."/defaults/defaultImage.png";
-}
+        if($this->profile_image!=null)
+            return url('/')."/uploads/users/".$this->profile_image;
+        else
+            return url('/')."/defaults/defaultImage.png";
+    }
 
     /**
      * Determine if the user has verified their email address.

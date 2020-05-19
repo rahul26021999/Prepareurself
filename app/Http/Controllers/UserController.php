@@ -24,6 +24,11 @@ class UserController extends Controller
 		return view('backend.users.show',['users'=>$users]);
     }
 
+    public function showFeedback(Request $request)
+    {
+        $feedbacks=UserFeedback::all();
+        return view('backend.users.feedback',['feedbacks'=>$feedbacks]);
+    }
     public function deleteUser(Request $request)
     {
         $id=$request['id'];
