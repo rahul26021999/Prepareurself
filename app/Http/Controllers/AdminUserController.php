@@ -11,6 +11,7 @@ use Auth;
 use App\Models\Resource;
 use App\Models\Project;
 use App\Models\Job;
+use App\Models\UserFeedback;
 use App\Mail\RegisterSuccessful;
 use Illuminate\Support\Facades\Hash;
 use Exception;
@@ -27,6 +28,7 @@ class AdminUserController extends Controller
         $preferencedUsers=User::where('preferences','!=',null)->count();
         $notificationTokenFound=User::where('android_token','!=',null)->count();
         $jobCount=Job::all()->count();
+        $user_feedback=UserFeedback::all()->count();
 
 
         if($totalUser>0){
@@ -47,6 +49,7 @@ class AdminUserController extends Controller
             'token_user'=>$notificationTokenFound,
             'total_resources'=>$total_resources,
             'total_projects'=>$total_projects,
+            'user_feedback'=>$user_feedback,
             'JWTtoken'=>$token,
             'job_count'=>$jobCount
         ]);
