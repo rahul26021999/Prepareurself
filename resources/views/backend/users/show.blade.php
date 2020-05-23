@@ -80,7 +80,8 @@
                   <th>Name</th>
                   <th>Email</th>
                   <th>Status</th>
-                  <th>Verification</th>
+                  <th>Verified</th>
+                  <th>Mode</th>
                   <th>Action</th>
                 </tr>
                 </thead>
@@ -99,9 +100,16 @@
                   </td>
                   <td>
                     @if($user['email_verified_at']==null)
-                    <span class="right badge badge-danger">Not verified</span>
+                    <span class="right badge badge-danger">No</span>
                     @else
-                    <span class="right badge badge-success">verified</span>
+                    <span class="right badge badge-success">yes</span>
+                    @endif
+                  </td>
+                  <td>
+                    @if($user['google_id']==null)
+                    <span class="right badge badge-info">Email</span>
+                    @else
+                    <span class="right badge badge-success">Google</span>
                     @endif
                   </td>
                   <td></td>
