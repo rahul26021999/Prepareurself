@@ -60,6 +60,31 @@
       location.href='/admin/email/compose/'+id;
   });
 
+   $('#createEmail').validate({
+    rules: {
+      subject: {
+        required: true
+      },
+    },
+    messages: {
+      subject: {
+        required: "Please enter a subject"
+      }
+    },
+    errorElement: 'span',
+    errorPlacement: function (error, element) {
+      error.addClass('invalid-feedback');
+      element.closest('.form-group').append(error);
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass('is-invalid');
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).removeClass('is-invalid');
+    }
+  });
+
+
   $('.submitBtn').on('click',function(){
     
     var btn=$(this).data('value');
@@ -77,7 +102,14 @@
     $('#preview-email p[data-f-id="pbf"]').remove();
     $('#body').val($('#preview-email').html());
 
-    $('#confirmModal').modal();
+    if($('#createEmail').valid()){
+      if($('#preview-email').html()!=""){
+        $('#confirmModal').modal();
+      }else{
+        alert("Body can't be empty");
+      }
+    }
+    
 
   });
 
@@ -128,7 +160,7 @@
                 <input type="text" class="form-control" name="subject" placeholder="Subject Here.." required="required" value="{{$email['subject'] ?? ''}}">
               </div>
               <input type="hidden" name="body" id="body">
-              <textarea id="froala-editor" data-height=300px required="required">{{$email['body'] ?? ""}}</textarea>
+              <textarea id="froala-editor" data-height=300px name="description" required="required">{{$email['body'] ?? ""}}</textarea>
             </div>   
             <div class="card-footer">
               <button type="button" class="btn btn-primary submitBtn" data-value="test"><i class="far fa-envelope"></i> Test</button>
