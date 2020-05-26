@@ -67,4 +67,8 @@ class Admin extends Authenticatable
         Mail::to($this)->send(new PasswordChangedSuccessfull($this));
     }
 
+    public function Email()
+    {
+        return $this->hasMany('App\Models\Email');
+    }
 }

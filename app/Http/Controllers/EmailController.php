@@ -31,7 +31,7 @@ class EmailController extends Controller
 	public function createEmail(Request $request)
 	{
 		return Email::Create([
-			'type'=>$request->input('type','sent'),
+			'type'=>$request['type'],
 			'body'=>$request['body'],
 			'subject'=>$request['subject'],
 			'from'=>$request->input('from','noreply@prepareurself.in'),
@@ -49,6 +49,7 @@ class EmailController extends Controller
 						'admin_id'=>Auth::user()->id,
 					]);
 	}
+	
 	public function saveCustomEmail(Request $request)
 	{
 		if($request['type']=='draft'){
@@ -91,12 +92,21 @@ class EmailController extends Controller
 		foreach ($users as $user) {
             Mail::to($user)->send(new CustomEmail($user,$subject,$body));
 		}
-		$request['type']="sent";
+		$request['type']="test";
 		$request['to']=implode(",",$users->pluck('email')->toArray());
 		$email=$this->createEmail($request);
 		
 		Session::flash('success','Successfully send Email to all test users!');
         return redirect()->back();
+	}
+
+	public function deleteEmail(Request $request)
+	{
+		$id=$request['id'];
+		Email::find($id)->delete();
+
+		Session::flash('success',"Successfully deleted email");
+		return redirect()->back();
 	}
 
 }

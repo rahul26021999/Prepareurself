@@ -15,7 +15,7 @@ class CreateEmailsTable extends Migration
     {
         Schema::create('emails', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->enum('type',['sent','draft']);
+            $table->enum('type',['sent','draft','test']);
             $table->longText('body');
             $table->text('subject');
             $table->text('from');

@@ -152,6 +152,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
             Route::post('/save','EmailController@saveCustomEmail'); 
             Route::post('/send','EmailController@sendCustomEmailToAll');
             Route::post('/test','EmailController@sendTestCustomEmail');
+            Route::post('/delete','EmailController@deleteEmail');
         });
 
     });
