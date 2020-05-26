@@ -85,7 +85,7 @@ class EmailController extends Controller
 		$subject=$request['subject'];
 		$body=$request['body'];
 
-		$emails=array('rahul26021999@gmail.com','rahul9650ray@gmail.com','tanyagarg2509@gmail.com','rimjhimvaish@gmail.com');
+		$emails=array('rahul26021999@gmail.com','rahul9650ray@gmail.com','tanyagarg2509@gmail.com','rimjhimvaish@gmail.com','riyagoel192@gmail.com');
 		
 		$users = User::whereIn('email',$emails)->get();
 		foreach ($users as $user) {
