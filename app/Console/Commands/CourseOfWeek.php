@@ -66,7 +66,10 @@ class CourseOfWeek extends Command
                 // ->onQueue('course_of_week');
 
         // Mail::to($users)->queue($message);
-        Mail::to($users)->send(new CourseOfWeekMail($view));
         
+        foreach ($users as $user) {
+            Mail::to($user)->send(new CourseOfWeekMail($view));
+        }
+
     }
 }

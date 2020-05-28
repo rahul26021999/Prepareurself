@@ -221,7 +221,6 @@
       <tr>
         <td style="background:#f7f7f7;" align="left" valign="top" width="100%">
           <center>
-            <img class="force-width-gmail" src="http://s3.amazonaws.com/swu-filepicker/SBb2fQPrQ5ezxmqUTgCr_transparent.png" />
             <table style="background-color: transparent;" width="100%" cellspacing="0" cellpadding="0" bgcolor="#ffffff">
               <tbody>
                 <tr>
@@ -248,14 +247,18 @@
         </td>
       </tr>
       <tr>
-        <td style="background-color: #ffffff; border-top: 1px solid #e5e5e5; border-bottom: 1px solid #e5e5e5;" align="center" valign="top" width="100%"><center>
-          <table class="w320" width="600" cellspacing="0" cellpadding="0">
+        <td style="background-color: #f7f7f7; align="center" valign="top" width="100%"><center>
+          <table class="w320" width="700" style="background-color: #ffffff;" cellspacing="0" cellpadding="0">
             <tbody>
               <tr>
                 <td class="content-padding">
                   <table width="100%" cellspacing="0" cellpadding="0">
                     <tbody>
-                        `@yield('content')
+                        <tr>
+                          <td style="padding: 20px 20px 20px;">
+                              @yield('content') 
+                          </td>
+                        </tr>
                     </tbody>
                   </table>
                 </td>

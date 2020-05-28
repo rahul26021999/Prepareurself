@@ -32,6 +32,7 @@ class CourseOfWeekMail extends Mailable
     public function build()
     {
         return $this->subject('Weekly Updates')
+                    ->from('contact@prepareurself.in','Team Prepareurself')
                     ->view('emails.course.course_of_week');
     }
 }
