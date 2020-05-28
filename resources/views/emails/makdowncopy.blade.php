@@ -331,7 +331,7 @@ width: 100% !important;
 <tr>
 <td class="header">
 <a href="{{ $url ?? '' }}">
-Prepareurself
+{{ config('app.name') }}
 </a>
 </td>
 </tr>

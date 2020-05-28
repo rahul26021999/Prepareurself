@@ -38,6 +38,6 @@ class CustomEmail extends Mailable
     public function build()
     {
         return $this->subject($this->subject)
-                    ->markdown('emails.custom-email');
+                    ->view('emails.custom');
     }
 }
