@@ -130,8 +130,6 @@
 
         .body {
             background-color: #f8fafc;
-            border-bottom: 1px solid #edeff2;
-            border-top: 1px solid #edeff2;
             margin: 0;
             padding: 0;
             width: 100%;
@@ -344,18 +342,20 @@
 
                 <!-- Email Body -->
                 <tr>
-                    <td class="body" width="100%" cellpadding="0" cellspacing="0" style="background-color: #f8fafc;border-bottom: 1px solid #edeff2;border-top: 1px solid #edeff2;margin: 0;padding: 0;width: 100%;-premailer-cellpadding: 0;-premailer-cellspacing: 0;-premailer-width: 100%;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
+                    <td class="body" width="100%" cellpadding="0" cellspacing="0" style="background-color: #f8fafc;margin: 0;padding: 0;width: 100%;-premailer-cellpadding: 0;-premailer-cellspacing: 0;-premailer-width: 100%;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
             'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';box-sizing: border-box;">
-                        <table class="inner-body" align="center" width="570" cellpadding="0" cellspacing="0" role="presentation" style="background-color: #ffffff;margin: 0 auto;padding: 0px;width: 570px;-premailer-cellpadding: 0;-premailer-cellspacing: 0;-premailer-width: 570px;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
+                        <table class="inner-body" align="center" width="570" cellpadding="0" cellspacing="0" role="presentation" style="background-color: #f8dafc;margin: 0 auto;padding: 0px 10px;width: 570px;-premailer-cellpadding: 0;-premailer-cellspacing: 0;-premailer-width: 570px;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
             'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';box-sizing: border-box;">
                             <!-- Body content -->
-                            <tr>
-                                <td class="content-cell" style="padding: 35px;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
-            'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';box-sizing: border-box;">
-                                    @yield('content')
+                            <tbody style="background-color:#ffffff;">
+                                <tr>
+                                    <td class="content-cell" style="padding:20px 5px;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
+                'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';box-sizing: border-box;">
+                                        @yield('content')
 
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
                     </td>
                 </tr>
