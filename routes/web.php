@@ -26,8 +26,9 @@ Route::name('share.')->group(function () {
     Route::get('course/{id}','ShareController@shareCourse'); 
 });
 
-Route::get('ray','NotificationController@sendAndroidNotification');
-
+Route::get('template',function(){
+    return view('emails.course.course_of_week');
+});
 
 
 Route::get('resetPassword','AdminUserController@showResetPassword')->name('showResetPassword')->middleware('signed');
