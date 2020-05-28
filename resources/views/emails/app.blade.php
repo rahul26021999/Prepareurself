@@ -225,7 +225,7 @@
               <tbody>
                 <tr>
                   <td style="text-align: center; vertical-align: middle;" valign="top" width="100%" height="80"><center>
-                    <table class="w320" min-width="320" max-width="600" cellspacing="0" cellpadding="0">
+                    <table class="w320" style="max-width: 600px; min-width: 320px;" cellspacing="0" cellpadding="0">
                       <tbody>
                         <tr>
                           <td class="pull-left mobile-header-padding-left" style="vertical-align: middle;"><a href="https://play.google.com/store/apps/details?id=com.prepare.prepareurself"> <img src="{{ url('/defaults/logo/Prepareurself_color.png') }}" alt="logo" width="147" height="auto" /></a></td>
@@ -247,8 +247,8 @@
         </td>
       </tr>
       <tr>
-        <td style="background-color: #f7f7f7; align="center" valign="top" width="100%"><center>
-          <table class="w320" min-width="320" max-width="600" style="background-color: #ffffff;" cellspacing="0" cellpadding="0">
+        <td style="background-color: #f7f7f7;" align="center" valign="top" width="100%"><center>
+          <table class="w320" style="background-color: #ffffff; max-width: 600px; min-width: 320px;" cellspacing="0" cellpadding="0">
             <tbody>
               <tr>
                 <td class="content-padding">
@@ -271,7 +271,7 @@
       <tr>
         <td style="background-color: #f7f7f7; height: 100px;" align="center" valign="top" width="100%">
           <center>
-            <table class="w320" min-width="320" max-width="600" cellspacing="0" cellpadding="0">
+            <table class="w320" style="max-width: 600px; min-width: 320px;" cellspacing="0" cellpadding="0">
               <tbody>
                 <tr>
                   <td style="padding: 25px 0 25px;">
