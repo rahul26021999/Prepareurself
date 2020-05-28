@@ -12,7 +12,7 @@
 
 <br>
 
-<p><span style="font-size: 20px;"><img src="http://prepareurself.in/uploads/froalaImage/1590496386.jpeg" style="width: 350px; display: block; vertical-align: top; margin: 5px auto; text-align: center;"></span></p>
+<p><span style="font-size: 20px;"><img src="http://prepareurself.in/uploads/froalaImage/1590496386.jpeg" style="width: 280px; display: block; vertical-align: top; margin: 5px auto; text-align: center;"></span></p>
 <br>
 <p style="text-align: center;"><span style="font-size: 18px;"><strong>Prepareurself</strong> has managed to make your Quarantine productive by providing you weekly updates about the most viewed <strong>Tech-Stack</strong> by the users.</span></p>
 
