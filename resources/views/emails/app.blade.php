@@ -219,7 +219,7 @@
   <table class="container-for-gmail-android" width="100%" cellspacing="0" cellpadding="0" align="center">
     <tbody>
       <tr>
-        <td style="background: repeat-x url('http://s3.amazonaws.com/swu-filepicker/4E687TRe69Ld95IDWyEg_bg_top_02.jpg') #ffffff;" align="left" valign="top" width="100%">
+        <td style="background:#f7f7f7;" align="left" valign="top" width="100%">
           <center>
             <img class="force-width-gmail" src="http://s3.amazonaws.com/swu-filepicker/SBb2fQPrQ5ezxmqUTgCr_transparent.png" />
             <table style="background-color: transparent;" width="100%" cellspacing="0" cellpadding="0" bgcolor="#ffffff">
@@ -229,7 +229,7 @@
                     <table class="w320" width="600" cellspacing="0" cellpadding="0">
                       <tbody>
                         <tr>
-                          <td class="pull-left mobile-header-padding-left" style="vertical-align: middle;"><a> <img src="" alt="logo" width="137" height="47" /></a></td>
+                          <td class="pull-left mobile-header-padding-left" style="vertical-align: middle;"><a href="https://play.google.com/store/apps/details?id=com.prepare.prepareurself"> <img src="{{ url('/defaults/logo/Prepareurself_color.png') }}" alt="logo" width="147" height="auto" /></a></td>
                           <td class="pull-right mobile-header-padding-right" style="color: #4d4d4d;">
                             <a href="https://www.instagram.com/prepareurself.20/
 "><img src="{{url('/defaults/social/instagram_color.png')}}"  style="vertical-align: middle;" alt="instagram" width="44" height="47" /></a> 
