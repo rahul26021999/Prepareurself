@@ -1,4 +1,4 @@
-@extends('emails.app')
+@extends('emails.makdowncopy')
 
 @section('content')
 
