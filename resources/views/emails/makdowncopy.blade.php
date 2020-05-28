@@ -114,8 +114,7 @@
 
         .header {
             padding: 25px 0;
-            text-align: center;
-            background-color:blue;
+            text-align: center;            
         }
 
         .header a {
@@ -129,7 +128,7 @@
         /* Body */
 
         .body {
-            background-color: #ffffff;
+            background-color: #f8fafc;
             border-bottom: 1px solid #edeff2;
             border-top: 1px solid #edeff2;
             margin: 0;
