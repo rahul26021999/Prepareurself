@@ -52,7 +52,21 @@ class CourseOfWeek extends Command
 
         Log::info(print_r($views));
 
-        $users = User::where('email_verified_at','!=',null)->get();
-        Mail::to($users)->queue(new CourseOfWeekMail($views->views));
+        $emails=array('rahul26021999@gmail.com','rahul9650ray@gmail.com','tanyagarg2509@gmail.com','rimjhimvaish@gmail.com','riyagoel192@gmail.com');
+        
+        $users = User::whereIn('email',$emails)->get();
+
+        // $users = User::where('email_verified_at','!=',null)->get()->toArray();
+
+        Log::alert("Mail send to ".count($users)."Users");
+
+        $view=ceil($views->views / 10) * 10;
+
+        // $message = (new CourseOfWeekMail($view))
+                // ->onQueue('course_of_week');
+
+        // Mail::to($users)->queue($message);
+        Mail::to($users)->send(new CourseOfWeekMail($view));
+        
     }
 }

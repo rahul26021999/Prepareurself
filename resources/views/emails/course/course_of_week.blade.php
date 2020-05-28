@@ -8,7 +8,7 @@
 
 <p style="text-align: center;"><span style="color: rgb(41, 105, 176);"><strong><span style="font-size: 18px;"></strong></span><span style="color: rgb(226, 80, 65);"><strong><span style="font-size: 24px;">BOOM</span></strong></p>
 
-<p style="text-align: center;"><span style="color: rgb(41, 105, 176);"><span style="font-size: 12px; color: rgb(0, 0, 0);">Looks like students have chosen the skill for themselves. Checkout to see which course has made it to the top this week with&nbsp;</span><span style="font-size: 12px; color: rgb(97, 189, 109);"><strong>{{$views ?? '100+'}}</strong></span><span style="font-size: 12px; color: rgb(0, 0, 0);">&nbsp;views.</span></span></p>
+<p style="text-align: center;"><span style="color: rgb(41, 105, 176);"><span style="font-size: 12px; color: rgb(0, 0, 0);">Looks like students have chosen the skill for themselves. Checkout to see which course has made it to the top this week with&nbsp;</span><span style="font-size: 12px; color: rgb(97, 189, 109);"><strong>{{$views ?? '100'}}+</strong></span><span style="font-size: 12px; color: rgb(0, 0, 0);">&nbsp;views.</span></span></p>
 
 <p><img src="http://prepareurself.in/uploads/froalaImage/1590496386.jpeg" style="width: 300px; display: block; vertical-align: top; margin: 5px auto; text-align: center;"></p>
 
