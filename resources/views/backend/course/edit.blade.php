@@ -2,9 +2,6 @@
 @extends('backend.layouts.app')
 
 @section('headContent')
-<!-- summernote -->
-<link rel="stylesheet" href="{{ asset('AdminLTE/plugins/summernote/summernote-bs4.css')}}">
-
 <!-- iCheck for checkboxes and radio inputs -->
 <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
 
@@ -72,6 +69,8 @@
   }
 }
 </script>
+@include('backend.layouts.summerNoteEditor',['height'=>'200'])
+
 @endsection
 
 @section('content')
@@ -107,6 +106,12 @@
               <label>Name</label>
               <input type="text" name="name" value="{{$course['name']}}" class="form-control" placeholder="Enter ...">
             </div>
+             <div class="form-group">
+                <label>Description</label>
+                <textarea class="textarea" name="description" placeholder="Place some text here">{{$course['description']}}</textarea>
+              </div>
+          </div>
+          <div class="col-sm-6">
             <div class="form-group">
               <label for="exampleInputFile">Background Image</label>
               <div class="input-group">
@@ -121,8 +126,6 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="col-sm-6">
            <div class="text-center">
             <img src="{{url('/')}}/uploads/courses/{{$course['image_url']}}" id="showImage" alt="" width="auto" height="300">
           </div>

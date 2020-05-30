@@ -1,13 +1,15 @@
-
 @extends('backend.layouts.app')
 
 @section('headContent')
-
-<!-- summernote -->
-<link rel="stylesheet" href="{{ asset('AdminLTE/plugins/summernote/summernote-bs4.css')}}">
-
 <!-- iCheck for checkboxes and radio inputs -->
 <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+
+<style>
+  #playlist, #relatedBox{
+    display: none;
+  }
+</style>
+
 
 @endsection
 
@@ -16,23 +18,12 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('AdminLTE/dist/js/demo.js')}}"></script>
 
-<!-- Summernote -->
-<script src="{{ asset('AdminLTE/plugins/summernote/summernote-bs4.min.js')}}"></script>
-
 <!-- jquery-validation -->
 <script src="{{ asset('AdminLTE/plugins/jquery-validation/jquery.validate.min.js')}}"></script>
 <script src="{{ asset('AdminLTE/plugins/jquery-validation/additional-methods.min.js')}}"></script>
 
 <!-- bs-custom-file-input -->
 <script src="{{ asset('AdminLTE/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
-
-
-<script>
-  $(function () {
-    // Summernote
-    $('.textarea').summernote()
-  })
-</script>
 
 <script type="text/javascript">
 
@@ -163,13 +154,9 @@ function addInput(divName){
 }
 
 </script>
-<style>
-  
-  #playlist, #relatedBox{
-    display: none;
-  }
 
-</style>
+@include('backend.layouts.summerNoteEditor',['height'=>'250'])
+
 @endsection
 
 @section('content')
@@ -326,8 +313,7 @@ function addInput(divName){
             <div class="col-sm-6">
               <div class="form-group">
                 <label>Description</label>
-                <textarea class="textarea" name="description" placeholder="Place some text here"
-                          style="width: 100%; height:300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{$Project['description']}}</textarea>
+                <textarea class="textarea" name="description" placeholder="Place some text here">{{$Project['description']}}</textarea>
               </div>
               <div class="form-group">
                 <label for="exampleInputFile">Background Image</label>

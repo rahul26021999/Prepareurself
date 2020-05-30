@@ -71,6 +71,8 @@
   }
 }
 </script>
+@include('backend.layouts.summerNoteEditor',['height'=>'200'])
+
 @endsection
 
 @section('content')
@@ -107,6 +109,12 @@
                 <input type="text" name="name" class="form-control" placeholder="Enter ...">
               </div>
               <div class="form-group">
+                <label>Description</label>
+                <textarea class="textarea" name="description" placeholder="Place some text here"></textarea>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
                 <label for="exampleInputFile">Background Image</label>
                 <div class="input-group">
                   <div class="custom-file">
@@ -119,8 +127,6 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="col-sm-6">
               <div class="text-center">
                 <img src="/defaults/defaultImage.png" id="showImage" alt="Girl in a jacket" width="auto" height="300">
               </div>

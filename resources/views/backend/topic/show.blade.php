@@ -3,11 +3,8 @@
 
 @section('javascriptsContent')
 
-<!-- DataTables -->
-<script src="{{ asset('AdminLTE/plugins/datatables/jquery.dataTables.min.js')}}"></script>
-<script src="{{ asset('AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
-<script src="{{ asset('AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
-<script src="{{ asset('AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+@include('backend.layouts.datatables')
+
 <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -52,22 +49,6 @@
       publishCourse(id,status,this)
   });
 
-
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true,
-      "autoWidth": false,
-    });
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": true,
-      "searching": true,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
   $(".deleteButton").on('click',function() {
     var id=$(this).data('id');
     var title=$(this).data('name');
@@ -96,10 +77,6 @@
 @endsection
 
 @section('headContent')
-
-<!-- DataTables -->
-<link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-<link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
 
 <style type="text/css">
   .drop-placeholder {

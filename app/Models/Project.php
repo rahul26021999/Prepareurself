@@ -20,4 +20,8 @@ class Project extends Model
     {
         return $this->hasMany('App\Models\ResourceProjectViews','project_id');
     }
+    public function ProjectRelatedLinks()
+    {
+        return $this->hasMany('App\Models\ProjectRelatedLinks','project_id');
+    }
 }

@@ -25,6 +25,7 @@ class CourseController extends Controller
         $course=course::create([
           'name'=>$request['name'],
           'image_url'=>$fileName,
+          'description'=>$request['description']
         ]);
       }
       catch(Exception $e){
@@ -50,6 +51,7 @@ class CourseController extends Controller
               $course->image_url=$fileName;
             }
             $course->name=$request['name'];
+            $course->description=$request['description'];
             $course->save();
          }
          else{

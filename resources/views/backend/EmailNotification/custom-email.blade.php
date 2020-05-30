@@ -3,10 +3,6 @@
 
 @section('headContent')
 
-<!-- DataTables -->
-<link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-<link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
-
 <style>
   .pointer{
     cursor: pointer;
@@ -24,11 +20,7 @@
 <script src="{{ asset('AdminLTE/plugins/jquery-validation/jquery.validate.min.js')}}"></script>
 <script src="{{ asset('AdminLTE/plugins/jquery-validation/additional-methods.min.js')}}"></script>
 
-<!-- DataTables -->
-<script src="{{ asset('AdminLTE/plugins/datatables/jquery.dataTables.min.js')}}"></script>
-<script src="{{ asset('AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
-<script src="{{ asset('AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
-<script src="{{ asset('AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+@include('backend.layouts.datatables')
 
 <script>
 
@@ -40,17 +32,6 @@
     }
   });
 
-  $(function () {
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": true,
-      "searching": true,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
 </script>
 
 <script type="text/javascript">
@@ -118,9 +99,9 @@
   $('#continueSubmit').on('click',function(){
     $('#createEmail').submit();
   });
-
-
 </script>
+
+@include('backend.layouts.floaraEditor')
 
 @endsection
 

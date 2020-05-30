@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
 {
-    protected $fillable = ['name','image_url','sequence'];
+    protected $fillable = ['name','image_url','sequence','description'];
 
     // protected $appends = array('image');
 
