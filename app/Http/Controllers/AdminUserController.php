@@ -32,7 +32,7 @@ class AdminUserController extends Controller
 
 
         if($totalUser>0){
-            $firstUser=User::first();
+            $firstUser=User::where('email_verified_at','!=',null)->first();
             $token = JWTAuth::fromUser($firstUser);
         }
         else{
