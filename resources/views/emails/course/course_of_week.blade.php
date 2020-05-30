@@ -3,7 +3,7 @@
 @section('content')
 
 <br>
-<p style="text-align: center;"><span style="font-size: 16px;;">Hola Developers</span></p>
+<p style="text-align: center;"><span style="font-size: 16px;color: rgb(0,0,0);">Hola Developers 😎</span></p>
 
 <p style="text-align: center;"><span style="font-size: 16px;;"><span style="color: rgb(41, 105, 176);"><strong>Wanna know which course topped the to-do list this week?</strong></span></span></p>
 
