@@ -349,7 +349,7 @@
                             <!-- Body content -->
                             <tbody style="background-color:#ffffff;">
                                 <tr>
-                                    <td class="content-cell" style="padding:20px 5px;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
+                                    <td class="content-cell" style="padding:20px 15px;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
                 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';box-sizing: border-box;">
                                         @yield('content')
 
