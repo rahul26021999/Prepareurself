@@ -7,9 +7,9 @@
 
 <p style="text-align: center;"><span style="font-size: 16px;;"><span style="color: rgb(41, 105, 176);"><strong>Wanna know which course topped the to-do list this week?</strong></span></span></p>
 
-<p style="text-align: center; font-size: 16px;;"><span style="color: rgb(226, 80, 65);"><strong>BOOM</strong></span></p>
+<p style="text-align: center; font-size: 18px;"><span style="color: rgb(226, 80, 65);"><strong>&nbsp;💥 BOOM 💥&nbsp;</strong></span></p>
 
-<p style="text-align: center;"><span style="font-size: 16px;"><span style="color: rgb(41, 105, 176);"><span style="color: rgb(0, 0, 0);">Looks like students have chosen the skill for themselves. Checkout to see which course has made it to the top this week with &nbsp;</span><span style="color: rgb(97, 189, 109);"><strong>100+&nbsp;</strong></span><span style="color: rgb(0, 0, 0);">&nbsp;views.</span></span></span></p>
+<p style="text-align: center;"><span style="font-size: 16px;"><span style="color: rgb(41, 105, 176);"><span style="color: rgb(0, 0, 0);">Looks like students have chosen the skill for themselves. Checkout to see which course has made it to the top this week with &nbsp;</span><span style="color: rgb(97, 189, 109);"><strong>{{ $views ?? '100' }}+ </strong></span><span style="color: rgb(0, 0, 0);">&nbsp;views.</span></span></span></p>
 
 <br>
 

@@ -82,6 +82,7 @@ to get the desired effect
       height: $('textarea#froala-editor').data('height'),
     
       useClasses:false,
+      emoticonsUseImage: false,
 
       // Set the image upload parameter.
       imageUploadParam: 'file',
