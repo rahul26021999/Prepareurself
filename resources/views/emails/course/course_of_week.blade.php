@@ -13,7 +13,7 @@
 
 <br>
 
-<p><span style="font-size: 16px;;"><img src="http://prepareurself.in/uploads/froalaImage/1590496386.jpeg" style="width: 280px; display: block; vertical-align: top; margin: 5px auto; text-align: center;"></span></p>
+<p><span style="font-size: 16px;;"><a href="{{ config('app.url') }}"><img src="http://prepareurself.in/uploads/froalaImage/1590945193.png" style="width: 280px; display: block; vertical-align: top; margin: 5px auto; text-align: center;"></a></span></p>
 <br>
 <p style="text-align: center;"><span style="font-size: 16px;"><strong>Prepareurself</strong> has managed to make your Quarantine productive by providing you weekly updates about the most viewed <strong>Tech-Stack</strong> by the users.</span></p>
 

@@ -50,22 +50,13 @@ class CourseOfWeek extends Command
                      ->orderBy('views','desc')
                      ->first();
 
-        Log::info(print_r($views));
+        Log::info(print_r($views)); 
 
-        $emails=array('rahul26021999@gmail.com','rahul9650ray@gmail.com','tanyagarg2509@gmail.com','rimjhimvaish@gmail.com','riyagoel192@gmail.com');
-        
-        $users = User::whereIn('email',$emails)->get();
-
-        // $users = User::where('email_verified_at','!=',null)->get()->toArray();
+        $users = User::where('email_verified_at','!=',null)->get();
 
         Log::alert("Mail send to ".count($users)."Users");
 
         $view=ceil($views->views / 10) * 10;
-
-        // $message = (new CourseOfWeekMail($view))
-                // ->onQueue('course_of_week');
-
-        // Mail::to($users)->queue($message);
         
         foreach ($users as $user) {
             Mail::to($user)->send(new CourseOfWeekMail($view));
