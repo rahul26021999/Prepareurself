@@ -650,6 +650,49 @@
                 }
             }
         },
+        "/api/rate-course": {
+            "post": {
+                "tags": [
+                    "Courses"
+                ],
+                "description": "Rate Course by user or update rating on course by user",
+                "operationId": "App\\Http\\Controllers\\UserAccountController::rateCourse",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "course_id",
+                        "in": "query",
+                        "description": "User Preferences Please enter only integers",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "rating",
+                        "in": "query",
+                        "description": "rating on course Only intergers allowed 1,2,3,4,5",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{[error_code=>0,msg=>'Thanks for rating']}"
+                    }
+                }
+            }
+        },
         "/api/register": {
             "post": {
                 "tags": [
