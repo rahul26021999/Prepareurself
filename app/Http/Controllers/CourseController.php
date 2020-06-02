@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Course;
+use App\Models\CourseReviews;
+use App\Models\UserPreferences;
 use App\Exception;
+use JWTAuth;
 use Log;
 use Session;
 
@@ -100,7 +103,6 @@ class CourseController extends Controller
    }
 
 
-
 /**
    * @OA\Post(
    *     path="/api/get-courses",
@@ -123,8 +125,8 @@ class CourseController extends Controller
    * )
    */
    public function wsGetAllCourses(Request $request){
-    $courses=Course::where('status','publish')->get();
-    return response()->json(['error_code'=>0,'courses'=>$courses]);
+      $courses=Course::where('status','publish')->get();
+      return response()->json(['error_code'=>0,'courses'=>$courses]);
    }
 
    /**
@@ -164,4 +166,50 @@ class CourseController extends Controller
 
    }
 
+  /**
+   * @OA\Post(
+   *     path="/api/course",
+   *     tags={"Courses"},
+   *     description="Get a courses data",
+   *     @OA\Parameter(
+   *          name="token",
+   *          in="query",
+   *          description="token",
+   *          required=true,
+   *          @OA\Schema(
+   *              type="string"
+   *          )
+   *      ),
+   *     @OA\Parameter(
+   *          name="course_id",
+   *          in="query",
+   *          description="Course_id of a course",
+   *          required=true,
+   *          @OA\Schema(
+   *              type="integer"
+   *          )
+   *      ),
+   *     @OA\Response(
+   *          response=200,
+   *      description="{[error_code=>0,msg=>'success']}"
+   *     )
+   * )
+   */
+
+    public function wsGetCourse(Request $request){
+
+      $id=$request['course_id'];
+      $user=JWTAuth::user();
+      $course=Course::find($id);
+      $courseReview=CourseReviews::where(['user_id'=>$user->id,'course_id'=>$id])->pluck('rating')->first();
+      $user_preference=UserPreferences::where(['user_id'=>$user->id,'course_id'=>$id])->exists();
+
+      return response()->json([
+        'error_code'=>0,
+        'course'=>$course,
+        'rating'=>$courseReview,
+        'preference'=>$user_preference
+      ]);
+
+   }
 }

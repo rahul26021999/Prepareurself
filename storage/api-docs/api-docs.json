@@ -88,6 +88,40 @@
                 }
             }
         },
+        "/api/course": {
+            "post": {
+                "tags": [
+                    "Courses"
+                ],
+                "description": "Get a courses data",
+                "operationId": "App\\Http\\Controllers\\CourseController::wsGetCourse",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "course_id",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{[error_code=>0,msg=>'success']}"
+                    }
+                }
+            }
+        },
         "/api/get-projects": {
             "post": {
                 "tags": [

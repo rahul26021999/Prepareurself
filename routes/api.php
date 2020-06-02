@@ -20,6 +20,7 @@ Route::post('forget-password', 'UserAuthController@forgetPassword');
 Route::post('resend-verification-mail', 'UserAuthController@wsResendVerificationMail');
 
 Route::middleware(['auth.jwt','verify'])->group(function () {
+
 	Route::post('user','UserAuthController@getUser');
 	Route::post('update-user', 'UserAuthController@updateUserData');
 	Route::post('check-username', 'UserAuthController@checkUserName');
@@ -45,6 +46,8 @@ Route::middleware(['auth.jwt','verify'])->group(function () {
 	Route::post('search-without-pagination' , 'SearchController@searchWithOutPagination');
 	Route::post('update-user-preferences','UserAccountController@updateUserPreferences');
 	Route::post('rate-course','UserAccountController@rateCourse');
+
+	Route::post('course', 'CourseController@wsGetCourse');
 
 });
 
