@@ -613,6 +613,43 @@
                 }
             }
         },
+        "/api/update-user-preferences": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "description": "Update user preferences",
+                "operationId": "App\\Http\\Controllers\\UserAccountController::updateUserPreferences",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "preferences[]",
+                        "in": "query",
+                        "description": "User Preferences Please enter only integers",
+                        "required": false,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{[error_code=>0,msg=>'Update preferences Successfully Done']}"
+                    }
+                }
+            }
+        },
         "/api/register": {
             "post": {
                 "tags": [
