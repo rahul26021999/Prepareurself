@@ -3,41 +3,14 @@
 
 @section('javascriptsContent')
 
-<!-- DataTables -->
-<script src="{{ asset('AdminLTE/plugins/datatables/jquery.dataTables.min.js')}}"></script>
-<script src="{{ asset('AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
-<script src="{{ asset('AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
-<script src="{{ asset('AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+@include('backend.layouts.datatables')
 
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('AdminLTE/dist/js/demo.js')}}"></script>
-<!-- page script -->
-<script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true,
-      "autoWidth": false,
-    });
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
-</script>
 
 @endsection
 
 @section('headContent')
-  
-  <!-- DataTables -->
-  <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
-  
   
 @endsection
 
@@ -67,9 +40,9 @@
     <section class="content">
       <div class="row">
         <div class="col-12">
-          <div class="card">
+          <div class="card card-outline card-primary">
             <div class="card-header">
-              <h3 class="card-title">DataTable with minimal features & hover style</h3>
+              <h3 class="card-title">All Question</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -79,7 +52,7 @@
                   <th>Id</th>
                   <th>Question</th>
                   <th>Level</th>
-                  <th>Type</th>
+                  <th>Course</th>
                   <th>Action</th>
                 </tr>
                 </thead>
@@ -95,7 +68,7 @@
                       @else
                       <td><span class="right badge badge-danger">Hard</span></td>
                       @endif                      
-                      <td>{{$question['ques_type']}}</td>
+                      <td>{{$question->Course->name}}</td>
                       <td><a href ="/admin/question/edit/{{$question['id']}}" class="mr-3"><i class="far fa-edit text-info"></i></a><a href ="" ><i class="far fa-trash-alt text-danger"></i></a></td>
                     </tr>
                   @endforeach

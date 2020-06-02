@@ -22,6 +22,10 @@ class Course extends Model
     {
         return $this->hasMany('App\Models\Projects');
     }
+    public function Question()
+    {
+        return $this->hasMany('App\Models\Question');
+    }
     
     // public function getImageAttribute()
     // {

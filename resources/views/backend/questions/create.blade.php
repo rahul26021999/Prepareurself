@@ -62,17 +62,6 @@
       }
     });
 
-    $('#addTypeBtn').click(function(){
-        var val=$('#newType').val();
-        if(val!='')
-        {
-          $('#quesType').append(`<option value="${val}" selected>${val}</option>`); 
-          $('#newType').val('');
-        }
-        else{
-          alert("Question Type Can't be Empty");
-        }
-    });
   });
 </script>
 
@@ -145,7 +134,7 @@
             <div class="col-sm-6">
               <label>Level</label>
               <div class="form-group">
-                <div class="icheck-primary d-inline">
+                <div class="icheck-success d-inline">
                   <input type="radio" id="radioPrimary1" checked value="easy" name="level">
                   <label for="radioPrimary1">
                     Easy
@@ -157,7 +146,7 @@
                     Medium
                   </label>
                 </div>
-                <div class="icheck-primary d-inline">
+                <div class="icheck-danger d-inline">
                   <input type="radio" id="radioPrimary3" value="hard" name="level">
                   <label for="radioPrimary3">
                     Hard
@@ -178,26 +167,12 @@
             </div>
             <div class="col-sm-6">
               <div class="form-group">
-                <label>Select Question Type</label>
-                <select name="type" id="quesType" class="form-control">
-                  @isset($quesType)
-                  @foreach ($quesType as $type)
-                    <option value="{{ $type }}" selected>{{ $type }}</option>
+                <label>Select Course Type</label>
+                <select name="course_id" class="form-control">
+                  @foreach ($courses as $course)
+                    <option value="{{ $course->id }}">{{ $course->name }}</option>
                   @endforeach
-                  @endisset
                 </select>
-              </div>
-            </div>
-
-            <div class="col-sm-6">
-              <div class="form-group">
-                <label>Add New Question Type</label>
-                 <div class="input-group">
-                  <input type="text" id="newType" class="form-control">
-                  <span class="input-group-append">
-                    <button type="button" id="addTypeBtn" class="btn btn-info btn-flat">Add</button>
-                  </span>
-                </div>
               </div>
             </div>
           </div>

@@ -65,17 +65,6 @@
       }
     });
 
-    $('#addTypeBtn').click(function(){
-        var val=$('#newType').val();
-        if(val!='')
-        {
-          $('#quesType').append(`<option value="${val}" selected>${val}</option>`); 
-          $('#newType').val('');
-        }
-        else{
-          alert("Question Type Can't be Empty");
-        }
-    });
   });
 </script>
 
@@ -194,32 +183,22 @@
                 </select>
               </div>
             </div>
+
             <div class="col-sm-6">
               <div class="form-group">
-                <label>Select Question Type</label>
-                <select name="type" id="quesType" class="form-control">
-                  @foreach ($quesType as $type)
-                    @if($question['ques_type']===$type)
-                    <option value="{{ $type }}" selected>{{ $type }}</option>
+                <label>Select Course Type</label>
+                <select name="course_id" class="form-control">
+                  @foreach ($courses as $course)
+                    @if($course->id==$question['course_id'])
+                    <option value="{{$course->id}}"selected>{{ $course->name }}</option>
                     @else
-                    <option value="{{ $type }}">{{ $type }}</option>
+                    <option value="{{$course->id}}">{{$course->name}}</option>
                     @endif
                   @endforeach
                 </select>
               </div>
             </div>
 
-            <div class="col-sm-6">
-              <div class="form-group">
-                <label>Add New Question Type</label>
-                 <div class="input-group">
-                  <input type="text" id="newType" class="form-control">
-                  <span class="input-group-append">
-                    <button type="button" id="addTypeBtn" class="btn btn-info btn-flat">Add</button>
-                  </span>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
         <div class="card-footer">

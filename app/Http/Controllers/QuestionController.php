@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Log;
 use App\Models\Question;
+use JWTAuth;
+use App\Models\Course;
 use App\Exception;
 
 class QuestionController extends Controller
@@ -12,8 +14,8 @@ class QuestionController extends Controller
 
    public function showCreateQuestion()
    {
-        $type=Question::distinct('ques_type')->pluck('ques_type')->toArray();
-        return view('backend.questions.create',['quesType' => $type]);
+        $courses=Course::get();
+        return view('backend.questions.create',['courses' => $courses]);
    }
    public function createQuestion(Request $request)
    {
@@ -26,7 +28,8 @@ class QuestionController extends Controller
           'option4'=>$request['option4'],
           'answer'=>$request['answer'],
           'ques_level'=>$request['level'],
-          'ques_type'=>$request['type']
+          'course_id'=>$request['course_id'],
+          'admin_id'=>JWTAuth::user()->id,
         ]);
       }
       catch(Exception $e){
@@ -37,8 +40,8 @@ class QuestionController extends Controller
    public function showEditQuestion($id)
    {
       $question=Question::find($id);
-      $type=Question::distinct('ques_type')->pluck('ques_type')->toArray();
-      return view('backend.questions.edit',['question'=>$question,'quesType'=>$type]);
+      $courses=Course::get();
+      return view('backend.questions.edit',['question'=>$question,'courses'=>$courses]);
    }
    public function saveEditQuestion(Request $request, $id)
    {
@@ -48,12 +51,13 @@ class QuestionController extends Controller
          {
             $ques->question=$request['question'];
             $ques->answer=$request['answer'];
-            $ques->ques_type=$request['type'];
+            $ques->course_id=$request['course_id'];
             $ques->ques_level=$request['level'];
             $ques->option1=$request['option1'];
             $ques->option2=$request['option2'];
             $ques->option3=$request['option3'];
             $ques->option4=$request['option4'];
+            $ques->admin_id=JWTAuth::user()->id;
             $ques->save();
          }
          else{
@@ -65,9 +69,14 @@ class QuestionController extends Controller
       }
       return redirect('admin/question/all');
    }
-   public function showAllQuestion($type='all')
+   public function showAllQuestion($type="")
    {
-      $question=Question::all();
+      if($type==""){
+        $question=Question::all();
+      }
+      else{
+        $question=Question::where('ques_level',$type)->get();
+      }
       return view('backend.questions.show',['questions'=>$question]);
    }
 }
