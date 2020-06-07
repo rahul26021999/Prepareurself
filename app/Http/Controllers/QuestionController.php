@@ -79,4 +79,59 @@ class QuestionController extends Controller
       }
       return view('backend.questions.show',['questions'=>$question]);
    }
+
+    /**
+   * @OA\Post(
+   *     path="/api/get-quiz",
+   *     tags={"Quiz"},
+   *     description="Get a Quiz for a particular user for a particular course",
+   *     @OA\Parameter(
+   *          name="token",
+   *          in="query",
+   *          description="token",
+   *          required=true,
+   *          @OA\Schema(
+   *              type="string"
+   *          )
+   *      ),
+   *     @OA\Parameter(
+   *          name="course_id",
+   *          in="query",
+   *          description="Course id for a particular course",
+   *          required=true,
+   *          @OA\Schema(
+   *              type="integer"
+   *          )
+   *      ),
+   *     @OA\Parameter(
+   *          name="level",
+   *          in="query",
+   *          description="easy|medium|hard",
+   *          required=true,
+   *          @OA\Schema(
+   *              type="string"
+   *          )
+   *      ),
+   *     @OA\Response(
+   *          response=200,
+   *      description="{[error_code=>0,msg=>'success']}"
+   *     )
+   * )
+   */
+
+   public function getQuiz(Request $request)
+   {
+      $level=$request['level'];
+      $course_id=$request['course_id'];
+      $user=JWTAuth::user();
+      
+      // TODO:Excude previous attempted questions
+
+      $questions=Question::where(['course_id'=>$course_id,'ques_level'=>$level])->inRandomOrder()->limit(10)->get();
+
+      return response()->json([
+        'error_code'=>0,
+        'questions'=>$questions
+      ]);
+   }
 }

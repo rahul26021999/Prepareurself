@@ -48,6 +48,10 @@ Route::middleware(['auth.jwt','verify'])->group(function () {
 	Route::post('rate-course','UserAccountController@rateCourse');
 
 	Route::post('course', 'CourseController@wsGetCourse');
+	Route::post('add-to-user-preferences','UserAccountController@addToUserPreferences');
+	Route::post('get-user-preferences','UserAccountController@listUserPreferences');
+
+	Route::post('get-quiz','QuestionController@getQuiz');
 
 });
 

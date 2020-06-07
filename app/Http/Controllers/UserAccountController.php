@@ -134,4 +134,103 @@ class UserAccountController extends Controller
     	
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/add-to-user-preferences",
+     *     tags={"User"},
+     *     description="Add Course to user preferences",
+     *     @OA\Parameter(
+     *          name="token",
+     *          in="query",
+     *          description="token",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *     @OA\Parameter(
+     *          name="course_id",
+     *          in="query",
+     *          description="Course id for the preference",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer",     
+     *          )
+     *      ),
+     *     @OA\Parameter(
+     *          name="type",
+     *          in="query",
+     *          description="type: 1 to add and 0 to remove ",
+     *          required=false,
+     *          @OA\Schema(
+     *              type="integer",
+     *          )
+     *      ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="{[error_code=>0,msg=>'Update preferences Successfully Done']}"
+     *     )
+     * )
+     */
+    public function addToUserPreferences(Request $request)
+    {
+        $user=JWTAuth::user();
+        if($request->filled('course_id'))
+        {
+            if($request['type']=='1')
+            {
+                UserPreferences::updateOrCreate([
+                    'user_id'=>$user->id,
+                    'course_id'=>$request['course_id']
+                ]);
+                return response()->json([
+                    'error_code'=>0,
+                    "message"=>'Successfully added to User Prefrences'
+                ]);
+            }
+            else
+            {
+                UserPreferences::where(['user_id'=>$user->id,'course_id'=>$request['course_id']])->delete();
+                return response()->json([
+                    'error_code'=>0,
+                    "message"=>'Successfully removed from User Prefrences'
+                ]);
+            }
+        }
+        else{
+            return response()->json([
+                'error_code'=>1,
+                'message'=>"Course id is compulsory"
+            ]);
+        }
+    }
+    /**
+     * @OA\Post(
+     *     path="/api/get-user-preferences",
+     *     tags={"User"},
+     *     description="get user preferences",
+     *     @OA\Parameter(
+     *          name="token",
+     *          in="query",
+     *          description="token",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="{[error_code=>0,msg=>'Update preferences Successfully Done']}"
+     *     )
+     * )
+     */
+    public function listUserPreferences(Request $request)
+    {
+        $user_preferences=UserPreferences::where('user_id',JWTAuth::user()->id)->get();
+        return response()->json([
+            'error_code'=>0,
+            'user_preferences'=>$user_preferences
+        ]);
+    }
+
 }

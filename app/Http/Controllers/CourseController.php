@@ -202,11 +202,19 @@ class CourseController extends Controller
       $user=JWTAuth::user();
       $course=Course::find($id);
       $courseReview=CourseReviews::where(['user_id'=>$user->id,'course_id'=>$id])->pluck('rating')->first();
+      if($courseReview==null)
+        $courseReview=0;
+
+      $topic_count=Topic::where('course_id',$id)->count();
+      $project_count=Project::where('course_id',$id)->count();
+      
       $user_preference=UserPreferences::where(['user_id'=>$user->id,'course_id'=>$id])->exists();
 
       return response()->json([
         'error_code'=>0,
         'course'=>$course,
+        'topic_count'=>$topic_count,
+        'project_count'=>$project_count,
         'rating'=>$courseReview,
         'preference'=>$user_preference
       ]);

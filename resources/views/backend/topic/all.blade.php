@@ -43,9 +43,9 @@
     <section class="content">
       <div class="row">
         <div class="col-12">
-          <div class="card">
+          <div class="card card-primary card-outline">
             <div class="card-header">
-              <a href="/admin/topic/create/"class="btn btn-success float-right">New</a>
+              <a href="/admin/topic/create/"class="btn btn-success">New</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
