@@ -26,6 +26,10 @@ class Course extends Model
     {
         return $this->hasMany('App\Models\Question');
     }
+    public function UserPreferences()
+    {
+        return $this->hasMany('App\Models\UserPreferences');
+    }
     
     // public function getImageAttribute()
     // {

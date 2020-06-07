@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Models\UserPreferences;
+use App\Models\Course;
 use App\Models\CourseReviews;
 use JWTAuth;
 
@@ -226,10 +227,13 @@ class UserAccountController extends Controller
      */
     public function listUserPreferences(Request $request)
     {
-        $user_preferences=UserPreferences::where('user_id',JWTAuth::user()->id)->get();
+        $user_preferences=Course::whereHas('UserPreferences',function($query){
+            return $query->where('user_id',JWTAuth::user()->id);
+        })->get(['name','id']);
+
         return response()->json([
             'error_code'=>0,
-            'user_preferences'=>$user_preferences
+            'preferences'=>$user_preferences
         ]);
     }
 
