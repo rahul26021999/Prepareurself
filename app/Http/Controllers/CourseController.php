@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Course;
+use App\Models\CourseTopic;
 use App\Models\CourseReviews;
+use App\Models\Project;
 use App\Models\UserPreferences;
 use App\Exception;
 use JWTAuth;
@@ -205,7 +207,7 @@ class CourseController extends Controller
       if($courseReview==null)
         $courseReview=0;
 
-      $topic_count=Topic::where('course_id',$id)->count();
+      $topic_count=CourseTopic::where('course_id',$id)->count();
       $project_count=Project::where('course_id',$id)->count();
       
       $user_preference=UserPreferences::where(['user_id'=>$user->id,'course_id'=>$id])->exists();
