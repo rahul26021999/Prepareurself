@@ -165,13 +165,13 @@
               <div class="form-group">
                 <label>Answer</label>
                 <select name="answer" class="form-control">
-                  @for ($i=1;$i<=4;$i++)
-                    @if($question['answer']===$i)
-                    <option value="{{$i}}"selected>option {{$i}}</option>
+                  @foreach ($question->Option as $index=>$option)
+                    @if($question->Answer->option_id== $option->id)
+                    <option value="{{$index+1}}"selected>option {{$index+1}}</option>
                     @else
-                    <option value="{{$i}}">option {{$i}}</option>
+                    <option value="{{$index+1}}">option {{$index+1}}</option>
                     @endif
-                  @endfor
+                  @endforeach
                 </select>
               </div>
             </div>

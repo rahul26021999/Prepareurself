@@ -17,7 +17,6 @@ class CreateQuestionsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('course_id');
             $table->longText('question');
-            $table->integer('answer');
             $table->enum('ques_level', ['easy','medium','hard'])->nullable();    
             $table->unsignedBigInteger('admin_id');
             $table->timestamps();

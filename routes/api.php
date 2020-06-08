@@ -51,7 +51,8 @@ Route::middleware(['auth.jwt','verify'])->group(function () {
 	Route::post('add-to-user-preferences','UserAccountController@addToUserPreferences');
 	Route::post('get-user-preferences','UserAccountController@listUserPreferences');
 
-	Route::post('get-quiz','QuestionController@getQuiz');
+	Route::post('get-course-quiz','CourseQuizController@getCourseQuiz');
+	Route::post('save-course-quiz-response','CourseQuizController@saveCourseQuizResponse');
 
 });
 

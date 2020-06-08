@@ -17,7 +17,7 @@ class CreateUserCourseQuizzesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('course_id');
-            $table->enum('status',['complete','incomplete','unattempted']);
+            $table->enum('status',['complete','incomplete','unattempted'])->default('unattempted');
             $table->timestamps();
         });
     }

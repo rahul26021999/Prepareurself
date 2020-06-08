@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Question extends Model
 {
     protected $fillable = [
-        'question','answer','ques_level','course_id','admin_id'
+        'question','ques_level','course_id','admin_id'
     ];
 
 
@@ -24,6 +24,11 @@ class Question extends Model
     public function UserCourseQuizResponse()
     {
         return $this->hasMany('App\Models\UserCourseQuizResponse');
+    }
+
+    public function Answer()
+    {
+        return $this->hasOne('App\Models\Answer');
     }
 
     public function Course()
