@@ -40,6 +40,12 @@
         option2:{
           required:true
         },
+        option3:{
+          required:true
+        },
+        option4:{
+          required:true
+        },
         level:{
           required:true
         },
@@ -110,30 +116,16 @@
                 <textarea name="question" class="form-control" rows="3" placeholder="Enter ...">{{ $question['question'] }}</textarea>
               </div>
             </div>
+
+            @foreach ($question->Option as $index=>$option)
             <div class="col-sm-6">
               <div class="form-group">
-                <label>Option 1</label>
-                <input type="text" name="option1" value="{{$question['option1']}}" class="form-control" placeholder="Enter ...">
+                <label>Option {{$index+1}}</label>
+                <input type="text" name="option{{$index+1}}" value="{{$option['option']}}" class="form-control" placeholder="Enter ...">
               </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="form-group">
-                <label>Option 2</label>
-                <input type="text" name="option2" value="{{$question['option2']}}" class="form-control" placeholder="Enter ...">
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="form-group">
-                <label>Option 3</label>
-                <input type="text" name="option3" value="{{$question['option3']}}" class="form-control" placeholder="Enter ...">
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="form-group">
-                <label>Option 4</label>
-                <input type="text" name="option4" value="{{$question['option4']}}" class="form-control" placeholder="Enter ...">
-              </div>
-            </div>
+            </div>  
+            @endforeach
+            
             <div class="col-sm-6">
               <label>Level</label>
               <div class="form-group">

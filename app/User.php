@@ -47,7 +47,12 @@ class User extends Authenticatable implements JWTSubject
 
     public function UserFeedback()
     {
-        $this->hasMany('App\Models\UserFeedback');
+        return $this->hasMany('App\Models\UserFeedback');
+    }
+
+    public function UserCourseQuizResponse()
+    {
+        return $this->hasMany('App\Models\UserCourseQuizResponse');
     }
     
     public function getNameAttribute($value)

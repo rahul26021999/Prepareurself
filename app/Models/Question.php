@@ -7,12 +7,23 @@ use Illuminate\Database\Eloquent\Model;
 class Question extends Model
 {
     protected $fillable = [
-        'question','option1', 'option2', 'option3','option4','answer','ques_type','ques_level','course_id','admin_id'
+        'question','answer','ques_level','course_id','admin_id'
     ];
 
-    public function liveQuizQues()
+
+    public function Admin()
     {
-        return $this->hasMany('App\Models\LiveQuizQues');
+        return $this->belongsTo('App\Admin');
+    }
+
+    public function Option()
+    {
+        return $this->hasMany('App\Models\Option');
+    }
+
+    public function UserCourseQuizResponse()
+    {
+        return $this->hasMany('App\Models\UserCourseQuizResponse');
     }
 
     public function Course()

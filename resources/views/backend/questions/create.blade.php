@@ -34,11 +34,17 @@
         question: {
           required: true
         },
-        option1:{
-          required:true
+        "option1":{
+          required:true,
         },
-        option2:{
-          required:true
+        "option2":{
+          required:true,
+        },
+        "option3":{
+          required:true,
+        },
+        "option4":{
+          required:true,
         },
         level:{
           required:true

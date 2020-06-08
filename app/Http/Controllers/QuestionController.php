@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Log;
 use App\Models\Question;
+use App\Models\Option;
 use JWTAuth;
 use App\Models\Course;
 use App\Exception;
@@ -20,17 +21,24 @@ class QuestionController extends Controller
    public function createQuestion(Request $request)
    {
       try{
+        
         $ques=Question::create([
           'question'=>$request['question'],
-          'option1'=>$request['option1'],
-          'option2'=>$request['option2'],
-          'option3'=>$request['option3'],
-          'option4'=>$request['option4'],
           'answer'=>$request['answer'],
           'ques_level'=>$request['level'],
           'course_id'=>$request['course_id'],
           'admin_id'=>JWTAuth::user()->id,
-        ]);
+        ])->fresh();
+
+        for ($i=1; $i<=4; $i++) 
+        { 
+          if(isset($request['option'.$i])){
+            Option::create([
+              'option'=>$request['option'.$i],
+              'question_id'=>$ques->id,
+            ]);      
+          }
+        }
       }
       catch(Exception $e){
           Log::error("Error in creating question ".$e);          
@@ -48,15 +56,11 @@ class QuestionController extends Controller
       try{
          $ques=Question::find($id);
          if($ques!=null)
-         {
+          {
             $ques->question=$request['question'];
             $ques->answer=$request['answer'];
             $ques->course_id=$request['course_id'];
             $ques->ques_level=$request['level'];
-            $ques->option1=$request['option1'];
-            $ques->option2=$request['option2'];
-            $ques->option3=$request['option3'];
-            $ques->option4=$request['option4'];
             $ques->admin_id=JWTAuth::user()->id;
             $ques->save();
          }
@@ -126,8 +130,17 @@ class QuestionController extends Controller
       $user=JWTAuth::user();
       
       // TODO:Excude previous attempted questions
-
       $questions=Question::where(['course_id'=>$course_id,'ques_level'=>$level])->inRandomOrder()->limit(10)->get();
+
+      quiztable=>>one=>satus('Ongoing','');
+      ques_question_response=>quiz_id=>ques_id=>user_id=>response(null);
+
+      view:
+      view:
+      NotAttempt:      
+      quizquestable=>10=>qui      view:
+      view:
+      NotAttempt:z_id=>question
 
       return response()->json([
         'error_code'=>0,
