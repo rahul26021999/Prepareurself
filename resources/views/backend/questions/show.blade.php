@@ -60,7 +60,7 @@
                   @foreach($questions as $question)
                      <tr>
                       <td><a href ="" >#{{$question['id']}}</a></td>
-                      <td>{{$question['question']}}</td>
+                      <td>{!! html_entity_decode($question['question']) !!}</td>
                       @if($question['ques_level']=='easy')
                       <td><span class="right badge badge-success">Easy</span></td>
                       @elseif($question['ques_level']=='medium')

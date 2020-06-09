@@ -2,20 +2,14 @@
 @extends('backend.layouts.app')
 
 @section('headContent')
-<!-- summernote -->
-<link rel="stylesheet" href="{{ asset('AdminLTE/plugins/summernote/summernote-bs4.css')}}">
-
 <!-- iCheck for checkboxes and radio inputs -->
 <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
-
 @endsection
 
 @section('javascriptsContent')
 
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('AdminLTE/dist/js/demo.js')}}"></script>
-<!-- Summernote -->
-<script src="{{ asset('AdminLTE/plugins/summernote/summernote-bs4.min.js')}}"></script>
 
 <!-- jquery-validation -->
 <script src="{{ asset('AdminLTE/plugins/jquery-validation/jquery.validate.min.js')}}"></script>
@@ -70,13 +64,8 @@
 
   });
 </script>
+@include('backend.layouts.summerNoteEditor',['height'=>'100'])
 
-<script>
-  $(function () {
-    // Summernote
-    $('.textarea').summernote()
-  })
-</script>
 @endsection
 
 @section('content')
@@ -110,31 +99,31 @@
             <div class="col-sm-12">
               <div class="form-group">
                 <label>Questions</label>
-                <textarea name="question" class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                <textarea name="question" class="textareaLimited" class="form-control" placeholder="Enter ..."></textarea>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group">
                 <label>Option 1</label>
-                <input type="text" name="option1" class="form-control" placeholder="Enter ...">
+                <textarea name="option1" class="textareaLimited" class="form-control" placeholder="Enter ..."></textarea>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group">
                 <label>Option 2</label>
-                <input type="text" name="option2" class="form-control" placeholder="Enter ...">
+                <textarea name="option2" class="textareaLimited" class="form-control" placeholder="Enter ..."></textarea>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group">
                 <label>Option 3</label>
-                <input type="text" name="option3" class="form-control" placeholder="Enter ...">
+                <textarea name="option3" class="textareaLimited" class="form-control" placeholder="Enter ..."></textarea>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group">
                 <label>Option 4</label>
-                <input type="text" name="option4" class="form-control" placeholder="Enter ...">
+                <textarea name="option4" class="textareaLimited" class="form-control" placeholder="Enter ..."></textarea>
               </div>
             </div>
             <div class="col-sm-6">

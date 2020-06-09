@@ -2,9 +2,6 @@
 @extends('backend.layouts.app')
 
 @section('headContent')
-<!-- summernote -->
-<link rel="stylesheet" href="{{ asset('AdminLTE/plugins/summernote/summernote-bs4.css')}}">
-
 <!-- iCheck for checkboxes and radio inputs -->
 <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
 
@@ -14,8 +11,6 @@
 
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('AdminLTE/dist/js/demo.js')}}"></script>
-<!-- Summernote -->
-<script src="{{ asset('AdminLTE/plugins/summernote/summernote-bs4.min.js')}}"></script>
 
 <!-- jquery-validation -->
 <script src="{{ asset('AdminLTE/plugins/jquery-validation/jquery.validate.min.js')}}"></script>
@@ -73,13 +68,7 @@
 
   });
 </script>
-
-<<!-- script>
-  $(function () {
-    // Summernote
-    $('.textarea').summernote()
-  })
-</script> -->
+@include('backend.layouts.summerNoteEditor',['height'=>'100'])
 @endsection
 
 @section('content')
@@ -113,7 +102,7 @@
             <div class="col-sm-12">
               <div class="form-group">
                 <label>Questions</label>
-                <textarea name="question" class="form-control" rows="3" placeholder="Enter ...">{{ $question['question'] }}</textarea>
+                <textarea name="question" class="textareaLimited" class="form-control" rows="3" placeholder="Enter ...">{{ $question['question'] }}</textarea>
               </div>
             </div>
 
@@ -121,7 +110,7 @@
             <div class="col-sm-6">
               <div class="form-group">
                 <label>Option {{$index+1}}</label>
-                <input type="text" name="option{{$index+1}}" value="{{$option['option']}}" class="form-control" placeholder="Enter ...">
+                <textarea name="option{{$index+1}}" class="textareaLimited" class="form-control" placeholder="Enter ...">{{$option['option']}}</textarea>
               </div>
             </div>  
             @endforeach
@@ -194,8 +183,8 @@
           </div>
         </div>
         <div class="card-footer">
-          <a id="cancel" href="/admin/question/all"class="btn btn-danger float-right">Cancel</a>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <a id="cancel" href="/admin/question/all"class="btn btn-danger">Cancel</a>
+          <button type="submit" class="btn btn-primary float-right">Submit</button>
         </div>
       </div>
     </form>
