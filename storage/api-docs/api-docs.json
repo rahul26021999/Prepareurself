@@ -128,7 +128,7 @@
                     "Quiz"
                 ],
                 "description": "Get a Quiz for a particular user for a particular course",
-                "operationId": "App\\Http\\Controllers\\CourseQuizController::getQuiz",
+                "operationId": "App\\Http\\Controllers\\CourseQuizController::getCourseQuiz",
                 "parameters": [
                     {
                         "name": "token",
@@ -158,6 +158,114 @@
                         }
                     }
                 ],
+                "responses": {
+                    "200": {
+                        "description": "{[error_code=>0,msg=>'success']}"
+                    }
+                }
+            }
+        },
+        "/api/save-course-quiz-response-single": {
+            "post": {
+                "tags": [
+                    "Quiz"
+                ],
+                "description": "save a Quiz Response for a particular user for a particular course",
+                "operationId": "App\\Http\\Controllers\\CourseQuizController::saveCourseQuizResponseSingle",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "quiz_id",
+                        "in": "query",
+                        "description": "Quiz id for a particular user and a particular course",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "question_id",
+                        "in": "query",
+                        "description": "question id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "answer_id",
+                        "in": "query",
+                        "description": "option id for correct answer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{[error_code=>0,msg=>'success']}"
+                    }
+                }
+            }
+        },
+        "/api/save-course-quiz-response": {
+            "post": {
+                "tags": [
+                    "Quiz"
+                ],
+                "description": "save a Quiz Response for a particular user for a particular course",
+                "operationId": "App\\Http\\Controllers\\CourseQuizController::saveCourseQuizResponse",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "quiz_id",
+                        "in": "query",
+                        "description": "Quiz id for a particular user and a particular course",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "properties": {
+                                        "question_id": {
+                                            "description": "User name",
+                                            "type": "integer"
+                                        },
+                                        "answer_id": {
+                                            "description": "Education",
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "{[error_code=>0,msg=>'success']}"

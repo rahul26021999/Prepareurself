@@ -154,12 +154,17 @@ class CourseQuizController extends Controller
       // include validator here 
       if($request->filled('quiz_id') && $request->filled('question_id') && $request->filled('answer_id'))
       {
-         UserCourseQuizResponse::where('quiz_id', $request['quiz_id'])
+         $update=UserCourseQuizResponse::where('quiz_id', $request['quiz_id'])
                ->where('user_id',JWTAuth::user()->id)
                ->where('question_id',$request['question_id'])
                ->update(['option_id' => $request['answer_id']]);
 
-         return response()->json(['error_code'=>0,'message'=>"successfully saved"]);
+         if($update){
+            return response()->json(['error_code'=>0,'message'=>"successfully saved answer for given question id"]);
+         }else{
+            return response()->json(['error_code'=>2,'message'=>"Not valid inputs"]);
+         }
+
       }
       else{
          return response()->json(['error_code'=>1,'message'=>"Quiz id , question id and answer id can not be empty"]);
@@ -189,15 +194,19 @@ class CourseQuizController extends Controller
    *              type="integer"
    *          )
    *      ),
-   *     @OA\Parameter(
-   *          name="answer",
-   *          in="query",
-   *          description="List Of object { question_id and answer_id (correct option id)}",
-   *          required=true,
-   *          @OA\Schema(
-   *              type="object"
-   *          )
-   *      ),
+   *     @OA\RequestBody(
+   *         @OA\MediaType(
+   *             mediaType="application/json",
+   *             @OA\Schema(
+   *               type="array",
+   *               @OA\Items(
+   *                   type="object",
+   *                   @OA\Property(type="integer", property="question_id", description="User name"),
+   *                   @OA\Property(type="integer", property="answer_id", description="Education"),
+   *               ),
+   *             ),
+   *          ),  
+   *     ),
    *     @OA\Response(
    *          response=200,
    *      description="{[error_code=>0,msg=>'success']}"
@@ -209,31 +218,35 @@ class CourseQuizController extends Controller
    {
       try
       {
-         $result=0;
-         foreach ($answer as $index => $response) 
+         $score=0;
+         $answers=json_decode($request->getContent());
+         foreach ($answers as $index => $response) 
          {
-            UserCourseQuizResponse::where('quiz_id', $request['quiz_id'])
+            $update=UserCourseQuizResponse::where('quiz_id', $request['quiz_id'])
                   ->where('user_id',JWTAuth::user()->id)
-                  ->where('question_id',$response['question_id'])
-                  ->update(['option_id'=>$response['answer_id']]);
+                  ->where('question_id',$response->question_id)
+                  ->update(['option_id'=>$response->answer_id]);
 
-            $answerModel=Answer::where('question_id',$response['question_id'])->first();
-            if($answerModel->option_id===$response['answer_id'])
+            if($update)
             {
-               result++;
+               $answerModel=Answer::where('question_id',$response->question_id)->first();
+               if($answerModel->option_id===$response->answer_id)
+                  $score++;
+            }
+            else{
+               return response()->json(['error_code'=>2,'message'=>"Not valid inputs"]);
             }
          }
-
          return response()->json([
             'error_code'=>0,
-            'result'=>$result
+            'score'=>$score
          ]);
       }
       catch(Exception $e)
       {
          return response()->json([
             'error_code'=>1,
-            'message'=>"Something Went wrong. Its an Exception"
+            'message'=>"Something Went wrong. Its an Exception".$e
          ]);
       }
    }
