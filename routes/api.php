@@ -52,7 +52,9 @@ Route::middleware(['auth.jwt','verify'])->group(function () {
 	Route::post('get-user-preferences','UserAccountController@listUserPreferences');
 
 	Route::post('get-course-quiz','CourseQuizController@getCourseQuiz');
+	
 	Route::post('save-course-quiz-response','CourseQuizController@saveCourseQuizResponse');
+	Route::post('save-course-quiz-response-single','CourseQuizController@saveCourseQuizResponseSingle');
 
 });
 

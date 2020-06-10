@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Models\Answer;
 use App\Models\Question;
 use App\Models\Options;
 use App\Models\UserCourseQuiz;
 use App\Models\UserCourseQuizResponse;
+use Exception;
 use JWTAuth;
 use Log;
 
@@ -102,6 +104,70 @@ class CourseQuizController extends Controller
 
    /**
    * @OA\Post(
+   *     path="/api/save-course-quiz-response-single",
+   *     tags={"Quiz"},
+   *     description="save a Quiz Response for a particular user for a particular course",
+   *     @OA\Parameter(
+   *          name="token",
+   *          in="query",
+   *          description="token",
+   *          required=true,
+   *          @OA\Schema(
+   *              type="string"
+   *          )
+   *      ),
+   *     @OA\Parameter(
+   *          name="quiz_id",
+   *          in="query",
+   *          description="Quiz id for a particular user and a particular course",
+   *          required=true,
+   *          @OA\Schema(
+   *              type="integer"
+   *          )
+   *      ),
+   *     @OA\Parameter(
+   *          name="question_id",
+   *          in="query",
+   *          description="question id",
+   *          required=true,
+   *          @OA\Schema(
+   *              type="integer"
+   *          )
+   *      ),
+   *     @OA\Parameter(
+   *          name="answer_id",
+   *          in="query",
+   *          description="option id for correct answer",
+   *          required=true,
+   *          @OA\Schema(
+   *              type="integer"
+   *          )
+   *      ),
+   *     @OA\Response(
+   *          response=200,
+   *      description="{[error_code=>0,msg=>'success']}"
+   *     )
+   * )
+   */
+   public function saveCourseQuizResponseSingle(Request $request)
+   {
+      // include validator here 
+      if($request->filled('quiz_id') && $request->filled('question_id') && $request->filled('answer_id'))
+      {
+         UserCourseQuizResponse::where('quiz_id', $request['quiz_id'])
+               ->where('user_id',JWTAuth::user()->id)
+               ->where('question_id',$request['question_id'])
+               ->update(['option_id' => $request['answer_id']]);
+
+         return response()->json(['error_code'=>0,'message'=>"successfully saved"]);
+      }
+      else{
+         return response()->json(['error_code'=>1,'message'=>"Quiz id , question id and answer id can not be empty"]);
+      }
+   }
+
+   /**
+   * @OA\Post(
    *     path="/api/save-course-quiz-response",
    *     tags={"Quiz"},
    *     description="save a Quiz Response for a particular user for a particular course",
@@ -115,21 +181,21 @@ class CourseQuizController extends Controller
    *          )
    *      ),
    *     @OA\Parameter(
-   *          name="course_id",
+   *          name="quiz_id",
    *          in="query",
-   *          description="Course id for a particular course",
+   *          description="Quiz id for a particular user and a particular course",
    *          required=true,
    *          @OA\Schema(
    *              type="integer"
    *          )
    *      ),
    *     @OA\Parameter(
-   *          name="level",
+   *          name="answer",
    *          in="query",
-   *          description="easy|medium|hard",
+   *          description="List Of object { question_id and answer_id (correct option id)}",
    *          required=true,
    *          @OA\Schema(
-   *              type="string"
+   *              type="object"
    *          )
    *      ),
    *     @OA\Response(
@@ -141,6 +207,34 @@ class CourseQuizController extends Controller
 
    public function saveCourseQuizResponse(Request $request)
    {
-      
+      try
+      {
+         $result=0;
+         foreach ($answer as $index => $response) 
+         {
+            UserCourseQuizResponse::where('quiz_id', $request['quiz_id'])
+                  ->where('user_id',JWTAuth::user()->id)
+                  ->where('question_id',$response['question_id'])
+                  ->update(['option_id'=>$response['answer_id']]);
+
+            $answerModel=Answer::where('question_id',$response['question_id'])->first();
+            if($answerModel->option_id===$response['answer_id'])
+            {
+               result++;
+            }
+         }
+
+         return response()->json([
+            'error_code'=>0,
+            'result'=>$result
+         ]);
+      }
+      catch(Exception $e)
+      {
+         return response()->json([
+            'error_code'=>1,
+            'message'=>"Something Went wrong. Its an Exception"
+         ]);
+      }
    }
 }
