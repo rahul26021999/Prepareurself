@@ -61,6 +61,7 @@ Route::middleware(['auth.jwt','verify'])->group(function () {
 	Route::post('get-query-replies','OpenForumController@getQueryReplies');
 	Route::post('ask-query','OpenForumController@askQuery');
 	Route::post('edit-query','OpenForumController@editQuery');
+	Route::post('upload-query-image','OpenForumController@getQueryImage');
 
 });
 

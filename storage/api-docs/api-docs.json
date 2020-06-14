@@ -506,6 +506,49 @@
                 }
             }
         },
+        "/api/upload-query-image": {
+            "post": {
+                "tags": [
+                    "Forum"
+                ],
+                "description": "upload a image of a query",
+                "operationId": "App\\Http\\Controllers\\OpenForumController::getQueryImage",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "0: if image belongs to query and 1 if image belongs to replies",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "image",
+                        "in": "query",
+                        "description": "image to be uploaded",
+                        "required": true,
+                        "schema": {
+                            "type": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{[error_code=>0,msg=>'uploaded Successfully Done']}"
+                    }
+                }
+            }
+        },
         "/api/get-projects": {
             "post": {
                 "tags": [

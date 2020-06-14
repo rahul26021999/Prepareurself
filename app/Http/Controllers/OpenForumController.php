@@ -236,7 +236,7 @@ class OpenForumController extends Controller
 		$replies=OpenForumAnswer::with(["User"=>function($query){
          $query->select('first_name','last_name','username','id','profile_image');
       }])->where('query_id',$query_id)->orderBy('created_at','desc')->paginate($count);
-      
+
 		return response()->json([
 			'query'=>$replies,
 			'error_code'=>0,
@@ -308,8 +308,77 @@ class OpenForumController extends Controller
 		]);
 	}
 
-	public function getQuestionAnswerImage(Request $request){
+      /**
+     * @OA\Post(
+     *     path="/api/upload-query-image",
+     *     tags={"Forum"},
+     *     description="upload a image of a query",
+    *     @OA\Parameter(
+    *          name="token",
+    *          in="query",
+    *          description="token",
+    *          required=true,
+    *          @OA\Schema(
+    *              type="string"
+    *          )
+    *      ),
+    *     @OA\Parameter(
+    *          name="type",
+    *          in="query",
+    *          description="0: if image belongs to query and 1 if image belongs to replies",
+    *          required=true,
+    *          @OA\Schema(
+    *              type="integer"
+    *          )
+    *      ),
+    *     @OA\Parameter(
+    *          name="image",
+    *          in="query",
+    *          description="image to be uploaded",
+    *          required=true,
+    *          @OA\Schema(
+    *              type="file"
+    *          )
+    *      ),
+     *     @OA\Response(
+     *          response=200,
+     *         description="{[error_code=>0,msg=>'uploaded Successfully Done']}"
+     *     )
+     * )
+     */
 
+	public function getQueryImage(Request $request)
+   {
+      try{
+         if($request->file('image') && $request->filled('type'))
+         {
+            $fileName = time().'.'.$request->file('image')->extension();  
+            if($request->input('type')==0){
+               $request->file('image')->move(public_path('uploads/openforum/queries'), $fileName);
+               $path=url('/').'/uploads/openforum/queries/'.$fileName;
+            }
+            else{
+               $request->file('image')->move(public_path('uploads/openforum/replies'), $fileName);
+               $path=url('/').'/uploads/openforum/replies/'.$fileName;
+            }
+            return response()->json([
+               "error_code"=>0,
+               "image"=>$path,
+               "message"=>"uploaded Successfully"
+            ]);
+         }    
+         else{
+            return response()->json([
+               "error_code"=>1,
+               "message"=>"missing Image or type",
+            ]);
+         }
+      }catch(Exception $e){
+         return response()->json([
+            "error_code"=>2,
+            "message"=>"Error in Uploading Image Try again"
+         ]);
+      }
 	}
     
 }
