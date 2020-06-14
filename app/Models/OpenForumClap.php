@@ -6,15 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class OpenForumClap extends Model
 {
-    protected $fillable = ['id','user_id','open_forum_id'];
+    protected $fillable = ['id','user_id','reply_id'];
 
-   public function OpenForum()
+   public function OpenForumAnswer()
    {
-    		return $this->belongsTo('App\Models\OpenForum');
+    	return $this->belongsTo('App\Models\OpenForumAnswer');
    }
    
    public function User()
    {
-    		return $this->belongsTo('App\User');
+    	return $this->belongsTo('App\User');
    }
 }

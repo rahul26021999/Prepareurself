@@ -235,7 +235,10 @@ class OpenForumController extends Controller
 
 		$replies=OpenForumAnswer::with(["User"=>function($query){
          $query->select('first_name','last_name','username','id','profile_image');
-      }])->where('query_id',$query_id)->orderBy('created_at','desc')->paginate($count);
+      }])->withCount(['OpenForumClap as clap'=>function($query){
+         $query->where('user_id',JWTAuth::user()->id);
+      },'OpenForumClap as total_claps'])
+      ->where('query_id',$query_id)->orderBy('created_at','desc')->paginate($count);
 
 		return response()->json([
 			'query'=>$replies,
@@ -380,5 +383,10 @@ class OpenForumController extends Controller
          ]);
       }
 	}
+
+   public function clapOnReply(Request $request)
+   {
+      
+   }
     
 }

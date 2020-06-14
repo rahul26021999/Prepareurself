@@ -20,6 +20,6 @@ class OpenForumAnswer extends Model
 
     public function OpenForumClap()
     {
-    	return $this->hasMany('App\Models\OpenForumClap');
+    	return $this->hasMany('App\Models\OpenForumClap','reply_id');
     }
 }

@@ -16,7 +16,7 @@ class CreateOpenForumClapsTable extends Migration
         Schema::create('open_forum_claps', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('open_forum_id');
+            $table->unsignedBigInteger('reply_id');
             $table->timestamps();
         });
     }

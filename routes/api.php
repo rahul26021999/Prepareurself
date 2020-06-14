@@ -63,5 +63,8 @@ Route::middleware(['auth.jwt','verify'])->group(function () {
 	Route::post('edit-query','OpenForumController@editQuery');
 	Route::post('upload-query-image','OpenForumController@getQueryImage');
 
+	Route::post('clap-on-reply','OpenForumController@clapOnReply');
+
+
 });
 
