@@ -10,16 +10,16 @@ class OpenForumQuestion extends Model
 
     public function User()
     {
-    		return $this->belongsTo('App\User');
+    	return $this->belongsTo('App\User');
     }
 
     public function Course()
     {
-    		return $this->belongsTo('App\Models\Course');
+    	return $this->belongsTo('App\Models\Course');
     }
 
     public function OpenForumAnswer()
     {
-    		return $this->hasMany('App\Models\OpenForumAnswer');
+    	return $this->hasMany('App\Models\OpenForumAnswer','query_id');
     }
 }

@@ -8,8 +8,18 @@ class OpenForumAnswer extends Model
 {
 	protected $fillable = ['id','query_id','user_id','reply'];
 
+	public function OpenForumQuestion()
+	{
+		return $this->belongsTo('App\Models\OpenForumQuestion');
+	}
+
+	public function User()
+    {
+    	return $this->belongsTo('App\User');
+    }
+
     public function OpenForumClap()
     {
-    		return $this->hasMany('App\Models\OpenForumClap');
+    	return $this->hasMany('App\Models\OpenForumClap');
     }
 }

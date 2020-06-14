@@ -233,7 +233,10 @@ class OpenForumController extends Controller
 		$query_id=$request['query_id'];
 		$count=$request->input('count',10);
 
-		$replies=OpenForumAnswer::where('query_id',$query_id)->orderBy('created_at','desc')->paginate($count);
+		$replies=OpenForumAnswer::with(["User"=>function($query){
+         $query->select('first_name','last_name','username','id','profile_image');
+      }])->where('query_id',$query_id)->orderBy('created_at','desc')->paginate($count);
+      
 		return response()->json([
 			'query'=>$replies,
 			'error_code'=>0,
@@ -294,7 +297,9 @@ class OpenForumController extends Controller
 		$course_id=$request['course_id'];
 		$count=$request->input('count',10);
 
-		$queries=OpenForumQuestion::where('course_id',$course_id)->orderBy('created_at','desc')->paginate($count);
+		$queries=OpenForumQuestion::with(["User"=>function($query){
+         $query->select('first_name','last_name','username','id','profile_image');
+      },"OpenForumAnswer"])->where('course_id',$course_id)->orderBy('created_at','desc')->paginate($count);
 
 		return response()->json([
 			'queries'=>$queries,
