@@ -273,6 +273,239 @@
                 }
             }
         },
+        "/api/do-reply": {
+            "post": {
+                "tags": [
+                    "Forum"
+                ],
+                "description": "reply a query for a particular course",
+                "operationId": "App\\Http\\Controllers\\OpenForumController::doReply",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "query_id",
+                        "in": "query",
+                        "description": "query_id of a course",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "reply",
+                        "in": "query",
+                        "description": "reply means your answer",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{[error_code=>0,msg=>'success']}"
+                    }
+                }
+            }
+        },
+        "/api/ask-query": {
+            "post": {
+                "tags": [
+                    "Forum"
+                ],
+                "description": "Ask a query for a particular course",
+                "operationId": "App\\Http\\Controllers\\OpenForumController::askQuery",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "course_id",
+                        "in": "query",
+                        "description": "Course_id of a course",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "description": "query means your question",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{[error_code=>0,msg=>'success']}"
+                    }
+                }
+            }
+        },
+        "/api/edit-query": {
+            "post": {
+                "tags": [
+                    "Forum"
+                ],
+                "description": "edit a query for a particular course asked by you",
+                "operationId": "App\\Http\\Controllers\\OpenForumController::editQuery",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "query_id",
+                        "in": "query",
+                        "description": "query_id of a course",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "description": "query means your question",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{[error_code=>0,msg=>'success']}"
+                    }
+                }
+            }
+        },
+        "/api/get-query-replies": {
+            "post": {
+                "tags": [
+                    "Forum"
+                ],
+                "description": "get replies for a query for a particular course",
+                "operationId": "App\\Http\\Controllers\\OpenForumController::getQueryReplies",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "query_id",
+                        "in": "query",
+                        "description": "query_id of a course",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": "count no of query replies in  a page default count is 10",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page no for query replies default page is 1 ",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{[error_code=>0,msg=>'success']}"
+                    }
+                }
+            }
+        },
+        "/api/get-queries": {
+            "post": {
+                "tags": [
+                    "Forum"
+                ],
+                "description": "get queries for a particular course",
+                "operationId": "App\\Http\\Controllers\\OpenForumController::getQueries",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "course_id",
+                        "in": "query",
+                        "description": "course_id of a course",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": "count no of queries in  a page default count is 10",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page no for queries default page is 1 ",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{[error_code=>0,msg=>'success']}"
+                    }
+                }
+            }
+        },
         "/api/get-projects": {
             "post": {
                 "tags": [
