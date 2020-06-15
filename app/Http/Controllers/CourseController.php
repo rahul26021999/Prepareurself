@@ -26,11 +26,17 @@ class CourseController extends Controller
 
    	   $fileName = time().'.'.$request->file('courseImage')->extension();  
        $request->file('courseImage')->move(public_path('uploads/courses'), $fileName);
+       $logo = time().'.'.$request->file('logo')->extension();
+       $request->file('logo')->move(public_path('uploads/courses/logos'), $logo);
+
+       $color=join(",",$request['color']);
 
         $course=course::create([
           'name'=>$request['name'],
           'image_url'=>$fileName,
-          'description'=>$request['description']
+          'description'=>$request['description'],
+          'logo'=>$logo,
+          'color'=>$color,
         ]);
       }
       catch(Exception $e){
@@ -55,6 +61,7 @@ class CourseController extends Controller
               $request->file('courseImage')->move(public_path('uploads/courses'), $fileName);
               $course->image_url=$fileName;
             }
+            $course->color=join(",",$request['color']);
             $course->name=$request['name'];
             $course->description=$request['description'];
             $course->save();

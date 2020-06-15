@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
 {
-    protected $fillable = ['name','image_url','sequence','description'];
+    protected $fillable = ['name','image_url','sequence','description','logo','color'];
 
-    // protected $appends = array('image');
+    protected $appends = ['logo_url'];
+    
+    protected $hidden = ['logo'];
 
     public function CourseTopic()
     {
@@ -30,9 +32,11 @@ class Course extends Model
     {
         return $this->hasMany('App\Models\UserPreferences');
     }
-    
-    // public function getImageAttribute()
-    // {
-    //     return url('/')."/uploads/courses/"."{$this->image_url}";
-    // }
+    public function getLogoUrlAttribute()
+    {
+        if($this->logo!=null)
+            return url('/')."/uploads/courses/logos/".$this->logo;
+        else
+            return null;
+    }
 }
