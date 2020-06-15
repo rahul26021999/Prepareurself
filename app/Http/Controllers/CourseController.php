@@ -61,6 +61,12 @@ class CourseController extends Controller
               $request->file('courseImage')->move(public_path('uploads/courses'), $fileName);
               $course->image_url=$fileName;
             }
+            if($request->file('logo'))
+            {
+              $logo = time().'.'.$request->file('logo')->extension();
+              $request->file('logo')->move(public_path('uploads/courses/logos'), $logo);
+              $course->logo=$logo;
+            }
             $course->color=join(",",$request['color']);
             $course->name=$request['name'];
             $course->description=$request['description'];
