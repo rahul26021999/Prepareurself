@@ -8,7 +8,7 @@ class Course extends Model
 {
     protected $fillable = ['name','image_url','sequence','description','logo','color'];
 
-    protected $appends = ['logo_url'];
+    protected $appends = ['logo_url','average_rating'];
     
     protected $hidden = ['logo'];
 
@@ -28,6 +28,12 @@ class Course extends Model
     {
         return $this->hasMany('App\Models\Question');
     }
+
+    public function CourseReviews()
+    {
+        return $this->hasMany('App\Models\CourseReviews');
+    }
+
     public function UserPreferences()
     {
         return $this->hasMany('App\Models\UserPreferences');
@@ -38,5 +44,14 @@ class Course extends Model
             return url('/')."/uploads/courses/logos/".$this->logo;
         else
             return null;
+    }
+
+    public function getAverageRatingAttribute()
+    {
+        $average_rating=$this->CourseReviews->avg('rating');
+        if($average_rating==null)
+            return 3.5;
+        else 
+            return $average_rating;
     }
 }

@@ -215,7 +215,7 @@ class CourseController extends Controller
 
       $id=$request['course_id'];
       $user=JWTAuth::user();
-      $course=Course::find($id);
+      $course=Course::find($id);  
       $courseReview=CourseReviews::where(['user_id'=>$user->id,'course_id'=>$id])->pluck('rating')->first();
       if($courseReview==null)
         $courseReview=0;
