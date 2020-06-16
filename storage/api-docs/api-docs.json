@@ -300,7 +300,7 @@
                         }
                     },
                     {
-                        "name": "images",
+                        "name": "images[]",
                         "in": "query",
                         "description": "Attachment name in reply only images for now",
                         "required": false,
@@ -355,7 +355,7 @@
                         }
                     },
                     {
-                        "name": "images",
+                        "name": "images[]",
                         "in": "query",
                         "description": "Attachment name in query only images for now",
                         "required": false,
@@ -569,6 +569,49 @@
                 "responses": {
                     "200": {
                         "description": "{[error_code=>0,msg=>'uploaded Successfully Done']}"
+                    }
+                }
+            }
+        },
+        "/api/clap-on-reply": {
+            "post": {
+                "tags": [
+                    "Forum"
+                ],
+                "description": "clap replies for a query for a particular course",
+                "operationId": "App\\Http\\Controllers\\OpenForumController::clapOnReply",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "reply_id",
+                        "in": "query",
+                        "description": "reply_id of a course",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "0=>to add clap and 1 to remove clap",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{[error_code=>0,msg=>'success']}"
                     }
                 }
             }
