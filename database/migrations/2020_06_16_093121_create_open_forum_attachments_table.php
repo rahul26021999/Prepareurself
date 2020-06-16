@@ -15,6 +15,9 @@ class CreateOpenForumAttachmentsTable extends Migration
     {
         Schema::create('open_forum_attachments', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('reply_id');
+            $table->unsignedBigInteger('query_id');
+            $table->text('file');
             $table->timestamps();
         });
     }
