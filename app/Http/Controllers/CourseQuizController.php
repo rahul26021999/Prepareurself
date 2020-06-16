@@ -68,7 +68,7 @@ class CourseQuizController extends Controller
       $questions=Question::where(['course_id'=>$course_id,'ques_level'=>$level])
                            ->with('Option')
                            ->with('Answer')
-                           ->whereNotIn('id',$AttemptedQuestions)
+                          // ->whereNotIn('id',$AttemptedQuestions)
                            ->inRandomOrder()->limit(10)->get();
 
       if(count($questions)>0)

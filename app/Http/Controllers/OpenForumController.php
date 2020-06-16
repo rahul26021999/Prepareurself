@@ -78,7 +78,7 @@ class OpenForumController extends Controller
 			'query_id'=>$query_id
 		])->fresh();
 
-    if ($isset($request['images'])) {
+    if (isset($request['images'])) {
         foreach ($request['images'] as $position => $image) {
           OpenForumAttachment::create([
             'query_id'=>null,
@@ -158,7 +158,7 @@ class OpenForumController extends Controller
 			'query'=>$query,
 		])->fresh();
 
-    if ($isset($request['images'])) {
+    if (isset($request['images'])) {
         foreach ($request['images'] as $position => $image) {
           OpenForumAttachment::create([
             'query_id'=>$forum->id,
