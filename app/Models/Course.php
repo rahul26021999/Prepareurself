@@ -48,10 +48,6 @@ class Course extends Model
 
     public function getAverageRatingAttribute()
     {
-        $average_rating=$this->CourseReviews->avg('rating');
-        if($average_rating==null)
-            return 3.5;
-        else 
-            return $average_rating;
+	return $this->CourseReviews()->avg('rating')?:0;
     }
 }
