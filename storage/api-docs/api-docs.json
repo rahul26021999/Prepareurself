@@ -300,6 +300,18 @@
                         }
                     },
                     {
+                        "name": "images",
+                        "in": "query",
+                        "description": "Attachment name in reply only images for now",
+                        "required": false,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    {
                         "name": "reply",
                         "in": "query",
                         "description": "reply means your answer",
@@ -340,6 +352,18 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "images",
+                        "in": "query",
+                        "description": "Attachment name in query only images for now",
+                        "required": false,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
                         }
                     },
                     {

@@ -22,4 +22,9 @@ class OpenForumAnswer extends Model
     {
     	return $this->hasMany('App\Models\OpenForumClap','reply_id');
     }
+
+    public function OpenForumAttachment()
+    {
+        return $this->hasMany('App\Models\OpenForumAttachment','reply_id');
+    }
 }

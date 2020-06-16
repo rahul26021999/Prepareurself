@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\OpenForumAnswer;
 use App\Models\OpenForumQuestion;
 use App\Models\OpenForumClaps;
+use App\Models\OpenForumAttachment;
 use Exception;
 use App\User;
 use JWTAuth;
@@ -39,6 +40,18 @@ class OpenForumController extends Controller
    *          )
    *      ),
    *     @OA\Parameter(
+   *          name="images",
+   *          in="query",
+   *          description="Attachment name in reply only images for now",
+   *          required=false,
+   *          @OA\Schema(
+   *              type="array",
+   *               @OA\Items(
+   *                   type="string"
+   *               ),              
+   *          )
+   *      ),
+   *     @OA\Parameter(
    *          name="reply",
    *          in="query",
    *          description="reply means your answer",
@@ -64,6 +77,16 @@ class OpenForumController extends Controller
 			'reply'=>$reply,
 			'query_id'=>$query_id
 		])->fresh();
+
+    if ($isset($request['images'])) {
+        foreach ($request['images'] as $position => $image) {
+          OpenForumAttachment::create([
+            'query_id'=>null,
+            'reply_id'=>$forum->id,
+            'file'=>$image
+          ]);
+        }
+    }
 
 		return response()->json([
 			'reply'=>$forum,
@@ -96,6 +119,18 @@ class OpenForumController extends Controller
    *          )
    *      ),
    *     @OA\Parameter(
+   *          name="images",
+   *          in="query",
+   *          description="Attachment name in query only images for now",
+   *          required=false,
+   *          @OA\Schema(
+   *              type="array",
+   *               @OA\Items(
+   *                   type="string"
+   *               ),              
+   *          )
+   *      ),
+   *     @OA\Parameter(
    *          name="query",
    *          in="query",
    *          description="query means your question",
@@ -122,6 +157,16 @@ class OpenForumController extends Controller
 			'course_id'=>$course_id,
 			'query'=>$query,
 		])->fresh();
+
+    if ($isset($request['images'])) {
+        foreach ($request['images'] as $position => $image) {
+          OpenForumAttachment::create([
+            'query_id'=>$forum->id,
+            'reply_id'=>null,
+            'file'=>$image
+          ]);
+        }
+    }
 
 		return response()->json([
 			'query'=>$forum,
@@ -233,7 +278,7 @@ class OpenForumController extends Controller
 		$query_id=$request['query_id'];
 		$count=$request->input('count',10);
 
-		$replies=OpenForumAnswer::with(["User"=>function($query){
+		$replies=OpenForumAnswer::with(["OpenForumAttachment","User"=>function($query){
          $query->select('first_name','last_name','username','id','profile_image');
       }])->withCount(['OpenForumClap as clap'=>function($query){
          $query->where('user_id',JWTAuth::user()->id);
@@ -302,7 +347,7 @@ class OpenForumController extends Controller
 
 		$queries=OpenForumQuestion::with(["User"=>function($query){
          $query->select('first_name','last_name','username','id','profile_image');
-      },"OpenForumAnswer"])->where('course_id',$course_id)->orderBy('created_at','desc')->paginate($count);
+      },"OpenForumAnswer","OpenForumAttachment"])->where('course_id',$course_id)->orderBy('created_at','desc')->paginate($count);
 
 		return response()->json([
 			'queries'=>$queries,
@@ -366,7 +411,8 @@ class OpenForumController extends Controller
             }
             return response()->json([
                "error_code"=>0,
-               "image"=>$path,
+               "image"=>$fileName,
+               "path"=>$path,
                "message"=>"uploaded Successfully"
             ]);
          }    

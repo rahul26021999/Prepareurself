@@ -132,7 +132,6 @@ class CourseController extends Controller
    *              type="string"
    *          )
    *      ),
-   *   
    *     @OA\Response(
    *          response=200,
    *      description="{[error_code=>0,msg=>'success']}"
@@ -158,7 +157,6 @@ class CourseController extends Controller
    *              type="string"
    *          )
    *      ),
-   *   
    *     @OA\Response(
    *          response=200,
    *      description="{[error_code=>0,msg=>'success']}"
