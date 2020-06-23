@@ -320,7 +320,7 @@ class SearchController extends Controller
 
 	 		$skip=$count*($pageNumber-1)-$totalProjectsCount;
 
-	 		$resource=Resource::whereHas('CourseTopic', function ($query) {
+	 		$resource=Resource::whereHas('CourseTopic', function ($query) use ($course_id) {
 									$query->where('status', 'publish');
 									$query->where('course_id', $course_id);
 								})
