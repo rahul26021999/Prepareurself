@@ -17,14 +17,14 @@ class BotMiddleware
     {
         if($request->filled('token')){
            if($request['token']!=env('BOT_SECRET')) {
-                return response(401)->json(
+                return response(401)->json([
                     'message'=>"Invalid Access",
                     'error_code'=>2
                 ]);
            }
         }
         else{
-            return response(401)->json(
+            return response(401)->json([
                 'message'=>"UnAuthorised Access",
                 'error_code'=>1
             ]);

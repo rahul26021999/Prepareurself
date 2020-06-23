@@ -5,15 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Exception;
+use Log;
 use Symfony\Component\Process\Process;
 
 class BotController extends Controller
 {
-    public function getBotResponse()
+    public function getBotResponse(Request $request)
     {
 		try
 		{
-	        $process = new Process('cd public/scripts/bot/ && python3 main.py -q "'.$request['query'].'"');
+	        $process = new Process('cd scripts/ && python3 main.py -q "'.$request['query'].'"');
 	        $process->run();
 	        // executes after the command finishes
 	        if (!$process->isSuccessful()) {
@@ -23,7 +24,7 @@ class BotController extends Controller
 	    }
 	    catch(ProcessFailedException $e){
 	    	Log::error('ProcessFailedException Encountered'.$e);
-	    	echo "ProcessFailedException";
+	    	echo "ProcessFailedException".$e;
 	    }
 	    catch(Exception $e){
 	        Log::error('Exception Encountered'.$e);
