@@ -14,7 +14,7 @@ class BotController extends Controller
     {
 		try
 		{
-	        $process = new Process('cd scripts/ && python3 main.py -q "'.$request['query'].'"');
+	        $process = new Process('cd scripts/ && python3 main.py "'.$request['query'].'"');
 	        $process->run();
 	        // executes after the command finishes
 	        if (!$process->isSuccessful()) {
