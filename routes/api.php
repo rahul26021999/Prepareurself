@@ -46,6 +46,7 @@ Route::middleware(['auth.jwt','verify'])->group(function () {
 
 	Route::post('search' , 'SearchController@search');
 	Route::post('search-without-pagination' , 'SearchController@searchWithOutPagination');
+	Route::post('search-inside-course' , 'SearchController@searchCourse');
 	Route::post('update-user-preferences','UserAccountController@updateUserPreferences');
 	Route::post('rate-course','UserAccountController@rateCourse');
 
