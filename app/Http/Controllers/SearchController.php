@@ -318,7 +318,7 @@ class SearchController extends Controller
 	 		$totalProjectsCount=Project::where('status', 'publish')
 	 		->where('name', 'like', '%' . $query . '%')->count();
 
-	 		$skip=$count*($pageNumber-1)-$topicCountTotal-$totalProjectsCount;
+	 		$skip=$count*($pageNumber-1)-$totalProjectsCount;
 
 	 		$resource=Resource::whereHas('CourseTopic', function ($query) {
 									$query->where('status', 'publish');
