@@ -16,13 +16,15 @@ class BotMiddleware
     public function handle($request, Closure $next)
     {
         if($request->filled('token')){
-           if($request['token']!=env('BOT_SECRET')) {
+           if($request['token']!='rahul') {
                 return response()->json(["message"=>"Invalid Access","error_code"=>2]);
            }
         }
         else{
             return response()->json(["message"=>"UnAuthorised Access","error_code"=>1]);
-        }
-        return $next($request);
+	}
+	$response = $next($request);
+	$response->header('Content-Type', 'application/json')->header('charset', 'utf-8');
+        return $response;
     }
 }

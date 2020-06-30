@@ -14,13 +14,19 @@ class BotController extends Controller
     {
 		try
 		{
-		$process = new Process("python3 scripts/main.py \"{$request['query']}\"");
+		$req=json_decode($request->getContent());
+		$query=$req->queryResult->queryText;
+		Log::error($query);
+		$process = new Process("python3 scripts/main.py \"{$query}\"");
 	        $process->run();
 	        // executes after the command finishes
 	        if (!$process->isSuccessful()) {
 	            throw new ProcessFailedException($process);    
-	        }
-	        echo $process->getOutput();
+		}
+		$res=$process->getOutput();
+		$arr=json_decode($res);
+		Log::error($res);
+		return response()->json($arr,200);
 	    }
 	    catch(ProcessFailedException $e){
 	    	Log::error('ProcessFailedException Encountered'.$e);

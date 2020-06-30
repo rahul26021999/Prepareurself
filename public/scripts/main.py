@@ -36,7 +36,7 @@ except ImportError:
 query = sys.argv[1]
 all_search_results = search(query, tld="co.in",lang='en')
 
-how_many_links = 10
+how_many_links = 5
 
 unique_website_links = []
 
@@ -47,5 +47,8 @@ while len(unique_website_links) <= how_many_links:
     if is_unique(url, unique_website_links):
         unique_website_links.append(url)
 
-json.dumps(unique_website_links)
+
+dic={"fulfillmentText":"\n".join(unique_website_links)}
+
+print(json.dumps(dic))
 

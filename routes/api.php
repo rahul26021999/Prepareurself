@@ -19,7 +19,7 @@ Route::post('login', 'UserAuthController@login');
 Route::post('forget-password', 'UserAuthController@forgetPassword');
 Route::post('resend-verification-mail', 'UserAuthController@wsResendVerificationMail');
 
-Route::get('ws-get-bot-response', 'BotController@getBotResponse')->middleware('bot');
+Route::any('ws-get-bot-response', 'BotController@getBotResponse')->middleware('bot');
 
 Route::middleware(['auth.jwt','verify'])->group(function () {
 
