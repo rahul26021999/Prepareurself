@@ -1,6 +1,13 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[ ]:
+
+
 from urllib.parse import urlparse
 
 import sys
+import json
 
 def is_unique(url, url_list):
     """
@@ -40,4 +47,5 @@ while len(unique_website_links) <= how_many_links:
     if is_unique(url, unique_website_links):
         unique_website_links.append(url)
 
-print(unique_website_links)
+json.dumps(unique_website_links)
+
