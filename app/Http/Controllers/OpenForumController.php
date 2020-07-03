@@ -88,7 +88,7 @@ class OpenForumController extends Controller
            'reply_id'=>$forum->id,
            'file'=>$image
         ])->fresh();
-         $attachments.push($attachment);
+         $attachments[$position]=$attachment;
       }
    }
    $forum->open_forum_attachment=$attachments;
@@ -173,7 +173,7 @@ class OpenForumController extends Controller
         'reply_id'=>null,
         'file'=>$image
      ])->fresh();
-      $attachments.push($attachment);
+      $attachments[$position]=$attachment;
    }
    $forum->open_forum_attachment=$attachments;
 }
