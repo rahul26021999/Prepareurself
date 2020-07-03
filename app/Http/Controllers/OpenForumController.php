@@ -68,31 +68,36 @@ class OpenForumController extends Controller
    */
   public function doReply(Request $request)
   {
-     $query_id=$request['query_id'];
-     $reply=$request['reply'];
-     $user_id=JWTAuth::user()->id;
+   $query_id=$request['query_id'];
+   $reply=$request['reply'];
+   $user=JWTAuth::user();
+   $user_id=$user->id;
 
-     $forum=OpenForumAnswer::create([
-      'user_id'=>$user_id,
-      'reply'=>$reply,
-      'query_id'=>$query_id
-   ])->fresh();
+   $forum=OpenForumAnswer::create([
+     'user_id'=>$user_id,
+     'reply'=>$reply,
+     'query_id'=>$query_id
+  ])->fresh();
+   $forum->user=$user;
 
-     if (isset($request['images'])) {
-       foreach ($request['images'] as $position => $image) {
-        OpenForumAttachment::create([
-         'query_id'=>null,
-         'reply_id'=>$forum->id,
-         'file'=>$image
-      ]);
-     }
-  }
+   $attachments=[];
+   if (isset($request['images'])) {
+      foreach ($request['images'] as $position => $image) {
+         $attachment=OpenForumAttachment::create([
+           'query_id'=>null,
+           'reply_id'=>$forum->id,
+           'file'=>$image
+        ])->fresh();
+         $attachments.push($attachment);
+      }
+   }
+   $forum->open_forum_attachment=$attachments;
 
-  return response()->json([
-   'reply'=>$forum,
-   'error_code'=>0,
-   'message'=>"Successfully Created Query"
-]); 
+   return response()->json([
+      'reply'=>$forum,
+      'error_code'=>0,
+      'message'=>"Successfully Created Query"
+   ]); 
 }
 
   /**
@@ -148,27 +153,32 @@ class OpenForumController extends Controller
 
   public function askQuery(Request $request)
   {
-     $course_id=$request['course_id'];
-     $query=$request['query'];
-     $user_id=JWTAuth::user()->id;
+   $course_id=$request['course_id'];
+   $query=$request['query'];
+   $user=JWTAuth::user();
+   $user_id=$user->id;
 
-     $forum=OpenForumQuestion::create([
-      'user_id'=>$user_id,
-      'course_id'=>$course_id,
-      'query'=>$query,
-   ])->fresh();
+   $forum=OpenForumQuestion::create([
+     'user_id'=>$user_id,
+     'course_id'=>$course_id,
+     'query'=>$query,
+  ])->fresh();
+   $forum->user=$user;
 
-     if (isset($request['images'])) {
-       foreach ($request['images'] as $position => $image) {
-        OpenForumAttachment::create([
-         'query_id'=>$forum->id,
-         'reply_id'=>null,
-         'file'=>$image
-      ]);
-     }
-  }
+   $attachments=[];
+   if (isset($request['images'])) {
+    foreach ($request['images'] as $position => $image) {
+      $attachment=OpenForumAttachment::create([
+        'query_id'=>$forum->id,
+        'reply_id'=>null,
+        'file'=>$image
+     ])->fresh();
+      $attachments.push($attachment);
+   }
+   $forum->open_forum_attachment=$attachments;
+}
 
-  return response()->json([
+return response()->json([
    'query'=>$forum,
    'error_code'=>0,
    'message'=>"Successfully Created Query"
@@ -215,15 +225,15 @@ class OpenForumController extends Controller
    */
   public function editQuery(Request $request)
   {
-     $query_id=$request['query_id'];
-     $query=$request['query'];
-     $forum=OpenForumQuestion::updateOrCreate(['id'=>$query_id],['query'=>$query]);
-     return response()->json([
-      'query'=>$forum,
-      'error_code'=>0,
-      'message'=>"Successfully updated Query"
-   ]); 
-  }
+   $query_id=$request['query_id'];
+   $query=$request['query'];
+   $forum=OpenForumQuestion::updateOrCreate(['id'=>$query_id],['query'=>$query]);
+   return response()->json([
+     'query'=>$forum,
+     'error_code'=>0,
+     'message'=>"Successfully updated Query"
+  ]); 
+}
 
   /**
    * @OA\Post(
@@ -275,21 +285,21 @@ class OpenForumController extends Controller
 
   public function getQueryReplies(Request $request)
   {
-     $query_id=$request['query_id'];
-     $count=$request->input('count',10);
+   $query_id=$request['query_id'];
+   $count=$request->input('count',10);
 
-     $replies=OpenForumAnswer::with(["OpenForumAttachment","User"=>function($query){
-      $query->select('first_name','last_name','username','id','profile_image');
-   }])->withCount(['OpenForumClap as clap'=>function($query){
-      $query->where('user_id',JWTAuth::user()->id);
-   },'OpenForumClap as total_claps'])
-   ->where('query_id',$query_id)->orderBy('created_at','desc')->paginate($count);
+   $replies=OpenForumAnswer::with(["OpenForumAttachment","User"=>function($query){
+     $query->select('first_name','last_name','username','id','profile_image');
+  }])->withCount(['OpenForumClap as clap'=>function($query){
+     $query->where('user_id',JWTAuth::user()->id);
+  },'OpenForumClap as total_claps'])
+  ->where('query_id',$query_id)->orderBy('created_at','desc')->paginate($count);
 
-   return response()->json([
-      'query'=>$replies,
-      'error_code'=>0,
-      'message'=>'Success'
-   ]);
+  return response()->json([
+     'query'=>$replies,
+     'error_code'=>0,
+     'message'=>'Success'
+  ]);
 }
 
   /**
@@ -342,19 +352,19 @@ class OpenForumController extends Controller
 
   public function getQueries(Request $request)
   {
-     $course_id=$request['course_id'];
-     $count=$request->input('count',10);
+   $course_id=$request['course_id'];
+   $count=$request->input('count',10);
 
-     $queries=OpenForumQuestion::with(["User"=>function($query){
-      $query->select('first_name','last_name','username','id','profile_image');
-   },"OpenForumAnswer","OpenForumAttachment"])->where('course_id',$course_id)->orderBy('created_at','desc')->paginate($count);
+   $queries=OpenForumQuestion::with(["User"=>function($query){
+     $query->select('first_name','last_name','username','id','profile_image');
+  },"OpenForumAnswer","OpenForumAttachment"])->where('course_id',$course_id)->orderBy('created_at','desc')->paginate($count);
 
-     return response()->json([
-      'queries'=>$queries,
-      'error_code'=>0,
-      'message'=>'Success'
-   ]);
-  }
+   return response()->json([
+     'queries'=>$queries,
+     'error_code'=>0,
+     'message'=>'Success'
+  ]);
+}
 
     /**
     * @OA\Post(
@@ -398,37 +408,37 @@ class OpenForumController extends Controller
     public function getQueryImage(Request $request)
     {
       try{
-         if($request->file('image') && $request->filled('type'))
-         {
-            $fileName = time().'.'.$request->file('image')->extension();  
-            if($request->input('type')==0){
-               $request->file('image')->move(public_path('uploads/openforum/queries'), $fileName);
-               $path=url('/').'/uploads/openforum/queries/'.$fileName;
-            }
-            else{
-               $request->file('image')->move(public_path('uploads/openforum/replies'), $fileName);
-               $path=url('/').'/uploads/openforum/replies/'.$fileName;
-            }
-            return response()->json([
-               "error_code"=>0,
-               "image"=>$fileName,
-               "path"=>$path,
-               "message"=>"uploaded Successfully"
-            ]);
-         }    
-         else{
-            return response()->json([
-               "error_code"=>1,
-               "message"=>"missing Image or type",
-            ]);
+        if($request->file('image') && $request->filled('type'))
+        {
+          $fileName = time().'.'.$request->file('image')->extension();  
+          if($request->input('type')==0){
+            $request->file('image')->move(public_path('uploads/openforum/queries'), $fileName);
+            $path=url('/').'/uploads/openforum/queries/'.$fileName;
          }
-      }catch(Exception $e){
+         else{
+            $request->file('image')->move(public_path('uploads/openforum/replies'), $fileName);
+            $path=url('/').'/uploads/openforum/replies/'.$fileName;
+         }
          return response()->json([
-            "error_code"=>2,
-            "message"=>"Error in Uploading Image Try again"
+            "error_code"=>0,
+            "image"=>$fileName,
+            "path"=>$path,
+            "message"=>"uploaded Successfully"
          ]);
+      }    
+      else{
+         return response()->json([
+           "error_code"=>1,
+           "message"=>"missing Image or type",
+        ]);
       }
+   }catch(Exception $e){
+      return response()->json([
+        "error_code"=>2,
+        "message"=>"Error in Uploading Image Try again"
+     ]);
    }
+}
 
     /**
    * @OA\Post(
@@ -472,32 +482,32 @@ class OpenForumController extends Controller
     public function clapOnReply(Request $request)
     {
       if($request->filled('status') && $request->input('reply_id')){
-         if($request['status']==0){
-            $clap=OpenForumClap::create([
-               "user_id"=>JWTAuth::user()->id,
-               "reply_id"=>$request['reply_id']
-            ])->fresh();
+        if($request['status']==0){
+          $clap=OpenForumClap::create([
+            "user_id"=>JWTAuth::user()->id,
+            "reply_id"=>$request['reply_id']
+         ])->fresh();
 
-            return response([
-               "error_code"=>0,
-               "clap"=>$clap,
-               "message"=>"successfully clapped"
-            ]);
-         }
-         else{
-            OpenForumClap::where(["user_id"=>JWTAuth::user()->id,"reply_id"=>$request['reply_id']])->delete();
-            return response([
-               "error_code"=>0,
-               "message"=>"successfully removed clapped"
-            ]);
-         }
-      }else{
-         return response([
-            "error_code"=>1,
-            "message"=>"reply id and status is required"
+          return response([
+            "error_code"=>0,
+            "clap"=>$clap,
+            "message"=>"successfully clapped"
          ]);
-      }
-      
-   }
+       }
+       else{
+          OpenForumClap::where(["user_id"=>JWTAuth::user()->id,"reply_id"=>$request['reply_id']])->delete();
+          return response([
+            "error_code"=>0,
+            "message"=>"successfully removed clapped"
+         ]);
+       }
+    }else{
+       return response([
+         "error_code"=>1,
+         "message"=>"reply id and status is required"
+      ]);
+    }
+
+ }
 
 }
