@@ -40,6 +40,7 @@ except ImportError:
 #to search
 query = sys.argv[1]
 word = query.split()
+word = word[-1]
 #print(word[-1])
 
 all_search_results = search(query, tld="co.in",lang='en')
