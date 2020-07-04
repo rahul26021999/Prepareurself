@@ -2,12 +2,17 @@
 # coding: utf-8
 
 # In[ ]:
-
+# !pip install google
+# !pip install beautifulsoup4
 
 from urllib.parse import urlparse
+from bs4 import BeautifulSoup
 
 import sys
 import json
+import re
+import requests
+import csv
 
 def is_unique(url, url_list):
     """
@@ -34,6 +39,9 @@ except ImportError:
 
 #to search
 query = sys.argv[1]
+word = query.split()
+#print(word[-1])
+
 all_search_results = search(query, tld="co.in",lang='en')
 
 how_many_links = 5
@@ -45,10 +53,14 @@ while len(unique_website_links) <= how_many_links:
     url = next(all_search_results)
     
     if is_unique(url, unique_website_links):
-        unique_website_links.append(url)
-
-
-dic={"fulfillmentText":"\n".join(unique_website_links)}
-
+        
+        if any(wd in url for wd in word):
+            unique_website_links.append(url)
+        else:
+            print("No responses found")
+            break
+     
+    dic={"fulfillmentText":"\n".join(unique_website_links)}
+    
 print(json.dumps(dic))
 
