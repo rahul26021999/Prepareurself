@@ -7,9 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/1B3f27PuxJDs7FXOQ3lafxTrY7GHiKpIg
 """
 
-!pip install google
-!pip install beautifulsoup4
-
 from urllib.parse import urlparse
 from bs4 import BeautifulSoup
 
@@ -55,8 +52,8 @@ except ImportError:
     print("No module named 'google'")
 
 #to search
-# query = input("Enter any Query: ")
-query = sys.argv[1]
+query = input("Enter any Query: ")
+# query = sys.argv[1]
 word = query.split()
 word = word[-1]
 print(word)
