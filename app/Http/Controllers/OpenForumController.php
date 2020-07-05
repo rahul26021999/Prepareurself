@@ -288,9 +288,7 @@ return response()->json([
    $query_id=$request['query_id'];
    $count=$request->input('count',10);
 
-   $replies=OpenForumAnswer::with(["OpenForumAttachment","User"=>function($query){
-     $query->select('first_name','last_name','username','id','profile_image');
-  }])->withCount(['OpenForumClap as clap'=>function($query){
+   $replies=OpenForumAnswer::with(["OpenForumAttachment","User"])->withCount(['OpenForumClap as clap'=>function($query){
      $query->where('user_id',JWTAuth::user()->id);
   },'OpenForumClap as total_claps'])
   ->where('query_id',$query_id)->orderBy('created_at','desc')->paginate($count);
@@ -355,9 +353,7 @@ return response()->json([
    $course_id=$request['course_id'];
    $count=$request->input('count',10);
 
-   $queries=OpenForumQuestion::with(["User"=>function($query){
-     $query->select('first_name','last_name','username','id','profile_image');
-  },"OpenForumAnswer","OpenForumAttachment"])->where('course_id',$course_id)->orderBy('created_at','desc')->paginate($count);
+   $queries=OpenForumQuestion::with(["User","OpenForumAnswer","OpenForumAttachment"])->where('course_id',$course_id)->orderBy('created_at','desc')->paginate($count);
 
    return response()->json([
      'queries'=>$queries,
