@@ -72,7 +72,7 @@ while len(unique_website_links) <= how_many_links:
     if is_unique(url, unique_website_links):
       #print(url)
       # if(scrape_content(url)):
-      if (word in url):
+      if (word.lower() in url):
         #print(url)
         unique_website_links.append(url)
       else:
