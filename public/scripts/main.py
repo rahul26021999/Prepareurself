@@ -79,7 +79,7 @@ while len(unique_website_links) <= how_many_links:
         unique_website_links.append(url)
       else:
         # print("No responses found")
-        unique_website_links.append("Sorry! No responses found")
+        # unique_website_links.append("Sorry! No responses found")
         break
 
 
