@@ -52,10 +52,12 @@ except ImportError:
     print("No module named 'google'")
 
 #to search
-#query = input("Enter any Query: ")
+# query = input("Enter any Query: ")
 query = sys.argv[1]
 word = query.split()
 word = word[-1]
+if word == "programming":
+  word = word[-2]
 #print(word)
 #print(word[-1])
 
@@ -77,6 +79,7 @@ while len(unique_website_links) <= how_many_links:
         unique_website_links.append(url)
       else:
         # print("No responses found")
+        unique_website_links.append("Sorry! No responses found")
         break
 
 
