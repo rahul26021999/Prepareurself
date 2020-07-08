@@ -56,7 +56,7 @@ except ImportError:
 query = sys.argv[1]
 word = query.split()
 word = word[-1]
-if word == "programming":
+if word == "Programming":
   word = word[-2]
 #print(word)
 #print(word[-1])
