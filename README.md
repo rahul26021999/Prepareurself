@@ -1,78 +1,70 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
+# Prepareurself
+Prepareurself is a platform which provides multiple resources for the most in-demand technical skills like Android, Java, Laravel, flutter, etc. We aim to prepare students for their internships and job so that they can learn skills, develop projects and crack interviews.
+<br>
+<b>Maximum Resources</b>
+<br>
+Our content writers are updating data with the most genuine and best resources in form of theory and videos from all over the internet.
+<br>
+<b>Projects</b>
+<br>
+We have categorised the projects in 3 layers and students can easily hop on the best projects to start with.
+<br>
+<b>Quizzes</b>
+<br>
+Learning is important. But testing makes your realise what you could understand and what one needs to work on again.
+<br>
+It one of the most incredible features of live quizzes that lets you test your command on skills and the leaderboard shows where you stand in crowd.
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+### Setup Prepareuself
 
-## About Laravel
+<p><b>Prerequists</b></p>
+<ol>
+	<li>Install lamp / Xampp</li>
+	<li>Install composer</li>
+	<li>Install Mysql Database and Mysql Database Client</li>
+	<li>Install PHP</li>
+</ol>
+<p><b>Step to Run the Project</b></p>
+<ol>
+	<li>Clone Project </li>
+	<li>Rename .env.example to .env</li>
+	<li>Run composer Install</li>
+	<li>Go to <code>http://locahost:8000</code> It should redirect you to Prepareurself Playstore Application</li>
+	<li>Create a database name "prepareurself"</li>
+	<li>Replace Mysql Credentials with yours in .env file </li>
+	<li>Replace Mailtrap Credentials in .env for Testing Mails</li>
+	<li>Now run <code>php artisan migrate</code> on Terminal to Migrate Tables into the Database</li>
+	<li>Now run <code>php artisan make:superUser</code> to create a super user for the Admin Panel.This will create a default superadmin with the below given credentials <br> <b>Email</b> : rahul26021999@gmail.com <br><b>Password</b> : ohmygod </li>
+	<li>Now go to <code>http://localhost:8000/admin/auth/login</code>. Where u have to login using the above credentials to enter into Admin Dashboad</li>
+</ol>
+<p><b>How to use Prepareurself APIs</b></p>
+<ol>
+	<li>Login into Admin Panel.</li>
+	<li>You should be logged in to Admin Dashboard to use APIs Documentations.</li>
+	<li>Click on API Documentation button on Admin Dashboard to See the API Documentation or diectly go to <code>http://localhost:8000/admin/api/documentation</code>.</li>
+	<li>To test the API's you need to generate a JWT token. You will get a default JWT token from the very first user in the application from the Admin Panel. If there is 0 users then go to APIs documentation create a user. Then check dashbaord for JWT token or you will get it in API Response also. </li>
+	<li>Now you can test any api using that JWT token.</li>
+</ol>
+<p><b>Explore Admin Dashboard</b></p>
+<ol>
+	<li>On the Left hand side you will see the dashboard menu and on right hand side you will see the overoll numbers of Resources,Project,Users and all</li>
+	<li><b>Manage Users : </b> Here you can see the list of users and Details of each and every user. You can block a user and unblock a user from here.</li>
+	<li><b>Question Bank :</b> Here you can add new Questions and Make Quiz for a particular Tech <b>(In Development)</b></li>
+	<li><b>Course :</b> Here you can add a new Course,edit course and can see all the courses. You can change the sequence of the courses to be displayed in the android application. You can publish a course and unpublish a course also where publish courses can be seen only on the andorid applications. You can go to the topics , project and resources of a particular course. You can also delete a course from here but you should be a superadmin.</li>
+	<li><b>Topics :</b>Here you can add a topic , edit a topic , delete a topic and can see all the topics for a particular course.</li>
+	<li><b>Projects :</b> Here you can add, edit and delete a project. You can see the list of projects also with detials.</li>
+	<li><b>Resources :</b>Here you can add, edit, delete and list all the resources.</li>
+	<li><b>Send Email: </b> From Here you can send specific emails like course added, projects added, etc and  custom Emails to your registered users. You can also save a custom Email and can see the previous emails sent by Admins and the no. of users got received that emails</li>
+	<li><b>Android Notification : You can Send a android notification to your registered used. You can add title, desc, image, and can specific that action on the notification also.</b></li>
+	<li><b>Banner : </b>From here you can add ,edit , delele , publish , unpublish banners in your android application.</li>
+	<li><b>User Feedback : </b>You will get the list for feedbacks sent by Users through android application.</li>
+	<li><b>Manage CMS : </b>You can add some more admins from here. This will sent a invite to be a admin. This feature is accessible for superadmin only <b>(In Development)</b></li>
+</ol>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
-- [Appoly](https://www.appoly.co.uk)
-- [OP.GG](https://op.gg)
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+<p><b>Dashboard Preview</b></p>
+<ul>
+	<li><a href="https://user-images.githubusercontent.com/35486010/122549421-14365c00-d050-11eb-8ac1-e126321b5234.png">Admin Dashboard</a></li>
+	<li><a href="https://user-images.githubusercontent.com/35486010/122549680-65dee680-d050-11eb-8907-dab6f442c522.png">Send Custom Emails</a></li>
+	<li><a href="https://user-images.githubusercontent.com/35486010/122549837-8dce4a00-d050-11eb-9f7b-fcf9457aa01d.png">Send Android Notifications</a></li>
+	<li><a href="https://user-images.githubusercontent.com/35486010/122549939-ab031880-d050-11eb-8d08-c0b02fb36c2b.png">Courses Menu</a></li>
+</ul>

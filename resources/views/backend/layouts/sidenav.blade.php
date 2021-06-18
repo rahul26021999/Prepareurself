@@ -32,7 +32,7 @@
       <a href="/admin/auth/logout" class="nav-link">Logout</a>
     </li>
     <li class="nav-item d-none d-sm-inline-block">
-      <a href="/admin/auth/logout" class="nav-link">Profile</a>
+      <a href="#" class="nav-link">Profile</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i
